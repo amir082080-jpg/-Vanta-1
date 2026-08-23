@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AVanta | First Stream</title>
+<meta name="description" content="AVanta - First Stream">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:Tahoma,Arial,sans-serif;
+background:#050507;
+color:#fff;
+overflow-x:hidden;
+line-height:1.8
+}
+a{text-decoration:none;color:inherit}
+button,input{font-family:inherit}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+z-index:-5;
+background:
+radial-gradient(circle at 15% 20%,rgba(130,50,255,.18),transparent 30%),
+radial-gradient(circle at 85% 70%,rgba(0,180,255,.12),transparent 30%),
+#050507
+}
+
+.background{
+position:fixed;
+inset:0;
+z-index:-4;
+pointer-events:none;
+overflow:hidden
+}
+
+.orb{
+position:absolute;
+border-radius:50%;
+filter:blur(80px);
+opacity:.35
+}
+
+.orb-one{
+width:350px;
+height:350px;
+background:#7b2cff;
+top:5%;
+right:-120px
+}
+
+.orb-two{
+width:300px;
+height:300px;
+background:#00bfff;
+bottom:5%;
+left:-100px
+}
+
+.grid{
+position:absolute;
+inset:0;
+opacity:.08;
+background-image:
+linear-gradient(#fff 1px,transparent 1px),
+linear-gradient(90deg,#fff 1px,transparent 1px);
+background-size:50px 50px
+}
+
+.noise{
+position:absolute;
+inset:0;
+opacity:.03;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+}
+
+/* INTRO */
+#intro{
+position:fixed;
+inset:0;
+z-index:9999;
+background:#050507;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+transition:opacity .8s,visibility .8s
+}
+
+#intro.hide{
+opacity:0;
+visibility:hidden
+}
+
+.intro-logo{
+font-size:70px;
+font-weight:900;
+letter-spacing:-5px
+}
+
+.intro-logo span,
+.logo span,
+.hero h1 span,
+.footer-logo span{
+color:#9d5cff
+}
+
+.intro-line{
+width:150px;
+height:2px;
+margin:20px 0;
+background:linear-gradient(90deg,transparent,#9d5cff,transparent)
+}
+
+.intro-logo+p{
+color:#888;
+letter-spacing:5px
+}
+
+/* NAV */
+.navbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:75px;
+z-index:1000;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 7%;
+background:rgba(5,5,7,.7);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.08)
+}
+
+.logo{
+font-size:25px;
+font-weight:900;
+letter-spacing:1px
+}
+
+.navbar nav{
+display:flex;
+gap:30px
+}
+
+.navbar nav a{
+color:#aaa;
+font-size:14px;
+transition:.3s
+}
+
+.navbar nav a:hover{
+color:#fff
+}
+
+.join-button{
+padding:9px 18px;
+border-radius:10px;
+background:#8d45ff;
+font-size:13px;
+font-weight:bold;
+transition:.3s
+}
+
+.join-button:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 30px rgba(141,69,255,.3)
+}
+
+/* HERO */
+.hero{
+min-height:100vh;
+padding:130px 7% 80px;
+display:grid;
+grid-template-columns:1.1fr .9fr;
+align-items:center;
+gap:50px
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:9px;
+padding:7px 14px;
+border:1px solid rgba(157,92,255,.35);
+border-radius:50px;
+background:rgba(157,92,255,.08);
+color:#c09aff;
+font-size:13px
+}
+
+.dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#a65cff;
+box-shadow:0 0 15px #a65cff
+}
+
+.welcome{
+color:#777;
+font-size:14px;
+letter-spacing:4px;
+margin-top:30px
+}
+
+.hero h1{
+font-size:clamp(70px,12vw,150px);
+line-height:1;
+letter-spacing:-8px;
+margin:10px 0;
+background:linear-gradient(135deg,#fff,#a56aff,#6deaff);
+-webkit-background-clip:text;
+color:transparent
+}
+
+.description{
+color:#999;
+max-width:570px;
+font-size:16px;
+margin-bottom:30px
+}
+
+/* COUNTDOWN */
+.countdown-box{
+max-width:620px;
+padding:25px;
+border-radius:22px;
+background:rgba(255,255,255,.045);
+border:1px solid rgba(255,255,255,.09);
+backdrop-filter:blur(15px)
+}
+
+.countdown-title{
+color:#a66aff;
+font-size:12px;
+letter-spacing:3px;
+margin-bottom:15px
+}
+
+.countdown{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+direction:ltr
+}
+
+.time-box{
+min-width:75px;
+text-align:center
+}
+
+.time-box strong{
+display:block;
+font-size:35px;
+line-height:1.2
+}
+
+.time-box small{
+color:#777;
+font-size:11px
+}
+
+.separator{
+font-size:30px;
+color:#7f48d7
+}
+
+.date{
+text-align:center;
+margin-top:18px;
+color:#777;
+font-size:12px;
+letter-spacing:3px
+}
+
+#finished{
+text-align:center;
+color:#a66aff;
+margin-top:10px
+}
+
+/* VISUAL */
+.hero-visual{
+position:relative;
+height:500px;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.avatar{
+width:260px;
+height:260px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#18101f,#08080c);
+border:1px solid rgba(170,100,255,.7);
+box-shadow:
+0 0 50px rgba(140,60,255,.25),
+inset 0 0 50px rgba(150,70,255,.1);
+position:relative;
+z-index:3
+}
+
+.avatar-text{
+font-size:70px;
+font-weight:900;
+letter-spacing:-6px
+}
+
+.avatar-text span{
+background:linear-gradient(135deg,#fff,#a96cff,#61eaff);
+-webkit-background-clip:text;
+color:transparent
+}
+
+.ring{
+position:absolute;
+border:1px solid rgba(150,80,255,.25);
+border-radius:50%
+}
+
+.ring-one{
+width:380px;
+height:380px
+}
+
+.ring-two{
+width:480px;
+height:480px;
+border-color:rgba(0,200,255,.12)
+}
+
+.floating{
+position:absolute;
+z-index:5;
+padding:12px 18px;
+border-radius:12px;
+background:rgba(15,15,20,.85);
+border:1px solid rgba(255,255,255,.1);
+font-size:12px;
+backdrop-filter:blur(10px)
+}
+
+.floating-one{
+top:100px;
+right:20px
+}
+
+.floating-two{
+bottom:100px;
+left:20px
+}
+
+/* SECTIONS */
+.section{
+padding:110px 7%
+}
+
+.section-heading{
+margin-bottom:45px
+}
+
+.section-heading span{
+color:#8e4cff;
+font-size:13px
+}
+
+.section-heading h2{
+font-size:40px;
+margin-top:5px
+}
+
+.section-heading b{
+color:#a66aff
+}
+
+/* ABOUT */
+.about-card{
+max-width:1000px;
+margin:auto;
+display:flex;
+align-items:center;
+gap:40px;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,.045);
+border:1px solid rgba(255,255,255,.08)
+}
+
+.about-logo{
+width:130px;
+height:130px;
+flex-shrink:0;
+border-radius:25px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+font-weight:900;
+background:linear-gradient(135deg,#8b45ff,#24103e)
+}
+
+.about-text h3{
+font-size:25px;
+margin-bottom:10px
+}
+
+.about-text p{
+color:#888;
+margin-bottom:8px
+}
+
+/* CARDS */
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px
+}
+
+.info-card{
+padding:35px;
+border-radius:22px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+transition:.35s
+}
+
+.info-card:hover{
+transform:translateY(-7px);
+border-color:rgba(157,92,255,.4);
+background:rgba(157,92,255,.06)
+}
+
+.card-icon{
+font-size:40px;
+margin-bottom:15px
+}
+
+.info-card h3{
+margin-bottom:8px
+}
+
+.info-card p{
+color:#888
+}
+
+/* SOCIAL */
+.social-section{
+text-align:center
+}
+
+.social-description{
+color:#888;
+margin-top:-25px;
+margin-bottom:35px
+}
+
+.socials{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap
+}
+
+.social-card{
+width:160px;
+padding:20px;
+border-radius:17px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:7px;
+background:rgba(255,255,255,.045);
+border:1px solid rgba(255,255,255,.08);
+transition:.3s
+}
+
+.social-card:hover{
+transform:translateY(-6px);
+background:rgba(157,92,255,.1);
+border-color:rgba(157,92,255,.35)
+}
+
+.social-card strong{
+font-size:25px
+}
+
+/* CHAT */
+#avanta-chat{
+max-width:900px;
+margin:40px auto 110px;
+padding:30px;
+border-radius:25px;
+background:rgba(255,255,255,.045);
+border:1px solid rgba(157,92,255,.2);
+box-shadow:0 20px 80px rgba(0,0,0,.3)
+}
+
+#avanta-chat h2{
+margin-bottom:20px
+}
+
+.chat-status{
+font-size:12px;
+color:#777;
+margin-bottom:15px
+}
+
+#chat-messages{
+height:380px;
+overflow-y:auto;
+padding:15px;
+border-radius:18px;
+background:rgba(0,0,0,.25);
+border:1px solid rgba(255,255,255,.06);
+margin-bottom:15px
+}
+
+.chat-message{
+padding:12px 14px;
+margin-bottom:10px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.05);
+word-break:break-word
+}
+
+.chat-name{
+color:#a66aff;
+font-weight:bold
+}
+
+.chat-time{
+color:#666;
+font-size:10px;
+margin-right:8px
+}
+
+.chat-form{
+display:grid;
+grid-template-columns:180px 1fr 120px;
+gap:10px
+}
+
+.chat-form input{
+width:100%;
+padding:14px;
+border:1px solid rgba(255,255,255,.1);
+border-radius:12px;
+outline:none;
+background:#0d0d12;
+color:white
+}
+
+.chat-form input:focus{
+border-color:#9858ff
+}
+
+#chat-send{
+border:0;
+border-radius:12px;
+background:linear-gradient(135deg,#9148ff,#5d24c9);
+color:#fff;
+font-weight:bold;
+cursor:pointer
+}
+
+#chat-send:disabled{
+opacity:.5;
+cursor:not-allowed
+}
+
+/* FOOTER */
+footer{
+padding:50px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.08)
+}
+
+.footer-logo{
+font-size:30px;
+font-weight:900
+}
+
+footer p{
+color:#777;
+margin:10px 0
+}
+
+footer small{
+color:#555
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+.navbar{
+padding:0 20px
+}
+
+.navbar nav{
+display:none
+}
+
+.join-button{
+display:none
+}
+
+.hero{
+grid-template-columns:1fr;
+text-align:center;
+padding-left:20px;
+padding-right:20px
+}
+
+.hero-content{
+display:flex;
+flex-direction:column;
+align-items:center
+}
+
+.hero h1{
+letter-spacing:-5px
+}
+
+.description{
+font-size:14px
+}
+
+.hero-visual{
+height:350px;
+order:-1
+}
+
+.avatar{
+width:190px;
+height:190px
+}
+
+.avatar-text{
+font-size:50px
+}
+
+.ring-one{
+width:280px;
+height:280px
+}
+
+.ring-two{
+width:340px;
+height:340px
+}
+
+.floating-one{
+top:35px;
+right:0
+}
+
+.floating-two{
+bottom:35px;
+left:0
+}
+
+.section{
+padding:80px 20px
+}
+
+.section-heading h2{
+font-size:30px
+}
+
+.about-card{
+flex-direction:column;
+text-align:center;
+padding:25px
+}
+
+.cards{
+grid-template-columns:1fr
+}
+
+.countdown{
+gap:4px
+}
+
+.time-box{
+min-width:55px
+}
+
+.time-box strong{
+font-size:25px
+}
+
+.separator{
+font-size:20px
+}
+
+#avanta-chat{
+margin:20px;
+padding:20px
+}
+
+.chat-form{
+grid-template-columns:1fr
+}
+
+#chat-send{
+padding:14px
+}
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+    <div class="intro-logo"><span>AV</span>anta</div>
+    <div class="intro-line"></div>
+    <p>FIRST STREAM</p>
+</div>
+
+<div class="background">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="grid"></div>
+    <div class="noise"></div>
+</div>
+
+<header class="navbar">
+
+    <a href="#home" class="logo">A<span>V</span>anta</a>
+
+    <nav>
+        <a href="#home">خانه</a>
+        <a href="#about">درباره من</a>
+        <a href="#social">شبکه‌ها</a>
+        <a href="#avanta-chat">چت</a>
+    </nav>
+
+    <a href="#social" class="join-button">همراه شو</a>
+
+</header>
+
+<main id="home">
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="badge">
+<span class="dot"></span>
+اولین استریم در راهه
+</div>
+
+<p class="welcome">WELCOME TO</p>
+
+<h1>A<span>V</span>anta</h1>
+
+<p class="description">
+اینجا قراره اولین استریم من شروع بشه.
+<br>
+آماده‌ای با هم یه شروع خفن داشته باشیم؟
+</p>
+
+<div class="countdown-box">
+
+<div class="countdown-title">
+FIRST STREAM
+</div>
+
+<div class="countdown">
+
+<div class="time-box">
+<strong id="days">00</strong>
+<small>روز</small>
+</div>
+
+<div class="separator">:</div>
+
+<div class="time-box">
+<strong id="hours">00</strong>
+<small>ساعت</small>
+</div>
+
+<div class="separator">:</div>
+
+<div class="time-box">
+<strong id="minutes">00</strong>
+<small>دقیقه</small>
+</div>
+
+<div class="separator">:</div>
+
+<div class="time-box">
+<strong id="seconds">00</strong>
+<small>ثانیه</small>
+</div>
+
+</div>
+
+<div class="date">13 DEY 1405</div>
+
+<div id="finished"></div>
+
+</div>
+
+</div>
+
+<div class="hero-visual">
+
+<div class="ring ring-one"></div>
+<div class="ring ring-two"></div>
+
+<div class="avatar">
+<div class="avatar-text"><span>AV</span></div>
+</div>
+
+<div class="floating floating-one">🎮 GAMING</div>
+<div class="floating floating-two">🔥 FIRST STREAM</div>
+
+</div>
+
+</section>
+
+<section id="about" class="section">
+
+<div class="section-heading">
+<span>01</span>
+<h2>درباره <b>AVanta</b></h2>
+</div>
+
+<div class="about-card">
+
+<div class="about-logo">AV</div>
+
+<div class="about-text">
+
+<h3>این تازه شروعشه.</h3>
+
+<p>
+AVanta قراره جایی باشه برای گیم،
+استریم و کلی لحظه خفن.
+</p>
+
+<p>
+اولین استریم هنوز شروع نشده،
+ولی قراره از همین‌جا همه‌چیز شروع بشه.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-heading">
+<span>02</span>
+<h2>قراره چه <b>چیزهایی</b> ببینیم؟</h2>
+</div>
+
+<div class="cards">
+
+<div class="info-card">
+<div class="card-icon">🎮</div>
+<h3>Gaming</h3>
+<p>بازی‌های مختلف و لحظات هیجانی.</p>
+</div>
+
+<div class="info-card">
+<div class="card-icon">👻</div>
+<h3>Horror</h3>
+<p>بازی‌های ترسناک و واکنش‌های واقعی.</p>
+</div>
+
+<div class="info-card">
+<div class="card-icon">😂</div>
+<h3>Fun</h3>
+<p>شوخی، خنده و لحظات غیرمنتظره.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="social" class="section social-section">
+
+<div class="section-heading">
+<span>03</span>
+<h2>همراه <b>AVanta</b> شو</h2>
+</div>
+
+<p class="social-description">
+برای اینکه اولین استریم رو از دست ندی،
+شبکه‌های اجتماعی رو دنبال کن.
+</p>
+
+<div class="socials">
+
+<a href="https://youtube.com/@avanta_iran?si=3ThzJZkZeL1cUCqh"
+class="social-card"
+target="_blank"
+rel="noopener noreferrer">
+<strong>▶</strong>
+<span>YouTube</span>
+</a>
+
+<a href="https://www.instagram.com/amir_vanta?igsi=bTZqNXo5anVyZjBz"
+class="social-card"
+target="_blank"
+rel="noopener noreferrer">
+<strong>◎</strong>
+<span>Instagram</span>
+</a>
+
+<a href="https://t.me/amirvanta1"
+class="social-card"
+target="_blank"
+rel="noopener noreferrer">
+<strong>✈</strong>
+<span>Telegram</span>
+</a>
+
+<a href="https://discord.gg/GZrR3ez9e"
+class="social-card"
+target="_blank"
+rel="noopener noreferrer">
+<strong>◉</strong>
+<span>Discord</span>
+</a>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- CHAT -->
+
+<section id="avanta-chat">
+
+<h2>💬 AVanta Chat</h2>
+
+<div class="chat-status" id="chat-status">
+در حال اتصال به سرور...
+</div>
+
+<div id="chat-messages">
+<div style="opacity:.6;text-align:center">
+در حال دریافت پیام‌ها...
+</div>
+</div>
+
+<div class="chat-form">
+
+<input
+id="chat-name"
+type="text"
+maxlength="20"
+placeholder="نام شما"
+autocomplete="nickname"
+>
+
+<input
+id="chat-input"
+type="text"
+maxlength="200"
+placeholder="پیامت رو بنویس..."
+autocomplete="off"
+>
+
+<button id="chat-send" disabled>
+ارسال 🚀
+</button>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="footer-logo">
+A<span>V</span>anta
+</div>
+
+<p>The beginning of something new.</p>
+
+<small>© 2026 AVanta</small>
+
+</footer>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+push,
+onValue,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8Zjb-zpI",
+
+authDomain:"avanta-3db7e.firebaseapp.com",
+
+databaseURL:"https://avanta-3db7e-default-rtdb.firebaseio.com",
+
+projectId:"avanta-3db7e",
+
+storageBucket:"avanta-3db7e.firebasestorage.app",
+
+messagingSenderId:"879564538420",
+
+appId:"1:879564538420:web:a0fc85cc43a9347d92c061"
+
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const db=getDatabase(app);
+
+const messagesRef=ref(db,"messages");
+
+
+/* ELEMENTS */
+
+const messagesBox=document.getElementById("chat-messages");
+
+const nameInput=document.getElementById("chat-name");
+
+const messageInput=document.getElementById("chat-input");
+
+const sendButton=document.getElementById("chat-send");
+
+const status=document.getElementById("chat-status");
+
+
+/* INTRO */
+
+setTimeout(()=>{
+
+document.getElementById("intro").classList.add("hide");
+
+},1600);
+
+
+/* CHAT CONNECTION */
+
+onValue(messagesRef,(snapshot)=>{
+
+messagesBox.innerHTML="";
+
+if(!snapshot.exists()){
+
+messagesBox.innerHTML=
+'<div style="opacity:.5;text-align:center">هنوز پیامی ارسال نشده 👋</div>';
+
+}else{
+
+snapshot.forEach(child=>{
+
+const message=child.val();
+
+const messageDiv=document.createElement("div");
+
+messageDiv.className="chat-message";
+
+
+const name=document.createElement("span");
+
+name.className="chat-name";
+
+name.textContent=(message.name||"کاربر")+" ";
+
+
+const text=document.createElement("span");
+
+text.textContent=message.text||"";
+
+
+const time=document.createElement("span");
+
+time.className="chat-time";
+
+if(message.time){
+
+const date=new Date(message.time);
+
+time.textContent=
+" • "+
+date.toLocaleTimeString("fa-IR",{
+hour:"2-digit",
+minute:"2-digit"
+});
+
+}
+
+
+messageDiv.appendChild(name);
+
+messageDiv.appendChild(text);
+
+messageDiv.appendChild(time);
+
+messagesBox.appendChild(messageDiv);
+
+});
+
+}
+
+messagesBox.scrollTop=messagesBox.scrollHeight;
+
+status.textContent="🟢 اتصال برقرار است";
+
+sendButton.disabled=false;
+
+},
+
+(error)=>{
+
+console.error(error);
+
+status.textContent="🔴 اتصال به چت برقرار نشد";
+
+sendButton.disabled=true;
+
+});
+
+
+/* SEND MESSAGE */
+
+let sending=false;
+
+async function sendMessage(){
+
+if(sending)return;
+
+const name=nameInput.value.trim();
+
+const text=messageInput.value.trim();
+
+if(!name){
+
+alert("لطفاً اسمت رو وارد کن!");
+
+nameInput.focus();
+
+return;
+
+}
+
+if(!text){
+
+messageInput.focus();
+
+return;
+
+}
+
+if(name.length>20||text.length>200){
+
+alert("متن پیام بیش از حد طولانی است.");
+
+return;
+
+}
+
+
+sending=true;
+
+sendButton.disabled=true;
+
+sendButton.textContent="در حال ارسال...";
+
+
+try{
+
+await push(messagesRef,{
+
+name:name,
+
+text:text,
+
+time:Date.now()
+
+});
+
+messageInput.value="";
+
+messageInput.focus();
+
+}catch(error){
+
+console.error(error);
+
+alert("ارسال پیام انجام نشد. Rules دیتابیس Firebase را بررسی کن.");
+
+}finally{
+
+sending=false;
+
+sendButton.disabled=false;
+
+sendButton.textContent="ارسال 🚀";
+
+}
+
+}
+
+
+sendButton.addEventListener("click",sendMessage);
+
+
+messageInput.addEventListener("keydown",(event)=>{
+
+if(event.key==="Enter"){
+
+event.preventDefault();
+
+sendMessage();
+
+}
+
+});
+
+
+/* COUNTDOWN
+   13 Dey 1405 = 3 January 2027
+*/
+
+const targetDate=new Date("2027-01-03T00:00:00+03:30").getTime();
+
+
+function updateCountdown(){
+
+const now=Date.now();
+
+const distance=targetDate-now;
+
+
+if(distance<=0){
+
+document.getElementById("days").textContent="00";
+
+document.getElementById("hours").textContent="00";
+
+document.getElementById("minutes").textContent="00";
+
+document.getElementById("seconds").textContent="00";
+
+document.getElementById("finished").textContent=
+"🔥 اولین استریم شروع شده!";
+
+return;
+
+}
+
+
+const days=Math.floor(distance/(1000*60*60*24));
+
+const hours=Math.floor(
+(distance%(1000*60*60*24))/(1000*60*60)
+);
+
+const minutes=Math.floor(
+(distance%(1000*60*60))/(1000*60)
+);
+
+const seconds=Math.floor(
+(distance%(1000*60))/1000
+);
+
+
+document.getElementById("days").textContent=
+String(days).padStart(2,"0");
+
+document.getElementById("hours").textContent=
+String(hours).padStart(2,"0");
+
+document.getElementById("minutes").textContent=
+String(minutes).padStart(2,"0");
+
+document.getElementById("seconds").textContent=
+String(seconds).padStart(2,"0");
+
+}
+
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
