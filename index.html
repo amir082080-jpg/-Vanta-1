@@ -10,90 +10,387 @@ content="width=device-width, initial-scale=1.0">
 
 <title>AVanta | First Stream</title>
 
-<meta
-name="description"
+<meta name="description"
 content="AVanta - First Stream">
 
 <link rel="stylesheet" href="style.css">
 
 <style>
 
-/* ==============================
-   CHAT
-============================== */
+/* =====================================================
+   AVANTA CHAT
+===================================================== */
 
 #avanta-chat{
 
-max-width:900px;
+position:relative;
 
-margin:80px auto;
+max-width:1000px;
 
-padding:30px;
+margin:100px auto;
 
-border-radius:25px;
+padding:2px;
 
-background:rgba(255,255,255,.045);
+border-radius:28px;
 
-border:1px solid rgba(255,255,255,.1);
+background:
+linear-gradient(
+135deg,
+rgba(156,87,255,.7),
+rgba(67,220,255,.15),
+rgba(255,255,255,.05)
+);
 
 box-shadow:
-0 20px 80px rgba(0,0,0,.25);
+0 0 80px rgba(137,65,255,.12);
+
+overflow:hidden;
 
 }
 
-#avanta-chat h2{
+#avanta-chat::before{
 
-margin-bottom:20px;
+content:"";
 
-font-size:28px;
+position:absolute;
+
+width:300px;
+height:300px;
+
+top:-150px;
+right:-100px;
+
+background:#8c42ff;
+
+filter:blur(120px);
+
+opacity:.18;
+
+pointer-events:none;
 
 }
 
-#chat-status{
+.chat-inner{
 
-font-size:12px;
+position:relative;
+
+background:
+linear-gradient(
+145deg,
+rgba(15,12,23,.97),
+rgba(7,7,11,.98)
+);
+
+border-radius:26px;
+
+padding:32px;
+
+overflow:hidden;
+
+}
+
+
+/* HEADER */
+
+.chat-header{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+margin-bottom:25px;
+
+}
+
+.chat-title{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+}
+
+.chat-icon{
+
+width:50px;
+height:50px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+border-radius:15px;
+
+background:
+linear-gradient(
+135deg,
+#8c45ff,
+#45209b
+);
+
+box-shadow:
+0 0 25px rgba(140,69,255,.3);
+
+font-size:24px;
+
+}
+
+.chat-title h2{
+
+margin:0;
+
+font-size:24px;
+
+}
+
+.chat-title p{
+
+margin:2px 0 0;
+
+font-size:11px;
 
 color:#777;
 
-margin-bottom:15px;
+}
+
+.chat-online{
+
+display:flex;
+
+align-items:center;
+
+gap:7px;
+
+font-size:11px;
+
+color:#777;
 
 }
+
+.chat-online-dot{
+
+width:7px;
+height:7px;
+
+border-radius:50%;
+
+background:#50e58a;
+
+box-shadow:
+0 0 12px #50e58a;
+
+}
+
+
+/* ADMIN PANEL */
+
+#admin-panel{
+
+display:none;
+
+margin-bottom:18px;
+
+padding:12px 15px;
+
+border-radius:13px;
+
+background:
+linear-gradient(
+90deg,
+rgba(143,68,255,.15),
+rgba(143,68,255,.03)
+);
+
+border:1px solid rgba(157,92,255,.2);
+
+color:#bb9aff;
+
+font-size:12px;
+
+}
+
+.admin-badge{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:6px;
+
+}
+
+
+/* MESSAGES */
 
 #chat-messages{
 
-height:400px;
+height:430px;
 
 overflow-y:auto;
 
-padding:15px;
+padding:18px;
 
-border-radius:18px;
+border-radius:20px;
 
-background:rgba(0,0,0,.25);
+background:
+rgba(0,0,0,.25);
 
-margin-bottom:15px;
+border:1px solid rgba(255,255,255,.055);
+
+scroll-behavior:smooth;
 
 }
 
+#chat-messages::-webkit-scrollbar{
+
+width:5px;
+
+}
+
+#chat-messages::-webkit-scrollbar-thumb{
+
+background:#703bd0;
+
+border-radius:20px;
+
+}
+
+.empty-chat{
+
+height:100%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+flex-direction:column;
+
+color:#666;
+
+gap:10px;
+
+}
+
+.empty-chat-icon{
+
+font-size:35px;
+
+opacity:.5;
+
+}
+
+
+/* MESSAGE */
+
 .chat-message{
 
-padding:12px;
+position:relative;
+
+display:flex;
+
+align-items:flex-start;
+
+gap:12px;
+
+padding:14px;
 
 margin-bottom:10px;
 
-border-radius:14px;
+border-radius:16px;
 
-background:rgba(255,255,255,.05);
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.045),
+rgba(255,255,255,.018)
+);
 
-border:1px solid rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.055);
 
-word-break:break-word;
+animation:
+chatMessageIn .25s ease;
+
+}
+
+@keyframes chatMessageIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(7px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.message-avatar{
+
+width:38px;
+height:38px;
+
+min-width:38px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+border-radius:12px;
+
+background:
+linear-gradient(
+135deg,
+rgba(143,68,255,.35),
+rgba(66,198,255,.15)
+);
+
+color:#b68cff;
+
+font-weight:bold;
+
+}
+
+.message-content{
+
+flex:1;
+
+min-width:0;
+
+}
+
+.message-top{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+margin-bottom:3px;
 
 }
 
 .chat-name{
 
-color:#a66aff;
+color:#b88cff;
+
+font-size:13px;
 
 font-weight:bold;
 
@@ -101,11 +398,19 @@ font-weight:bold;
 
 .chat-time{
 
-font-size:10px;
+font-size:9px;
 
-color:#666;
+color:#555;
 
-margin-right:8px;
+}
+
+.chat-text{
+
+font-size:13px;
+
+color:#d0d0d0;
+
+word-break:break-word;
 
 }
 
@@ -113,85 +418,147 @@ margin-right:8px;
 
 display:flex;
 
-gap:7px;
+gap:6px;
 
-margin-top:10px;
+margin-top:8px;
 
 }
 
-.chat-actions button{
+.chat-action{
 
 border:0;
 
-padding:6px 10px;
+padding:5px 9px;
 
 border-radius:8px;
+
+font-size:10px;
 
 color:white;
 
 cursor:pointer;
 
-font-size:11px;
+transition:.2s;
+
+}
+
+.chat-action:hover{
+
+transform:translateY(-2px);
 
 }
 
 .delete-btn{
 
-background:#b52d3d;
+background:rgba(190,45,65,.75);
 
 }
 
 .ban-btn{
 
-background:#7136bd;
+background:rgba(113,55,190,.75);
 
 }
 
-.chat-form{
+
+/* INPUT AREA */
+
+.chat-input-area{
+
+margin-top:15px;
 
 display:grid;
 
-grid-template-columns:180px 1fr 120px;
+grid-template-columns:160px 1fr 120px;
 
-gap:10px;
+gap:9px;
 
 }
 
-.chat-form input{
+.chat-input-wrap{
+
+position:relative;
+
+}
+
+.chat-input{
 
 width:100%;
 
-padding:13px;
+height:48px;
 
-border-radius:12px;
+padding:0 15px;
 
-border:1px solid rgba(255,255,255,.1);
+border-radius:13px;
 
-background:#0d0d12;
+border:1px solid rgba(255,255,255,.08);
+
+background:
+rgba(255,255,255,.035);
 
 color:white;
 
 outline:none;
 
+transition:.25s;
+
+font-size:12px;
+
+}
+
+.chat-input:focus{
+
+border-color:
+rgba(155,87,255,.55);
+
+box-shadow:
+0 0 20px rgba(142,65,255,.08);
+
+background:
+rgba(255,255,255,.05);
+
+}
+
+.chat-input::placeholder{
+
+color:#555;
+
 }
 
 #chat-send{
 
+height:48px;
+
 border:0;
 
-border-radius:12px;
+border-radius:13px;
 
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
 #9148ff,
-#5d24c9
+#6029c8
 );
 
-color:white;
+color:#fff;
 
 font-weight:bold;
 
 cursor:pointer;
+
+box-shadow:
+0 0 25px rgba(132,61,255,.2);
+
+transition:.25s;
+
+}
+
+#chat-send:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 5px 30px rgba(132,61,255,.35);
 
 }
 
@@ -201,137 +568,200 @@ opacity:.5;
 
 cursor:not-allowed;
 
+transform:none;
+
 }
 
 
-/* ==============================
-   ADMIN
-============================== */
+/* LOGIN */
 
 #admin-login{
 
-margin-top:20px;
+margin-top:22px;
 
-padding-top:20px;
+padding-top:22px;
 
-border-top:1px solid rgba(255,255,255,.08);
+border-top:1px solid rgba(255,255,255,.06);
 
 }
 
-#admin-login h3{
+.admin-login-title{
 
-font-size:16px;
+font-size:12px;
+
+color:#777;
 
 margin-bottom:10px;
 
 }
 
-#admin-email,
-#admin-password{
+.admin-login-form{
 
-padding:12px;
+display:flex;
+
+gap:8px;
+
+}
+
+.admin-input{
+
+height:42px;
+
+padding:0 12px;
 
 border-radius:10px;
 
-border:1px solid rgba(255,255,255,.1);
+border:1px solid rgba(255,255,255,.08);
 
-background:#0d0d12;
+background:#0b0b10;
 
 color:white;
 
 outline:none;
 
-margin-left:5px;
+font-size:11px;
 
 }
 
-#admin-login-btn{
+.admin-input:focus{
 
-padding:12px 18px;
+border-color:#7e42db;
+
+}
+
+.admin-login-btn{
+
+height:42px;
+
+padding:0 18px;
 
 border:0;
 
 border-radius:10px;
 
-background:#7d3cff;
+background:#6f38cf;
 
 color:white;
 
 cursor:pointer;
+
+font-size:11px;
 
 }
 
-#admin-logout-btn{
+.admin-login-status{
 
-padding:8px 14px;
+font-size:10px;
+
+color:#666;
+
+margin-top:8px;
+
+}
+
+
+/* LOGOUT */
+
+#admin-logout-btn{
 
 border:0;
 
+padding:5px 10px;
+
 border-radius:8px;
 
-background:#333;
+background:rgba(255,255,255,.06);
 
-color:white;
+color:#aaa;
 
 cursor:pointer;
+
+font-size:10px;
 
 margin-right:10px;
 
 }
 
-#admin-panel{
 
-display:none;
-
-padding:12px;
-
-margin-bottom:15px;
-
-border-radius:12px;
-
-background:rgba(120,50,255,.1);
-
-border:1px solid rgba(140,70,255,.2);
-
-color:#b999ff;
-
-}
-
-
-/* ==============================
-   MOBILE
-============================== */
+/* MOBILE */
 
 @media(max-width:700px){
 
-.chat-form{
+#avanta-chat{
+
+margin:
+70px 15px;
+
+}
+
+.chat-inner{
+
+padding:20px;
+
+}
+
+.chat-header{
+
+align-items:flex-start;
+
+}
+
+.chat-title h2{
+
+font-size:20px;
+
+}
+
+.chat-online{
+
+display:none;
+
+}
+
+#chat-messages{
+
+height:380px;
+
+}
+
+.chat-input-area{
 
 grid-template-columns:1fr;
 
 }
 
-#admin-email,
-#admin-password{
-
-width:100%;
-
-margin:0 0 8px;
-
-}
-
-#admin-login-btn{
+#chat-send{
 
 width:100%;
 
 }
 
-#avanta-chat{
+.admin-login-form{
 
-margin:50px 15px;
+display:grid;
 
-padding:20px;
+grid-template-columns:1fr;
 
 }
+
+.admin-input,
+.admin-login-btn{
+
+width:100%;
+
+}
+
+}
+
+
+/* =====================================================
+   ADMIN MODE
+===================================================== */
+
+body.admin-mode .chat-message{
+
+border-color:
+rgba(143,68,255,.1);
 
 }
 
@@ -343,9 +773,9 @@ padding:20px;
 <body>
 
 
-<!-- ==============================
+<!-- =====================================================
      INTRO
-============================== -->
+===================================================== -->
 
 <div id="intro">
 
@@ -362,9 +792,9 @@ padding:20px;
 </div>
 
 
-<!-- ==============================
+<!-- =====================================================
      BACKGROUND
-============================== -->
+===================================================== -->
 
 <div class="background">
 
@@ -379,9 +809,9 @@ padding:20px;
 </div>
 
 
-<!-- ==============================
+<!-- =====================================================
      NAVBAR
-============================== -->
+===================================================== -->
 
 <header class="navbar">
 
@@ -425,9 +855,9 @@ class="join-button"
 </header>
 
 
-<!-- ==============================
+<!-- =====================================================
      HERO
-============================== -->
+===================================================== -->
 
 <main id="home">
 
@@ -471,8 +901,6 @@ A<span>V</span>anta
 
 </p>
 
-
-<!-- COUNTDOWN -->
 
 <div class="countdown-box">
 
@@ -573,8 +1001,6 @@ FIRST STREAM
 </div>
 
 
-<!-- HERO VISUAL -->
-
 <div class="hero-visual reveal">
 
 
@@ -616,9 +1042,9 @@ AV
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      ABOUT
-============================== -->
+===================================================== -->
 
 <section
 id="about"
@@ -654,9 +1080,7 @@ AV
 <div class="about-text">
 
 <h3>
-
 این تازه شروعشه.
-
 </h3>
 
 
@@ -682,9 +1106,9 @@ AVanta قراره جایی باشه برای گیم،
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      CONTENT
-============================== -->
+===================================================== -->
 
 <section class="section">
 
@@ -763,9 +1187,9 @@ Fun
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      SOCIAL
-============================== -->
+===================================================== -->
 
 <section
 id="social"
@@ -875,39 +1299,100 @@ Discord
 
 </section>
 
+
 </main>
 
 
-<!-- ==============================
+<!-- =====================================================
      AVANTA CHAT
-============================== -->
+===================================================== -->
 
 <section id="avanta-chat">
 
 
-<h2>
-💬 AVanta Chat
-</h2>
+<div class="chat-inner">
 
 
-<div id="chat-status">
+<!-- HEADER -->
 
-در حال اتصال به چت...
+<div class="chat-header">
+
+
+<div class="chat-title">
+
+
+<div class="chat-icon">
+
+💬
 
 </div>
 
 
-<!-- ADMIN PANEL -->
+<div>
+
+<h2>
+
+AVanta Chat
+
+</h2>
+
+<p>
+
+با بقیه همراه‌های AVanta حرف بزن
+
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="chat-online">
+
+<span class="chat-online-dot"></span>
+
+LIVE CHAT
+
+</div>
+
+
+</div>
+
+
+<!-- ADMIN -->
 
 <div id="admin-panel">
 
-👑 حالت مدیریت فعال است
+<span class="admin-badge">
 
-<button
-id="admin-logout-btn"
->
+👑
+
+حالت مدیریت فعال است
+
+<button id="admin-logout-btn">
+
 خروج
+
 </button>
+
+</span>
+
+</div>
+
+
+<!-- STATUS -->
+
+<div
+id="chat-status"
+style="
+font-size:11px;
+color:#666;
+margin-bottom:10px;
+"
+>
+
+در حال اتصال به چت...
 
 </div>
 
@@ -916,33 +1401,39 @@ id="admin-logout-btn"
 
 <div id="chat-messages">
 
-<div
-style="opacity:.6;text-align:center"
->
+<div class="empty-chat">
 
+<div class="empty-chat-icon">
+💬
+</div>
+
+<span>
 در حال دریافت پیام‌ها...
+</span>
 
 </div>
 
 </div>
 
 
-<!-- CHAT FORM -->
+<!-- INPUT -->
 
-<div class="chat-form">
+<div class="chat-input-area">
 
 
 <input
 id="chat-name"
+class="chat-input"
 type="text"
 maxlength="20"
-placeholder="نام شما"
+placeholder="اسم شما..."
 autocomplete="off"
 >
 
 
 <input
 id="chat-input"
+class="chat-input"
 type="text"
 maxlength="200"
 placeholder="پیامت رو بنویس..."
@@ -952,7 +1443,7 @@ autocomplete="off"
 
 <button id="chat-send">
 
-ارسال پیام 🚀
+ارسال 🚀
 
 </button>
 
@@ -965,13 +1456,19 @@ autocomplete="off"
 <div id="admin-login">
 
 
-<h3>
-👑 ورود مدیریت
-</h3>
+<div class="admin-login-title">
+
+🔐 ورود مدیریت AVanta
+
+</div>
+
+
+<div class="admin-login-form">
 
 
 <input
 id="admin-email"
+class="admin-input"
 type="email"
 placeholder="ایمیل ادمین"
 >
@@ -979,36 +1476,44 @@ placeholder="ایمیل ادمین"
 
 <input
 id="admin-password"
+class="admin-input"
 type="password"
 placeholder="رمز عبور"
 >
 
 
-<button id="admin-login-btn">
+<button
+id="admin-login-btn"
+class="admin-login-btn"
+>
 
 ورود
 
 </button>
 
 
-<p
+</div>
+
+
+<div
 id="admin-login-status"
-style="font-size:12px;color:#777;margin-top:10px"
-></p>
+class="admin-login-status"
+></div>
 
 
 </div>
 
 
+</div>
+
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      FOOTER
-============================== -->
+===================================================== -->
 
 <footer>
-
 
 <div class="footer-logo">
 
@@ -1030,18 +1535,17 @@ The beginning of something new.
 
 </small>
 
-
 </footer>
 
 
-<!-- ==============================
+<!-- =====================================================
      FIREBASE
-============================== -->
+===================================================== -->
 
 <script type="module">
 
 
-/* FIREBASE APP */
+/* FIREBASE */
 
 import {
 initializeApp
@@ -1049,8 +1553,6 @@ initializeApp
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-
-/* DATABASE */
 
 import {
 
@@ -1066,8 +1568,6 @@ from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
-/* AUTH */
-
 import {
 
 getAuth,
@@ -1080,11 +1580,9 @@ from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-/* ==============================
-   FIREBASE CONFIG
-============================== */
+/* CONFIG */
 
-const firebaseConfig = {
+const firebaseConfig={
 
 apiKey:
 "AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8Zjb-zpI",
@@ -1110,105 +1608,93 @@ appId:
 };
 
 
-/* INIT */
-
-const app =
+const app=
 initializeApp(firebaseConfig);
 
-const db =
+const db=
 getDatabase(app);
 
-const auth =
+const auth=
 getAuth(app);
 
 
-/* ==============================
-   ADMIN UID
-============================== */
+/* ADMIN UID */
 
-const ADMIN_UID =
+const ADMIN_UID=
 "NNY1ymTknwREwMo16ZI3lgFEni23";
 
 
-/* ==============================
-   DATABASE REFS
-============================== */
+/* REFERENCES */
 
-const messagesRef =
+const messagesRef=
 ref(db,"messages");
 
-const bannedRef =
+const bannedRef=
 ref(db,"bannedUsers");
 
 
-/* ==============================
-   ELEMENTS
-============================== */
+/* ELEMENTS */
 
-const messagesBox =
+const messagesBox=
 document.getElementById(
 "chat-messages"
 );
 
-const nameInput =
+const nameInput=
 document.getElementById(
 "chat-name"
 );
 
-const messageInput =
+const messageInput=
 document.getElementById(
 "chat-input"
 );
 
-const sendButton =
+const sendButton=
 document.getElementById(
 "chat-send"
 );
 
-const chatStatus =
+const status=
 document.getElementById(
 "chat-status"
 );
 
-const adminPanel =
+const adminPanel=
 document.getElementById(
 "admin-panel"
 );
 
-const adminLogin =
+const adminLogin=
 document.getElementById(
 "admin-login"
 );
 
-const adminEmail =
+const emailInput=
 document.getElementById(
 "admin-email"
 );
 
-const adminPassword =
+const passwordInput=
 document.getElementById(
 "admin-password"
 );
 
-const adminLoginButton =
+const loginButton=
 document.getElementById(
 "admin-login-btn"
 );
 
-const adminLoginStatus =
+const loginStatus=
 document.getElementById(
 "admin-login-status"
 );
 
-const adminLogoutButton =
+const logoutButton=
 document.getElementById(
 "admin-logout-btn"
 );
 
-
-/* ==============================
-   VARIABLES
-============================== */
 
 let isAdmin=false;
 
@@ -1217,9 +1703,7 @@ let messages=[];
 let bannedUsers={};
 
 
-/* ==============================
-   AUTH STATE
-============================== */
+/* AUTH */
 
 onAuthStateChanged(
 auth,
@@ -1232,20 +1716,28 @@ user.uid===ADMIN_UID
 
 isAdmin=true;
 
+document.body.classList.add(
+"admin-mode"
+);
+
 adminPanel.style.display=
 "block";
 
 adminLogin.style.display=
 "none";
 
-chatStatus.textContent=
-"👑 وارد حساب مدیریت هستی";
+status.textContent=
+"👑 حالت مدیریت فعال";
 
 renderMessages();
 
 }else{
 
 isAdmin=false;
+
+document.body.classList.remove(
+"admin-mode"
+);
 
 adminPanel.style.display=
 "none";
@@ -1261,25 +1753,22 @@ renderMessages();
 );
 
 
-/* ==============================
-   ADMIN LOGIN
-============================== */
+/* LOGIN */
 
-adminLoginButton
-.addEventListener(
+loginButton.addEventListener(
 "click",
 async()=>{
 
-const email =
-adminEmail.value.trim();
+const email=
+emailInput.value.trim();
 
-const password =
-adminPassword.value;
+const password=
+passwordInput.value;
 
 
-if(!email || !password){
+if(!email||!password){
 
-adminLoginStatus.textContent=
+loginStatus.textContent=
 "ایمیل و رمز عبور را وارد کن.";
 
 return;
@@ -1287,13 +1776,13 @@ return;
 }
 
 
-adminLoginStatus.textContent=
+loginStatus.textContent=
 "در حال ورود...";
 
 
 try{
 
-const result =
+const result=
 await signInWithEmailAndPassword(
 auth,
 email,
@@ -1307,7 +1796,7 @@ result.user.uid!==ADMIN_UID
 
 await signOut(auth);
 
-adminLoginStatus.textContent=
+loginStatus.textContent=
 "❌ این حساب ادمین نیست.";
 
 return;
@@ -1315,14 +1804,14 @@ return;
 }
 
 
-adminLoginStatus.textContent=
+loginStatus.textContent=
 "✅ ورود موفق بود.";
 
 }catch(error){
 
 console.error(error);
 
-adminLoginStatus.textContent=
+loginStatus.textContent=
 "❌ ایمیل یا رمز عبور اشتباه است.";
 
 }
@@ -1331,12 +1820,9 @@ adminLoginStatus.textContent=
 );
 
 
-/* ==============================
-   LOGOUT
-============================== */
+/* LOGOUT */
 
-adminLogoutButton
-.addEventListener(
+logoutButton.addEventListener(
 "click",
 async()=>{
 
@@ -1346,16 +1832,14 @@ await signOut(auth);
 );
 
 
-/* ==============================
-   LOAD BANNED USERS
-============================== */
+/* BANNED */
 
 onValue(
 bannedRef,
 (snapshot)=>{
 
-bannedUsers =
-snapshot.val() || {};
+bannedUsers=
+snapshot.val()||{};
 
 renderMessages();
 
@@ -1363,9 +1847,7 @@ renderMessages();
 );
 
 
-/* ==============================
-   LOAD MESSAGES
-============================== */
+/* MESSAGES */
 
 onValue(
 messagesRef,
@@ -1390,39 +1872,42 @@ id:child.key,
 
 renderMessages();
 
-chatStatus.textContent =
+
+status.textContent=
 isAdmin
 ?
 "👑 حالت مدیریت فعال"
 :
-"🟢 اتصال به چت برقرار است";
+"🟢 چت آنلاین است";
 
 }
 );
 
 
-/* ==============================
-   RENDER MESSAGES
-============================== */
+/* RENDER */
 
 function renderMessages(){
 
 messagesBox.innerHTML="";
 
 
-if(messages.length===0){
+if(!messages.length){
 
-messagesBox.innerHTML=
-`
-<div
-style="
-opacity:.5;
-text-align:center;
-padding:30px;
-"
->
-هنوز پیامی ارسال نشده 👋
+messagesBox.innerHTML=`
+
+<div class="empty-chat">
+
+<div class="empty-chat-icon">
+💬
 </div>
+
+<span>
+هنوز پیامی نیست...
+اولین پیام رو تو بفرست 👋
+</span>
+
+</div>
+
 `;
 
 return;
@@ -1431,58 +1916,72 @@ return;
 
 
 messages.forEach(
-(message)=>{
+message=>{
 
-const messageDiv =
+
+const div=
 document.createElement("div");
 
-messageDiv.className =
+div.className=
 "chat-message";
 
 
-const nameSpan =
+/* AVATAR */
+
+const avatar=
+document.createElement("div");
+
+avatar.className=
+"message-avatar";
+
+avatar.textContent=
+(message.name||"؟")
+.charAt(0)
+.toUpperCase();
+
+
+/* CONTENT */
+
+const content=
+document.createElement("div");
+
+content.className=
+"message-content";
+
+
+/* TOP */
+
+const top=
+document.createElement("div");
+
+top.className=
+"message-top";
+
+
+const name=
 document.createElement("span");
 
-nameSpan.className =
+name.className=
 "chat-name";
 
-nameSpan.textContent =
-(message.name || "کاربر")
-+
-": ";
+name.textContent=
+message.name||"کاربر";
 
 
-const textSpan =
+const time=
 document.createElement("span");
 
-textSpan.textContent =
-message.text || "";
+time.className=
+"chat-time";
 
-
-messageDiv.appendChild(
-nameSpan
-);
-
-messageDiv.appendChild(
-textSpan
-);
-
-
-/* TIME */
 
 if(message.time){
 
-const timeSpan =
-document.createElement("span");
-
-timeSpan.className =
-"chat-time";
-
-timeSpan.textContent =
-" • "+
+time.textContent=
 new Date(
 message.time
-).toLocaleTimeString(
+)
+.toLocaleTimeString(
 "fa-IR",
 {
 hour:"2-digit",
@@ -1490,107 +1989,114 @@ minute:"2-digit"
 }
 );
 
-messageDiv.appendChild(
-timeSpan
-);
-
 }
 
 
-/* ADMIN BUTTONS */
+top.appendChild(name);
+
+top.appendChild(time);
+
+
+/* TEXT */
+
+const text=
+document.createElement("div");
+
+text.className=
+"chat-text";
+
+text.textContent=
+message.text||"";
+
+
+content.appendChild(top);
+
+content.appendChild(text);
+
+
+/* ADMIN */
 
 if(isAdmin){
 
-const actions =
+const actions=
 document.createElement("div");
 
-actions.className =
+actions.className=
 "chat-actions";
 
 
-const deleteButton =
+const deleteBtn=
 document.createElement("button");
 
-deleteButton.className =
-"delete-btn";
+deleteBtn.className=
+"chat-action delete-btn";
 
-deleteButton.textContent =
+deleteBtn.textContent=
 "🗑 حذف";
 
-deleteButton.onclick =
+deleteBtn.onclick=
 ()=>deleteMessage(
 message.id
 );
 
 
-const banButton =
+const banBtn=
 document.createElement("button");
 
-banButton.className =
-"ban-btn";
+banBtn.className=
+"chat-action ban-btn";
 
-banButton.textContent =
-"🚫 بن کاربر";
+banBtn.textContent=
+"🚫 بن";
 
-banButton.onclick =
+banBtn.onclick=
 ()=>banUser(
 message.name
 );
 
 
 actions.appendChild(
-deleteButton
+deleteBtn
 );
 
 actions.appendChild(
-banButton
+banBtn
 );
 
-messageDiv.appendChild(
+content.appendChild(
 actions
 );
 
 }
 
-messagesBox.appendChild(
-messageDiv
-);
+
+div.appendChild(avatar);
+
+div.appendChild(content);
+
+messagesBox.appendChild(div);
 
 });
 
 
-messagesBox.scrollTop =
+messagesBox.scrollTop=
 messagesBox.scrollHeight;
 
 }
 
 
-/* ==============================
-   DELETE MESSAGE
-============================== */
+/* DELETE */
 
 async function deleteMessage(id){
 
-if(!isAdmin){
-
-alert(
-"❌ دسترسی ندارید."
-);
-
-return;
-
-}
+if(!isAdmin)return;
 
 
 if(
 !confirm(
-"این پیام حذف شود؟"
+"این پیام حذف بشه؟"
 )
-){
-
-return;
-
-}
+)return;
 
 
 try{
@@ -1607,7 +2113,7 @@ db,
 console.error(error);
 
 alert(
-"❌ حذف پیام انجام نشد."
+"❌ حذف پیام ناموفق بود."
 );
 
 }
@@ -1615,9 +2121,7 @@ alert(
 }
 
 
-/* ==============================
-   BAN USER
-============================== */
+/* BAN */
 
 async function banUser(name){
 
@@ -1630,22 +2134,12 @@ if(
 !confirm(
 "کاربر «"+
 name+
-"» بن شود؟"
+"» بن بشه؟"
 )
-){
-
-return;
-
-}
+)return;
 
 
-/*
-Firebase Realtime Database
-در نام کلید بعضی کاراکترها
-مجاز نیستند.
-*/
-
-const safeKey =
+const safeKey=
 btoa(
 unescape(
 encodeURIComponent(name)
@@ -1678,13 +2172,12 @@ alert(
 "🚫 کاربر بن شد."
 );
 
-
 }catch(error){
 
 console.error(error);
 
 alert(
-"❌ بن کردن انجام نشد."
+"❌ بن کردن ناموفق بود."
 );
 
 }
@@ -1692,305 +2185,14 @@ alert(
 }
 
 
-/* ==============================
-   CHECK BAN
-============================== */
+/* CHECK BAN */
 
-function isBanned(name){
+function checkBan(name){
 
 return Object.values(
 bannedUsers
 )
 .some(
-(user)=>
+user=>
 user &&
-user.name &&
-user.name.toLowerCase()
-===
-name.toLowerCase()
-);
-
-}
-
-
-/* ==============================
-   SEND MESSAGE
-============================== */
-
-let sending=false;
-
-
-async function sendMessage(){
-
-if(sending)return;
-
-
-const name =
-nameInput.value.trim();
-
-const text =
-messageInput.value.trim();
-
-
-if(!name){
-
-alert(
-"لطفاً اسم خودت رو وارد کن."
-);
-
-nameInput.focus();
-
-return;
-
-}
-
-
-if(!text){
-
-messageInput.focus();
-
-return;
-
-}
-
-
-if(name.length>20){
-
-alert(
-"نام نمی‌تواند بیشتر از ۲۰ کاراکتر باشد."
-);
-
-return;
-
-}
-
-
-if(text.length>200){
-
-alert(
-"پیام نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد."
-);
-
-return;
-
-}
-
-
-/* BAN CHECK */
-
-if(
-isBanned(name)
-){
-
-alert(
-"🚫 این کاربر از چت بن شده است."
-);
-
-return;
-
-}
-
-
-sending=true;
-
-sendButton.disabled=true;
-
-sendButton.textContent=
-"در حال ارسال...";
-
-
-try{
-
-await push(
-messagesRef,
-{
-
-name:name,
-
-text:text,
-
-time:Date.now()
-
-}
-);
-
-
-messageInput.value="";
-
-messageInput.focus();
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"❌ ارسال پیام انجام نشد."
-);
-
-}
-
-
-sending=false;
-
-sendButton.disabled=false;
-
-sendButton.textContent=
-"ارسال پیام 🚀";
-
-}
-
-
-sendButton.addEventListener(
-"click",
-sendMessage
-);
-
-
-/* ENTER */
-
-messageInput.addEventListener(
-"keydown",
-(event)=>{
-
-if(event.key==="Enter"){
-
-event.preventDefault();
-
-sendMessage();
-
-}
-
-}
-);
-
-
-/* ==============================
-   COUNTDOWN
-============================== */
-
-const targetDate =
-new Date(
-"2027-01-03T00:00:00+03:30"
-).getTime();
-
-
-function updateCountdown(){
-
-const distance =
-targetDate-Date.now();
-
-
-if(distance<=0){
-
-document.getElementById(
-"days"
-).textContent="00";
-
-document.getElementById(
-"hours"
-).textContent="00";
-
-document.getElementById(
-"minutes"
-).textContent="00";
-
-document.getElementById(
-"seconds"
-).textContent="00";
-
-document.getElementById(
-"finished"
-).textContent=
-"🔥 اولین استریم شروع شده!";
-
-return;
-
-}
-
-
-const days =
-Math.floor(
-distance/
-(1000*60*60*24)
-);
-
-
-const hours =
-Math.floor(
-(
-distance%
-(1000*60*60*24)
-)/
-(1000*60*60)
-);
-
-
-const minutes =
-Math.floor(
-(
-distance%
-(1000*60*60)
-)/
-(1000*60)
-);
-
-
-const seconds =
-Math.floor(
-(
-distance%
-(1000*60)
-)/
-1000
-);
-
-
-document.getElementById(
-"days"
-).textContent =
-String(days)
-.padStart(2,"0");
-
-
-document.getElementById(
-"hours"
-).textContent =
-String(hours)
-.padStart(2,"0");
-
-
-document.getElementById(
-"minutes"
-).textContent =
-String(minutes)
-.padStart(2,"0");
-
-
-document.getElementById(
-"seconds"
-).textContent =
-String(seconds)
-.padStart(2,"0");
-
-}
-
-
-updateCountdown();
-
-setInterval(
-updateCountdown,
-1000
-);
-
-
-console.log(
-"🔥 AVanta Firebase Chat Connected!"
-);
-
-</script>
-
-
-</body>
-
-    </html>
+user.n
