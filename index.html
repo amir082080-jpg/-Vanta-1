@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AVanta | First Stream</title>
+<style>
+:root{--bg:#07070b;--card:#11111a;--line:#292938;--text:#f7f7fb;--muted:#9997a5;--purple:#9b5cff;--pink:#ff3da8;--green:#4df39a;--red:#d94d6b}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;overflow-x:hidden}body{font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}a{color:inherit;text-decoration:none}
+body:before,body:after{content:"";position:fixed;width:320px;height:320px;border-radius:50%;filter:blur(100px);opacity:.09;pointer-events:none;z-index:-2}
+body:before{background:#8d4dff;left:-170px;top:15%}body:after{background:#ff2f9c;right:-170px;bottom:10%}
+.grid{position:fixed;inset:0;z-index:-3;opacity:.035;pointer-events:none;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:70px 70px}
+#intro{position:fixed;inset:0;background:#050508;z-index:9999;display:grid;place-items:center;transition:opacity .5s,visibility .5s}.hide{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+.intro-inner{text-align:center}.intro-logo{font-size:70px;font-weight:900;letter-spacing:-6px}.grad{background:linear-gradient(90deg,var(--purple),var(--pink));background-clip:text;-webkit-background-clip:text;color:transparent}.intro-line{height:2px;width:210px;margin:18px auto;background:linear-gradient(90deg,var(--purple),var(--pink))}.intro-inner small{color:#777;letter-spacing:5px}
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1120px,calc(100% - 24px));z-index:100;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:#08080df2;backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between}.logo{font-size:25px;font-weight:900;letter-spacing:-2px}.navlinks{display:flex;gap:5px}.navlinks a{padding:9px 12px;color:#999;border-radius:10px}.navlinks a:hover{background:#ffffff0d;color:#fff}.join,.send,.save{border:0;color:#fff;background:linear-gradient(135deg,var(--purple),var(--pink));font-weight:900}.join{padding:10px 16px;border-radius:11px}
+main{width:min(1120px,calc(100% - 30px));margin:auto}.hero{min-height:100vh;padding-top:120px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#ffffff06;padding:8px 13px;border-radius:99px;color:#aaa;font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}.welcome{margin:18px 0 10px;color:#777;letter-spacing:5px;font-size:11px}h1{font-size:clamp(70px,12vw,145px);line-height:.9;letter-spacing:-10px}.desc{max-width:600px;color:#aaa;line-height:2;margin:26px 0}.count{max-width:610px;border:1px solid var(--line);background:#ffffff06;border-radius:20px;padding:17px}.count-title{font-size:10px;letter-spacing:4px;color:#777;margin-bottom:12px}.count-row{direction:ltr;display:flex;justify-content:center;align-items:center;gap:7px}.time{min-width:62px;text-align:center;padding:8px 4px;background:#ffffff08;border-radius:12px}.time b{display:block;font-size:22px}.time small{font-size:9px;color:#777}.sep{color:#555}.date{text-align:center;color:#666;font-size:9px;letter-spacing:3px;margin-top:9px}
+.visual{width:min(390px,82vw);aspect-ratio:1;position:relative;display:grid;place-items:center;margin:auto}.ring{position:absolute;border:1px solid #9b5cff66;border-radius:50%}.r1{inset:4%}.r2{inset:17%;border-color:#ff3da855}.avatar{width:62%;aspect-ratio:1;border-radius:32%;background:#11111a;border:1px solid #ffffff14;display:grid;place-items:center;transform:rotate(-7deg);box-shadow:0 0 90px #8e4dff2b}.avatar b{font-size:70px;letter-spacing:-8px;color:#a862ff;transform:rotate(7deg)}.float-tag{position:absolute;padding:10px 13px;border:1px solid var(--line);background:#0c0c13e8;border-radius:12px;font-size:11px}.tag1{right:0;top:19%}.tag2{left:0;bottom:19%}
+.section{padding:100px 0}.heading{display:flex;align-items:end;gap:13px;margin-bottom:28px}.heading span{color:#b56aff;font-weight:900}.heading h2{font-size:clamp(30px,5vw,50px)}.heading b{color:#b56aff}.about{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;padding:28px;border:1px solid var(--line);border-radius:24px;background:#11111acc}.about-logo{width:105px;height:105px;border-radius:28px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--pink));font-size:32px;font-weight:900}.about p{color:#999;line-height:2;margin-top:8px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:25px;border:1px solid var(--line);border-radius:21px;background:#11111acc}.card .icon{font-size:30px;margin-bottom:12px}.card p{color:#999;line-height:1.8;margin-top:7px}
+.socials{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.social{padding:19px;text-align:center;border:1px solid var(--line);border-radius:17px;background:#11111acc;transition:.2s}.social:hover{transform:translateY(-3px);border-color:#9b5cff66}.social strong{display:block;font-size:25px;margin-bottom:6px}.social span{color:#aaa}
+.chat-wrap{border:1px solid var(--line);border-radius:25px;background:#11111acc;overflow:hidden;box-shadow:0 20px 80px #0006}.chat-head{display:flex;justify-content:space-between;align-items:center;padding:19px;border-bottom:1px solid var(--line)}.chat-head small{display:block;color:#777;margin-top:5px}.online{font-size:11px;color:var(--green)}
+.login-box{display:none;padding:14px;border-bottom:1px solid var(--line);background:#0c0c13}.login-box.show{display:grid;grid-template-columns:1fr 1fr auto;gap:7px}.input{width:100%;outline:0;border:1px solid var(--line);background:#08080d;color:#fff;border-radius:12px;padding:12px}.input:focus{border-color:#9b5cff99}
+.messages{height:410px;overflow:auto;padding:16px}.empty{text-align:center;color:#777;padding:100px 10px}.msg{padding:12px 14px;border:1px solid #ffffff0d;background:#ffffff05;border-radius:15px;margin-bottom:9px}.msg-name{color:#b56aff;font-weight:900;font-size:12px;margin-bottom:6px}.msg-name.admin-name{color:#ff70bd}.admin-title{font-size:9px;color:#ff70bd;margin-right:6px;font-weight:normal}.level{display:inline-block;font-size:9px;background:#292040;color:#cbaeff;padding:3px 6px;border-radius:7px;margin-right:5px}.level.two{background:#472338;color:#ff91c7}.level.high{background:#263b39;color:#7fffd4}.msg-text{color:#e5e3ea;line-height:1.7;white-space:pre-wrap;word-break:break-word}.msg-time{font-size:9px;color:#666;margin-top:5px}.msg-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.danger,.admin-btn,.level-btn{border:0;color:#fff;border-radius:9px;padding:7px 10px;background:#292335}.danger{background:#a33d57}.level-btn{background:#49316c}.admin-actions{display:none;padding:11px 15px;border-bottom:1px solid var(--line);gap:7px;flex-wrap:wrap;align-items:center;background:#0c0c13}.admin-actions.show{display:flex}.admin-badge{color:#ff78bd;font-size:11px;margin-left:auto}.emoji-bar{display:flex;gap:6px;overflow-x:auto;padding:8px 14px 0}.emoji{border:1px solid var(--line);background:#ffffff06;border-radius:10px;padding:5px;font-size:20px;min-width:40px;min-height:40px}.emoji img{width:28px;height:28px;object-fit:contain;display:block}.composer{display:grid;grid-template-columns:145px 1fr auto;gap:8px;padding:14px;border-top:1px solid var(--line)}.send{border-radius:12px;padding:0 18px}
+.admin-login-section{margin-top:35px;text-align:center}.admin-open{border:1px solid #9b5cff66;background:#171222;color:#d9c3ff;border-radius:14px;padding:12px 22px;font-weight:900}
+.modal{position:fixed;inset:0;background:#000c;z-index:500;display:none;place-items:center;padding:18px}.modal.show{display:grid}.modal-card{width:min(500px,100%);padding:20px;border:1px solid var(--line);border-radius:22px;background:#11111a;box-shadow:0 25px 100px #000}.modal-card h3{margin-bottom:15px}.modal-card input{margin-bottom:8px}.preview{width:120px;height:120px;margin:10px auto;border-radius:20px;border:1px dashed #ffffff2a;display:grid;place-items:center;overflow:hidden;color:#777;background:#08080d}.preview img{width:100%;height:100%;object-fit:contain}.modal-actions{display:flex;gap:8px;margin-top:10px}.modal-actions button{flex:1;padding:11px;border:0;border-radius:11px;color:#fff}.cancel{background:#292935}.admin-info{color:#aaa;font-size:12px;line-height:1.8;margin:10px 0 15px}.status{padding:10px;margin:8px 0;border-radius:10px;font-size:11px;display:none}.status.show{display:block}.status.error{background:#421b26;color:#ff9ab0}.status.success{background:#173a2b;color:#8effc5}
+footer{text-align:center;padding:55px 20px 30px;border-top:1px solid var(--line);color:#777}.footer-logo{font-weight:900;font-size:25px;margin-bottom:8px}.footer-logo span{color:#b56aff}
+@media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:125px}.visual{order:-1}.cards{grid-template-columns:1fr}.socials{grid-template-columns:1fr 1fr}.composer{grid-template-columns:1fr}.send{padding:12px}.about{grid-template-columns:1fr;text-align:center}.about-logo{margin:auto}.login-box.show{grid-template-columns:1fr}.messages{height:390px}.admin-badge{width:100%;margin-left:0}}
+@media(max-width:460px){main{width:min(100% - 20px,1120px)}h1{font-size:70px;letter-spacing:-7px}.time{min-width:52px}.time b{font-size:18px}.count-row{gap:3px}.sep{font-size:12px}.intro-logo{font-size:55px}}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+
+<div id="intro"><div class="intro-inner"><div class="intro-logo"><span class="grad">AV</span>anta</div><div class="intro-line"></div><small>FIRST STREAM</small></div></div>
+
+<header class="nav">
+<a class="logo" href="#home">A<span class="grad">V</span>anta</a>
+<nav class="navlinks"><a href="#home">خانه</a><a href="#about">درباره</a><a href="#social">شبکه‌ها</a><a href="#chat">چت</a></nav>
+<a class="join" href="#chat">همراه شو</a>
+</header>
+
+<main id="home">
+<section class="hero">
+<div>
+<div class="badge"><span class="dot"></span>اولین استریم در راهه</div>
+<div class="welcome">WELCOME TO</div>
+<h1>A<span class="grad">V</span>anta</h1>
+<p class="desc">اینجا قراره اولین استریم من شروع بشه.<br>آماده‌ای با هم یه شروع خفن داشته باشیم؟</p>
+<div class="count">
+<div class="count-title">FIRST STREAM</div>
+<div class="count-row"><div class="time"><b id="days">00</b><small>روز</small></div><span class="sep">:</span><div class="time"><b id="hours">00</b><small>ساعت</small></div><span class="sep">:</span><div class="time"><b id="minutes">00</b><small>دقیقه</small></div><span class="sep">:</span><div class="time"><b id="seconds">00</b><small>ثانیه</small></div></div>
+<div class="date">13 DEY 1405</div>
+</div>
+</div>
+<div class="visual"><div class="ring r1"></div><div class="ring r2"></div><div class="avatar"><b>AV</b></div><div class="float-tag tag1">🎮 GAMING</div><div class="float-tag tag2">🔥 FIRST STREAM</div></div>
+</section>
+
+<section id="about" class="section">
+<div class="heading"><span>01</span><h2>درباره <b>AVanta</b></h2></div>
+<div class="about"><div class="about-logo">AV</div><div><h3>این تازه شروعشه.</h3><p>AVanta قراره جایی باشه برای گیم، استریم و کلی لحظه خفن.</p><p>اولین استریم هنوز شروع نشده، ولی قراره از همین‌جا همه‌چیز شروع بشه.</p></div></div>
+</section>
+
+<section class="section">
+<div class="heading"><span>02</span><h2>قراره چه <b>چیزهایی</b> ببینیم؟</h2></div>
+<div class="cards"><div class="card"><div class="icon">🎮</div><h3>Gaming</h3><p>بازی‌های مختلف و لحظات هیجانی.</p></div><div class="card"><div class="icon">👻</div><h3>Horror</h3><p>بازی‌های ترسناک و واکنش‌های واقعی.</p></div><div class="card"><div class="icon">😂</div><h3>Fun</h3><p>شوخی، خنده و لحظات غیرمنتظره.</p></div></div>
+</section>
+
+<section id="social" class="section">
+<div class="heading"><span>03</span><h2>همراه <b>AVanta</b> شو</h2></div>
+<div class="socials">
+<a class="social" href="https://youtube.com/@avanta_iran" target="_blank" rel="noopener"><strong>▶</strong><span>YouTube</span></a>
+<a class="social" href="https://www.instagram.com/amir_vanta" target="_blank" rel="noopener"><strong>◎</strong><span>Instagram</span></a>
+<a class="social" href="https://t.me/amirvanta1" target="_blank" rel="noopener"><strong>✈</strong><span>Telegram</span></a>
+<a class="social" href="https://discord.gg/GZrR3ez9e" target="_blank" rel="noopener"><strong>◉</strong><span>Discord</span></a>
+</div>
+</section>
+
+<section id="chat" class="section">
+<div class="heading"><span>04</span><h2>AVanta <b>Chat</b></h2></div>
+<div class="chat-wrap">
+<div class="chat-head"><div><strong>💬 چت آنلاین</strong><small>کاربران عادی هر ۱۰ ثانیه یک پیام</small></div><div class="online">● آنلاین</div></div>
+
+<div id="adminActions" class="admin-actions">
+<span class="admin-badge">👑 حالت ادمین فعال</span>
+<button id="cleanup" type="button" class="admin-btn">🧹 پاکسازی ۱۰ دقیقه</button>
+<button id="emojiMaker" type="button" class="admin-btn">😀 ساخت ایموجی</button>
+<button id="adminLogout" type="button" class="admin-btn">خروج</button>
+</div>
+
+<div id="emojiBar" class="emoji-bar"></div>
+<div id="messages" class="messages"><div class="empty">در حال اتصال به چت...</div></div>
+
+<form id="composer" class="composer">
+<input id="name" class="input" maxlength="20" placeholder="نام شما" required>
+<input id="text" class="input" maxlength="300" placeholder="پیامت رو بنویس..." required>
+<button class="send" type="submit">ارسال 🚀</button>
+</form>
+</div>
+<div class="admin-login-section"><button id="openAdmin" type="button" class="admin-open">👑 ورود مدیر AVanta</button></div>
+</section>
+</main>
+
+<footer><div class="footer-logo">A<span>V</span>anta</div><p>© AVanta — First Stream</p></footer>
+
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminModal" class="modal">
+<div class="modal-card">
+<h3>👑 ورود مدیر AVanta</h3>
+<div class="admin-info">ایمیل و رمز حسابی را وارد کن که در Firebase Authentication ساخته‌ای.</div>
+<div id="loginStatus" class="status"></div>
+<input id="modalEmail" class="input" type="email" autocomplete="username" placeholder="ایمیل ادمین">
+<input id="modalPassword" class="input" type="password" autocomplete="current-password" placeholder="رمز عبور">
+<div class="modal-actions"><button id="modalLogin" class="save" type="button">ورود</button><button id="closeAdmin" class="cancel" type="button">انصراف</button></div>
+</div>
+</div>
+
+<!-- EMOJI MODAL -->
+<div id="emojiModal" class="modal">
+<div class="modal-card">
+<h3>😀 ساخت ایموجی</h3>
+<div class="admin-info">یک عکس انتخاب کن و برای ایموجی نام بگذار.</div>
+<input id="emojiName" class="input" maxlength="20" placeholder="نام ایموجی">
+<input id="emojiFile" class="input" type="file" accept="image/*">
+<div id="preview" class="preview">عکس را انتخاب کن</div>
+<div id="emojiStatus" class="status"></div>
+<div class="modal-actions"><button id="saveEmoji" class="save" type="button">آپلود ایموجی</button><button id="closeEmoji" class="cancel" type="button">بستن</button></div>
+</div>
+</div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {getAuth,signInAnonymously,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {getDatabase,ref,push,onValue,remove,set,get,update} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+import {getStorage,ref as storageRef,uploadBytes,getDownloadURL} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8Zjb-zpI",
+ authDomain:"avanta-3db7e.firebaseapp.com",
+ databaseURL:"https://avanta-3db7e-default-rtdb.firebaseio.com",
+ projectId:"avanta-3db7e",
+ storageBucket:"avanta-3db7e.firebasestorage.app",
+ messagingSenderId:"879564538420",
+ appId:"1:879564538420:web:a0fc85cc43a9347d92c061"
+};
+
+const ADMIN_UID="NNY1ymTKnwREwMo16ZI3lgFEni23";
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getDatabase(app);
+const storage=getStorage(app);
+
+const messagesRef=ref(db,"messages");
+const emojiRef=ref(db,"emojis");
+const statsRef=ref(db,"userStats");
+
+let user=null,isAdmin=false,lastSent=0,statsCache={};
+const $=id=>document.getElementById(id);
+
+setTimeout(()=>$("intro")?.classList.add("hide"),1400);
+
+function updateCountdown(){
+ const target=new Date("2027-01-03T00:00:00").getTime();
+ let d=Math.max(0,target-Date.now());
+ const days=Math.floor(d/86400000);
+ const hours=Math.floor(d%86400000/3600000);
+ const minutes=Math.floor(d%3600000/60000);
+ const seconds=Math.floor(d%60000/1000);
+ $("days").textContent=String(days).padStart(2,"0");
+ $("hours").textContent=String(hours).padStart(2,"0");
+ $("minutes").textContent=String(minutes).padStart(2,"0");
+ $("seconds").textContent=String(seconds).padStart(2,"0");
+}
+updateCountdown();setInterval(updateCountdown,1000);
+
+function setStatus(id,msg,type){
+ const el=$(id);if(!el)return;
+ el.textContent=msg;el.className="status show "+type;
+}
+
+function formatTime(time){
+ try{return new Date(time).toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"});}catch{return "";}
+}
+function levelName(n){return "LEVEL "+Math.max(1,Number(n||1));}
+
+function renderMessages(snapshot){
+ const box=$("messages");if(!box)return;
+ box.innerHTML="";
+ if(!snapshot.exists()){box.innerHTML='<div class="empty">هنوز پیامی نیست 👋</div>';return;}
+ const list=[];
+ snapshot.forEach(c=>list.push({key:c.key,data:c.val()||{}}));
+ list.sort((a,b)=>Number(a.data.time||0)-Number(b.data.time||0));
+
+ for(const item of list){
+  const m=item.data,el=document.createElement("div");el.className="msg";
+  const name=document.createElement("div");name.className="msg-name";
+  if(m.uid===ADMIN_UID)name.classList.add("admin-name");
+  name.textContent=m.name||"کاربر";
+
+  const levelNumber=statsCache[m.uid]?.level?Number(statsCache[m.uid].level):Number(m.level||1);
+  const level=document.createElement("span");level.className="level";
+  if(levelNumber>=3)level.classList.add("high");else if(levelNumber>=2)level.classList.add("two");
+  level.textContent=levelName(levelNumber);name.appendChild(level);
+
+  if(m.uid===ADMIN_UID){
+   const title=document.createElement("span");title.className="admin-title";title.textContent="👑 ادمین AVanta";name.appendChild(title);
+  }
+
+  const text=document.createElement("div");text.className="msg-text";text.textContent=m.text||"";
+  const time=document.createElement("div");time.className="msg-time";time.textContent=formatTime(m.time||Date.now());
+  el.append(name,text,time);
+
+  if(isAdmin){
+   const actions=document.createElement("div");actions.className="msg-actions";
+   const del=document.createElement("button");del.className="danger";del.textContent="🗑 حذف";
+   del.onclick=()=>remove(ref(db,"messages/"+item.key)).catch(e=>alert(e.message));
+
+   const ban=document.createElement("button");ban.className="danger";ban.textContent="🚫 بن";
+   ban.onclick=async()=>{
+    if(!m.uid||m.uid===ADMIN_UID)return alert("نمی‌توانی ادمین را بن کنی.");
+    try{await set(ref(db,"banned/"+m.uid),true);await remove(ref(db,"messages/"+item.key));alert("کاربر بن شد.");}catch(e){alert(e.message);}
+   };
+
+   const down=document.createElement("button");down.className="level-btn";down.textContent="➖ لول";
+   down.onclick=async()=>{
+    if(!m.uid)return;
+    const current=Number(statsCache[m.uid]?.level||m.level||1),newLevel=Math.max(1,current-1);
+    try{await update(ref(db,"userStats/"+m.uid),{level:newLevel,updatedAt:Date.now()});}catch(e){alert(e.message);}
+   };
+
+   const up=document.createElement("button");up.className="level-btn";up.textContent="➕ لول";
+   up.onclick=async()=>{
+    if(!m.uid)return;
+    const current=Number(statsCache[m.uid]?.level||m.level||1),newLevel=current+1;
+    try{await update(ref(db,"userStats/"+m.uid),{level:newLevel,updatedAt:Date.now()});}catch(e){alert(e.message);}
+   };
+
+   actions.append(del,ban,down,up);el.appendChild(actions);
+  }
+  box.appendChild(el);
+ }
+ box.scrollTop=box.scrollHeight;
+}
+
+onValue(statsRef,s=>{
+ statsCache={};
+ if(s.exists())s.forEach(c=>statsCache[c.key]=c.val()||{});
+});
+onValue(messagesRef,renderMessages);
+
+function loadEmojis(){
+ onValue(emojiRef,s=>{
+  const bar=$("emojiBar");if(!bar)return;
+  bar.innerHTML="";
+  if(!s.exists())return;
+  s.forEach(c=>{
+   const emoji=c.val()||{},button=document.createElement("button");
+   button.type="button";button.className="emoji";
+   if(emoji.url){const img=document.createElement("img");img.src=emoji.url;img.alt=emoji.name||"emoji";button.appendChild(img);}
+   else button.textContent="😀";
+   button.onclick=()=>{$("text").value+=" :"+(emoji.name||"emoji")+": ";$("text").focus();};
+   bar.appendChild(button);
+  });
+ });
+}
+loadEmojis();
+
+$("openAdmin").onclick=()=>$("adminModal").classList.add("show");
+$("closeAdmin").onclick=()=>$("adminModal").classList.remove("show");
+$("adminModal").onclick=e=>{if(e.target===$("adminModal"))$("adminModal").classList.remove("show")};
+$("closeEmoji").onclick=()=>$("emojiModal").classList.remove("show");
+$("emojiModal").onclick=e=>{if(e.target===$("emojiModal"))$("emojiModal").classList.remove("show")};
+
+async function loginAdmin(){
+ const email=$("modalEmail").value.trim(),password=$("modalPassword").value;
+ if(!email||!password){setStatus("loginStatus","ایمیل و رمز را وارد کن.","error");return;}
+ const btn=$("modalLogin");btn.disabled=true;btn.textContent="در حال ورود...";
+ try{
+  const credential=await signInWithEmailAndPassword(auth,email,password);
+  const uid=credential.user.uid;
+  if(uid!==ADMIN_UID){
+   await signOut(auth);
+   setStatus("loginStatus","این حساب ادمین AVanta نیست. UID این حساب: "+uid,"error");
+   return;
+  }
+  $("adminModal").classList.remove("show");
+  setStatus("loginStatus","ورود موفق بود 👑","success");
+ }catch(e){
+  console.error(e);
+  let msg="ایمیل یا رمز عبور اشتباه است.";
+  if(e.code==="auth/too-many-requests")msg="تلاش‌های ورود زیاد بوده؛ کمی بعد دوباره امتحان کن.";
+  setStatus("loginStatus",msg,"error");
+ }finally{btn.disabled=false;btn.textContent="ورود";}
+}
+$("modalLogin").onclick=loginAdmin;
+
+onAuthStateChanged(auth,currentUser=>{
+ user=currentUser;
+ isAdmin=!!currentUser&&currentUser.uid===ADMIN_UID;
+ $("adminActions").classList.toggle("show",isAdmin);
+ if(isAdmin)console.log("AVanta admin active:",currentUser.uid);
+});
+
+async function ensureUser(){
+ if(user)return user;
+ const credential=await signInAnonymously(auth);
+ return credential.user;
+}
+
+$("composer").addEventListener("submit",async e=>{
+ e.preventDefault();
+ try{
+  const current=await ensureUser();
+  user=current;
+  isAdmin=current.uid===ADMIN_UID;
+  const now=Date.now();
+  if(!isAdmin&&now-lastSent<10000){
+   alert("لطفاً "+Math.ceil((10000-(now-lastSent))/1000)+" ثانیه صبر کن.");return;
+  }
+
+  const banned=await get(ref(db,"banned/"+current.uid));
+  if(banned.exists()&&banned.val()===true){alert("دسترسی شما به چت مسدود شده است.");return;}
+
+  const name=$("name").value.trim(),text=$("text").value.trim();
+  if(!name||!text)return;
+
+  const words=text.split(/\s+/).filter(Boolean).length;
+  const statRef=ref(db,"userStats/"+current.uid);
+  const snap=await get(statRef);
+  const stat=snap.exists()?snap.val()||{}:{};
+  const oldWords=Number(stat.words||0);
+  let level=Number(stat.level||1);
+  const totalWords=oldWords+words;
+
+  if(!isAdmin){
+   if(totalWords>=150)level=Math.max(level,3);
+   else if(totalWords>=50)level=Math.max(level,2);
+   else level=Math.max(level,1);
+  }
+
+  await set(statRef,{words:totalWords,level,name,updatedAt:now});
+  await push(messagesRef,{uid:current.uid,name,text,words,totalWords,level,time:now});
+  lastSent=now;$("text").value="";
+ }catch(e){console.error(e);alert("ارسال پیام انجام نشد:\n"+e.message);}
+});
+
+$("adminLogout").onclick=async()=>{
+ try{await signOut(auth);location.reload();}catch(e){alert(e.message);}
+};
+
+$("cleanup").onclick=async()=>{
+ if(!isAdmin)return;
+ try{
+  const snap=await get(messagesRef);if(!snap.exists()){alert("پیامی وجود ندارد.");return;}
+  const now=Date.now(),jobs=[];
+  snap.forEach(c=>{const m=c.val()||{};if(now-Number(m.time||now)>600000)jobs.push(remove(ref(db,"messages/"+c.key)));});
+  await Promise.all(jobs);alert(jobs.length+" پیام قدیمی پاک شد.");
+ }catch(e){alert(e.message);}
+};
+
+let selectedEmojiFile=null;
+$("emojiFile").onchange=function(){
+ const file=this.files?.[0];selectedEmojiFile=file||null;
+ const preview=$("preview");
+ if(!file){preview.textContent="عکس را انتخاب کن";return;}
+ if(file.size>2*1024*1024){this.value="";selectedEmojiFile=null;preview.textContent="عکس را انتخاب کن";setStatus("emojiStatus","حجم عکس باید کمتر از ۲ مگابایت باشد.","error");return;}
+ const reader=new FileReader();
+ reader.onload=e=>{preview.innerHTML="";const img=document.createElement("img");img.src=e.target.result;preview.appendChild(img);};
+ reader.readAsDataURL(file);
+};
+
+$("emojiMaker").onclick=()=>{
+ if(!isAdmin){alert("فقط ادمین می‌تواند ایموجی بسازد.");return;}
+ $("emojiModal").classList.add("show");
+};
+
+$("saveEmoji").onclick=async()=>{
+ if(!isAdmin){alert("فقط ادمین می‌تواند ایموجی آپلود کند.");return;}
+ if(!selectedEmojiFile){setStatus("emojiStatus","اول یک عکس انتخاب کن.","error");return;}
+ const name=$("emojiName").value.trim();
+ if(!name){setStatus("emojiStatus","برای ایموجی یک نام بنویس.","error");return;}
+ const button=$("saveEmoji");button.disabled=true;button.textContent="در حال آپلود...";
+ try{
+  const safe=name.replace(/[^\w\u0600-\u06FF-]/g,"_");
+  const fileRef=storageRef(storage,"emojis/"+Date.now()+"_"+safe);
+  const result=await uploadBytes(fileRef,selectedEmojiFile,{contentType:selectedEmojiFile.type||"image/jpeg"});
+  const url=await getDownloadURL(result.ref);
+  await push(emojiRef,{name,url,createdAt:Date.now(),createdBy:user.uid});
+  setStatus("emojiStatus","ایموجی با موفقیت ساخته شد 😀🔥","success");
+  $("emojiName").value="";$("emojiFile").value="";$("preview").textContent="عکس را انتخاب کن";selectedEmojiFile=null;
+  setTimeout(()=>$("emojiModal").classList.remove("show"),700);
+ }catch(e){console.error(e);setStatus("emojiStatus","آپلود انجام نشد: "+e.message,"error");}
+ finally{button.disabled=false;button.textContent="آپلود ایموجی";}
+};
+
+/* Users are anonymous. Admin login uses email/password.
+   If Anonymous Authentication is disabled in Firebase, enable it from
+   Firebase Console > Authentication > Sign-in method. */
+ensureUser().catch(e=>{
+ console.error("Anonymous auth error:",e);
+ $("messages").innerHTML='<div class="empty">اتصال به حساب کاربری انجام نشد.<br>Anonymous Authentication را در Firebase فعال کن.</div>';
+});
+</script>
+</body>
+</html>
