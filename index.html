@@ -21,15 +21,9 @@
  --danger:#ff557d;
 }
 
-*{
- box-sizing:border-box;
- margin:0;
- padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
-html{
- scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
  font-family:Tahoma,Arial,sans-serif;
@@ -39,25 +33,11 @@ body{
  overflow-x:hidden;
 }
 
-button,input,textarea{
- font:inherit;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+a{text-decoration:none;color:inherit}
 
-button{
- cursor:pointer;
-}
-
-button:disabled{
- opacity:.55;
- cursor:not-allowed;
-}
-
-a{
- text-decoration:none;
- color:inherit;
-}
-
-/* BACKGROUND */
 body:before,
 body:after{
  content:"";
@@ -70,18 +50,8 @@ body:after{
  pointer-events:none;
  z-index:-2;
 }
-
-body:before{
- background:#873dff;
- left:-180px;
- top:15%;
-}
-
-body:after{
- background:#ff2c9d;
- right:-180px;
- bottom:8%;
-}
+body:before{background:#873dff;left:-180px;top:15%}
+body:after{background:#ff2c9d;right:-180px;bottom:8%}
 
 .grid{
  position:fixed;
@@ -99,20 +69,12 @@ body:after{
  0%{opacity:0;transform:scale(.96) translateY(10px)}
  100%{opacity:1;transform:scale(1) translateY(0)}
 }
-
 @keyframes float{
  0%,100%{transform:translateY(0)}
  50%{transform:translateY(-5px)}
 }
-
-@keyframes shine{
- to{background-position:220% center}
-}
-
-@keyframes spin{
- to{transform:rotate(360deg)}
-}
-
+@keyframes shine{to{background-position:220% center}}
+@keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{
  50%{
   box-shadow:
@@ -122,6 +84,7 @@ body:after{
 }
 
 /* INTRO */
+
 #intro{
  position:fixed;
  inset:0;
@@ -131,19 +94,16 @@ body:after{
  place-items:center;
  transition:opacity .65s,visibility .65s;
 }
-
 .intro-hide{
  opacity:0;
  visibility:hidden;
  pointer-events:none;
 }
-
 .intro{
  position:relative;
  text-align:center;
  animation:pop 1s ease;
 }
-
 .intro-ring{
  position:absolute;
  inset:-70px;
@@ -151,7 +111,6 @@ body:after{
  border-radius:50%;
  animation:spin 8s linear infinite;
 }
-
 .intro-ring:after{
  content:"";
  position:absolute;
@@ -163,48 +122,30 @@ body:after{
  border-radius:50%;
  box-shadow:0 0 25px #ff3da8;
 }
-
 .intro-logo{
  font-size:76px;
  font-weight:1000;
  letter-spacing:-7px;
 }
-
 .grad{
- background:linear-gradient(
-  90deg,
-  var(--p),
-  var(--p2),
-  #fff,
-  var(--p)
- );
+ background:linear-gradient(90deg,var(--p),var(--p2),#fff,var(--p));
  background-size:220% auto;
  background-clip:text;
  -webkit-background-clip:text;
  color:transparent;
  animation:shine 3s linear infinite;
 }
-
 .intro-line{
  width:230px;
  height:2px;
  margin:18px auto;
- background:linear-gradient(
-  90deg,
-  transparent,
-  var(--p),
-  var(--p2),
-  transparent
- );
+ background:linear-gradient(90deg,transparent,var(--p),var(--p2),transparent);
  box-shadow:0 0 20px #9b5cff;
 }
-
-.intro small{
- color:#777;
- letter-spacing:7px;
-}
+.intro small{color:#777;letter-spacing:7px}
 
 /* NAV */
+
 .nav{
  position:fixed;
  z-index:100;
@@ -222,45 +163,26 @@ body:after{
  justify-content:space-between;
  box-shadow:0 15px 55px #0008;
 }
-
 .logo{
  font-weight:1000;
  font-size:25px;
  letter-spacing:-2px;
 }
-
-.navlinks{
- display:flex;
- gap:4px;
-}
-
+.navlinks{display:flex;gap:4px}
 .navlinks a{
  padding:9px 11px;
  color:#aaa;
  border-radius:10px;
 }
-
-.navlinks a:hover{
- color:#fff;
- background:#ffffff0a;
-}
-
-.nav-right{
- display:flex;
- gap:7px;
- align-items:center;
-}
-
-.lang,
-.join,
-.admin-mini{
+.navlinks a:hover{color:#fff;background:#ffffff0a}
+.nav-right{display:flex;gap:7px;align-items:center}
+.lang,.join,.admin-mini{
  border:1px solid #ffffff18;
  background:#ffffff08;
  color:#ddd;
  border-radius:11px;
  padding:9px 12px;
 }
-
 .join{
  border:0;
  background:linear-gradient(135deg,var(--p),var(--p2));
@@ -269,10 +191,8 @@ body:after{
 }
 
 /* MAIN */
-main{
- width:min(1120px,calc(100% - 28px));
- margin:auto;
-}
+
+main{width:min(1120px,calc(100% - 28px));margin:auto}
 
 .hero{
  min-height:100vh;
@@ -282,7 +202,6 @@ main{
  gap:35px;
  align-items:center;
 }
-
 .badge{
  display:inline-flex;
  gap:8px;
@@ -294,7 +213,6 @@ main{
  color:#aaa;
  font-size:12px;
 }
-
 .dot{
  width:8px;
  height:8px;
@@ -303,27 +221,23 @@ main{
  box-shadow:0 0 18px var(--g);
  animation:pulse 2s infinite;
 }
-
 .welcome{
  color:#777;
  letter-spacing:5px;
  font-size:11px;
  margin:18px 0 10px;
 }
-
 h1{
  font-size:clamp(70px,12vw,145px);
  line-height:.9;
  letter-spacing:-10px;
 }
-
 .desc{
  color:#aaa;
  line-height:2;
  margin:25px 0;
  max-width:600px;
 }
-
 .count{
  border:1px solid var(--line);
  background:#ffffff05;
@@ -331,14 +245,12 @@ h1{
  padding:17px;
  max-width:610px;
 }
-
 .count-title{
  font-size:10px;
  color:#777;
  letter-spacing:4px;
  margin-bottom:12px;
 }
-
 .count-row{
  direction:ltr;
  display:flex;
@@ -346,7 +258,6 @@ h1{
  gap:7px;
  align-items:center;
 }
-
 .time{
  min-width:62px;
  text-align:center;
@@ -354,17 +265,8 @@ h1{
  background:#ffffff08;
  border-radius:12px;
 }
-
-.time b{
- font-size:22px;
- display:block;
-}
-
-.time small{
- font-size:9px;
- color:#777;
-}
-
+.time b{font-size:22px;display:block}
+.time small{font-size:9px;color:#777}
 .date{
  text-align:center;
  color:#666;
@@ -372,13 +274,10 @@ h1{
  letter-spacing:3px;
  margin-top:9px;
 }
-
-.live-count{
- color:#ff557d!important;
- font-weight:900;
-}
+.live-count{color:#ff557d!important;font-weight:900}
 
 /* VISUAL */
+
 .visual{
  width:min(390px,82vw);
  aspect-ratio:1;
@@ -387,24 +286,20 @@ h1{
  place-items:center;
  margin:auto;
 }
-
 .ring{
  position:absolute;
  border-radius:50%;
  border:1px solid #9b5cff55;
 }
-
 .r1{
  inset:3%;
  animation:spin 16s linear infinite;
 }
-
 .r2{
  inset:17%;
  border-color:#ff3da855;
  animation:spin 10s linear infinite reverse;
 }
-
 .avatar{
  width:62%;
  aspect-ratio:1;
@@ -417,14 +312,12 @@ h1{
  box-shadow:0 0 100px #8e4dff30;
  animation:float 5s ease-in-out infinite;
 }
-
 .avatar b{
  font-size:70px;
  letter-spacing:-8px;
  color:#a862ff;
  transform:rotate(7deg);
 }
-
 .float-tag{
  position:absolute;
  padding:10px 13px;
@@ -434,13 +327,11 @@ h1{
  font-size:11px;
  box-shadow:0 10px 30px #0008;
 }
-
 .tag1{
  right:0;
  top:18%;
  animation:float 4s ease-in-out infinite;
 }
-
 .tag2{
  left:0;
  bottom:18%;
@@ -448,29 +339,17 @@ h1{
 }
 
 /* SECTIONS */
-.section{
- padding:90px 0;
-}
 
+.section{padding:90px 0}
 .heading{
  display:flex;
  align-items:end;
  gap:13px;
  margin-bottom:25px;
 }
-
-.heading>span{
- color:#b56aff;
- font-weight:900;
-}
-
-.heading h2{
- font-size:clamp(30px,5vw,50px);
-}
-
-.heading b{
- color:#b56aff;
-}
+.heading>span{color:#b56aff;font-weight:900}
+.heading h2{font-size:clamp(30px,5vw,50px)}
+.heading b{color:#b56aff}
 
 .about,
 .card,
@@ -480,7 +359,6 @@ h1{
  background:#11111acc;
  backdrop-filter:blur(15px);
 }
-
 .about{
  display:grid;
  grid-template-columns:auto 1fr;
@@ -489,7 +367,6 @@ h1{
  padding:28px;
  border-radius:24px;
 }
-
 .about-logo{
  width:105px;
  height:105px;
@@ -500,57 +377,42 @@ h1{
  font-size:32px;
  font-weight:900;
 }
-
-.about p,
-.card p{
+.about p,.card p{
  color:#999;
  line-height:1.9;
  margin-top:7px;
 }
-
 .cards{
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:14px;
 }
-
 .card{
  padding:24px;
  border-radius:21px;
 }
-
-.icon{
- font-size:30px;
- margin-bottom:12px;
-}
-
+.icon{font-size:30px;margin-bottom:12px}
 .socials{
  display:grid;
  grid-template-columns:repeat(4,1fr);
  gap:12px;
 }
-
 .social{
  padding:20px;
  text-align:center;
  border-radius:17px;
  transition:.2s;
 }
-
 .social:hover{
  transform:translateY(-4px);
  border-color:#9b5cff66;
 }
-
 .social strong{
  font-size:25px;
  display:block;
  margin-bottom:6px;
 }
-
-.social span{
- color:#aaa;
-}
+.social span{color:#aaa}
 
 footer{
  text-align:center;
@@ -558,18 +420,15 @@ footer{
  border-top:1px solid var(--line);
  color:#777;
 }
-
 .footer-logo{
  font-weight:1000;
  font-size:25px;
  margin-bottom:8px;
 }
-
-.footer-logo span{
- color:#b56aff;
-}
+.footer-logo span{color:#b56aff}
 
 /* CHAT BUTTON */
+
 #chatLauncher{
  position:fixed;
  left:18px;
@@ -585,7 +444,6 @@ footer{
  font-size:27px;
  animation:pulse 3s infinite;
 }
-
 .chat-label{
  position:absolute;
  right:72px;
@@ -600,13 +458,13 @@ footer{
  transition:.2s;
  pointer-events:none;
 }
-
 .chat-launch:hover .chat-label{
  opacity:1;
  transform:none;
 }
 
 /* MODALS */
+
 .modal{
  position:fixed;
  inset:0;
@@ -616,11 +474,7 @@ footer{
  place-items:center;
  padding:15px;
 }
-
-.modal.show{
- display:grid;
-}
-
+.modal.show{display:grid}
 .panel{
  width:min(620px,100%);
  max-height:92vh;
@@ -631,7 +485,6 @@ footer{
  box-shadow:0 30px 120px #000;
  animation:pop .25s ease;
 }
-
 .panel-head{
  position:sticky;
  top:0;
@@ -644,7 +497,6 @@ footer{
  justify-content:space-between;
  align-items:center;
 }
-
 .close{
  width:38px;
  height:38px;
@@ -653,13 +505,8 @@ footer{
  background:#ffffff09;
  color:#aaa;
 }
-
-.panel-body{
- padding:18px;
-}
-
-.input,
-.textarea{
+.panel-body{padding:18px}
+.input,.textarea{
  width:100%;
  border:1px solid var(--line);
  outline:0;
@@ -669,56 +516,25 @@ footer{
  padding:12px;
  margin-bottom:9px;
 }
-
-.input:focus,
-.textarea:focus{
- border-color:#9b5cff99;
-}
-
-.textarea{
- min-height:90px;
- resize:vertical;
-}
-
-.primary,
-.secondary,
-.danger,
-.mini{
+.input:focus,.textarea:focus{border-color:#9b5cff99}
+.textarea{min-height:90px;resize:vertical}
+.primary,.secondary,.danger,.mini{
  border:0;
  border-radius:11px;
  padding:11px 14px;
  color:#fff;
  font-weight:800;
 }
-
-.primary{
- background:linear-gradient(135deg,var(--p),var(--p2));
-}
-
-.secondary{
- background:#282533;
-}
-
-.danger{
- background:#a83b57;
-}
-
+.primary{background:linear-gradient(135deg,var(--p),var(--p2))}
+.secondary{background:#282533}
+.danger{background:#a83b57}
 .mini{
  padding:7px 9px;
  background:#282335;
  font-size:11px;
 }
-
-.row{
- display:flex;
- gap:8px;
- flex-wrap:wrap;
-}
-
-.row>*{
- flex:1;
-}
-
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1}
 .notice{
  padding:11px;
  border-radius:12px;
@@ -728,7 +544,6 @@ footer{
  line-height:1.8;
  margin:9px 0;
 }
-
 .status{
  display:none;
  padding:10px;
@@ -737,64 +552,33 @@ footer{
  line-height:1.7;
  margin:8px 0;
 }
-
-.status.show{
- display:block;
-}
-
-.error{
- background:#421b26;
- color:#ff9ab0;
-}
-
-.success{
- background:#173a2b;
- color:#8effc5;
-}
-
-.warning{
- background:#3d3217;
- color:#ffe49a;
-}
-
-#registerModal .panel{
- max-width:450px;
-}
-
-.steps{
- text-align:center;
- color:#888;
- font-size:11px;
- margin-bottom:12px;
-}
-
-.success-icon{
- font-size:58px;
- text-align:center;
- margin:10px;
-}
+.status.show{display:block}
+.error{background:#421b26;color:#ff9ab0}
+.success{background:#173a2b;color:#8effc5}
+.warning{background:#3d3217;color:#ffe49a}
+#registerModal .panel{max-width:450px}
+.steps{text-align:center;color:#888;font-size:11px;margin-bottom:12px}
+.success-icon{font-size:58px;text-align:center;margin:10px}
 
 /* CHAT */
+
 .chat-window{
  width:min(980px,100%);
  height:min(760px,92vh);
  display:grid;
  grid-template-rows:auto 1fr;
 }
-
 .chat-body{
  min-height:0;
  display:grid;
  grid-template-columns:210px 1fr;
 }
-
 .chat-side{
  border-left:1px solid var(--line);
  background:#0c0c13;
  padding:12px;
  overflow:auto;
 }
-
 .profile-mini{
  padding:13px;
  border:1px solid var(--line);
@@ -802,18 +586,13 @@ footer{
  background:#ffffff05;
  margin-bottom:10px;
 }
-
-.profile-name{
- font-weight:900;
-}
-
+.profile-name{font-weight:900}
 .profile-meta{
  color:#888;
  font-size:10px;
  margin-top:5px;
  word-break:break-all;
 }
-
 .level-badge,
 .premium-badge,
 .admin-badge{
@@ -825,22 +604,9 @@ footer{
  font-size:9px;
  margin-top:7px;
 }
-
-.level-badge{
- background:#35264f;
- color:#d4b7ff;
-}
-
-.premium-badge{
- background:linear-gradient(135deg,#4b3510,#7c5b12);
- color:#ffe38c;
-}
-
-.admin-badge{
- background:linear-gradient(135deg,#4b1b3b,#a82b75);
- color:#fff;
-}
-
+.level-badge{background:#35264f;color:#d4b7ff}
+.premium-badge{background:linear-gradient(135deg,#4b3510,#7c5b12);color:#ffe38c}
+.admin-badge{background:linear-gradient(135deg,#4b1b3b,#a82b75);color:#fff}
 .side-btn{
  width:100%;
  border:1px solid var(--line);
@@ -851,17 +617,12 @@ footer{
  margin-bottom:7px;
  text-align:right;
 }
-
-.side-btn:hover{
- background:#ffffff0b;
-}
-
+.side-btn:hover{background:#ffffff0b}
 .messages{
  min-height:0;
  overflow:auto;
  padding:15px;
 }
-
 .msg{
  position:relative;
  padding:12px 13px;
@@ -870,11 +631,7 @@ footer{
  border-radius:15px;
  margin-bottom:9px;
 }
-
-.msg.reply{
- border-right:3px solid var(--p);
-}
-
+.msg.reply{border-right:3px solid var(--p)}
 .msg-name{
  font-size:12px;
  font-weight:900;
@@ -885,15 +642,8 @@ footer{
  gap:5px;
  flex-wrap:wrap;
 }
-
-.name-admin{
- color:#ff71bd;
-}
-
-.name-premium{
- color:#ffd76e;
-}
-
+.name-admin{color:#ff71bd}
+.name-premium{color:#ffd76e}
 .verified{
  width:17px;
  height:17px;
@@ -905,27 +655,23 @@ footer{
  font-size:10px;
  box-shadow:0 0 12px #5d72ff88;
 }
-
 .special-emoji{
  width:20px;
  height:20px;
  object-fit:contain;
  vertical-align:middle;
 }
-
 .msg-text{
  color:#e7e4ec;
  line-height:1.7;
  white-space:pre-wrap;
  word-break:break-word;
 }
-
 .msg-time{
  font-size:9px;
  color:#666;
  margin-top:5px;
 }
-
 .reply-box{
  padding:8px 10px;
  border-right:3px solid var(--p);
@@ -935,14 +681,12 @@ footer{
  font-size:10px;
  margin-bottom:8px;
 }
-
 .msg-actions{
  display:flex;
  gap:5px;
  margin-top:7px;
  flex-wrap:wrap;
 }
-
 .composer{
  border-top:1px solid var(--line);
  padding:12px;
@@ -951,7 +695,6 @@ footer{
  gap:7px;
  position:relative;
 }
-
 .emoji-open{
  border:1px solid var(--line);
  background:#ffffff06;
@@ -960,7 +703,6 @@ footer{
  padding:0 14px;
  font-size:20px;
 }
-
 .send{
  border:0;
  border-radius:12px;
@@ -971,6 +713,7 @@ footer{
 }
 
 /* EMOJI */
+
 .emoji-pop{
  position:absolute;
  bottom:75px;
@@ -984,12 +727,10 @@ footer{
  display:none;
  z-index:5;
 }
-
 .emoji-pop.show{
  display:block;
  animation:pop .2s;
 }
-
 .emoji-grid{
  display:grid;
  grid-template-columns:repeat(6,1fr);
@@ -997,7 +738,6 @@ footer{
  max-height:230px;
  overflow:auto;
 }
-
 .emoji-btn{
  height:48px;
  border:1px solid var(--line);
@@ -1007,25 +747,18 @@ footer{
  display:grid;
  place-items:center;
 }
-
 .emoji-btn img{
  width:32px;
  height:32px;
  object-fit:contain;
 }
-
-.locked{
- filter:grayscale(1);
- opacity:.45;
-}
-
+.locked{filter:grayscale(1);opacity:.45}
 .lock-note{
  font-size:10px;
  color:#aaa;
  text-align:center;
  padding:8px;
 }
-
 .save-star{
  position:absolute;
  left:10px;
@@ -1036,12 +769,10 @@ footer{
  border-radius:8px;
  padding:5px;
 }
-
-.save-star.on{
- color:#ffd34f;
-}
+.save-star.on{color:#ffd34f}
 
 /* ADMIN */
+
 .admin-float{
  position:fixed;
  right:16px;
@@ -1049,14 +780,12 @@ footer{
  z-index:350;
  display:none;
 }
-
 .admin-float.show{
  display:flex;
  gap:7px;
  flex-direction:column;
  align-items:flex-end;
 }
-
 .admin-main{
  border:1px solid #ff64ba55;
  background:#1c101c;
@@ -1066,18 +795,13 @@ footer{
  font-weight:900;
  box-shadow:0 10px 40px #0008;
 }
-
 .admin-menu{
  display:none;
  flex-direction:column;
  gap:6px;
  align-items:flex-end;
 }
-
-.admin-menu.show{
- display:flex;
-}
-
+.admin-menu.show{display:flex}
 .admin-menu button{
  border:1px solid var(--line);
  background:#11111a;
@@ -1086,28 +810,15 @@ footer{
  padding:9px 11px;
  font-size:11px;
 }
-
-.channel-list,
-.saved-list{
- display:grid;
- gap:8px;
-}
-
+.channel-list,.saved-list{display:grid;gap:8px}
 .channel{
  padding:12px;
  border:1px solid var(--line);
  border-radius:13px;
  background:#ffffff04;
 }
-
-.channel strong{
- display:block;
-}
-
-.channel small{
- color:#888;
-}
-
+.channel strong{display:block}
+.channel small{color:#888}
 .saved{
  padding:12px;
  border:1px solid var(--line);
@@ -1116,13 +827,7 @@ footer{
  color:#ddd;
  line-height:1.7;
 }
-
-.empty{
- text-align:center;
- color:#777;
- padding:55px 10px;
-}
-
+.empty{text-align:center;color:#777;padding:55px 10px}
 .emoji-preview-box{
  display:flex;
  flex-direction:column;
@@ -1131,128 +836,55 @@ footer{
  gap:8px;
  min-height:130px;
 }
-
 .emoji-preview-box img{
  width:80px;
  height:80px;
  object-fit:contain;
  border-radius:16px;
 }
+.lang-en [data-fa]{display:none}
+.lang-fa [data-en]{display:none}
 
-.lang-en [data-fa]{
- display:none;
-}
-
-.lang-fa [data-en]{
- display:none;
-}
-
-/* MOBILE */
 @media(max-width:800px){
-
- .navlinks{
-  display:none;
- }
-
+ .navlinks{display:none}
  .hero{
   grid-template-columns:1fr;
   padding-top:125px;
  }
-
- .visual{
-  order:-1;
- }
-
- .cards{
-  grid-template-columns:1fr;
- }
-
- .socials{
-  grid-template-columns:1fr 1fr;
- }
-
- .chat-body{
-  grid-template-columns:1fr;
- }
-
- .chat-side{
-  display:none;
- }
-
- .composer{
-  grid-template-columns:auto 1fr auto;
- }
-
- .admin-float{
-  right:10px;
-  bottom:90px;
- }
-
- .admin-menu{
-  align-items:flex-end;
- }
-
+ .visual{order:-1}
+ .cards{grid-template-columns:1fr}
+ .socials{grid-template-columns:1fr 1fr}
+ .chat-body{grid-template-columns:1fr}
+ .chat-side{display:none}
+ .composer{grid-template-columns:auto 1fr auto}
+ .admin-float{right:10px;bottom:90px}
+ .admin-menu{align-items:flex-end}
  .about{
   grid-template-columns:1fr;
   text-align:center;
  }
-
- .about-logo{
-  margin:auto;
- }
+ .about-logo{margin:auto}
 }
 
 @media(max-width:500px){
-
- main{
-  width:calc(100% - 20px);
- }
-
- h1{
-  font-size:70px;
-  letter-spacing:-7px;
- }
-
- .intro-logo{
-  font-size:56px;
- }
-
- .time{
-  min-width:52px;
- }
-
- .time b{
-  font-size:18px;
- }
-
- .count-row{
-  gap:3px;
- }
-
- .chat-window{
-  height:94vh;
- }
-
- .composer{
-  grid-template-columns:auto 1fr;
- }
-
+ main{width:calc(100% - 20px)}
+ h1{font-size:70px;letter-spacing:-7px}
+ .intro-logo{font-size:56px}
+ .time{min-width:52px}
+ .time b{font-size:18px}
+ .count-row{gap:3px}
+ .chat-window{height:94vh}
+ .composer{grid-template-columns:auto 1fr}
  .composer .send{
   grid-column:1/-1;
   padding:11px;
  }
-
- .emoji-grid{
-  grid-template-columns:repeat(5,1fr);
- }
+ .emoji-grid{grid-template-columns:repeat(5,1fr)}
 }
 
-/* REDUCE MOTION */
 @media(prefers-reduced-motion:reduce){
-
  *,
- *:before,
- *:after{
+ *:before,*:after{
   animation-duration:.001ms!important;
   animation-iteration-count:1!important;
   scroll-behavior:auto!important;
@@ -1303,7 +935,6 @@ footer{
    💬 Live Chat
   </button>
  </div>
-
 </header>
 
 <main id="home">
@@ -1320,9 +951,7 @@ footer{
 
   <div class="welcome">WELCOME TO</div>
 
-  <h1>
-   A<span class="grad">V</span>anta
-  </h1>
+  <h1>A<span class="grad">V</span>anta</h1>
 
   <p class="desc" data-fa>
    اینجا قراره اولین استریم من شروع بشه.
@@ -1338,9 +967,7 @@ footer{
 
   <div class="count">
 
-   <div class="count-title">
-    FIRST STREAM
-   </div>
+   <div class="count-title">FIRST STREAM</div>
 
    <div class="count-row" id="countRow">
 
@@ -1377,11 +1004,9 @@ footer{
    </div>
 
   </div>
-
  </div>
 
  <div class="visual">
-
   <div class="ring r1"></div>
   <div class="ring r2"></div>
 
@@ -1389,14 +1014,8 @@ footer{
    <b>AV</b>
   </div>
 
-  <div class="float-tag tag1">
-   🎮 GAMING
-  </div>
-
-  <div class="float-tag tag2">
-   🔥 FIRST STREAM
-  </div>
-
+  <div class="float-tag tag1">🎮 GAMING</div>
+  <div class="float-tag tag2">🔥 FIRST STREAM</div>
  </div>
 
 </section>
@@ -1406,41 +1025,23 @@ footer{
  <div class="heading">
   <span>01</span>
 
-  <h2 data-fa>
-   درباره <b>AVanta</b>
-  </h2>
-
-  <h2 data-en>
-   About <b>AVanta</b>
-  </h2>
+  <h2 data-fa>درباره <b>AVanta</b></h2>
+  <h2 data-en>About <b>AVanta</b></h2>
  </div>
 
  <div class="about">
 
-  <div class="about-logo">
-   AV
-  </div>
+  <div class="about-logo">AV</div>
 
   <div>
-   <h3 data-fa>
-    این تازه شروعشه.
-   </h3>
+   <h3 data-fa>این تازه شروعشه.</h3>
+   <h3 data-en>This is only the beginning.</h3>
 
-   <h3 data-en>
-    This is only the beginning.
-   </h3>
-
-   <p data-fa>
-    گیم، استریم، چت و کلی لحظه خفن.
-   </p>
-
-   <p data-en>
-    Gaming, streaming, chat and unforgettable moments.
-   </p>
+   <p data-fa>گیم، استریم، چت و کلی لحظه خفن.</p>
+   <p data-en>Gaming, streaming, chat and unforgettable moments.</p>
   </div>
 
  </div>
-
 </section>
 
 <section class="section">
@@ -1448,13 +1049,8 @@ footer{
  <div class="heading">
   <span>02</span>
 
-  <h2 data-fa>
-   قراره چه <b>چیزهایی</b> ببینیم؟
-  </h2>
-
-  <h2 data-en>
-   What will we <b>watch?</b>
-  </h2>
+  <h2 data-fa>قراره چه <b>چیزهایی</b> ببینیم؟</h2>
+  <h2 data-en>What will we <b>watch?</b></h2>
  </div>
 
  <div class="cards">
@@ -1462,44 +1058,25 @@ footer{
   <div class="card">
    <div class="icon">🎮</div>
    <h3>Gaming</h3>
-
-   <p data-fa>
-    بازی‌های مختلف و لحظات هیجانی.
-   </p>
-
-   <p data-en>
-    Games and intense moments.
-   </p>
+   <p data-fa>بازی‌های مختلف و لحظات هیجانی.</p>
+   <p data-en>Games and intense moments.</p>
   </div>
 
   <div class="card">
    <div class="icon">👻</div>
    <h3>Horror</h3>
-
-   <p data-fa>
-    بازی‌های ترسناک و واکنش‌های واقعی.
-   </p>
-
-   <p data-en>
-    Horror games and real reactions.
-   </p>
+   <p data-fa>بازی‌های ترسناک و واکنش‌های واقعی.</p>
+   <p data-en>Horror games and real reactions.</p>
   </div>
 
   <div class="card">
    <div class="icon">😂</div>
    <h3>Fun</h3>
-
-   <p data-fa>
-    شوخی، خنده و لحظات غیرمنتظره.
-   </p>
-
-   <p data-en>
-    Fun, laughs and unexpected moments.
-   </p>
+   <p data-fa>شوخی، خنده و لحظات غیرمنتظره.</p>
+   <p data-en>Fun, laughs and unexpected moments.</p>
   </div>
 
  </div>
-
 </section>
 
 <section id="social" class="section">
@@ -1507,69 +1084,36 @@ footer{
  <div class="heading">
   <span>03</span>
 
-  <h2 data-fa>
-   همراه <b>AVanta</b> شو
-  </h2>
-
-  <h2 data-en>
-   Follow <b>AVanta</b>
-  </h2>
+  <h2 data-fa>همراه <b>AVanta</b> شو</h2>
+  <h2 data-en>Follow <b>AVanta</b></h2>
  </div>
 
  <div class="socials">
 
-  <a class="social"
-     href="https://youtube.com/@avanta_iran"
-     target="_blank"
-     rel="noopener">
-   ▶
-   <br>
-   <span>YouTube</span>
+  <a class="social" href="https://youtube.com/@avanta_iran" target="_blank" rel="noopener">
+   ▶<br><span>YouTube</span>
   </a>
 
-  <a class="social"
-     href="https://www.instagram.com/amir_vanta"
-     target="_blank"
-     rel="noopener">
-   ◎
-   <br>
-   <span>Instagram</span>
+  <a class="social" href="https://www.instagram.com/amir_vanta" target="_blank" rel="noopener">
+   ◎<br><span>Instagram</span>
   </a>
 
-  <a class="social"
-     href="https://t.me/amirvanta1"
-     target="_blank"
-     rel="noopener">
-   ✈
-   <br>
-   <span>Telegram</span>
+  <a class="social" href="https://t.me/amirvanta1" target="_blank" rel="noopener">
+   ✈<br><span>Telegram</span>
   </a>
 
-  <a class="social"
-     href="https://discord.gg/GZrR3ez9e"
-     target="_blank"
-     rel="noopener">
-   ◉
-   <br>
-   <span>Discord</span>
+  <a class="social" href="https://discord.gg/GZrR3ez9e" target="_blank" rel="noopener">
+   ◉<br><span>Discord</span>
   </a>
 
  </div>
-
 </section>
 
 </main>
 
 <footer>
-
- <div class="footer-logo">
-  A<span>V</span>anta
- </div>
-
- <p>
-  © AVanta — First Stream
- </p>
-
+ <div class="footer-logo">A<span>V</span>anta</div>
+ <p>© AVanta — First Stream</p>
 </footer>
 
 <button id="chatLauncher" class="chat-launch">
@@ -1585,67 +1129,39 @@ footer{
  <div class="panel">
 
   <div class="panel-head">
+   <strong data-fa>ورود به چت AVanta</strong>
+   <strong data-en>Join AVanta Chat</strong>
 
-   <strong data-fa>
-    ورود به چت AVanta
-   </strong>
-
-   <strong data-en>
-    Join AVanta Chat
-   </strong>
-
-   <button class="close" data-close="registerModal">
-    ×
-   </button>
-
+   <button class="close" data-close="registerModal">×</button>
   </div>
 
   <div class="panel-body" id="registerBody">
 
-   <div class="steps">
-    1 / 2
-   </div>
+   <div class="steps">1 / 2</div>
 
    <div class="notice" data-fa>
     برای ورود فقط نام و نام خانوادگی لازم است.
-    حساب چت به‌صورت مهمان Firebase ساخته می‌شود؛
+    حساب شما به‌صورت مهمان ساخته می‌شود.
     ایمیل و رمز لازم نیست.
    </div>
 
    <div class="notice" data-en>
     Only your first and last name are needed.
-    The chat uses Firebase Anonymous Authentication;
-    no email or password is required.
+    No email or password is required.
    </div>
 
-   <input
-    id="firstName"
-    class="input"
-    maxlength="20"
-    placeholder="نام"
-   >
+   <input id="firstName" class="input" maxlength="20" placeholder="نام">
 
-   <input
-    id="lastName"
-    class="input"
-    maxlength="25"
-    placeholder="نام خانوادگی"
-   >
+   <input id="lastName" class="input" maxlength="25" placeholder="نام خانوادگی">
 
    <div id="registerStatus" class="status"></div>
 
-   <button
-    id="registerNext"
-    class="primary"
-    style="width:100%"
-   >
-    بعدی ←
+   <button id="registerNext" class="primary" style="width:100%">
+    ورود به چت ←
    </button>
 
   </div>
-
  </div>
-
 </div>
 
 <!-- CHAT -->
@@ -1657,22 +1173,13 @@ footer{
   <div class="panel-head">
 
    <div>
-    <strong>
-     💬 AVanta Chat
-    </strong>
-
-    <div
-     style="font-size:10px;color:#777;margin-top:4px"
-     id="chatSub">
+    <strong>💬 AVanta Chat</strong>
+    <div style="font-size:10px;color:#777;margin-top:4px" id="chatSub">
      آنلاین
     </div>
    </div>
 
-   <button
-    class="close"
-    data-close="chatModal">
-    ×
-   </button>
+   <button class="close" data-close="chatModal">×</button>
 
   </div>
 
@@ -1680,34 +1187,19 @@ footer{
 
    <aside class="chat-side">
 
-    <div id="myProfile" class="profile-mini">
-    </div>
+    <div id="myProfile" class="profile-mini"></div>
 
-    <button class="side-btn" id="savedBtn">
-     ⭐ پیام‌های ذخیره‌شده
-    </button>
-
-    <button class="side-btn" id="channelsBtn">
-     📢 کانال‌ها
-    </button>
-
-    <button class="side-btn" id="emojiSideBtn">
-     😀 ایموجی‌ها
-    </button>
-
-    <button class="side-btn" id="profileBtn">
-     ✨ پروفایل
-    </button>
+    <button class="side-btn" id="savedBtn">⭐ پیام‌های ذخیره‌شده</button>
+    <button class="side-btn" id="channelsBtn">📢 کانال‌ها</button>
+    <button class="side-btn" id="emojiSideBtn">😀 ایموجی‌ها</button>
+    <button class="side-btn" id="profileBtn">✨ پروفایل</button>
 
    </aside>
 
-   <div
-    style="position:relative;min-width:0;display:grid;grid-template-rows:1fr auto">
+   <div style="position:relative;min-width:0;display:grid;grid-template-rows:1fr auto">
 
     <div id="messages" class="messages">
-     <div class="empty">
-      در حال اتصال...
-     </div>
+     <div class="empty">در حال اتصال...</div>
     </div>
 
     <div id="emojiPop" class="emoji-pop">
@@ -1716,19 +1208,13 @@ footer{
       در حال آماده‌سازی ایموجی‌ها...
      </div>
 
-     <div id="emojiGrid" class="emoji-grid">
-     </div>
+     <div id="emojiGrid" class="emoji-grid"></div>
 
     </div>
 
     <div class="composer">
 
-     <button
-      id="emojiOpen"
-      class="emoji-open"
-      type="button">
-      😀
-     </button>
+     <button id="emojiOpen" class="emoji-open" type="button">😀</button>
 
      <input
       id="chatText"
@@ -1738,21 +1224,15 @@ footer{
       placeholder="پیامت رو بنویس..."
      >
 
-     <button
-      id="sendMsg"
-      class="send"
-      type="button">
+     <button id="sendMsg" class="send" type="button">
       ارسال 🚀
      </button>
 
     </div>
-
    </div>
 
   </div>
-
  </div>
-
 </div>
 
 <!-- ADMIN LOGIN -->
@@ -1762,24 +1242,14 @@ footer{
  <div class="panel" style="max-width:460px">
 
   <div class="panel-head">
-
-   <strong>
-    👑 AVanta Admin
-   </strong>
-
-   <button
-    class="close"
-    data-close="adminModal">
-    ×
-   </button>
-
+   <strong>👑 AVanta Admin</strong>
+   <button class="close" data-close="adminModal">×</button>
   </div>
 
   <div class="panel-body">
 
    <div class="notice">
-    این بخش فقط برای ورود به حساب ادمین موجود در Firebase Authentication است.
-    حساب جدید ادمین از داخل سایت ساخته نمی‌شود.
+    با ایمیل و رمز حساب ادمین Firebase وارد شو.
    </div>
 
    <input
@@ -1800,17 +1270,12 @@ footer{
 
    <div id="adminStatus" class="status"></div>
 
-   <button
-    id="adminLogin"
-    class="primary"
-    style="width:100%">
+   <button id="adminLogin" class="primary" style="width:100%">
     ورود 👑
    </button>
 
   </div>
-
  </div>
-
 </div>
 
 <!-- ADMIN FLOAT -->
@@ -1823,28 +1288,13 @@ footer{
 
  <div class="admin-menu" id="adminMenu">
 
-  <button id="makeEmoji">
-   😀 ساخت ایموجی
-  </button>
-
-  <button id="cleanupBtn">
-   🧹 پاکسازی ۱۰ دقیقه
-  </button>
-
-  <button id="grantPremium">
-   💎 Premium کردن کاربر
-  </button>
-
-  <button id="makeChannel">
-   📢 ساخت کانال
-  </button>
-
-  <button id="adminLogout">
-   🚪 خروج
-  </button>
+  <button id="makeEmoji">😀 ساخت ایموجی</button>
+  <button id="cleanupBtn">🧹 پاکسازی ۱۰ دقیقه</button>
+  <button id="grantPremium">💎 Premium کردن کاربر</button>
+  <button id="makeChannel">📢 ساخت کانال</button>
+  <button id="adminLogout">🚪 خروج</button>
 
  </div>
-
 </div>
 
 <!-- EMOJI MAKER -->
@@ -1855,15 +1305,9 @@ footer{
 
   <div class="panel-head">
 
-   <strong>
-    😀 ساخت ایموجی
-   </strong>
+   <strong>😀 ساخت ایموجی</strong>
 
-   <button
-    class="close"
-    data-close="emojiModal">
-    ×
-   </button>
+   <button class="close" data-close="emojiModal">×</button>
 
   </div>
 
@@ -1883,29 +1327,23 @@ footer{
     accept="image/png,image/jpeg,image/webp,image/gif"
    >
 
-   <div
-    id="emojiPreview"
-    class="notice emoji-preview-box">
+   <div id="emojiPreview" class="notice emoji-preview-box">
+    <span>عکس را انتخاب کن</span>
+   </div>
 
-    <span>
-     عکس را انتخاب کن
-    </span>
-
+   <div class="notice">
+    عکس به‌صورت خودکار کوچک و فشرده می‌شود و در Realtime Database ذخیره خواهد شد.
+    بهتر است عکس اصلی کمتر از 2MB باشد.
    </div>
 
    <div id="emojiStatus" class="status"></div>
 
-   <button
-    id="uploadEmoji"
-    class="primary"
-    style="width:100%">
-    آپلود و ساخت ✨
+   <button id="uploadEmoji" class="primary" style="width:100%">
+    ساخت ایموجی ✨
    </button>
 
   </div>
-
  </div>
-
 </div>
 
 <!-- PREMIUM -->
@@ -1915,17 +1353,8 @@ footer{
  <div class="panel" style="max-width:450px">
 
   <div class="panel-head">
-
-   <strong>
-    💎 AVanta Premium
-   </strong>
-
-   <button
-    class="close"
-    data-close="premiumModal">
-    ×
-   </button>
-
+   <strong>💎 AVanta Premium</strong>
+   <button class="close" data-close="premiumModal">×</button>
   </div>
 
   <div class="panel-body">
@@ -1934,25 +1363,16 @@ footer{
     UID کاربر را وارد کن تا Premium شود.
    </div>
 
-   <input
-    id="premiumUid"
-    class="input"
-    placeholder="UID کاربر"
-   >
+   <input id="premiumUid" class="input" placeholder="UID کاربر">
 
    <div id="premiumStatus" class="status"></div>
 
-   <button
-    id="premiumSave"
-    class="primary"
-    style="width:100%">
+   <button id="premiumSave" class="primary" style="width:100%">
     فعال‌سازی Premium 💎
    </button>
 
   </div>
-
  </div>
-
 </div>
 
 <!-- CHANNEL -->
@@ -1962,17 +1382,8 @@ footer{
  <div class="panel" style="max-width:450px">
 
   <div class="panel-head">
-
-   <strong>
-    📢 ساخت کانال
-   </strong>
-
-   <button
-    class="close"
-    data-close="channelModal">
-    ×
-   </button>
-
+   <strong>📢 ساخت کانال</strong>
+   <button class="close" data-close="channelModal">×</button>
   </div>
 
   <div class="panel-body">
@@ -1992,17 +1403,12 @@ footer{
 
    <div id="channelStatus" class="status"></div>
 
-   <button
-    id="channelSave"
-    class="primary"
-    style="width:100%">
+   <button id="channelSave" class="primary" style="width:100%">
     ساخت کانال
    </button>
 
   </div>
-
  </div>
-
 </div>
 
 <!-- INFO -->
@@ -2013,25 +1419,15 @@ footer{
 
   <div class="panel-head">
 
-   <strong id="infoTitle">
-    AVanta
-   </strong>
+   <strong id="infoTitle">AVanta</strong>
 
-   <button
-    class="close"
-    data-close="infoModal">
-    ×
-   </button>
+   <button class="close" data-close="infoModal">×</button>
 
   </div>
 
-  <div
-   class="panel-body"
-   id="infoBody">
-  </div>
+  <div class="panel-body" id="infoBody"></div>
 
  </div>
-
 </div>
 
 <script type="module">
@@ -2042,7 +1438,6 @@ import {
 
 import {
  getAuth,
- signInAnonymously,
  signInWithEmailAndPassword,
  onAuthStateChanged,
  signOut
@@ -2057,13 +1452,6 @@ import {
  update,
  remove
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
-import {
- getStorage,
- ref as storageRef,
- uploadBytes,
- getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
 /* FIREBASE */
@@ -2081,10 +1469,8 @@ const firebaseConfig={
 const ADMIN_UID="NNY1ymTknwREwMo16ZI3lgFEni23";
 
 const app=initializeApp(firebaseConfig);
-
 const auth=getAuth(app);
 const db=getDatabase(app);
-const storage=getStorage(app);
 
 
 /* HELPERS */
@@ -2100,7 +1486,6 @@ let lang="fa";
 let stats={};
 let messageCache=[];
 let emojis=[];
-
 
 const messagesRef=ref(db,"messages");
 const statsRef=ref(db,"userStats");
@@ -2140,17 +1525,12 @@ document.querySelectorAll(".modal").forEach(m=>{
 
 $("langBtn").onclick=()=>{
  lang=lang==="fa"?"en":"fa";
-
  document.body.className="lang-"+lang;
-
- $("langBtn").textContent=
-  lang==="fa"?"EN":"FA";
+ $("langBtn").textContent=lang==="fa"?"EN":"FA";
 };
 
 
-/* COUNTDOWN
-   13 DEY 1405 = 3 JANUARY 2027
-*/
+/* COUNTDOWN */
 
 const streamDate=new Date(
  "2027-01-03T00:00:00+03:30"
@@ -2164,7 +1544,6 @@ function updateCountdown(){
 
  const now=Date.now();
  let diff=streamDate-now;
-
  const row=$("countRow");
 
  if(diff<=0){
@@ -2178,9 +1557,7 @@ function updateCountdown(){
 
   const title=document.querySelector(".count-title");
 
-  if(title){
-   title.textContent="🔴 LIVE NOW";
-  }
+  if(title) title.textContent="🔴 LIVE NOW";
 
   return;
  }
@@ -2188,12 +1565,8 @@ function updateCountdown(){
  const totalSeconds=Math.floor(diff/1000);
 
  const days=Math.floor(totalSeconds/86400);
- const hours=Math.floor(
-  (totalSeconds%86400)/3600
- );
- const minutes=Math.floor(
-  (totalSeconds%3600)/60
- );
+ const hours=Math.floor((totalSeconds%86400)/3600);
+ const minutes=Math.floor((totalSeconds%3600)/60);
  const seconds=totalSeconds%60;
 
  $("days").textContent=pad(days);
@@ -2209,8 +1582,8 @@ setInterval(updateCountdown,1000);
 /* STATUS */
 
 function status(id,msg,type="error"){
- const e=$(id);
 
+ const e=$(id);
  if(!e)return;
 
  e.textContent=msg;
@@ -2218,12 +1591,51 @@ function status(id,msg,type="error"){
 }
 
 
-/* SECURITY / TEXT */
+/* TEXT */
 
 function escapeName(s){
  return String(s||"")
   .replace(/[<>]/g,"");
 }
+
+
+/* LOCAL GUEST ID
+   این بخش جای Anonymous Authentication را می‌گیرد.
+*/
+
+function createGuestId(){
+
+ let id=localStorage.getItem("avanta_guest_uid");
+
+ if(id) return id;
+
+ id=
+  "guest_"+Date.now().toString(36)+
+  "_"+
+  crypto.randomUUID().replace(/-/g,"").slice(0,16);
+
+ localStorage.setItem(
+  "avanta_guest_uid",
+  id
+ );
+
+ return id;
+}
+
+
+function ensureGuest(){
+
+ const uid=createGuestId();
+
+ user={
+  uid,
+  isAnonymous:true,
+  localGuest:true
+ };
+
+ return user;
+}
+
 
 function levelOf(){
  return Number(stats.level||1);
@@ -2238,36 +1650,6 @@ function nameFull(){
 }
 
 
-/* AUTH */
-
-async function ensureAnon(){
-
- if(auth.currentUser && auth.currentUser.isAnonymous){
-  return auth.currentUser;
- }
-
- try{
-
-  const result=await signInAnonymously(auth);
-
-  return result.user;
-
- }catch(e){
-
-  if(
-   e.code==="auth/operation-not-allowed" ||
-   e.code==="auth/admin-restricted-operation"
-  ){
-   throw new Error(
-    "Anonymous Authentication در Firebase فعال نیست. از Firebase Console > Authentication > Sign-in method > Anonymous آن را فعال کن."
-   );
-  }
-
-  throw e;
- }
-}
-
-
 /* OPEN CHAT */
 
 async function openChat(){
@@ -2279,15 +1661,26 @@ async function openChat(){
 
  try{
 
-  user=await ensureAnon();
+  ensureGuest();
 
-  const saved=localStorage.getItem("avanta_profile");
+  const saved=
+   localStorage.getItem("avanta_profile");
 
   if(saved){
+
    try{
     profile=JSON.parse(saved);
    }catch{}
   }
+
+  const s=
+   await get(
+    ref(db,"userStats/"+user.uid)
+   );
+
+  stats=s.exists()
+   ?(s.val()||{})
+   :{level:1};
 
   modal("chatModal",true);
 
@@ -2297,9 +1690,12 @@ async function openChat(){
 
  }catch(e){
 
+  console.error(e);
+
   status(
    "registerStatus",
-   e.message||"اتصال به Firebase انجام نشد.",
+   "اتصال به پایگاه داده انجام نشد: "+
+   (e.message||"خطای ناشناخته"),
    "error"
   );
 
@@ -2339,11 +1735,17 @@ $("registerNext").onclick=async()=>{
  const b=$("registerNext");
 
  b.disabled=true;
- b.textContent="در حال ورود...";
+ b.textContent="در حال ثبت...";
 
  try{
 
-  user=await ensureAnon();
+  /*
+   * دیگر signInAnonymously استفاده نمی‌شود.
+   * بنابراین خطای auth/admin-restricted-operation
+   * برای کاربر عادی ایجاد نمی‌شود.
+   */
+
+  ensureGuest();
 
   profile={
    name:f+" "+l,
@@ -2357,20 +1759,18 @@ $("registerNext").onclick=async()=>{
    JSON.stringify(profile)
   );
 
-  const sr=ref(
-   db,
-   "userStats/"+user.uid
-  );
+  const sr=
+   ref(db,"userStats/"+user.uid);
 
   const s=await get(sr);
 
   stats=s.exists()
    ?(s.val()||{})
-   :{};
-
-  if(!stats.level){
-   stats.level=1;
-  }
+   :{
+     level:1,
+     words:0,
+     premium:false
+    };
 
   await update(sr,{
    name:profile.name,
@@ -2391,14 +1791,13 @@ $("registerNext").onclick=async()=>{
 
    <p class="notice" style="text-align:center">
     حساب چت شما آماده است.
-    برای ورود به چت روی تأیید بزن.
    </p>
 
    <button
     id="confirmRegister"
     class="primary"
     style="width:100%">
-    تأیید و ورود به چت 💬
+    ورود به چت 💬
    </button>
   `;
 
@@ -2416,16 +1815,15 @@ $("registerNext").onclick=async()=>{
 
   status(
    "registerStatus",
-   "ثبت‌نام انجام نشد: "+(
-    e.message||"خطای ناشناخته"
-   ),
+   "ثبت‌نام انجام نشد: "+
+   (e.message||"خطای ناشناخته"),
    "error"
   );
 
  }finally{
 
   b.disabled=false;
-  b.textContent="بعدی ←";
+  b.textContent="ورود به چت ←";
  }
 };
 
@@ -2434,54 +1832,67 @@ $("registerNext").onclick=async()=>{
 
 onAuthStateChanged(auth,async u=>{
 
- user=u;
+ /*
+  * اگر ادمین وارد شده باشد Firebase Auth کار می‌کند.
+  * کاربر عادی از Guest UID محلی استفاده می‌کند.
+  */
 
- isAdmin=!!u && u.uid===ADMIN_UID;
+ if(u){
+
+  user=u;
+  isAdmin=u.uid===ADMIN_UID;
+
+  if(isAdmin){
+
+   try{
+
+    const s=await get(
+     ref(db,"userStats/"+u.uid)
+    );
+
+    stats=s.exists()
+     ?(s.val()||{})
+     :{
+       level:99,
+       premium:true
+      };
+
+   }catch{
+
+    stats={
+     level:99,
+     premium:true
+    };
+   }
+  }
+
+ }else{
+
+  isAdmin=false;
+
+  if(profile){
+   ensureGuest();
+
+   try{
+
+    const s=await get(
+     ref(db,"userStats/"+user.uid)
+    );
+
+    stats=s.exists()
+     ?(s.val()||{})
+     :{level:1};
+
+   }catch{
+    stats={level:1};
+   }
+  }
+ }
 
  $("adminFloat").classList.toggle(
   "show",
   isAdmin
  );
-
- if(u && u.uid===ADMIN_UID){
-
-  try{
-
-   const s=await get(
-    ref(db,"userStats/"+u.uid)
-   );
-
-   stats=s.exists()
-    ?(s.val()||{})
-    :{
-      level:99,
-      premium:true
-     };
-
-  }catch{
-   stats={
-    level:99,
-    premium:true
-   };
-  }
- }
-
- if(u && u.isAnonymous){
-
-  try{
-
-   const s=await get(
-    ref(db,"userStats/"+u.uid)
-   );
-
-   stats=s.exists()
-    ?(s.val()||{})
-    :{};
-
-  }catch{
-   stats={};
-  }
- }
 
  renderProfile();
 });
@@ -2491,12 +1902,28 @@ onAuthStateChanged(auth,async u=>{
 
 function renderProfile(){
 
- if(!profile)return;
+ const box=$("myProfile");
+
+ if(!box)return;
+
+ if(!profile){
+
+  box.innerHTML=`
+   <div class="profile-name">
+    مهمان
+   </div>
+   <div class="profile-meta">
+    هنوز وارد چت نشده‌ای
+   </div>
+  `;
+
+  return;
+ }
 
  const lv=levelOf();
  const pr=premium();
 
- $("myProfile").innerHTML=`
+ box.innerHTML=`
 
   <div class="profile-name">
    ${escapeName(profile.name)}
@@ -2525,13 +1952,14 @@ function renderProfile(){
 }
 
 
-/* LIVE STATS */
+/* STATS */
 
 onValue(statsRef,s=>{
 
  const all={};
 
  if(s.exists()){
+
   s.forEach(c=>{
    all[c.key]=c.val()||{};
   });
@@ -2543,15 +1971,22 @@ onValue(statsRef,s=>{
    (
     isAdmin
     ?{level:99,premium:true}
-    :{}
+    :{level:1}
    );
  }else{
-  stats={};
+  stats={level:1};
  }
 
  renderProfile();
  renderMessagesCache();
  renderEmojiGrid();
+
+},e=>{
+
+ console.error(
+  "Stats error:",
+  e
+ );
 });
 
 
@@ -2580,6 +2015,25 @@ onValue(messagesRef,s=>{
  );
 
  renderMessages(messageCache);
+
+},e=>{
+
+ console.error(
+  "Messages error:",
+  e
+ );
+
+ const box=$("messages");
+
+ if(box){
+
+  box.innerHTML=`
+   <div class="empty">
+    خطا در دریافت پیام‌ها.<br>
+    ${escapeName(e.message||"")}
+   </div>
+  `;
+ }
 });
 
 
@@ -2613,10 +2067,9 @@ function renderMessages(list){
   let badges="";
 
   if(m.uid===ADMIN_UID){
+
    badges+=`
-    <span class="verified">
-     ✓
-    </span>
+    <span class="verified">✓</span>
    `;
   }
 
@@ -2624,6 +2077,7 @@ function renderMessages(list){
    stats[m.uid]?.premium||
    m.premium
   ){
+
    badges+=`
     <span style="color:#ffd76e">
      💎
@@ -2740,12 +2194,19 @@ function renderMessages(list){
    del.textContent="🗑 حذف";
 
    del.onclick=async()=>{
+
     try{
+
      await remove(
       ref(db,"messages/"+m.key)
      );
+
     }catch(e){
-     alert("حذف انجام نشد: "+e.message);
+
+     alert(
+      "حذف انجام نشد: "+
+      e.message
+     );
     }
    };
 
@@ -2821,7 +2282,6 @@ function renderMessagesCache(){
  }
 }
 
-
 function loadMessages(){
  renderMessages(messageCache);
 }
@@ -2850,7 +2310,8 @@ async function saveMessage(m){
  }catch(e){
 
   alert(
-   "ذخیره نشد: "+e.message
+   "ذخیره نشد: "+
+   e.message
   );
  }
 }
@@ -2862,9 +2323,10 @@ $("savedBtn").onclick=async()=>{
 
  try{
 
-  const s=await get(
-   ref(db,"saved/"+user.uid)
-  );
+  const s=
+   await get(
+    ref(db,"saved/"+user.uid)
+   );
 
   let html=`
    <h3>⭐ پیام‌های ذخیره‌شده</h3>
@@ -2897,9 +2359,7 @@ $("savedBtn").onclick=async()=>{
 
   html+="</div>";
 
-  $("infoTitle").textContent=
-   "⭐ Saved";
-
+  $("infoTitle").textContent="⭐ Saved";
   $("infoBody").innerHTML=html;
 
   modal("infoModal",true);
@@ -2917,8 +2377,7 @@ $("profileBtn").onclick=()=>{
 
  const lv=levelOf();
 
- $("infoTitle").textContent=
-  "✨ پروفایل";
+ $("infoTitle").textContent="✨ پروفایل";
 
  $("infoBody").innerHTML=`
 
@@ -2986,6 +2445,7 @@ onValue(
   }
 
   renderEmojiGrid();
+
  },
  error=>{
 
@@ -2995,7 +2455,6 @@ onValue(
   );
 
   emojis=[];
-
   renderEmojiGrid();
  }
 );
@@ -3011,13 +2470,10 @@ function renderEmojiGrid(){
 
  baseEmojis.forEach(x=>{
 
-  const b=
-   document.createElement("button");
+  const b=document.createElement("button");
 
   b.className="emoji-btn";
-
   b.type="button";
-
   b.textContent=x;
 
   b.onclick=()=>{
@@ -3039,8 +2495,7 @@ function renderEmojiGrid(){
 
  if(!emojis.length){
 
-  const note=
-   document.createElement("div");
+  const note=document.createElement("div");
 
   note.style.cssText=
    "grid-column:1/-1;text-align:center;color:#666;font-size:10px;padding:10px";
@@ -3055,8 +2510,7 @@ function renderEmojiGrid(){
 
  emojis.forEach(x=>{
 
-  const b=
-   document.createElement("button");
+  const b=document.createElement("button");
 
   b.className=
    "emoji-btn"+
@@ -3064,15 +2518,12 @@ function renderEmojiGrid(){
 
   b.type="button";
 
-  if(x.url){
+  if(x.data){
 
-   const i=
-    document.createElement("img");
+   const i=document.createElement("img");
 
-   i.src=x.url;
-
+   i.src=x.data;
    i.alt=x.name||"emoji";
-
    i.loading="lazy";
 
    b.appendChild(i);
@@ -3182,16 +2633,13 @@ async function sendMessage(){
   now-lastSend<3000
  ){
 
-  alert(
-   "لطفاً چند ثانیه صبر کن."
-  );
-
+  alert("لطفاً چند ثانیه صبر کن.");
   return;
  }
 
  try{
 
-  user=await ensureAnon();
+  ensureGuest();
 
   const sr=
    ref(db,"userStats/"+user.uid);
@@ -3245,14 +2693,9 @@ async function sendMessage(){
 
   if(replyTo){
 
-   msg.replyTo=
-    replyTo.key;
-
-   msg.replyName=
-    replyTo.name;
-
-   msg.replyText=
-    replyTo.text;
+   msg.replyTo=replyTo.key;
+   msg.replyName=replyTo.name;
+   msg.replyText=replyTo.text;
   }
 
   await push(
@@ -3261,12 +2704,9 @@ async function sendMessage(){
   );
 
   $("chatText").value="";
-
-  $("chatText").placeholder=
-   "پیامت رو بنویس...";
+  $("chatText").placeholder="پیامت رو بنویس...";
 
   replyTo=null;
-
   lastSend=now;
 
  }catch(e){
@@ -3274,35 +2714,28 @@ async function sendMessage(){
   console.error(e);
 
   alert(
-   "ارسال پیام انجام نشد: "+
+   "ارسال پیام انجام نشد:\n"+
    (e.message||"خطای ناشناخته")
   );
  }
 }
 
 
-/* ADMIN LOGIN BUTTON */
+/* ADMIN BUTTON */
 
 $("adminMain").onclick=()=>{
- $("adminMenu")
-  .classList.toggle("show");
+ $("adminMenu").classList.toggle("show");
 };
 
+document.addEventListener("keydown",e=>{
 
-document.addEventListener(
- "keydown",
- e=>{
+ if(e.key==="Escape"){
 
-  if(e.key==="Escape"){
-
-   document
-    .querySelectorAll(".modal.show")
-    .forEach(x=>
-     x.classList.remove("show")
-    );
-  }
+  document
+   .querySelectorAll(".modal.show")
+   .forEach(x=>x.classList.remove("show"));
  }
-);
+});
 
 
 function openAdmin(){
@@ -3313,16 +2746,10 @@ function openAdmin(){
 const adminButton=
  document.createElement("button");
 
-adminButton.className=
- "admin-mini";
-
+adminButton.className="admin-mini";
 adminButton.textContent="👑";
-
-adminButton.title=
- "ورود ادمین";
-
-adminButton.onclick=
- openAdmin;
+adminButton.title="ورود ادمین";
+adminButton.onclick=openAdmin;
 
 document
  .querySelector(".nav-right")
@@ -3370,7 +2797,7 @@ $("adminLogin").onclick=async()=>{
 
    status(
     "adminStatus",
-    "این حساب ادمین نیست. UID: "+
+    "این حساب ادمین AVanta نیست.\nUID این حساب: "+
     c.user.uid,
     "error"
    );
@@ -3380,40 +2807,28 @@ $("adminLogin").onclick=async()=>{
 
   isAdmin=true;
 
-  modal(
-   "adminModal",
-   false
-  );
+  modal("adminModal",false);
 
-  $("adminFloat")
-   .classList.add("show");
+  $("adminFloat").classList.add("show");
 
-  alert(
-   "ورود ادمین موفق شد 👑"
-  );
+  alert("ورود ادمین موفق شد 👑");
 
  }catch(e){
 
   console.error(e);
 
-  let m=
-   "ایمیل یا رمز عبور اشتباه است.";
+  let m="ایمیل یا رمز عبور اشتباه است.";
 
-  if(
-   e.code==="auth/operation-not-allowed"
-  ){
-
+  if(e.code==="auth/operation-not-allowed"){
    m=
-    "Email/Password در Firebase فعال نیست. Authentication → Sign-in method → Email/Password را فعال کن.";
+    "Email/Password در Firebase فعال نیست. در Authentication بخش Sign-in providers آن را فعال کن.";
   }
 
   if(
    e.code==="auth/invalid-credential"||
    e.code==="auth/invalid-login-credentials"
   ){
-
-   m=
-    "ایمیل یا رمز عبور اشتباه است.";
+   m="ایمیل یا رمز عبور اشتباه است.";
   }
 
   status(
@@ -3442,9 +2857,15 @@ $("adminLogout").onclick=async()=>{
 };
 
 
-/* EMOJI ADMIN */
+/* OPEN EMOJI MAKER */
 
 $("makeEmoji").onclick=()=>{
+
+ if(!isAdmin){
+
+  alert("فقط ادمین می‌تواند ایموجی بسازد.");
+  return;
+ }
 
  $("emojiName").value="";
  $("emojiFile").value="";
@@ -3458,17 +2879,130 @@ $("makeEmoji").onclick=()=>{
 };
 
 
-/* EMOJI PREVIEW */
+/* IMAGE COMPRESSOR
+   تصویر را قبل از ذخیره کوچک می‌کند.
+*/
 
-$("emojiFile").onchange=e=>{
+function compressImage(file){
+
+ return new Promise((resolve,reject)=>{
+
+  const reader=new FileReader();
+
+  reader.onerror=()=>{
+   reject(
+    new Error("خواندن فایل انجام نشد.")
+   );
+  };
+
+  reader.onload=()=>{
+
+   const img=new Image();
+
+   img.onerror=()=>{
+    reject(
+     new Error("تصویر قابل خواندن نیست.")
+    );
+   };
+
+   img.onload=()=>{
+
+    const MAX=320;
+
+    let width=img.width;
+    let height=img.height;
+
+    if(width>height){
+
+     if(width>MAX){
+      height=
+       Math.round(
+        height*MAX/width
+       );
+      width=MAX;
+     }
+
+    }else{
+
+     if(height>MAX){
+      width=
+       Math.round(
+        width*MAX/height
+       );
+      height=MAX;
+     }
+    }
+
+    const canvas=
+     document.createElement("canvas");
+
+    canvas.width=width;
+    canvas.height=height;
+
+    const ctx=
+     canvas.getContext("2d");
+
+    ctx.clearRect(
+     0,
+     0,
+     width,
+     height
+    );
+
+    ctx.drawImage(
+     img,
+     0,
+     0,
+     width,
+     height
+    );
+
+    /*
+     * WebP حجم بسیار کمتری دارد.
+     * اگر مرورگر WebP را پشتیبانی نکند JPEG استفاده می‌شود.
+     */
+
+    let data=
+     canvas.toDataURL(
+      "image/webp",
+      .78
+     );
+
+    if(
+     !data.startsWith("data:image/webp")
+    ){
+
+     data=
+      canvas.toDataURL(
+       "image/jpeg",
+       .78
+      );
+    }
+
+    resolve({
+     data,
+     width,
+     height
+    });
+   };
+
+   img.src=reader.result;
+  };
+
+  reader.readAsDataURL(file);
+ });
+}
+
+
+/* PREVIEW */
+
+$("emojiFile").onchange=async e=>{
 
  const file=e.target.files?.[0];
 
  if(!file)return;
 
- if(
-  !file.type.startsWith("image/")
- ){
+ if(!file.type.startsWith("image/")){
 
   status(
    "emojiStatus",
@@ -3479,28 +3013,53 @@ $("emojiFile").onchange=e=>{
   return;
  }
 
- const reader=
-  new FileReader();
+ if(file.size>5*1024*1024){
 
- reader.onload=()=>{
+  status(
+   "emojiStatus",
+   "عکس اصلی حداکثر ۵ مگابایت باشد.",
+   "error"
+  );
+
+  $("emojiFile").value="";
+  return;
+ }
+
+ try{
+
+  const result=
+   await compressImage(file);
 
   $("emojiPreview").innerHTML=`
 
    <img
-    src="${reader.result}"
+    src="${result.data}"
     alt="preview">
 
    <span>
     ${escapeName(file.name)}
    </span>
-  `;
- };
 
- reader.readAsDataURL(file);
+   <small style="color:#777">
+    ${result.width} × ${result.height}
+   </small>
+  `;
+
+ }catch(e){
+
+  status(
+   "emojiStatus",
+   "پیش‌نمایش ساخته نشد: "+
+   e.message,
+   "error"
+  );
+ }
 };
 
 
-/* UPLOAD EMOJI */
+/* CREATE EMOJI
+   بدون Firebase Storage
+*/
 
 $("uploadEmoji").onclick=async()=>{
 
@@ -3543,11 +3102,11 @@ $("uploadEmoji").onclick=async()=>{
   return;
  }
 
- if(file.size>2*1024*1024){
+ if(file.size>5*1024*1024){
 
   status(
    "emojiStatus",
-   "حجم عکس حداکثر ۲ مگابایت باشد.",
+   "حجم عکس اصلی حداکثر ۵MB باشد.",
    "error"
   );
 
@@ -3557,64 +3116,56 @@ $("uploadEmoji").onclick=async()=>{
  const b=$("uploadEmoji");
 
  b.disabled=true;
- b.textContent=
-  "در حال آپلود...";
+ b.textContent="در حال فشرده‌سازی و ذخیره...";
 
  try{
 
-  const safe=
-   name
-    .replace(
-     /[^\w\u0600-\u06FF-]/g,
-     "_"
-    )
-    .slice(0,40);
+  /*
+   * تبدیل عکس به نسخه کوچک‌شده
+   */
 
-  const path=
-   "emojis/"+
-   Date.now()+
-   "_"+
-   safe;
+  const result=
+   await compressImage(file);
 
-  const r=
-   storageRef(
-    storage,
-    path
+  /*
+   * جلوگیری از ذخیره فایل بسیار بزرگ
+   */
+
+  const approximateBytes=
+   Math.ceil(
+    (result.data.length*3)/4
    );
 
-  const upload=
-   await uploadBytes(
-    r,
-    file,
-    {
-     contentType:
-      file.type||"image/png",
-     cacheControl:
-      "public,max-age=31536000"
-    }
-   );
+  if(
+   approximateBytes>
+   900*1024
+  ){
 
-  const url=
-   await getDownloadURL(
-    upload.ref
+   throw new Error(
+    "بعد از فشرده‌سازی هنوز عکس بزرگ است. یک عکس ساده‌تر انتخاب کن."
    );
+  }
+
+  /*
+   * ذخیره مستقیم در Realtime Database
+   */
 
   await push(
    emojiRef,
    {
     name,
-    url,
-    path,
-    type:file.type||"image/png",
-    size:file.size,
+    data:result.data,
+    type:"image/webp",
+    width:result.width,
+    height:result.height,
     createdAt:Date.now(),
-    createdBy:user?.uid||ADMIN_UID
+    createdBy:ADMIN_UID
    }
   );
 
   status(
    "emojiStatus",
-   "ایموجی با موفقیت ساخته شد 🎉",
+   "ایموجی با موفقیت ساخته و در دیتابیس ذخیره شد 🎉",
    "success"
   );
 
@@ -3628,46 +3179,45 @@ $("uploadEmoji").onclick=async()=>{
 
   setTimeout(()=>{
    modal("emojiModal",false);
-  },1000);
+  },1200);
 
  }catch(e){
 
   console.error(
-   "EMOJI UPLOAD ERROR:",
+   "EMOJI DATABASE ERROR:",
    e
   );
 
   let msg=
-   e.message||
+   e?.message||
    "خطای ناشناخته";
 
   if(
-   e.code==="storage/unauthorized"
+   String(msg).toLowerCase().includes("permission")
   ){
 
    msg=
-    "Firebase Storage اجازه آپلود نمی‌دهد. Storage Rules باید اجازه آپلود به ادمین بدهد.";
+    "Firebase Database اجازه ذخیره ایموجی را نمی‌دهد. مشکل از Realtime Database Rules است.";
   }
 
   if(
-   e.code==="storage/unknown"
+   String(msg).toLowerCase().includes("size")
   ){
 
    msg=
-    "Firebase Storage خطای ناشناخته داد. Storage را در Firebase فعال کن.";
+    "حجم اطلاعات ایموجی زیاد است. عکس کوچک‌تری انتخاب کن.";
   }
 
   status(
    "emojiStatus",
-   "آپلود انجام نشد: "+msg,
+   "ساخت ایموجی انجام نشد:\n"+msg,
    "error"
   );
 
  }finally{
 
   b.disabled=false;
-  b.textContent=
-   "آپلود و ساخت ✨";
+  b.textContent="ساخت ایموجی ✨";
  }
 };
 
@@ -3684,6 +3234,16 @@ $("grantPremium").onclick=()=>{
 
 
 $("premiumSave").onclick=async()=>{
+
+ if(!isAdmin){
+
+  status(
+   "premiumStatus",
+   "فقط ادمین."
+  );
+
+  return;
+ }
 
  const uid=
   $("premiumUid").value.trim();
@@ -3769,6 +3329,8 @@ $("channelSave").onclick=async()=>{
 
  try{
 
+  ensureGuest();
+
   await push(
    channelsRef,
    {
@@ -3849,9 +3411,7 @@ $("channelsBtn").onclick=async()=>{
 
   h+="</div>";
 
-  $("infoTitle").textContent=
-   "📢 Channels";
-
+  $("infoTitle").textContent="📢 Channels";
   $("infoBody").innerHTML=h;
 
   modal("infoModal",true);
@@ -3922,7 +3482,7 @@ $("cleanupBtn").onclick=async()=>{
 };
 
 
-/* LOAD SAVED PROFILE */
+/* LOAD PROFILE */
 
 (async()=>{
 
@@ -3937,6 +3497,27 @@ $("cleanupBtn").onclick=async()=>{
    profile=JSON.parse(saved);
   }catch{
    profile=null;
+  }
+ }
+
+ if(profile){
+
+  ensureGuest();
+
+  try{
+
+   const s=
+    await get(
+     ref(db,"userStats/"+user.uid)
+    );
+
+   stats=s.exists()
+    ?(s.val()||{})
+    :{level:1};
+
+  }catch{
+
+   stats={level:1};
   }
  }
 
