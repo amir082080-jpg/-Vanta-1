@@ -514,7 +514,6 @@ footer{
  color:#fff
 }
 
-/* برچسب کوچک کنار اسم Premium */
 .premium-label{
  display:inline-flex;
  align-items:center;
@@ -528,7 +527,6 @@ footer{
  white-space:nowrap
 }
 
-/* کلیک‌پذیر بودن پروفایل */
 .user-name-button{
  border:0;
  background:transparent;
@@ -594,13 +592,20 @@ footer{
  width:20px;
  height:20px;
  object-fit:contain;
- vertical-align:middle
+ vertical-align:middle;
+ display:inline-block
 }
 .msg-text{
  color:#e7e4ec;
  line-height:1.7;
  white-space:pre-wrap;
  word-break:break-word
+}
+.msg-text .special-emoji{
+ width:24px;
+ height:24px;
+ vertical-align:middle;
+ margin:0 2px
 }
 .msg-time{font-size:9px;color:#666;margin-top:5px}
 .reply-box{
@@ -929,15 +934,35 @@ footer{
 
   <div class="count">
    <div class="count-title">FIRST STREAM</div>
+
    <div class="count-row">
-    <div class="time"><b id="days">00</b><small>DAY</small></div>
+    <div class="time">
+     <b id="days">00</b>
+     <small>DAY</small>
+    </div>
+
     <span>:</span>
-    <div class="time"><b id="hours">00</b><small>HOUR</small></div>
+
+    <div class="time">
+     <b id="hours">00</b>
+     <small>HOUR</small>
+    </div>
+
     <span>:</span>
-    <div class="time"><b id="minutes">00</b><small>MIN</small></div>
+
+    <div class="time">
+     <b id="minutes">00</b>
+     <small>MIN</small>
+    </div>
+
     <span>:</span>
-    <div class="time"><b id="seconds">00</b><small>SEC</small></div>
+
+    <div class="time">
+     <b id="seconds">00</b>
+     <small>SEC</small>
+    </div>
    </div>
+
    <div class="date">13 DEY 1405</div>
   </div>
  </div>
@@ -960,9 +985,11 @@ footer{
 
  <div class="about">
   <div class="about-logo">AV</div>
+
   <div>
    <h3 data-fa>این تازه شروعشه.</h3>
    <h3 data-en>This is only the beginning.</h3>
+
    <p data-fa>گیم، استریم، چت و کلی لحظه خفن.</p>
    <p data-en>Gaming, streaming, chat and unforgettable moments.</p>
   </div>
@@ -977,6 +1004,7 @@ footer{
  </div>
 
  <div class="cards">
+
   <div class="card">
    <div class="icon">🎮</div>
    <h3>Gaming</h3>
@@ -997,6 +1025,7 @@ footer{
    <p data-fa>شوخی، خنده و لحظات غیرمنتظره.</p>
    <p data-en>Fun, laughs and unexpected moments.</p>
   </div>
+
  </div>
 </section>
 
@@ -1031,6 +1060,7 @@ footer{
 <!-- REGISTER -->
 <div class="modal" id="registerModal">
  <div class="panel">
+
   <div class="panel-head">
    <strong data-fa>ورود به چت AVanta</strong>
    <strong data-en>Join AVanta Chat</strong>
@@ -1038,6 +1068,7 @@ footer{
   </div>
 
   <div class="panel-body" id="registerBody">
+
    <div class="steps">1 / 2</div>
 
    <div class="notice" data-fa>
@@ -1058,31 +1089,49 @@ footer{
    <button id="registerNext" class="primary" style="width:100%">
     بعدی ←
    </button>
+
   </div>
  </div>
 </div>
 
 <!-- CHAT -->
 <div class="modal" id="chatModal">
+
  <div class="panel chat-window">
 
   <div class="panel-head">
    <div>
     <strong>💬 AVanta Chat</strong>
-    <div style="font-size:10px;color:#777;margin-top:4px" id="chatSub">آنلاین</div>
+    <div style="font-size:10px;color:#777;margin-top:4px" id="chatSub">
+     آنلاین
+    </div>
    </div>
+
    <button class="close" data-close="chatModal">×</button>
   </div>
 
   <div class="chat-body">
 
    <aside class="chat-side">
+
     <div id="myProfile" class="profile-mini"></div>
 
-    <button class="side-btn" id="savedBtn">⭐ پیام‌های ذخیره‌شده</button>
-    <button class="side-btn" id="channelsBtn">📢 کانال‌ها</button>
-    <button class="side-btn" id="emojiSideBtn">😀 ایموجی‌ها</button>
-    <button class="side-btn" id="profileBtn">✨ پروفایل</button>
+    <button class="side-btn" id="savedBtn">
+     ⭐ پیام‌های ذخیره‌شده
+    </button>
+
+    <button class="side-btn" id="channelsBtn">
+     📢 کانال‌ها
+    </button>
+
+    <button class="side-btn" id="emojiSideBtn">
+     😀 ایموجی‌ها
+    </button>
+
+    <button class="side-btn" id="profileBtn">
+     ✨ پروفایل
+    </button>
+
    </aside>
 
    <div style="position:relative;min-width:0;display:grid;grid-template-rows:1fr auto">
@@ -1097,7 +1146,10 @@ footer{
     </div>
 
     <div class="composer">
-     <button id="emojiOpen" class="emoji-open" type="button">😀</button>
+
+     <button id="emojiOpen" class="emoji-open" type="button">
+      😀
+     </button>
 
      <input
       id="chatText"
@@ -1110,6 +1162,7 @@ footer{
      <button id="sendMsg" class="send" type="button">
       ارسال 🚀
      </button>
+
     </div>
 
    </div>
@@ -1119,13 +1172,16 @@ footer{
 
 <!-- ADMIN -->
 <div class="modal" id="adminModal">
+
  <div class="panel" style="max-width:460px">
+
   <div class="panel-head">
    <strong>👑 AVanta Admin</strong>
    <button class="close" data-close="adminModal">×</button>
   </div>
 
   <div class="panel-body">
+
    <div class="notice">
     این بخش فقط برای ورود به حساب ادمین موجود در Firebase Authentication است.
     حساب جدید ادمین از داخل سایت ساخته نمی‌شود.
@@ -1139,32 +1195,42 @@ footer{
    <button id="adminLogin" class="primary" style="width:100%">
     ورود 👑
    </button>
+
   </div>
  </div>
 </div>
 
 <div class="admin-float" id="adminFloat">
- <button class="admin-main" id="adminMain">👑 مدیریت AVanta</button>
+
+ <button class="admin-main" id="adminMain">
+  👑 مدیریت AVanta
+ </button>
 
  <div class="admin-menu" id="adminMenu">
+
   <button id="makeEmoji">😀 ساخت ایموجی</button>
   <button id="cleanupBtn">🧹 پاکسازی ۱۰ دقیقه</button>
   <button id="grantPremium">💎 Premium کردن کاربر</button>
   <button id="makeChannel">📢 ساخت کانال</button>
   <button id="adminLogout">🚪 خروج</button>
+
  </div>
 </div>
 
 <!-- EMOJI MAKER -->
 <div class="modal" id="emojiModal">
+
  <div class="panel" style="max-width:470px">
+
   <div class="panel-head">
    <strong>😀 ساخت ایموجی</strong>
    <button class="close" data-close="emojiModal">×</button>
   </div>
 
   <div class="panel-body">
+
    <input id="emojiName" class="input" maxlength="20" placeholder="نام ایموجی">
+
    <input id="emojiFile" class="input" type="file" accept="image/*">
 
    <div id="emojiPreview" class="notice" style="text-align:center">
@@ -1176,12 +1242,14 @@ footer{
    <button id="uploadEmoji" class="primary" style="width:100%">
     آپلود و ساخت ✨
    </button>
+
   </div>
  </div>
 </div>
 
 <!-- PREMIUM -->
 <div class="modal" id="premiumModal">
+
  <div class="panel" style="max-width:450px">
 
   <div class="panel-head">
@@ -1198,9 +1266,19 @@ footer{
    <input id="premiumUid" class="input" placeholder="UID کاربر">
 
    <div class="premium-plans">
-    <button class="premium-plan" data-months="1">💎 ۱ ماهه</button>
-    <button class="premium-plan" data-months="3">💎 ۳ ماهه</button>
-    <button class="premium-plan" data-months="6">💎 ۶ ماهه</button>
+
+    <button class="premium-plan" data-months="1">
+     💎 ۱ ماهه
+    </button>
+
+    <button class="premium-plan" data-months="3">
+     💎 ۳ ماهه
+    </button>
+
+    <button class="premium-plan" data-months="6">
+     💎 ۶ ماهه
+    </button>
+
    </div>
 
    <div id="premiumSelected" class="notice" style="display:none"></div>
@@ -1217,27 +1295,38 @@ footer{
 
 <!-- CHANNEL -->
 <div class="modal" id="channelModal">
+
  <div class="panel" style="max-width:450px">
+
   <div class="panel-head">
    <strong>📢 ساخت کانال</strong>
    <button class="close" data-close="channelModal">×</button>
   </div>
 
   <div class="panel-body">
+
    <input id="channelName" class="input" maxlength="35" placeholder="نام کانال">
-   <textarea id="channelDesc" class="textarea" maxlength="180" placeholder="توضیحات کانال"></textarea>
+
+   <textarea
+    id="channelDesc"
+    class="textarea"
+    maxlength="180"
+    placeholder="توضیحات کانال"
+   ></textarea>
 
    <div id="channelStatus" class="status"></div>
 
    <button id="channelSave" class="primary" style="width:100%">
     ساخت کانال
    </button>
+
   </div>
  </div>
 </div>
 
 <!-- PROFILE -->
 <div class="modal" id="infoModal">
+
  <div class="panel" style="max-width:520px">
 
   <div class="panel-head">
@@ -1317,65 +1406,169 @@ const emojiRef=ref(db,"emojis");
 const channelsRef=ref(db,"channels");
 const savedRef=ref(db,"saved");
 
+
+/* ---------------- INTRO ---------------- */
+
 setTimeout(()=>{
  $("intro").classList.add("intro-hide");
 },1900);
+
+
+/* ---------------- COUNTDOWN ---------------- */
+/*
+ * ۱۳ دی ۱۴۰۵ برابر با ۳ ژانویه ۲۰۲۷ است.
+ * ساعت هدف: شروع روز ۱۳ دی، ساعت ۰۰:۰۰ به وقت ایران.
+ */
+
+function updateCountdown(){
+
+ const target=
+  new Date(
+   "2027-01-03T00:00:00+03:30"
+  ).getTime();
+
+ const now=Date.now();
+
+ const diff=
+  target-now;
+
+ if(diff<=0){
+
+  $("days").textContent="00";
+  $("hours").textContent="00";
+  $("minutes").textContent="00";
+  $("seconds").textContent="00";
+
+  return;
+ }
+
+ const totalSeconds=
+  Math.floor(diff/1000);
+
+ const days=
+  Math.floor(
+   totalSeconds/86400
+  );
+
+ const hours=
+  Math.floor(
+   (totalSeconds%86400)/3600
+  );
+
+ const minutes=
+  Math.floor(
+   (totalSeconds%3600)/60
+  );
+
+ const seconds=
+  totalSeconds%60;
+
+ $("days").textContent=
+  String(days).padStart(2,"0");
+
+ $("hours").textContent=
+  String(hours).padStart(2,"0");
+
+ $("minutes").textContent=
+  String(minutes).padStart(2,"0");
+
+ $("seconds").textContent=
+  String(seconds).padStart(2,"0");
+}
+
+updateCountdown();
+
+setInterval(
+ updateCountdown,
+ 1000
+);
+
+
+/* ---------------- MODALS ---------------- */
 
 function modal(id,on=true){
  $(id).classList.toggle("show",on);
 }
 
 document.querySelectorAll("[data-close]").forEach(b=>{
- b.onclick=()=>modal(b.dataset.close,false);
+ b.onclick=()=>{
+  modal(b.dataset.close,false);
+ };
 });
 
 document.querySelectorAll(".modal").forEach(m=>{
  m.onclick=e=>{
-  if(e.target===m)m.classList.remove("show");
+  if(e.target===m)
+   m.classList.remove("show");
  };
 });
 
+
+/* ---------------- LANGUAGE ---------------- */
+
 $("langBtn").onclick=()=>{
  lang=lang==="fa"?"en":"fa";
- document.body.className="lang-"+lang;
- $("langBtn").textContent=lang==="fa"?"EN":"FA";
+
+ document.body.className=
+  "lang-"+lang;
+
+ $("langBtn").textContent=
+  lang==="fa"?"EN":"FA";
 };
+
+
+/* ---------------- CHAT OPEN ---------------- */
 
 $("chatLauncher").onclick=openChat;
 $("navChat").onclick=openChat;
 $("navChatEn").onclick=openChat;
 
+
 function status(id,msg,type="error"){
+
  const e=$(id);
+
  e.textContent=msg;
- e.className="status show "+type;
+
+ e.className=
+  "status show "+type;
 }
 
+
 function escapeName(s){
- return String(s||"").replace(/[<>]/g,"");
+ return String(s||"")
+  .replace(/[<>]/g,"");
 }
+
 
 function levelOf(){
  return Number(stats.level||1);
 }
 
+
 function premium(){
  return !!stats.premium;
 }
+
 
 function nameFull(){
  return profile?.name||"کاربر";
 }
 
+
 function premiumUntilValue(st){
  return Number(st?.premiumUntil||0);
 }
 
+
 function premiumActive(st){
+
  if(!st)return false;
+
  if(!st.premium)return false;
 
- const until=premiumUntilValue(st);
+ const until=
+  premiumUntilValue(st);
 
  if(until===0)return true;
 
@@ -1386,18 +1579,27 @@ function premiumActive(st){
  return true;
 }
 
+
+/* ---------------- AUTH ---------------- */
+
 async function ensureAnon(){
 
- if(auth.currentUser)return auth.currentUser;
+ if(auth.currentUser)
+  return auth.currentUser;
 
  try{
-  return(await signInAnonymously(auth)).user;
+
+  return(
+   await signInAnonymously(auth)
+  ).user;
+
  }catch(e){
 
   if(
    e.code==="auth/operation-not-allowed"||
    e.code==="auth/admin-restricted-operation"
   ){
+
    throw new Error(
     "Anonymous Authentication در Firebase فعال نیست. Firebase Console → Authentication → Sign-in method → Anonymous → Enable"
    );
@@ -1406,6 +1608,9 @@ async function ensureAnon(){
   throw e;
  }
 }
+
+
+/* ---------------- OPEN CHAT ---------------- */
 
 async function openChat(){
 
@@ -1419,7 +1624,9 @@ async function openChat(){
   user=await ensureAnon();
 
   profile=JSON.parse(
-   localStorage.getItem("avanta_profile")||"null"
+   localStorage.getItem(
+    "avanta_profile"
+   )||"null"
   );
 
   modal("chatModal");
@@ -1441,28 +1648,46 @@ async function openChat(){
 }
 
 
+/* ---------------- REGISTER ---------------- */
+
 $("registerNext").onclick=async()=>{
 
- const f=escapeName($("firstName").value.trim());
- const l=escapeName($("lastName").value.trim());
+ const f=
+  escapeName(
+   $("firstName")
+    .value
+    .trim()
+  );
+
+ const l=
+  escapeName(
+   $("lastName")
+    .value
+    .trim()
+  );
 
  if(f.length<2||l.length<2){
+
   status(
    "registerStatus",
    "نام و نام خانوادگی را کامل وارد کن.",
    "error"
   );
+
   return;
  }
 
- const b=$("registerNext");
+ const b=
+  $("registerNext");
 
  b.disabled=true;
- b.textContent="در حال ورود...";
+ b.textContent=
+  "در حال ورود...";
 
  try{
 
-  user=await ensureAnon();
+  user=
+   await ensureAnon();
 
   profile={
    name:f+" "+l,
@@ -1476,38 +1701,67 @@ $("registerNext").onclick=async()=>{
    JSON.stringify(profile)
   );
 
-  const sr=ref(db,"userStats/"+user.uid);
-  const s=await get(sr);
+  const sr=
+   ref(
+    db,
+    "userStats/"+user.uid
+   );
 
-  stats=s.exists()?s.val()||{}:{};
+  const s=
+   await get(sr);
 
-  if(!stats.level)stats.level=1;
+  stats=
+   s.exists()
+   ?s.val()||{}
+   :{};
 
-  await update(sr,{
-   name:profile.name,
-   first:f,
-   last:l,
-   level:Number(stats.level||1),
-   premium:premiumActive(stats),
-   premiumUntil:Number(stats.premiumUntil||0),
-   updatedAt:Date.now()
-  });
+  if(!stats.level)
+   stats.level=1;
+
+  await update(
+   sr,
+   {
+    name:profile.name,
+    first:f,
+    last:l,
+    level:Number(stats.level||1),
+    premium:premiumActive(stats),
+    premiumUntil:Number(
+     stats.premiumUntil||0
+    ),
+    updatedAt:Date.now()
+   }
+  );
 
   $("registerBody").innerHTML=`
-   <div class="success-icon">✅</div>
-   <h3 style="text-align:center">ثبت‌نام انجام شد!</h3>
+
+   <div class="success-icon">
+    ✅
+   </div>
+
+   <h3 style="text-align:center">
+    ثبت‌نام انجام شد!
+   </h3>
+
    <p class="notice" style="text-align:center">
     حساب چت شما آماده است.
     برای ورود به چت روی تأیید بزن.
    </p>
-   <button id="confirmRegister" class="primary" style="width:100%">
+
+   <button
+    id="confirmRegister"
+    class="primary"
+    style="width:100%"
+   >
     تأیید و ورود به چت 💬
    </button>
   `;
 
   $("confirmRegister").onclick=()=>{
+
    modal("registerModal",false);
    modal("chatModal",true);
+
    renderProfile();
    loadMessages();
    loadEmojis();
@@ -1531,55 +1785,81 @@ $("registerNext").onclick=async()=>{
 };
 
 
-onAuthStateChanged(auth,async u=>{
+/* ---------------- AUTH STATE ---------------- */
 
- user=u;
+onAuthStateChanged(
+ auth,
+ async u=>{
 
- isAdmin=!!u&&u.uid===ADMIN_UID;
+  user=u;
 
- $("adminFloat").classList.toggle(
-  "show",
-  isAdmin
- );
+  isAdmin=
+   !!u&&u.uid===ADMIN_UID;
 
- if(u&&!u.isAnonymous&&u.uid===ADMIN_UID){
-
-  const s=await get(
-   ref(db,"userStats/"+u.uid)
+  $("adminFloat").classList.toggle(
+   "show",
+   isAdmin
   );
 
-  stats=s.exists()
-   ?s.val()||{}
-   :{
+  if(
+   u&&
+   !u.isAnonymous&&
+   u.uid===ADMIN_UID
+  ){
+
+   const s=
+    await get(
+     ref(
+      db,
+      "userStats/"+u.uid
+     )
+    );
+
+   stats=
+    s.exists()
+    ?s.val()||{}
+    :{
      level:99,
      premium:true
     };
+  }
+
+  if(u&&u.isAnonymous){
+
+   const s=
+    await get(
+     ref(
+      db,
+      "userStats/"+u.uid
+     )
+    );
+
+   stats=
+    s.exists()
+    ?s.val()||{}
+    :{};
+  }
+
+  renderProfile();
  }
+);
 
- if(u&&u.isAnonymous){
 
-  const s=await get(
-   ref(db,"userStats/"+u.uid)
-  );
-
-  stats=s.exists()
-   ?s.val()||{}
-   :{};
- }
-
- renderProfile();
-});
-
+/* ---------------- PROFILE ---------------- */
 
 function renderProfile(){
 
  if(!profile)return;
 
- const lv=levelOf();
+ const lv=
+  levelOf();
 
- const pr=isAdmin||premiumActive(stats);
+ const pr=
+  isAdmin||
+  premiumActive(stats);
 
  $("myProfile").innerHTML=`
+
   <div class="profile-name">
    ${escapeName(profile.name)}
   </div>
@@ -1607,23 +1887,31 @@ function renderProfile(){
 }
 
 
-onValue(statsRef,s=>{
+/* ---------------- STATS ---------------- */
 
- stats={};
+onValue(
+ statsRef,
+ s=>{
 
- if(s.exists()){
-  s.forEach(c=>{
-   stats[c.key]=c.val()||{};
-  });
+  stats={};
+
+  if(s.exists()){
+
+   s.forEach(c=>{
+    stats[c.key]=
+     c.val()||{};
+   });
+  }
+
+  if(user&&!isAdmin){
+   stats=
+    stats[user.uid]||{};
+  }
+
+  renderProfile();
+  renderMessagesCache();
  }
-
- if(user&&!isAdmin){
-  stats=stats[user.uid]||{};
- }
-
- renderProfile();
- renderMessagesCache();
-});
+);
 
 
 let messageCache=[];
@@ -1631,43 +1919,63 @@ let messageCache=[];
 
 function renderMessagesCache(){
 
- if($("chatModal").classList.contains("show")){
-  renderMessages(messageCache);
+ if(
+  $("chatModal")
+   .classList
+   .contains("show")
+ ){
+
+  renderMessages(
+   messageCache
+  );
  }
 }
 
 
-onValue(messagesRef,s=>{
+/* ---------------- MESSAGES ---------------- */
 
- messageCache=[];
+onValue(
+ messagesRef,
+ s=>{
 
- if(s.exists()){
+  messageCache=[];
 
-  s.forEach(c=>{
-   messageCache.push({
-    key:c.key,
-    ...(c.val()||{})
+  if(s.exists()){
+
+   s.forEach(c=>{
+
+    messageCache.push({
+     key:c.key,
+     ...(c.val()||{})
+    });
+
    });
-  });
+  }
+
+  messageCache.sort(
+   (a,b)=>
+    Number(a.time||0)-
+    Number(b.time||0)
+  );
+
+  renderMessages(
+   messageCache
+  );
  }
-
- messageCache.sort(
-  (a,b)=>Number(a.time||0)-Number(b.time||0)
- );
-
- renderMessages(messageCache);
-});
+);
 
 
 function openUserProfile(uid){
 
  if(!uid)return;
 
- const st=stats[uid]||{};
+ const st=
+  stats[uid]||{};
 
- const msg=messageCache.find(
-  x=>x.uid===uid
- );
+ const msg=
+  messageCache.find(
+   x=>x.uid===uid
+  );
 
  const name=
   st.name||
@@ -1675,14 +1983,20 @@ function openUserProfile(uid){
   "کاربر";
 
  const lv=
-  Number(st.level||msg?.level||1);
+  Number(
+   st.level||
+   msg?.level||
+   1
+  );
 
  const isPr=
   uid===ADMIN_UID||
   premiumActive(st);
 
  const until=
-  Number(st.premiumUntil||0);
+  Number(
+   st.premiumUntil||0
+  );
 
  const initials=
   escapeName(name)
@@ -1699,8 +2013,11 @@ function openUserProfile(uid){
   if(until>0){
 
    premiumText=
-    "تا "+new Date(until)
-    .toLocaleDateString("fa-IR");
+    "تا "+
+    new Date(until)
+     .toLocaleDateString(
+      "fa-IR"
+     );
 
   }else{
 
@@ -1708,9 +2025,11 @@ function openUserProfile(uid){
   }
  }
 
- $("infoTitle").textContent="👤 پروفایل";
+ $("infoTitle").textContent=
+  "👤 پروفایل";
 
  $("infoBody").innerHTML=`
+
   <div class="profile-card">
 
    <div class="profile-avatar">
@@ -1774,35 +2093,60 @@ function openUserProfile(uid){
 
  modal("infoModal");
 
- const btn=$("profilePremiumButton");
+ const btn=
+  $("profilePremiumButton");
 
  if(btn){
 
   btn.onclick=()=>{
+
    $("premiumUid").value=uid;
+
    selectedPremiumMonths=1;
 
-   document.querySelectorAll(".premium-plan")
-    .forEach(x=>x.classList.remove("selected"));
+   document
+    .querySelectorAll(
+     ".premium-plan"
+    )
+    .forEach(x=>
+     x.classList.remove(
+      "selected"
+     )
+    );
 
-   document.querySelector(
-    '.premium-plan[data-months="1"]'
-   )?.classList.add("selected");
+   document
+    .querySelector(
+     '.premium-plan[data-months="1"]'
+    )
+    ?.classList.add("selected");
 
-   $("premiumSelected").style.display="block";
-   $("premiumSelected").textContent=
-    "مدت انتخاب‌شده: ۱ ماه";
+   $("premiumSelected")
+    .style.display="block";
 
-   modal("infoModal",false);
-   modal("premiumModal",true);
+   $("premiumSelected")
+    .textContent=
+     "مدت انتخاب‌شده: ۱ ماه";
+
+   modal(
+    "infoModal",
+    false
+   );
+
+   modal(
+    "premiumModal",
+    true
+   );
   };
  }
 }
 
 
+/* ---------------- RENDER MESSAGES ---------------- */
+
 function renderMessages(list){
 
- const box=$("messages");
+ const box=
+  $("messages");
 
  if(!box)return;
 
@@ -1818,15 +2162,21 @@ function renderMessages(list){
 
  for(const m of list){
 
-  const d=document.createElement("div");
+  const d=
+   document.createElement(
+    "div"
+   );
 
   d.className=
-   "msg"+(m.replyTo?" reply":"");
+   "msg"+
+   (m.replyTo?" reply":"");
 
   let badges="";
 
   if(m.uid===ADMIN_UID){
-   badges+='<span class="verified">✓</span>';
+
+   badges+=
+    '<span class="verified">✓</span>';
   }
 
   const userStats=
@@ -1845,7 +2195,9 @@ function renderMessages(list){
 
   const emoji=
    m.specialEmoji
-   ?'<img class="special-emoji" src="'+m.specialEmoji+'">'
+   ?'<img class="special-emoji" src="'+
+     m.specialEmoji+
+     '">'
    :"";
 
   const lv=
@@ -1859,21 +2211,30 @@ function renderMessages(list){
    m.replyTo
    ?`
     <div class="reply-box">
-     ↩️ ${escapeName(m.replyName||"پیام")}
+     ↩️ ${escapeName(
+      m.replyName||"پیام"
+     )}
      <br>
-     ${escapeName(m.replyText||"")}
+     ${escapeName(
+      m.replyText||""
+     )}
     </div>
    `
    :"";
 
   const safeName=
-   escapeName(m.name||"کاربر");
+   escapeName(
+    m.name||"کاربر"
+   );
 
   d.innerHTML=`
+
    ${reply}
 
    <button
-    class="save-star ${m.saved?"on":""}"
+    class="save-star ${
+     m.saved?"on":""
+    }"
     title="ذخیره"
    >★</button>
 
@@ -1886,7 +2247,9 @@ function renderMessages(list){
 
     <button
      class="user-name-button"
-     data-profile-uid="${escapeName(m.uid||"")}"
+     data-profile-uid="${escapeName(
+      m.uid||""
+     )}"
     >
      ${safeName}
     </button>
@@ -1903,39 +2266,137 @@ function renderMessages(list){
 
    <div class="msg-time">
     ${new Date(
-     Number(m.time||Date.now())
+     Number(
+      m.time||Date.now()
+     )
     ).toLocaleTimeString(
      "fa-IR",
-     {hour:"2-digit",minute:"2-digit"}
+     {
+      hour:"2-digit",
+      minute:"2-digit"
+     }
     )}
    </div>
 
    <div class="msg-actions"></div>
   `;
 
-  d.querySelector(".msg-text").textContent=
-   m.text||"";
+
+  /*
+   * -------------------------------------------------
+   * اصلاح اصلی ایموجی:
+   *
+   * متن پیام مثل:
+   *
+   * سلام :ki:ri: خوبی؟
+   *
+   * خوانده می‌شود و اگر ایموجی ki:ri
+   * در Firebase وجود داشته باشد،
+   * همان قسمت با عکس واقعی ایموجی جایگزین می‌شود.
+   * -------------------------------------------------
+   */
+
+  const msgText=
+   d.querySelector(
+    ".msg-text"
+   );
+
+  const rawText=
+   String(m.text||"");
+
+  let parts=
+   rawText.split(
+    /(:[^:\s]+(?::[^:\s]+)*:)/g
+   );
+
+  msgText.innerHTML="";
+
+  for(const part of parts){
+
+   if(
+    part.startsWith(":")&&
+    part.endsWith(":")
+   ){
+
+    const emojiName=
+     part.slice(
+      1,
+      -1
+     );
+
+    const found=
+     emojis.find(
+      x=>
+       String(x.name||"")===
+       emojiName
+     );
+
+    if(found&&found.url){
+
+     const img=
+      document.createElement(
+       "img"
+      );
+
+     img.className=
+      "special-emoji";
+
+     img.src=
+      found.url;
+
+     img.alt=
+      found.name||"emoji";
+
+     img.title=
+      found.name||"emoji";
+
+     msgText.appendChild(
+      img
+     );
+
+     continue;
+    }
+   }
+
+   msgText.appendChild(
+    document.createTextNode(
+     part
+    )
+   );
+  }
+
 
   const profileButton=
-   d.querySelector(".user-name-button");
+   d.querySelector(
+    ".user-name-button"
+   );
 
   if(profileButton){
 
    profileButton.onclick=()=>{
-    openUserProfile(m.uid);
+    openUserProfile(
+     m.uid
+    );
    };
   }
 
+
   const actions=
-   d.querySelector(".msg-actions");
+   d.querySelector(
+    ".msg-actions"
+   );
 
   const rb=
-   document.createElement("button");
+   document.createElement(
+    "button"
+   );
 
   rb.className="mini";
-  rb.textContent="↩️ Reply";
+  rb.textContent=
+   "↩️ Reply";
 
   rb.onclick=()=>{
+
    replyTo={
     key:m.key,
     name:m.name,
@@ -1950,8 +2411,12 @@ function renderMessages(list){
 
   actions.appendChild(rb);
 
-  d.querySelector(".save-star").onclick=
+
+  d.querySelector(
+   ".save-star"
+  ).onclick=
    ()=>saveMessage(m);
+
 
   if(isAdmin){
 
@@ -1959,71 +2424,103 @@ function renderMessages(list){
     "🗑 حذف",
     "➕ Level",
     "💎 Premium"
-   ].forEach((txt,i)=>{
+   ].forEach(
+    (txt,i)=>{
 
-    const b=
-     document.createElement("button");
-
-    b.className=
-     i===0
-     ?"mini danger"
-     :"mini";
-
-    b.textContent=txt;
-
-    b.onclick=async()=>{
-
-     if(i===0){
-
-      await remove(
-       ref(db,"messages/"+m.key)
+     const b=
+      document.createElement(
+       "button"
       );
-     }
 
-     if(i===1){
+     b.className=
+      i===0
+      ?"mini danger"
+      :"mini";
 
-      await update(
-       ref(db,"userStats/"+m.uid),
-       {
-        level:lv+1,
-        updatedAt:Date.now()
-       }
-      );
-     }
+     b.textContent=txt;
 
-     if(i===2){
+     b.onclick=async()=>{
 
-      $("premiumUid").value=m.uid;
+      if(i===0){
 
-      selectedPremiumMonths=1;
+       await remove(
+        ref(
+         db,
+         "messages/"+m.key
+        )
+       );
+      }
 
-      document.querySelectorAll(".premium-plan")
-       .forEach(x=>x.classList.remove("selected"));
+      if(i===1){
 
-      document.querySelector(
-       '.premium-plan[data-months="1"]'
-      )?.classList.add("selected");
+       await update(
+        ref(
+         db,
+         "userStats/"+m.uid
+        ),
+        {
+         level:lv+1,
+         updatedAt:Date.now()
+        }
+       );
+      }
 
-      $("premiumSelected").style.display="block";
+      if(i===2){
 
-      $("premiumSelected").textContent=
-       "مدت انتخاب‌شده: ۱ ماه";
+       $("premiumUid")
+        .value=m.uid;
 
-      modal("premiumModal",true);
-     }
-    };
+       selectedPremiumMonths=1;
 
-    actions.appendChild(b);
-   });
+       document
+        .querySelectorAll(
+         ".premium-plan"
+        )
+        .forEach(x=>
+         x.classList.remove(
+          "selected"
+         )
+        );
+
+       document
+        .querySelector(
+         '.premium-plan[data-months="1"]'
+        )
+        ?.classList.add(
+         "selected"
+        );
+
+       $("premiumSelected")
+        .style.display="block";
+
+       $("premiumSelected")
+        .textContent=
+         "مدت انتخاب‌شده: ۱ ماه";
+
+       modal(
+        "premiumModal",
+        true
+       );
+      }
+     };
+
+     actions.appendChild(b);
+    }
+   );
   }
 
   box.appendChild(d);
  }
 
- /* جلوگیری از تکان خوردن صفحه */
- box.scrollTop=box.scrollHeight;
+ /*
+  * جلوگیری از تکان خوردن صفحه
+  */
+ box.scrollTop=
+  box.scrollHeight;
 }
 
+
+/* ---------------- SAVED ---------------- */
 
 async function saveMessage(m){
 
@@ -2032,7 +2529,10 @@ async function saveMessage(m){
  try{
 
   await push(
-   ref(db,"saved/"+user.uid),
+   ref(
+    db,
+    "saved/"+user.uid
+   ),
    {
     text:m.text||"",
     name:m.name||"",
@@ -2041,7 +2541,9 @@ async function saveMessage(m){
    }
   );
 
-  alert("⭐ پیام ذخیره شد");
+  alert(
+   "⭐ پیام ذخیره شد"
+  );
 
  }catch(e){
 
@@ -2058,7 +2560,10 @@ $("savedBtn").onclick=async()=>{
 
  const s=
   await get(
-   ref(db,"saved/"+user.uid)
+   ref(
+    db,
+    "saved/"+user.uid
+   )
   );
 
  let html=
@@ -2068,13 +2573,21 @@ $("savedBtn").onclick=async()=>{
 
   s.forEach(c=>{
 
-   const x=c.val()||{};
+   const x=
+    c.val()||{};
 
    html+=`
+
     <div class='saved'>
-     <b>${escapeName(x.name)}</b>
+
+     <b>
+      ${escapeName(x.name)}
+     </b>
+
      <br>
+
      ${escapeName(x.text)}
+
     </div>
    `;
   });
@@ -2090,25 +2603,40 @@ $("savedBtn").onclick=async()=>{
  $("infoTitle").textContent=
   "⭐ Saved";
 
- $("infoBody").innerHTML=html;
+ $("infoBody").innerHTML=
+  html;
 
  modal("infoModal");
 };
 
 
+/* ---------------- PROFILE BUTTON ---------------- */
+
 $("profileBtn").onclick=()=>{
 
- const lv=levelOf();
- const pr=premiumActive(stats);
+ const lv=
+  levelOf();
+
+ const pr=
+  premiumActive(stats);
 
  $("infoTitle").textContent=
   "✨ پروفایل";
 
  $("infoBody").innerHTML=`
+
   <div class="profile-card">
 
    <div class="profile-avatar">
-    ${(nameFull().split(/\s+/).map(x=>x[0]).slice(0,2).join(""))||"AV"}
+    ${
+     (
+      nameFull()
+       .split(/\s+/)
+       .map(x=>x[0])
+       .slice(0,2)
+       .join("")
+     )||"AV"
+    }
    </div>
 
    <div class="profile-big-name">
@@ -2146,29 +2674,46 @@ $("profileBtn").onclick=()=>{
 };
 
 
+/* ---------------- EMOJIS ---------------- */
+
 let emojis=[];
 
-onValue(emojiRef,s=>{
+onValue(
+ emojiRef,
+ s=>{
 
- emojis=[];
+  emojis=[];
 
- if(s.exists()){
+  if(s.exists()){
 
-  s.forEach(c=>{
-   emojis.push({
-    key:c.key,
-    ...(c.val()||{})
+   s.forEach(c=>{
+
+    emojis.push({
+     key:c.key,
+     ...(c.val()||{})
+    });
+
    });
-  });
- }
+  }
 
- renderEmojiGrid();
-});
+  renderEmojiGrid();
+
+  /*
+   * وقتی ایموجی جدید از Firebase می‌آید،
+   * پیام‌های قبلی هم دوباره رندر می‌شوند
+   * تا کد ایموجی به عکس تبدیل شود.
+   */
+  renderMessages(
+   messageCache
+  );
+ }
+);
 
 
 function renderEmojiGrid(){
 
- const g=$("emojiGrid");
+ const g=
+  $("emojiGrid");
 
  if(!g)return;
 
@@ -2183,7 +2728,9 @@ function renderEmojiGrid(){
  base.forEach(x=>{
 
   const b=
-   document.createElement("button");
+   document.createElement(
+    "button"
+   );
 
   b.className="emoji-btn";
   b.textContent=x;
@@ -2195,11 +2742,13 @@ function renderEmojiGrid(){
   g.appendChild(b);
  });
 
+
  /*
   * مهم:
   * ادمین همیشه ایموجی اختصاصی را باز دارد.
   * تنظیمات Level ایموجی تغییر نکرده.
   */
+
  const unlocked=
   levelOf()>=2||
   premiumActive(stats)||
@@ -2210,10 +2759,13 @@ function renderEmojiGrid(){
   ?"✨ ایموجی‌های اختصاصی باز هستند"
   :"🔒 ایموجی‌های اختصاصی فقط از Level 2 به بعد باز می‌شوند.";
 
+
  emojis.forEach(x=>{
 
   const b=
-   document.createElement("button");
+   document.createElement(
+    "button"
+   );
 
   b.className=
    "emoji-btn"+
@@ -2222,9 +2774,14 @@ function renderEmojiGrid(){
   if(x.url){
 
    const i=
-    document.createElement("img");
+    document.createElement(
+     "img"
+    );
 
    i.src=x.url;
+
+   i.alt=
+    x.name||"emoji";
 
    b.appendChild(i);
 
@@ -2233,11 +2790,26 @@ function renderEmojiGrid(){
    b.textContent="😀";
   }
 
-  b.title=x.name||"emoji";
+  b.title=
+   x.name||"emoji";
 
   b.onclick=()=>{
+
    if(unlocked){
-    insertEmoji(":"+x.name+":");
+
+    /*
+     * نام ایموجی دقیقاً همان چیزی است
+     * که ادمین ساخته است.
+     *
+     * مثال:
+     * نام = ki:ri
+     * توی پیام = :ki:ri:
+     */
+    insertEmoji(
+     ":"+
+     x.name+
+     ":"
+    );
    }
   };
 
@@ -2253,7 +2825,9 @@ function insertEmoji(x){
 
  $("chatText").focus();
 
- $("emojiPop").classList.remove("show");
+ $("emojiPop")
+  .classList
+  .remove("show");
 }
 
 
@@ -2262,24 +2836,53 @@ function loadEmojis(){
 }
 
 
+/*
+ * برای اینکه تابعی که قبلاً در openChat
+ * صدا زده شده وجود داشته باشد.
+ */
+function loadMessages(){
+ renderMessages(
+  messageCache
+ );
+}
+
+
 $("emojiOpen").onclick=()=>{
- $("emojiPop").classList.toggle("show");
+
+ $("emojiPop")
+  .classList
+  .toggle("show");
+
  renderEmojiGrid();
 };
+
 
 $("emojiSideBtn").onclick=()=>{
- $("emojiPop").classList.add("show");
+
+ $("emojiPop")
+  .classList
+  .add("show");
+
  renderEmojiGrid();
 };
 
 
-$("sendMsg").onclick=sendMessage;
+/* ---------------- SEND MESSAGE ---------------- */
+
+$("sendMsg").onclick=
+ sendMessage;
 
 $("chatText").addEventListener(
  "keydown",
  e=>{
-  if(e.key==="Enter"&&!e.shiftKey){
+
+  if(
+   e.key==="Enter"&&
+   !e.shiftKey
+  ){
+
    e.preventDefault();
+
    sendMessage();
   }
  }
@@ -2289,16 +2892,21 @@ $("chatText").addEventListener(
 async function sendMessage(){
 
  if(!profile){
+
   modal("registerModal");
+
   return;
  }
 
  const text=
-  $("chatText").value.trim();
+  $("chatText")
+   .value
+   .trim();
 
  if(!text)return;
 
- const now=Date.now();
+ const now=
+  Date.now();
 
  if(
   !isAdmin&&
@@ -2314,10 +2922,14 @@ async function sendMessage(){
 
  try{
 
-  user=await ensureAnon();
+  user=
+   await ensureAnon();
 
   const sr=
-   ref(db,"userStats/"+user.uid);
+   ref(
+    db,
+    "userStats/"+user.uid
+   );
 
   const s=
    await get(sr);
@@ -2337,13 +2949,19 @@ async function sendMessage(){
     .length;
 
   const total=
-   Number(st.words||0)+words;
+   Number(
+    st.words||0
+   )+
+   words;
 
   let lv=
-   Number(st.level||1);
+   Number(
+    st.level||1
+   );
 
   if(total>=150)
    lv=Math.max(lv,3);
+
   else if(total>=50)
    lv=Math.max(lv,2);
 
@@ -2354,7 +2972,9 @@ async function sendMessage(){
     level:lv,
     words:total,
     premium:premiumActive(st),
-    premiumUntil:Number(st.premiumUntil||0),
+    premiumUntil:Number(
+     st.premiumUntil||0
+    ),
     updatedAt:now
    }
   );
@@ -2370,9 +2990,14 @@ async function sendMessage(){
 
   if(replyTo){
 
-   msg.replyTo=replyTo.key;
-   msg.replyName=replyTo.name;
-   msg.replyText=replyTo.text;
+   msg.replyTo=
+    replyTo.key;
+
+   msg.replyName=
+    replyTo.name;
+
+   msg.replyText=
+    replyTo.text;
   }
 
   await push(
@@ -2381,10 +3006,12 @@ async function sendMessage(){
   );
 
   $("chatText").value="";
+
   $("chatText").placeholder=
    "پیامت رو بنویس...";
 
   replyTo=null;
+
   lastSend=now;
 
  }catch(e){
@@ -2397,19 +3024,31 @@ async function sendMessage(){
 }
 
 
+/* ---------------- ADMIN ---------------- */
+
 $("adminMain").onclick=()=>{
- $("adminMenu").classList.toggle("show");
+
+ $("adminMenu")
+  .classList
+  .toggle("show");
 };
 
 
 document.addEventListener(
  "keydown",
  e=>{
+
   if(e.key==="Escape"){
+
    document
-    .querySelectorAll(".modal.show")
-    .forEach(x=>
-     x.classList.remove("show")
+    .querySelectorAll(
+     ".modal.show"
+    )
+    .forEach(
+     x=>
+      x.classList.remove(
+       "show"
+      )
     );
   }
  }
@@ -2422,247 +3061,296 @@ function openAdmin(){
 
 
 const adminButton=
- document.createElement("button");
+ document.createElement(
+  "button"
+ );
 
-adminButton.className="admin-mini";
-adminButton.textContent="👑";
-adminButton.onclick=openAdmin;
+adminButton.className=
+ "admin-mini";
+
+adminButton.textContent=
+ "👑";
+
+adminButton.onclick=
+ openAdmin;
 
 document
- .querySelector(".nav-right")
- .prepend(adminButton);
+ .querySelector(
+  ".nav-right"
+ )
+ .prepend(
+  adminButton
+ );
 
 
-$("adminLogin").onclick=async()=>{
+/* ---------------- ADMIN LOGIN ---------------- */
 
- const email=
-  $("adminEmail").value.trim();
+$("adminLogin").onclick=
+ async()=>{
 
- const pass=
-  $("adminPassword").value;
+  const email=
+   $("adminEmail")
+    .value
+    .trim();
 
- if(!email||!pass){
+  const pass=
+   $("adminPassword")
+    .value;
 
-  status(
-   "adminStatus",
-   "ایمیل و رمز را وارد کن."
-  );
-
-  return;
- }
-
- const b=$("adminLogin");
-
- b.disabled=true;
- b.textContent="در حال ورود...";
-
- try{
-
-  const c=
-   await signInWithEmailAndPassword(
-    auth,
-    email,
-    pass
-   );
-
-  if(c.user.uid!==ADMIN_UID){
-
-   await signOut(auth);
+  if(!email||!pass){
 
    status(
     "adminStatus",
-    "این حساب ادمین نیست. UID: "+
-    c.user.uid,
-    "error"
+    "ایمیل و رمز را وارد کن."
    );
 
    return;
   }
 
-  isAdmin=true;
+  const b=
+   $("adminLogin");
 
-  modal(
-   "adminModal",
-   false
-  );
+  b.disabled=true;
 
-  $("adminFloat")
-   .classList.add("show");
+  b.textContent=
+   "در حال ورود...";
 
-  renderProfile();
-  renderEmojiGrid();
+  try{
 
-  alert(
-   "ورود ادمین موفق شد 👑"
-  );
+   const c=
+    await signInWithEmailAndPassword(
+     auth,
+     email,
+     pass
+    );
 
- }catch(e){
+   if(
+    c.user.uid!==ADMIN_UID
+   ){
 
-  console.error(e);
+    await signOut(auth);
 
-  let m=
-   "ایمیل یا رمز عبور اشتباه است.";
+    status(
+     "adminStatus",
+     "این حساب ادمین نیست. UID: "+
+     c.user.uid,
+     "error"
+    );
 
-  if(
-   e.code==="auth/operation-not-allowed"
-  ){
+    return;
+   }
 
-   m=
-    "Email/Password در Firebase فعال نیست. Authentication → Sign-in method → Email/Password را فعال کن.";
+   isAdmin=true;
+
+   modal(
+    "adminModal",
+    false
+   );
+
+   $("adminFloat")
+    .classList
+    .add("show");
+
+   renderProfile();
+
+   renderEmojiGrid();
+
+   alert(
+    "ورود ادمین موفق شد 👑"
+   );
+
+  }catch(e){
+
+   console.error(e);
+
+   let m=
+    "ایمیل یا رمز عبور اشتباه است.";
+
+   if(
+    e.code===
+    "auth/operation-not-allowed"
+   ){
+
+    m=
+     "Email/Password در Firebase فعال نیست. Authentication → Sign-in method → Email/Password را فعال کن.";
+   }
+
+   status(
+    "adminStatus",
+    m,
+    "error"
+   );
+
+  }finally{
+
+   b.disabled=false;
+
+   b.textContent=
+    "ورود 👑";
   }
-
-  status(
-   "adminStatus",
-   m,
-   "error"
-  );
-
- }finally{
-
-  b.disabled=false;
-  b.textContent="ورود 👑";
- }
-};
+ };
 
 
-$("adminLogout").onclick=async()=>{
- await signOut(auth);
- location.reload();
-};
+/* ---------------- ADMIN LOGOUT ---------------- */
 
+$("adminLogout").onclick=
+ async()=>{
+
+  await signOut(auth);
+
+  location.reload();
+ };
+
+
+/* ---------------- EMOJI UPLOAD ---------------- */
 
 $("makeEmoji").onclick=()=>{
  modal("emojiModal");
 };
 
 
-$("uploadEmoji").onclick=async()=>{
+$("uploadEmoji").onclick=
+ async()=>{
 
- if(!isAdmin)return;
+  if(!isAdmin)return;
 
- const file=
-  $("emojiFile").files?.[0];
+  const file=
+   $("emojiFile")
+    .files?.[0];
 
- const name=
-  $("emojiName").value.trim();
+  const name=
+   $("emojiName")
+    .value
+    .trim();
 
- if(!file||!name){
+  if(!file||!name){
 
-  status(
-   "emojiStatus",
-   "نام و عکس را وارد کن."
-  );
-
-  return;
- }
-
- if(file.size>2*1024*1024){
-
-  status(
-   "emojiStatus",
-   "حجم عکس حداکثر ۲ مگابایت باشد."
-  );
-
-  return;
- }
-
- const b=
-  $("uploadEmoji");
-
- b.disabled=true;
- b.textContent=
-  "در حال آپلود...";
-
- try{
-
-  const safe=
-   name.replace(
-    /[^\w\u0600-\u06FF-]/g,
-    "_"
+   status(
+    "emojiStatus",
+    "نام و عکس را وارد کن."
    );
 
-  const r=
-   sref(
-    storage,
-    "emojis/"+
-    Date.now()+
-    "_"+
-    safe
+   return;
+  }
+
+  if(
+   file.size>
+   2*1024*1024
+  ){
+
+   status(
+    "emojiStatus",
+    "حجم عکس حداکثر ۲ مگابایت باشد."
    );
 
-  const up=
-   await uploadBytes(
-    r,
-    file,
+   return;
+  }
+
+  const b=
+   $("uploadEmoji");
+
+  b.disabled=true;
+
+  b.textContent=
+   "در حال آپلود...";
+
+  try{
+
+   const safe=
+    name.replace(
+     /[^\w\u0600-\u06FF-]/g,
+     "_"
+    );
+
+   const r=
+    sref(
+     storage,
+     "emojis/"+
+     Date.now()+
+     "_"+
+     safe
+    );
+
+   const up=
+    await uploadBytes(
+     r,
+     file,
+     {
+      contentType:
+       file.type||
+       "image/png"
+     }
+    );
+
+   const url=
+    await getDownloadURL(
+     up.ref
+    );
+
+   await push(
+    emojiRef,
     {
-     contentType:
-      file.type||
-      "image/png"
+     name,
+     url,
+     createdAt:Date.now(),
+     createdBy:user.uid
     }
    );
 
-  const url=
-   await getDownloadURL(
-    up.ref
+   status(
+    "emojiStatus",
+    "ایموجی با موفقیت ساخته شد 🎉",
+    "success"
    );
 
-  await push(
-   emojiRef,
-   {
-    name,
-    url,
-    createdAt:Date.now(),
-    createdBy:user.uid
-   }
-  );
+   $("emojiName").value="";
+   $("emojiFile").value="";
 
-  status(
-   "emojiStatus",
-   "ایموجی با موفقیت ساخته شد 🎉",
-   "success"
-  );
+   setTimeout(
+    ()=>modal(
+     "emojiModal",
+     false
+    ),
+    700
+   );
 
-  $("emojiName").value="";
-  $("emojiFile").value="";
+  }catch(e){
 
-  setTimeout(
-   ()=>modal("emojiModal",false),
-   700
-  );
+   console.error(e);
 
- }catch(e){
+   status(
+    "emojiStatus",
+    "آپلود انجام نشد: "+
+    (e.code||"")+
+    " "+
+    e.message,
+    "error"
+   );
 
-  console.error(e);
+  }finally{
 
-  status(
-   "emojiStatus",
-   "آپلود انجام نشد: "+
-   (e.code||"")+
-   " "+
-   e.message,
-   "error"
-  );
+   b.disabled=false;
 
- }finally{
-
-  b.disabled=false;
-  b.textContent=
-   "آپلود و ساخت ✨";
- }
-};
+   b.textContent=
+    "آپلود و ساخت ✨";
+  }
+ };
 
 
-$("emojiFile").onchange=e=>{
+$("emojiFile").onchange=
+ e=>{
 
- const f=
-  e.target.files?.[0];
+  const f=
+   e.target.files?.[0];
 
- if(f){
+  if(f){
 
-  $("emojiPreview").textContent=
-   "انتخاب شد: "+f.name;
- }
-};
+   $("emojiPreview")
+    .textContent=
+     "انتخاب شد: "+
+     f.name;
+  }
+ };
 
 
 /* ---------------- PREMIUM ---------------- */
@@ -2674,27 +3362,38 @@ $("grantPremium").onclick=()=>{
  selectedPremiumMonths=1;
 
  document
-  .querySelectorAll(".premium-plan")
+  .querySelectorAll(
+   ".premium-plan"
+  )
   .forEach(x=>
-   x.classList.remove("selected")
+   x.classList.remove(
+    "selected"
+   )
   );
 
  document
   .querySelector(
    '.premium-plan[data-months="1"]'
   )
-  ?.classList.add("selected");
+  ?.classList.add(
+   "selected"
+  );
 
- $("premiumSelected").style.display="block";
+ $("premiumSelected")
+  .style.display="block";
 
- $("premiumSelected").textContent=
-  "مدت انتخاب‌شده: ۱ ماه";
+ $("premiumSelected")
+  .textContent=
+   "مدت انتخاب‌شده: ۱ ماه";
 
  modal("premiumModal");
 };
 
 
-document.querySelectorAll(".premium-plan")
+document
+ .querySelectorAll(
+  ".premium-plan"
+ )
  .forEach(btn=>{
 
   btn.onclick=()=>{
@@ -2705,12 +3404,18 @@ document.querySelectorAll(".premium-plan")
     );
 
    document
-    .querySelectorAll(".premium-plan")
+    .querySelectorAll(
+     ".premium-plan"
+    )
     .forEach(x=>
-     x.classList.remove("selected")
+     x.classList.remove(
+      "selected"
+     )
     );
 
-   btn.classList.add("selected");
+   btn.classList.add(
+    "selected"
+   );
 
    const names={
     1:"۱ ماه",
@@ -2718,139 +3423,150 @@ document.querySelectorAll(".premium-plan")
     6:"۶ ماه"
    };
 
-   $("premiumSelected").style.display=
-    "block";
+   $("premiumSelected")
+    .style.display=
+     "block";
 
-   $("premiumSelected").textContent=
-    "مدت انتخاب‌شده: "+
-    names[selectedPremiumMonths];
+   $("premiumSelected")
+    .textContent=
+     "مدت انتخاب‌شده: "+
+     names[
+      selectedPremiumMonths
+     ];
   };
  });
 
 
-$("premiumSave").onclick=async()=>{
+$("premiumSave").onclick=
+ async()=>{
 
- if(!isAdmin){
+  if(!isAdmin){
 
-  status(
-   "premiumStatus",
-   "فقط ادمین می‌تواند Premium فعال کند."
-  );
-
-  return;
- }
-
- const uid=
-  $("premiumUid").value.trim();
-
- if(!uid){
-
-  status(
-   "premiumStatus",
-   "UID را وارد کن."
-  );
-
-  return;
- }
-
- if(
-  ![1,3,6]
-   .includes(selectedPremiumMonths)
- ){
-
-  status(
-   "premiumStatus",
-   "مدت Premium را انتخاب کن."
-  );
-
-  return;
- }
-
- try{
-
-  const now=Date.now();
-
-  const months=
-   selectedPremiumMonths;
-
-  const duration=
-   months*
-   30*
-   24*
-   60*
-   60*
-   1000;
-
-  const until=
-   now+duration;
-
-  const targetRef=
-   ref(
-    db,
-    "userStats/"+uid
+   status(
+    "premiumStatus",
+    "فقط ادمین می‌تواند Premium فعال کند."
    );
 
-  const old=
-   await get(targetRef);
+   return;
+  }
 
-  const oldData=
-   old.exists()
-   ?old.val()||{}
-   :{};
+  const uid=
+   $("premiumUid")
+    .value
+    .trim();
 
-  /*
-   * اگر Premium قبلی هنوز فعال باشد،
-   * مدت جدید به انتهای آن اضافه می‌شود.
-   */
-  const oldUntil=
-   Number(oldData.premiumUntil||0);
+  if(!uid){
 
-  const startFrom=
-   oldUntil>now
-   ?oldUntil
-   :now;
+   status(
+    "premiumStatus",
+    "UID را وارد کن."
+   );
 
-  const finalUntil=
-   startFrom+duration;
+   return;
+  }
 
-  await update(
-   targetRef,
-   {
-    premium:true,
-    premiumUntil:finalUntil,
-    premiumMonths:months,
-    premiumAt:now,
-    premiumBy:ADMIN_UID,
-    updatedAt:now
-   }
-  );
+  if(
+   ![1,3,6]
+    .includes(
+     selectedPremiumMonths
+    )
+  ){
 
-  const names={
-   1:"۱ ماهه",
-   3:"۳ ماهه",
-   6:"۶ ماهه"
-  };
+   status(
+    "premiumStatus",
+    "مدت Premium را انتخاب کن."
+   );
 
-  status(
-   "premiumStatus",
-   "Premium "+names[months]+
-   " با موفقیت فعال شد 💎",
-   "success"
-  );
+   return;
+  }
 
-  renderMessages(messageCache);
+  try{
 
- }catch(e){
+   const now=
+    Date.now();
 
-  console.error(e);
+   const months=
+    selectedPremiumMonths;
 
-  status(
-   "premiumStatus",
-   "خطا: "+e.message,
-   "error"
-  );
- }
-};
+   const duration=
+    months*
+    30*
+    24*
+    60*
+    60*
+    1000;
+
+   const targetRef=
+    ref(
+     db,
+     "userStats/"+uid
+    );
+
+   const old=
+    await get(
+     targetRef
+    );
+
+   const oldData=
+    old.exists()
+    ?old.val()||{}
+    :{};
+
+   const oldUntil=
+    Number(
+     oldData.premiumUntil||0
+    );
+
+   const startFrom=
+    oldUntil>now
+    ?oldUntil
+    :now;
+
+   const finalUntil=
+    startFrom+
+    duration;
+
+   await update(
+    targetRef,
+    {
+     premium:true,
+     premiumUntil:finalUntil,
+     premiumMonths:months,
+     premiumAt:now,
+     premiumBy:ADMIN_UID,
+     updatedAt:now
+    }
+   );
+
+   const names={
+    1:"۱ ماهه",
+    3:"۳ ماهه",
+    6:"۶ ماهه"
+   };
+
+   status(
+    "premiumStatus",
+    "Premium "+
+    names[months]+
+    " با موفقیت فعال شد 💎",
+    "success"
+   );
+
+   renderMessages(
+    messageCache
+   );
+
+  }catch(e){
+
+   console.error(e);
+
+   status(
+    "premiumStatus",
+    "خطا: "+e.message,
+    "error"
+   );
+  }
+ };
 
 
 /* ---------------- CHANNEL ---------------- */
@@ -2860,157 +3576,186 @@ $("makeChannel").onclick=()=>{
 };
 
 
-$("channelSave").onclick=async()=>{
+$("channelSave").onclick=
+ async()=>{
 
- if(!isAdmin&&!premiumActive(stats)){
+  if(
+   !isAdmin&&
+   !premiumActive(stats)
+  ){
 
-  status(
-   "channelStatus",
-   "ساخت کانال فقط برای Premium یا Admin است."
-  );
+   status(
+    "channelStatus",
+    "ساخت کانال فقط برای Premium یا Admin است."
+   );
 
-  return;
- }
+   return;
+  }
 
- const n=
-  $("channelName").value.trim();
+  const n=
+   $("channelName")
+    .value
+    .trim();
 
- const d=
-  $("channelDesc").value.trim();
+  const d=
+   $("channelDesc")
+    .value
+    .trim();
 
- if(!n){
+  if(!n){
 
-  status(
-   "channelStatus",
-   "نام کانال را وارد کن."
-  );
+   status(
+    "channelStatus",
+    "نام کانال را وارد کن."
+   );
 
-  return;
- }
+   return;
+  }
 
- try{
+  try{
 
-  await push(
-   channelsRef,
-   {
-    name:n,
-    description:d,
-    owner:user.uid,
-    createdAt:Date.now()
-   }
-  );
+   await push(
+    channelsRef,
+    {
+     name:n,
+     description:d,
+     owner:user.uid,
+     createdAt:Date.now()
+    }
+   );
 
-  status(
-   "channelStatus",
-   "کانال ساخته شد 📢",
-   "success"
-  );
+   status(
+    "channelStatus",
+    "کانال ساخته شد 📢",
+    "success"
+   );
 
-  $("channelName").value="";
-  $("channelDesc").value="";
+   $("channelName").value="";
+   $("channelDesc").value="";
 
- }catch(e){
+  }catch(e){
 
-  status(
-   "channelStatus",
-   e.message
-  );
- }
-};
-
-
-$("channelsBtn").onclick=async()=>{
-
- const s=
-  await get(channelsRef);
-
- let h=
-  "<h3>📢 کانال‌ها</h3><div class='channel-list'>";
-
- if(s.exists()){
-
-  s.forEach(c=>{
-
-   const x=
-    c.val()||{};
-
-   h+=`
-    <div class='channel'>
-     <strong>
-      📢 ${escapeName(x.name)}
-     </strong>
-     <small>
-      ${escapeName(
-       x.description||
-       "بدون توضیحات"
-      )}
-     </small>
-    </div>
-   `;
-  });
-
- }else{
-
-  h+=
-   "<div class='empty'>هنوز کانالی ساخته نشده.</div>";
- }
-
- h+="</div>";
-
- $("infoTitle").textContent=
-  "📢 Channels";
-
- $("infoBody").innerHTML=h;
-
- modal("infoModal");
-};
+   status(
+    "channelStatus",
+    e.message
+   );
+  }
+ };
 
 
-$("cleanupBtn").onclick=async()=>{
+$("channelsBtn").onclick=
+ async()=>{
 
- if(!isAdmin)return;
+  const s=
+   await get(
+    channelsRef
+   );
 
- const s=
-  await get(messagesRef);
+  let h=
+   "<h3>📢 کانال‌ها</h3><div class='channel-list'>";
 
- const now=Date.now();
+  if(s.exists()){
 
- const jobs=[];
+   s.forEach(c=>{
 
- if(s.exists()){
+    const x=
+     c.val()||{};
 
-  s.forEach(c=>{
+    h+=`
 
-   const m=
-    c.val()||{};
+     <div class='channel'>
 
-   if(
-    now-
-    Number(m.time||now)
-    >
-    600000
-   ){
+      <strong>
+       📢 ${escapeName(
+        x.name
+       )}
+      </strong>
 
-    jobs.push(
-     remove(
-      ref(
-       db,
-       "messages/"+c.key
-      )
+      <small>
+       ${escapeName(
+        x.description||
+        "بدون توضیحات"
+       )}
+      </small>
+
+     </div>
+    `;
+   });
+
+  }else{
+
+   h+=
+    "<div class='empty'>هنوز کانالی ساخته نشده.</div>";
+  }
+
+  h+="</div>";
+
+  $("infoTitle").textContent=
+   "📢 Channels";
+
+  $("infoBody").innerHTML=h;
+
+  modal("infoModal");
+ };
+
+
+/* ---------------- CLEANUP ---------------- */
+
+$("cleanupBtn").onclick=
+ async()=>{
+
+  if(!isAdmin)return;
+
+  const s=
+   await get(
+    messagesRef
+   );
+
+  const now=
+   Date.now();
+
+  const jobs=[];
+
+  if(s.exists()){
+
+   s.forEach(c=>{
+
+    const m=
+     c.val()||{};
+
+    if(
+     now-
+     Number(
+      m.time||now
      )
-    );
-   }
-  });
- }
+     >
+     600000
+    ){
 
- await Promise.all(jobs);
+     jobs.push(
+      remove(
+       ref(
+        db,
+        "messages/"+c.key
+       )
+      )
+     );
+    }
+   });
+  }
 
- alert(
-  jobs.length+
-  " پیام قدیمی پاک شد."
- );
+  await Promise.all(
+   jobs
+  );
+
+  alert(
+   jobs.length+
+   " پیام قدیمی پاک شد."
+  );
 };
 
+
+/* ---------------- LOCAL PROFILE ---------------- */
 
 (async()=>{
 
@@ -3022,8 +3767,10 @@ $("cleanupBtn").onclick=async()=>{
  if(saved){
 
   try{
+
    profile=
     JSON.parse(saved);
+
   }catch{}
  }
 
@@ -3032,5 +3779,6 @@ $("cleanupBtn").onclick=async()=>{
 })();
 
 </script>
+
 </body>
 </html>
