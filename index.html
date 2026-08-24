@@ -1,815 +1,570 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>AVanta | First Stream</title>
-<meta name="description" content="AVanta - First Stream">
+
+<meta
+name="description"
+content="AVanta - First Stream">
+
+<link rel="stylesheet" href="style.css">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-font-family:Tahoma,Arial,sans-serif;
-background:#050507;
-color:#fff;
-overflow-x:hidden;
-line-height:1.8
-}
-a{text-decoration:none;color:inherit}
-button,input{font-family:inherit}
 
-body:before{
-content:"";
-position:fixed;
-inset:0;
-z-index:-5;
-background:
-radial-gradient(circle at 15% 20%,rgba(130,50,255,.18),transparent 30%),
-radial-gradient(circle at 85% 70%,rgba(0,180,255,.12),transparent 30%),
-#050507
-}
+/* ==============================
+   CHAT
+============================== */
 
-.background{
-position:fixed;
-inset:0;
-z-index:-4;
-pointer-events:none;
-overflow:hidden
-}
-
-.orb{
-position:absolute;
-border-radius:50%;
-filter:blur(80px);
-opacity:.35
-}
-
-.orb-one{
-width:350px;
-height:350px;
-background:#7b2cff;
-top:5%;
-right:-120px
-}
-
-.orb-two{
-width:300px;
-height:300px;
-background:#00bfff;
-bottom:5%;
-left:-100px
-}
-
-.grid{
-position:absolute;
-inset:0;
-opacity:.08;
-background-image:
-linear-gradient(#fff 1px,transparent 1px),
-linear-gradient(90deg,#fff 1px,transparent 1px);
-background-size:50px 50px
-}
-
-.noise{
-position:absolute;
-inset:0;
-opacity:.03;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
-}
-
-/* INTRO */
-#intro{
-position:fixed;
-inset:0;
-z-index:9999;
-background:#050507;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-transition:opacity .8s,visibility .8s
-}
-
-#intro.hide{
-opacity:0;
-visibility:hidden
-}
-
-.intro-logo{
-font-size:70px;
-font-weight:900;
-letter-spacing:-5px
-}
-
-.intro-logo span,
-.logo span,
-.hero h1 span,
-.footer-logo span{
-color:#9d5cff
-}
-
-.intro-line{
-width:150px;
-height:2px;
-margin:20px 0;
-background:linear-gradient(90deg,transparent,#9d5cff,transparent)
-}
-
-.intro-logo+p{
-color:#888;
-letter-spacing:5px
-}
-
-/* NAV */
-.navbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:75px;
-z-index:1000;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 7%;
-background:rgba(5,5,7,.7);
-backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(255,255,255,.08)
-}
-
-.logo{
-font-size:25px;
-font-weight:900;
-letter-spacing:1px
-}
-
-.navbar nav{
-display:flex;
-gap:30px
-}
-
-.navbar nav a{
-color:#aaa;
-font-size:14px;
-transition:.3s
-}
-
-.navbar nav a:hover{
-color:#fff
-}
-
-.join-button{
-padding:9px 18px;
-border-radius:10px;
-background:#8d45ff;
-font-size:13px;
-font-weight:bold;
-transition:.3s
-}
-
-.join-button:hover{
-transform:translateY(-2px);
-box-shadow:0 10px 30px rgba(141,69,255,.3)
-}
-
-/* HERO */
-.hero{
-min-height:100vh;
-padding:130px 7% 80px;
-display:grid;
-grid-template-columns:1.1fr .9fr;
-align-items:center;
-gap:50px
-}
-
-.badge{
-display:inline-flex;
-align-items:center;
-gap:9px;
-padding:7px 14px;
-border:1px solid rgba(157,92,255,.35);
-border-radius:50px;
-background:rgba(157,92,255,.08);
-color:#c09aff;
-font-size:13px
-}
-
-.dot{
-width:8px;
-height:8px;
-border-radius:50%;
-background:#a65cff;
-box-shadow:0 0 15px #a65cff
-}
-
-.welcome{
-color:#777;
-font-size:14px;
-letter-spacing:4px;
-margin-top:30px
-}
-
-.hero h1{
-font-size:clamp(70px,12vw,150px);
-line-height:1;
-letter-spacing:-8px;
-margin:10px 0;
-background:linear-gradient(135deg,#fff,#a56aff,#6deaff);
--webkit-background-clip:text;
-color:transparent
-}
-
-.description{
-color:#999;
-max-width:570px;
-font-size:16px;
-margin-bottom:30px
-}
-
-/* COUNTDOWN */
-.countdown-box{
-max-width:620px;
-padding:25px;
-border-radius:22px;
-background:rgba(255,255,255,.045);
-border:1px solid rgba(255,255,255,.09);
-backdrop-filter:blur(15px)
-}
-
-.countdown-title{
-color:#a66aff;
-font-size:12px;
-letter-spacing:3px;
-margin-bottom:15px
-}
-
-.countdown{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:12px;
-direction:ltr
-}
-
-.time-box{
-min-width:75px;
-text-align:center
-}
-
-.time-box strong{
-display:block;
-font-size:35px;
-line-height:1.2
-}
-
-.time-box small{
-color:#777;
-font-size:11px
-}
-
-.separator{
-font-size:30px;
-color:#7f48d7
-}
-
-.date{
-text-align:center;
-margin-top:18px;
-color:#777;
-font-size:12px;
-letter-spacing:3px
-}
-
-#finished{
-text-align:center;
-color:#a66aff;
-margin-top:10px
-}
-
-/* VISUAL */
-.hero-visual{
-position:relative;
-height:500px;
-display:flex;
-align-items:center;
-justify-content:center
-}
-
-.avatar{
-width:260px;
-height:260px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#18101f,#08080c);
-border:1px solid rgba(170,100,255,.7);
-box-shadow:
-0 0 50px rgba(140,60,255,.25),
-inset 0 0 50px rgba(150,70,255,.1);
-position:relative;
-z-index:3
-}
-
-.avatar-text{
-font-size:70px;
-font-weight:900;
-letter-spacing:-6px
-}
-
-.avatar-text span{
-background:linear-gradient(135deg,#fff,#a96cff,#61eaff);
--webkit-background-clip:text;
-color:transparent
-}
-
-.ring{
-position:absolute;
-border:1px solid rgba(150,80,255,.25);
-border-radius:50%
-}
-
-.ring-one{
-width:380px;
-height:380px
-}
-
-.ring-two{
-width:480px;
-height:480px;
-border-color:rgba(0,200,255,.12)
-}
-
-.floating{
-position:absolute;
-z-index:5;
-padding:12px 18px;
-border-radius:12px;
-background:rgba(15,15,20,.85);
-border:1px solid rgba(255,255,255,.1);
-font-size:12px;
-backdrop-filter:blur(10px)
-}
-
-.floating-one{
-top:100px;
-right:20px
-}
-
-.floating-two{
-bottom:100px;
-left:20px
-}
-
-/* SECTIONS */
-.section{
-padding:110px 7%
-}
-
-.section-heading{
-margin-bottom:45px
-}
-
-.section-heading span{
-color:#8e4cff;
-font-size:13px
-}
-
-.section-heading h2{
-font-size:40px;
-margin-top:5px
-}
-
-.section-heading b{
-color:#a66aff
-}
-
-/* ABOUT */
-.about-card{
-max-width:1000px;
-margin:auto;
-display:flex;
-align-items:center;
-gap:40px;
-padding:40px;
-border-radius:25px;
-background:rgba(255,255,255,.045);
-border:1px solid rgba(255,255,255,.08)
-}
-
-.about-logo{
-width:130px;
-height:130px;
-flex-shrink:0;
-border-radius:25px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:42px;
-font-weight:900;
-background:linear-gradient(135deg,#8b45ff,#24103e)
-}
-
-.about-text h3{
-font-size:25px;
-margin-bottom:10px
-}
-
-.about-text p{
-color:#888;
-margin-bottom:8px
-}
-
-/* CARDS */
-.cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px
-}
-
-.info-card{
-padding:35px;
-border-radius:22px;
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.08);
-transition:.35s
-}
-
-.info-card:hover{
-transform:translateY(-7px);
-border-color:rgba(157,92,255,.4);
-background:rgba(157,92,255,.06)
-}
-
-.card-icon{
-font-size:40px;
-margin-bottom:15px
-}
-
-.info-card h3{
-margin-bottom:8px
-}
-
-.info-card p{
-color:#888
-}
-
-/* SOCIAL */
-.social-section{
-text-align:center
-}
-
-.social-description{
-color:#888;
-margin-top:-25px;
-margin-bottom:35px
-}
-
-.socials{
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap
-}
-
-.social-card{
-width:160px;
-padding:20px;
-border-radius:17px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:7px;
-background:rgba(255,255,255,.045);
-border:1px solid rgba(255,255,255,.08);
-transition:.3s
-}
-
-.social-card:hover{
-transform:translateY(-6px);
-background:rgba(157,92,255,.1);
-border-color:rgba(157,92,255,.35)
-}
-
-.social-card strong{
-font-size:25px
-}
-
-/* CHAT */
 #avanta-chat{
+
 max-width:900px;
-margin:40px auto 110px;
+
+margin:80px auto;
+
 padding:30px;
+
 border-radius:25px;
+
 background:rgba(255,255,255,.045);
-border:1px solid rgba(157,92,255,.2);
-box-shadow:0 20px 80px rgba(0,0,0,.3)
+
+border:1px solid rgba(255,255,255,.1);
+
+box-shadow:
+0 20px 80px rgba(0,0,0,.25);
+
 }
 
 #avanta-chat h2{
-margin-bottom:20px
+
+margin-bottom:20px;
+
+font-size:28px;
+
 }
 
-.chat-status{
+#chat-status{
+
 font-size:12px;
+
 color:#777;
-margin-bottom:15px
+
+margin-bottom:15px;
+
 }
 
 #chat-messages{
-height:380px;
+
+height:400px;
+
 overflow-y:auto;
+
 padding:15px;
+
 border-radius:18px;
+
 background:rgba(0,0,0,.25);
-border:1px solid rgba(255,255,255,.06);
-margin-bottom:15px
+
+margin-bottom:15px;
+
 }
 
 .chat-message{
-padding:12px 14px;
+
+padding:12px;
+
 margin-bottom:10px;
+
 border-radius:14px;
+
 background:rgba(255,255,255,.05);
+
 border:1px solid rgba(255,255,255,.05);
-word-break:break-word
+
+word-break:break-word;
+
 }
 
 .chat-name{
+
 color:#a66aff;
-font-weight:bold
+
+font-weight:bold;
+
 }
 
 .chat-time{
-color:#666;
+
 font-size:10px;
-margin-right:8px
+
+color:#666;
+
+margin-right:8px;
+
+}
+
+.chat-actions{
+
+display:flex;
+
+gap:7px;
+
+margin-top:10px;
+
+}
+
+.chat-actions button{
+
+border:0;
+
+padding:6px 10px;
+
+border-radius:8px;
+
+color:white;
+
+cursor:pointer;
+
+font-size:11px;
+
+}
+
+.delete-btn{
+
+background:#b52d3d;
+
+}
+
+.ban-btn{
+
+background:#7136bd;
+
 }
 
 .chat-form{
+
 display:grid;
+
 grid-template-columns:180px 1fr 120px;
-gap:10px
+
+gap:10px;
+
 }
 
 .chat-form input{
-width:100%;
-padding:14px;
-border:1px solid rgba(255,255,255,.1);
-border-radius:12px;
-outline:none;
-background:#0d0d12;
-color:white
-}
 
-.chat-form input:focus{
-border-color:#9858ff
+width:100%;
+
+padding:13px;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,.1);
+
+background:#0d0d12;
+
+color:white;
+
+outline:none;
+
 }
 
 #chat-send{
+
 border:0;
+
 border-radius:12px;
-background:linear-gradient(135deg,#9148ff,#5d24c9);
-color:#fff;
+
+background:linear-gradient(
+135deg,
+#9148ff,
+#5d24c9
+);
+
+color:white;
+
 font-weight:bold;
-cursor:pointer
+
+cursor:pointer;
+
 }
 
 #chat-send:disabled{
+
 opacity:.5;
-cursor:not-allowed
+
+cursor:not-allowed;
+
 }
 
-/* FOOTER */
-footer{
-padding:50px 20px;
-text-align:center;
-border-top:1px solid rgba(255,255,255,.08)
+
+/* ==============================
+   ADMIN
+============================== */
+
+#admin-login{
+
+margin-top:20px;
+
+padding-top:20px;
+
+border-top:1px solid rgba(255,255,255,.08);
+
 }
 
-.footer-logo{
-font-size:30px;
-font-weight:900
+#admin-login h3{
+
+font-size:16px;
+
+margin-bottom:10px;
+
 }
 
-footer p{
-color:#777;
-margin:10px 0
+#admin-email,
+#admin-password{
+
+padding:12px;
+
+border-radius:10px;
+
+border:1px solid rgba(255,255,255,.1);
+
+background:#0d0d12;
+
+color:white;
+
+outline:none;
+
+margin-left:5px;
+
 }
 
-footer small{
-color:#555
+#admin-login-btn{
+
+padding:12px 18px;
+
+border:0;
+
+border-radius:10px;
+
+background:#7d3cff;
+
+color:white;
+
+cursor:pointer;
+
 }
 
-/* MOBILE */
-@media(max-width:800px){
+#admin-logout-btn{
 
-.navbar{
-padding:0 20px
+padding:8px 14px;
+
+border:0;
+
+border-radius:8px;
+
+background:#333;
+
+color:white;
+
+cursor:pointer;
+
+margin-right:10px;
+
 }
 
-.navbar nav{
-display:none
+#admin-panel{
+
+display:none;
+
+padding:12px;
+
+margin-bottom:15px;
+
+border-radius:12px;
+
+background:rgba(120,50,255,.1);
+
+border:1px solid rgba(140,70,255,.2);
+
+color:#b999ff;
+
 }
 
-.join-button{
-display:none
-}
 
-.hero{
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:700px){
+
+.chat-form{
+
 grid-template-columns:1fr;
-text-align:center;
-padding-left:20px;
-padding-right:20px
+
 }
 
-.hero-content{
-display:flex;
-flex-direction:column;
-align-items:center
+#admin-email,
+#admin-password{
+
+width:100%;
+
+margin:0 0 8px;
+
 }
 
-.hero h1{
-letter-spacing:-5px
-}
+#admin-login-btn{
 
-.description{
-font-size:14px
-}
+width:100%;
 
-.hero-visual{
-height:350px;
-order:-1
-}
-
-.avatar{
-width:190px;
-height:190px
-}
-
-.avatar-text{
-font-size:50px
-}
-
-.ring-one{
-width:280px;
-height:280px
-}
-
-.ring-two{
-width:340px;
-height:340px
-}
-
-.floating-one{
-top:35px;
-right:0
-}
-
-.floating-two{
-bottom:35px;
-left:0
-}
-
-.section{
-padding:80px 20px
-}
-
-.section-heading h2{
-font-size:30px
-}
-
-.about-card{
-flex-direction:column;
-text-align:center;
-padding:25px
-}
-
-.cards{
-grid-template-columns:1fr
-}
-
-.countdown{
-gap:4px
-}
-
-.time-box{
-min-width:55px
-}
-
-.time-box strong{
-font-size:25px
-}
-
-.separator{
-font-size:20px
 }
 
 #avanta-chat{
-margin:20px;
-padding:20px
+
+margin:50px 15px;
+
+padding:20px;
+
 }
 
-.chat-form{
-grid-template-columns:1fr
 }
 
-#chat-send{
-padding:14px
-}
-}
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- ==============================
+     INTRO
+============================== -->
+
 <div id="intro">
-    <div class="intro-logo"><span>AV</span>anta</div>
-    <div class="intro-line"></div>
-    <p>FIRST STREAM</p>
+
+<div class="intro-logo">
+
+<span>AV</span>anta
+
 </div>
 
-<div class="background">
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-    <div class="grid"></div>
-    <div class="noise"></div>
+<div class="intro-line"></div>
+
+<p>FIRST STREAM</p>
+
 </div>
+
+
+<!-- ==============================
+     BACKGROUND
+============================== -->
+
+<div class="background">
+
+<div class="orb orb-one"></div>
+
+<div class="orb orb-two"></div>
+
+<div class="grid"></div>
+
+<div class="noise"></div>
+
+</div>
+
+
+<!-- ==============================
+     NAVBAR
+============================== -->
 
 <header class="navbar">
 
-    <a href="#home" class="logo">A<span>V</span>anta</a>
+<a href="#home" class="logo">
 
-    <nav>
-        <a href="#home">خانه</a>
-        <a href="#about">درباره من</a>
-        <a href="#social">شبکه‌ها</a>
-        <a href="#avanta-chat">چت</a>
-    </nav>
+A<span>V</span>anta
 
-    <a href="#social" class="join-button">همراه شو</a>
+</a>
+
+
+<nav>
+
+<a href="#home">
+خانه
+</a>
+
+<a href="#about">
+درباره من
+</a>
+
+<a href="#social">
+شبکه‌ها
+</a>
+
+<a href="#avanta-chat">
+چت
+</a>
+
+</nav>
+
+
+<a
+href="#social"
+class="join-button"
+>
+
+همراه شو
+
+</a>
 
 </header>
 
+
+<!-- ==============================
+     HERO
+============================== -->
+
 <main id="home">
+
 
 <section class="hero">
 
-<div class="hero-content">
+
+<div class="hero-content reveal">
+
 
 <div class="badge">
+
 <span class="dot"></span>
+
 اولین استریم در راهه
+
 </div>
 
-<p class="welcome">WELCOME TO</p>
 
-<h1>A<span>V</span>anta</h1>
+<p class="welcome">
+
+WELCOME TO
+
+</p>
+
+
+<h1>
+
+A<span>V</span>anta
+
+</h1>
+
 
 <p class="description">
+
 اینجا قراره اولین استریم من شروع بشه.
+
 <br>
+
 آماده‌ای با هم یه شروع خفن داشته باشیم؟
+
 </p>
+
+
+<!-- COUNTDOWN -->
 
 <div class="countdown-box">
 
+
 <div class="countdown-title">
+
+<span></span>
+
 FIRST STREAM
+
 </div>
+
 
 <div class="countdown">
 
-<div class="time-box">
-<strong id="days">00</strong>
-<small>روز</small>
-</div>
-
-<div class="separator">:</div>
 
 <div class="time-box">
-<strong id="hours">00</strong>
-<small>ساعت</small>
+
+<strong id="days">
+00
+</strong>
+
+<small>
+روز
+</small>
+
 </div>
 
-<div class="separator">:</div>
+
+<div class="separator">
+:
+</div>
+
 
 <div class="time-box">
-<strong id="minutes">00</strong>
-<small>دقیقه</small>
+
+<strong id="hours">
+00
+</strong>
+
+<small>
+ساعت
+</small>
+
 </div>
 
-<div class="separator">:</div>
+
+<div class="separator">
+:
+</div>
+
 
 <div class="time-box">
-<strong id="seconds">00</strong>
-<small>ثانیه</small>
-</div>
+
+<strong id="minutes">
+00
+</strong>
+
+<small>
+دقیقه
+</small>
 
 </div>
 
-<div class="date">13 DEY 1405</div>
+
+<div class="separator">
+:
+</div>
+
+
+<div class="time-box">
+
+<strong id="seconds">
+00
+</strong>
+
+<small>
+ثانیه
+</small>
+
+</div>
+
+
+</div>
+
+
+<div class="date">
+
+13 DEY 1405
+
+</div>
+
 
 <div id="finished"></div>
 
@@ -817,45 +572,107 @@ FIRST STREAM
 
 </div>
 
-<div class="hero-visual">
+
+<!-- HERO VISUAL -->
+
+<div class="hero-visual reveal">
+
 
 <div class="ring ring-one"></div>
+
 <div class="ring ring-two"></div>
 
+
 <div class="avatar">
-<div class="avatar-text"><span>AV</span></div>
+
+<div class="avatar-text">
+
+<span>
+AV
+</span>
+
 </div>
 
-<div class="floating floating-one">🎮 GAMING</div>
-<div class="floating floating-two">🔥 FIRST STREAM</div>
+</div>
+
+
+<div class="floating floating-one">
+
+🎮 GAMING
 
 </div>
+
+
+<div class="floating floating-two">
+
+🔥 FIRST STREAM
+
+</div>
+
+
+</div>
+
 
 </section>
 
-<section id="about" class="section">
 
-<div class="section-heading">
-<span>01</span>
-<h2>درباره <b>AVanta</b></h2>
+<!-- ==============================
+     ABOUT
+============================== -->
+
+<section
+id="about"
+class="section"
+>
+
+
+<div class="section-heading reveal">
+
+<span>
+01
+</span>
+
+<h2>
+
+درباره <b>AVanta</b>
+
+</h2>
+
 </div>
 
-<div class="about-card">
 
-<div class="about-logo">AV</div>
+<div class="about-card reveal">
+
+
+<div class="about-logo">
+
+AV
+
+</div>
+
 
 <div class="about-text">
 
-<h3>این تازه شروعشه.</h3>
+<h3>
+
+این تازه شروعشه.
+
+</h3>
+
 
 <p>
+
 AVanta قراره جایی باشه برای گیم،
 استریم و کلی لحظه خفن.
+
 </p>
 
+
 <p>
+
 اولین استریم هنوز شروع نشده،
 ولی قراره از همین‌جا همه‌چیز شروع بشه.
+
 </p>
 
 </div>
@@ -863,83 +680,196 @@ AVanta قراره جایی باشه برای گیم،
 </div>
 
 </section>
+
+
+<!-- ==============================
+     CONTENT
+============================== -->
 
 <section class="section">
 
-<div class="section-heading">
-<span>02</span>
-<h2>قراره چه <b>چیزهایی</b> ببینیم؟</h2>
+
+<div class="section-heading reveal">
+
+<span>
+02
+</span>
+
+<h2>
+
+قراره چه <b>چیزهایی</b> ببینیم؟
+
+</h2>
+
 </div>
+
 
 <div class="cards">
 
-<div class="info-card">
-<div class="card-icon">🎮</div>
-<h3>Gaming</h3>
-<p>بازی‌های مختلف و لحظات هیجانی.</p>
+
+<div class="info-card reveal">
+
+<div class="card-icon">
+🎮
 </div>
 
-<div class="info-card">
-<div class="card-icon">👻</div>
-<h3>Horror</h3>
-<p>بازی‌های ترسناک و واکنش‌های واقعی.</p>
+<h3>
+Gaming
+</h3>
+
+<p>
+بازی‌های مختلف و لحظات هیجانی.
+</p>
+
 </div>
 
-<div class="info-card">
-<div class="card-icon">😂</div>
-<h3>Fun</h3>
-<p>شوخی، خنده و لحظات غیرمنتظره.</p>
+
+<div class="info-card reveal">
+
+<div class="card-icon">
+👻
 </div>
+
+<h3>
+Horror
+</h3>
+
+<p>
+بازی‌های ترسناک و واکنش‌های واقعی.
+</p>
+
+</div>
+
+
+<div class="info-card reveal">
+
+<div class="card-icon">
+😂
+</div>
+
+<h3>
+Fun
+</h3>
+
+<p>
+شوخی، خنده و لحظات غیرمنتظره.
+</p>
+
+</div>
+
 
 </div>
 
 </section>
 
-<section id="social" class="section social-section">
 
-<div class="section-heading">
-<span>03</span>
-<h2>همراه <b>AVanta</b> شو</h2>
+<!-- ==============================
+     SOCIAL
+============================== -->
+
+<section
+id="social"
+class="section social-section"
+>
+
+
+<div class="section-heading reveal">
+
+<span>
+03
+</span>
+
+<h2>
+
+همراه <b>AVanta</b> شو
+
+</h2>
+
 </div>
 
-<p class="social-description">
+
+<p class="social-description reveal">
+
 برای اینکه اولین استریم رو از دست ندی،
 شبکه‌های اجتماعی رو دنبال کن.
+
 </p>
 
-<div class="socials">
 
-<a href="https://youtube.com/@avanta_iran?si=3ThzJZkZeL1cUCqh"
+<div class="socials reveal">
+
+
+<a
+href="https://youtube.com/@avanta_iran?si=3ThzJZkZeL1cUCqh"
 class="social-card"
 target="_blank"
-rel="noopener noreferrer">
-<strong>▶</strong>
-<span>YouTube</span>
+rel="noopener noreferrer"
+>
+
+<strong>
+▶
+</strong>
+
+<span>
+YouTube
+</span>
+
 </a>
 
-<a href="https://www.instagram.com/amir_vanta?igsi=bTZqNXo5anVyZjBz"
+
+<a
+href="https://www.instagram.com/amir_vanta?igsi=bTZqNXo5anVyZjBz"
 class="social-card"
 target="_blank"
-rel="noopener noreferrer">
-<strong>◎</strong>
-<span>Instagram</span>
+rel="noopener noreferrer"
+>
+
+<strong>
+◎
+</strong>
+
+<span>
+Instagram
+</span>
+
 </a>
 
-<a href="https://t.me/amirvanta1"
+
+<a
+href="https://t.me/amirvanta1"
 class="social-card"
 target="_blank"
-rel="noopener noreferrer">
-<strong>✈</strong>
-<span>Telegram</span>
+rel="noopener noreferrer"
+>
+
+<strong>
+✈
+</strong>
+
+<span>
+Telegram
+</span>
+
 </a>
 
-<a href="https://discord.gg/GZrR3ez9e"
+
+<a
+href="https://discord.gg/GZrR3ez9e"
 class="social-card"
 target="_blank"
-rel="noopener noreferrer">
-<strong>◉</strong>
-<span>Discord</span>
+rel="noopener noreferrer"
+>
+
+<strong>
+◉
+</strong>
+
+<span>
+Discord
+</span>
+
 </a>
+
 
 </div>
 
@@ -947,31 +877,69 @@ rel="noopener noreferrer">
 
 </main>
 
-<!-- CHAT -->
+
+<!-- ==============================
+     AVANTA CHAT
+============================== -->
 
 <section id="avanta-chat">
 
-<h2>💬 AVanta Chat</h2>
 
-<div class="chat-status" id="chat-status">
-در حال اتصال به سرور...
+<h2>
+💬 AVanta Chat
+</h2>
+
+
+<div id="chat-status">
+
+در حال اتصال به چت...
+
 </div>
+
+
+<!-- ADMIN PANEL -->
+
+<div id="admin-panel">
+
+👑 حالت مدیریت فعال است
+
+<button
+id="admin-logout-btn"
+>
+خروج
+</button>
+
+</div>
+
+
+<!-- MESSAGES -->
 
 <div id="chat-messages">
-<div style="opacity:.6;text-align:center">
+
+<div
+style="opacity:.6;text-align:center"
+>
+
 در حال دریافت پیام‌ها...
-</div>
+
 </div>
 
+</div>
+
+
+<!-- CHAT FORM -->
+
 <div class="chat-form">
+
 
 <input
 id="chat-name"
 type="text"
 maxlength="20"
 placeholder="نام شما"
-autocomplete="nickname"
+autocomplete="off"
 >
+
 
 <input
 id="chat-input"
@@ -981,195 +949,801 @@ placeholder="پیامت رو بنویس..."
 autocomplete="off"
 >
 
-<button id="chat-send" disabled>
-ارسال 🚀
+
+<button id="chat-send">
+
+ارسال پیام 🚀
+
 </button>
 
+
 </div>
+
+
+<!-- ADMIN LOGIN -->
+
+<div id="admin-login">
+
+
+<h3>
+👑 ورود مدیریت
+</h3>
+
+
+<input
+id="admin-email"
+type="email"
+placeholder="ایمیل ادمین"
+>
+
+
+<input
+id="admin-password"
+type="password"
+placeholder="رمز عبور"
+>
+
+
+<button id="admin-login-btn">
+
+ورود
+
+</button>
+
+
+<p
+id="admin-login-status"
+style="font-size:12px;color:#777;margin-top:10px"
+></p>
+
+
+</div>
+
 
 </section>
 
+
+<!-- ==============================
+     FOOTER
+============================== -->
+
 <footer>
 
+
 <div class="footer-logo">
+
 A<span>V</span>anta
+
 </div>
 
-<p>The beginning of something new.</p>
 
-<small>© 2026 AVanta</small>
+<p>
+
+The beginning of something new.
+
+</p>
+
+
+<small>
+
+© 2026 AVanta
+
+</small>
+
 
 </footer>
 
+
+<!-- ==============================
+     FIREBASE
+============================== -->
+
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+/* FIREBASE APP */
 
 import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+/* DATABASE */
+
+import {
+
 getDatabase,
 ref,
 push,
 onValue,
-serverTimestamp
+remove,
+set
+
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
-/* FIREBASE */
+/* AUTH */
+
+import {
+
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* ==============================
+   FIREBASE CONFIG
+============================== */
 
 const firebaseConfig = {
 
-apiKey:"AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8Zjb-zpI",
+apiKey:
+"AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8Zjb-zpI",
 
-authDomain:"avanta-3db7e.firebaseapp.com",
+authDomain:
+"avanta-3db7e.firebaseapp.com",
 
-databaseURL:"https://avanta-3db7e-default-rtdb.firebaseio.com",
+databaseURL:
+"https://avanta-3db7e-default-rtdb.firebaseio.com",
 
-projectId:"avanta-3db7e",
+projectId:
+"avanta-3db7e",
 
-storageBucket:"avanta-3db7e.firebasestorage.app",
+storageBucket:
+"avanta-3db7e.firebasestorage.app",
 
-messagingSenderId:"879564538420",
+messagingSenderId:
+"879564538420",
 
-appId:"1:879564538420:web:a0fc85cc43a9347d92c061"
+appId:
+"1:879564538420:web:a0fc85cc43a9347d92c061"
 
 };
 
 
-const app=initializeApp(firebaseConfig);
+/* INIT */
 
-const db=getDatabase(app);
+const app =
+initializeApp(firebaseConfig);
 
-const messagesRef=ref(db,"messages");
+const db =
+getDatabase(app);
 
-
-/* ELEMENTS */
-
-const messagesBox=document.getElementById("chat-messages");
-
-const nameInput=document.getElementById("chat-name");
-
-const messageInput=document.getElementById("chat-input");
-
-const sendButton=document.getElementById("chat-send");
-
-const status=document.getElementById("chat-status");
+const auth =
+getAuth(app);
 
 
-/* INTRO */
+/* ==============================
+   ADMIN UID
+============================== */
 
-setTimeout(()=>{
-
-document.getElementById("intro").classList.add("hide");
-
-},1600);
+const ADMIN_UID =
+"NNY1ymTknwREwMo16ZI3lgFEni23";
 
 
-/* CHAT CONNECTION */
+/* ==============================
+   DATABASE REFS
+============================== */
 
-onValue(messagesRef,(snapshot)=>{
+const messagesRef =
+ref(db,"messages");
 
-messagesBox.innerHTML="";
+const bannedRef =
+ref(db,"bannedUsers");
 
-if(!snapshot.exists()){
 
-messagesBox.innerHTML=
-'<div style="opacity:.5;text-align:center">هنوز پیامی ارسال نشده 👋</div>';
+/* ==============================
+   ELEMENTS
+============================== */
+
+const messagesBox =
+document.getElementById(
+"chat-messages"
+);
+
+const nameInput =
+document.getElementById(
+"chat-name"
+);
+
+const messageInput =
+document.getElementById(
+"chat-input"
+);
+
+const sendButton =
+document.getElementById(
+"chat-send"
+);
+
+const chatStatus =
+document.getElementById(
+"chat-status"
+);
+
+const adminPanel =
+document.getElementById(
+"admin-panel"
+);
+
+const adminLogin =
+document.getElementById(
+"admin-login"
+);
+
+const adminEmail =
+document.getElementById(
+"admin-email"
+);
+
+const adminPassword =
+document.getElementById(
+"admin-password"
+);
+
+const adminLoginButton =
+document.getElementById(
+"admin-login-btn"
+);
+
+const adminLoginStatus =
+document.getElementById(
+"admin-login-status"
+);
+
+const adminLogoutButton =
+document.getElementById(
+"admin-logout-btn"
+);
+
+
+/* ==============================
+   VARIABLES
+============================== */
+
+let isAdmin=false;
+
+let messages=[];
+
+let bannedUsers={};
+
+
+/* ==============================
+   AUTH STATE
+============================== */
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+if(
+user &&
+user.uid===ADMIN_UID
+){
+
+isAdmin=true;
+
+adminPanel.style.display=
+"block";
+
+adminLogin.style.display=
+"none";
+
+chatStatus.textContent=
+"👑 وارد حساب مدیریت هستی";
+
+renderMessages();
 
 }else{
 
-snapshot.forEach(child=>{
+isAdmin=false;
 
-const message=child.val();
+adminPanel.style.display=
+"none";
 
-const messageDiv=document.createElement("div");
+adminLogin.style.display=
+"block";
 
-messageDiv.className="chat-message";
+renderMessages();
 
+}
 
-const name=document.createElement("span");
-
-name.className="chat-name";
-
-name.textContent=(message.name||"کاربر")+" ";
-
-
-const text=document.createElement("span");
-
-text.textContent=message.text||"";
+}
+);
 
 
-const time=document.createElement("span");
+/* ==============================
+   ADMIN LOGIN
+============================== */
 
-time.className="chat-time";
+adminLoginButton
+.addEventListener(
+"click",
+async()=>{
 
-if(message.time){
+const email =
+adminEmail.value.trim();
 
-const date=new Date(message.time);
+const password =
+adminPassword.value;
 
-time.textContent=
-" • "+
-date.toLocaleTimeString("fa-IR",{
-hour:"2-digit",
-minute:"2-digit"
-});
+
+if(!email || !password){
+
+adminLoginStatus.textContent=
+"ایمیل و رمز عبور را وارد کن.";
+
+return;
 
 }
 
 
-messageDiv.appendChild(name);
+adminLoginStatus.textContent=
+"در حال ورود...";
 
-messageDiv.appendChild(text);
 
-messageDiv.appendChild(time);
+try{
 
-messagesBox.appendChild(messageDiv);
+const result =
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-});
+
+if(
+result.user.uid!==ADMIN_UID
+){
+
+await signOut(auth);
+
+adminLoginStatus.textContent=
+"❌ این حساب ادمین نیست.";
+
+return;
 
 }
 
-messagesBox.scrollTop=messagesBox.scrollHeight;
 
-status.textContent="🟢 اتصال برقرار است";
+adminLoginStatus.textContent=
+"✅ ورود موفق بود.";
 
-sendButton.disabled=false;
-
-},
-
-(error)=>{
+}catch(error){
 
 console.error(error);
 
-status.textContent="🔴 اتصال به چت برقرار نشد";
+adminLoginStatus.textContent=
+"❌ ایمیل یا رمز عبور اشتباه است.";
 
-sendButton.disabled=true;
+}
+
+}
+);
+
+
+/* ==============================
+   LOGOUT
+============================== */
+
+adminLogoutButton
+.addEventListener(
+"click",
+async()=>{
+
+await signOut(auth);
+
+}
+);
+
+
+/* ==============================
+   LOAD BANNED USERS
+============================== */
+
+onValue(
+bannedRef,
+(snapshot)=>{
+
+bannedUsers =
+snapshot.val() || {};
+
+renderMessages();
+
+}
+);
+
+
+/* ==============================
+   LOAD MESSAGES
+============================== */
+
+onValue(
+messagesRef,
+(snapshot)=>{
+
+messages=[];
+
+
+snapshot.forEach(
+(child)=>{
+
+messages.push({
+
+id:child.key,
+
+...child.val()
+
+});
 
 });
 
 
-/* SEND MESSAGE */
+renderMessages();
+
+chatStatus.textContent =
+isAdmin
+?
+"👑 حالت مدیریت فعال"
+:
+"🟢 اتصال به چت برقرار است";
+
+}
+);
+
+
+/* ==============================
+   RENDER MESSAGES
+============================== */
+
+function renderMessages(){
+
+messagesBox.innerHTML="";
+
+
+if(messages.length===0){
+
+messagesBox.innerHTML=
+`
+<div
+style="
+opacity:.5;
+text-align:center;
+padding:30px;
+"
+>
+هنوز پیامی ارسال نشده 👋
+</div>
+`;
+
+return;
+
+}
+
+
+messages.forEach(
+(message)=>{
+
+const messageDiv =
+document.createElement("div");
+
+messageDiv.className =
+"chat-message";
+
+
+const nameSpan =
+document.createElement("span");
+
+nameSpan.className =
+"chat-name";
+
+nameSpan.textContent =
+(message.name || "کاربر")
++
+": ";
+
+
+const textSpan =
+document.createElement("span");
+
+textSpan.textContent =
+message.text || "";
+
+
+messageDiv.appendChild(
+nameSpan
+);
+
+messageDiv.appendChild(
+textSpan
+);
+
+
+/* TIME */
+
+if(message.time){
+
+const timeSpan =
+document.createElement("span");
+
+timeSpan.className =
+"chat-time";
+
+timeSpan.textContent =
+" • "+
+new Date(
+message.time
+).toLocaleTimeString(
+"fa-IR",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
+
+messageDiv.appendChild(
+timeSpan
+);
+
+}
+
+
+/* ADMIN BUTTONS */
+
+if(isAdmin){
+
+const actions =
+document.createElement("div");
+
+actions.className =
+"chat-actions";
+
+
+const deleteButton =
+document.createElement("button");
+
+deleteButton.className =
+"delete-btn";
+
+deleteButton.textContent =
+"🗑 حذف";
+
+deleteButton.onclick =
+()=>deleteMessage(
+message.id
+);
+
+
+const banButton =
+document.createElement("button");
+
+banButton.className =
+"ban-btn";
+
+banButton.textContent =
+"🚫 بن کاربر";
+
+banButton.onclick =
+()=>banUser(
+message.name
+);
+
+
+actions.appendChild(
+deleteButton
+);
+
+actions.appendChild(
+banButton
+);
+
+messageDiv.appendChild(
+actions
+);
+
+}
+
+messagesBox.appendChild(
+messageDiv
+);
+
+});
+
+
+messagesBox.scrollTop =
+messagesBox.scrollHeight;
+
+}
+
+
+/* ==============================
+   DELETE MESSAGE
+============================== */
+
+async function deleteMessage(id){
+
+if(!isAdmin){
+
+alert(
+"❌ دسترسی ندارید."
+);
+
+return;
+
+}
+
+
+if(
+!confirm(
+"این پیام حذف شود؟"
+)
+){
+
+return;
+
+}
+
+
+try{
+
+await remove(
+ref(
+db,
+"messages/"+id
+)
+);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"❌ حذف پیام انجام نشد."
+);
+
+}
+
+}
+
+
+/* ==============================
+   BAN USER
+============================== */
+
+async function banUser(name){
+
+if(!isAdmin)return;
+
+if(!name)return;
+
+
+if(
+!confirm(
+"کاربر «"+
+name+
+"» بن شود؟"
+)
+){
+
+return;
+
+}
+
+
+/*
+Firebase Realtime Database
+در نام کلید بعضی کاراکترها
+مجاز نیستند.
+*/
+
+const safeKey =
+btoa(
+unescape(
+encodeURIComponent(name)
+)
+)
+.replace(
+/[.#$/[\]]/g,
+"_"
+);
+
+
+try{
+
+await set(
+ref(
+db,
+"bannedUsers/"+safeKey
+),
+{
+
+name:name,
+
+time:Date.now()
+
+}
+);
+
+
+alert(
+"🚫 کاربر بن شد."
+);
+
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"❌ بن کردن انجام نشد."
+);
+
+}
+
+}
+
+
+/* ==============================
+   CHECK BAN
+============================== */
+
+function isBanned(name){
+
+return Object.values(
+bannedUsers
+)
+.some(
+(user)=>
+user &&
+user.name &&
+user.name.toLowerCase()
+===
+name.toLowerCase()
+);
+
+}
+
+
+/* ==============================
+   SEND MESSAGE
+============================== */
 
 let sending=false;
+
 
 async function sendMessage(){
 
 if(sending)return;
 
-const name=nameInput.value.trim();
 
-const text=messageInput.value.trim();
+const name =
+nameInput.value.trim();
+
+const text =
+messageInput.value.trim();
+
 
 if(!name){
 
-alert("لطفاً اسمت رو وارد کن!");
+alert(
+"لطفاً اسم خودت رو وارد کن."
+);
 
 nameInput.focus();
 
 return;
 
 }
+
 
 if(!text){
 
@@ -1179,9 +1753,38 @@ return;
 
 }
 
-if(name.length>20||text.length>200){
 
-alert("متن پیام بیش از حد طولانی است.");
+if(name.length>20){
+
+alert(
+"نام نمی‌تواند بیشتر از ۲۰ کاراکتر باشد."
+);
+
+return;
+
+}
+
+
+if(text.length>200){
+
+alert(
+"پیام نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد."
+);
+
+return;
+
+}
+
+
+/* BAN CHECK */
+
+if(
+isBanned(name)
+){
+
+alert(
+"🚫 این کاربر از چت بن شده است."
+);
 
 return;
 
@@ -1192,12 +1795,15 @@ sending=true;
 
 sendButton.disabled=true;
 
-sendButton.textContent="در حال ارسال...";
+sendButton.textContent=
+"در حال ارسال...";
 
 
 try{
 
-await push(messagesRef,{
+await push(
+messagesRef,
+{
 
 name:name,
 
@@ -1205,35 +1811,47 @@ text:text,
 
 time:Date.now()
 
-});
+}
+);
+
 
 messageInput.value="";
 
 messageInput.focus();
 
+
 }catch(error){
 
 console.error(error);
 
-alert("ارسال پیام انجام نشد. Rules دیتابیس Firebase را بررسی کن.");
+alert(
+"❌ ارسال پیام انجام نشد."
+);
 
-}finally{
+}
+
 
 sending=false;
 
 sendButton.disabled=false;
 
-sendButton.textContent="ارسال 🚀";
+sendButton.textContent=
+"ارسال پیام 🚀";
 
 }
 
-}
+
+sendButton.addEventListener(
+"click",
+sendMessage
+);
 
 
-sendButton.addEventListener("click",sendMessage);
+/* ENTER */
 
-
-messageInput.addEventListener("keydown",(event)=>{
+messageInput.addEventListener(
+"keydown",
+(event)=>{
 
 if(event.key==="Enter"){
 
@@ -1243,34 +1861,47 @@ sendMessage();
 
 }
 
-});
+}
+);
 
 
-/* COUNTDOWN
-   13 Dey 1405 = 3 January 2027
-*/
+/* ==============================
+   COUNTDOWN
+============================== */
 
-const targetDate=new Date("2027-01-03T00:00:00+03:30").getTime();
+const targetDate =
+new Date(
+"2027-01-03T00:00:00+03:30"
+).getTime();
 
 
 function updateCountdown(){
 
-const now=Date.now();
-
-const distance=targetDate-now;
+const distance =
+targetDate-Date.now();
 
 
 if(distance<=0){
 
-document.getElementById("days").textContent="00";
+document.getElementById(
+"days"
+).textContent="00";
 
-document.getElementById("hours").textContent="00";
+document.getElementById(
+"hours"
+).textContent="00";
 
-document.getElementById("minutes").textContent="00";
+document.getElementById(
+"minutes"
+).textContent="00";
 
-document.getElementById("seconds").textContent="00";
+document.getElementById(
+"seconds"
+).textContent="00";
 
-document.getElementById("finished").textContent=
+document.getElementById(
+"finished"
+).textContent=
 "🔥 اولین استریم شروع شده!";
 
 return;
@@ -1278,41 +1909,88 @@ return;
 }
 
 
-const days=Math.floor(distance/(1000*60*60*24));
-
-const hours=Math.floor(
-(distance%(1000*60*60*24))/(1000*60*60)
-);
-
-const minutes=Math.floor(
-(distance%(1000*60*60))/(1000*60)
-);
-
-const seconds=Math.floor(
-(distance%(1000*60))/1000
+const days =
+Math.floor(
+distance/
+(1000*60*60*24)
 );
 
 
-document.getElementById("days").textContent=
-String(days).padStart(2,"0");
+const hours =
+Math.floor(
+(
+distance%
+(1000*60*60*24)
+)/
+(1000*60*60)
+);
 
-document.getElementById("hours").textContent=
-String(hours).padStart(2,"0");
 
-document.getElementById("minutes").textContent=
-String(minutes).padStart(2,"0");
+const minutes =
+Math.floor(
+(
+distance%
+(1000*60*60)
+)/
+(1000*60)
+);
 
-document.getElementById("seconds").textContent=
-String(seconds).padStart(2,"0");
+
+const seconds =
+Math.floor(
+(
+distance%
+(1000*60)
+)/
+1000
+);
+
+
+document.getElementById(
+"days"
+).textContent =
+String(days)
+.padStart(2,"0");
+
+
+document.getElementById(
+"hours"
+).textContent =
+String(hours)
+.padStart(2,"0");
+
+
+document.getElementById(
+"minutes"
+).textContent =
+String(minutes)
+.padStart(2,"0");
+
+
+document.getElementById(
+"seconds"
+).textContent =
+String(seconds)
+.padStart(2,"0");
 
 }
 
 
 updateCountdown();
 
-setInterval(updateCountdown,1000);
+setInterval(
+updateCountdown,
+1000
+);
+
+
+console.log(
+"🔥 AVanta Firebase Chat Connected!"
+);
 
 </script>
 
+
 </body>
-</html>
+
+    </html>
