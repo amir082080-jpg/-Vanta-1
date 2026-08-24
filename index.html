@@ -9,40 +9,59 @@
 :root{
  --bg:#050509;
  --card:#101018;
- --card2:#15151f;
+ --card2:#151520;
  --line:#292936;
- --text:#f8f7ff;
- --muted:#92909e;
- --purple:#965cff;
- --purple2:#b56cff;
- --pink:#ff3ca8;
+ --text:#f7f7fb;
+ --muted:#8e8d9b;
+ --purple:#9b5cff;
+ --purple2:#7040ff;
+ --pink:#ff3da8;
  --green:#4df39a;
- --red:#e34e70;
- --gold:#ffd86b;
+ --red:#e04f70;
+ --gold:#ffd76a;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0
+}
 
 html{
  scroll-behavior:smooth;
- overflow-x:hidden;
+ overflow-x:hidden
 }
 
 body{
  font-family:Tahoma,Arial,sans-serif;
  background:
- radial-gradient(circle at 10% 20%,#5b25a914,transparent 28%),
- radial-gradient(circle at 90% 80%,#ff238b0d,transparent 28%),
+ radial-gradient(circle at 15% 20%,#7c3cff10,transparent 30%),
+ radial-gradient(circle at 85% 75%,#ff2f9c0c,transparent 30%),
  var(--bg);
  color:var(--text);
  min-height:100vh;
- overflow-x:hidden;
+ overflow-x:hidden
 }
 
-button,input{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.55;cursor:not-allowed}
-a{text-decoration:none;color:inherit}
+button,input{
+ font:inherit
+}
+
+button{
+ cursor:pointer
+}
+
+button:disabled{
+ opacity:.55;
+ cursor:not-allowed
+}
+
+a{
+ color:inherit;
+ text-decoration:none
+}
+
+/* BACKGROUND */
 
 body:before,
 body:after{
@@ -52,33 +71,40 @@ body:after{
  height:350px;
  border-radius:50%;
  filter:blur(110px);
+ opacity:.1;
  pointer-events:none;
- z-index:-5;
- opacity:.12;
+ z-index:-2;
+ animation:orb 8s ease-in-out infinite alternate
 }
 
 body:before{
- background:#863fff;
+ background:#8d4dff;
  left:-180px;
- top:10%;
+ top:15%
 }
 
 body:after{
  background:#ff2f9c;
  right:-180px;
- bottom:8%;
+ bottom:10%;
+ animation-delay:2s
+}
+
+@keyframes orb{
+ from{transform:translate(0,0) scale(.9)}
+ to{transform:translate(40px,-30px) scale(1.1)}
 }
 
 .grid{
  position:fixed;
  inset:0;
- z-index:-6;
+ z-index:-3;
  opacity:.035;
  pointer-events:none;
  background-image:
  linear-gradient(#fff 1px,transparent 1px),
  linear-gradient(90deg,#fff 1px,transparent 1px);
- background-size:70px 70px;
+ background-size:70px 70px
 }
 
 /* INTRO */
@@ -86,110 +112,116 @@ body:after{
 #intro{
  position:fixed;
  inset:0;
- background:#030306;
+ background:#030305;
  z-index:99999;
  display:grid;
  place-items:center;
  overflow:hidden;
- transition:opacity .8s,visibility .8s;
+ transition:opacity .7s,visibility .7s
 }
 
-#intro:before,
-#intro:after{
- content:"";
+#intro.hide{
+ opacity:0!important;
+ visibility:hidden!important;
+ pointer-events:none!important
+}
+
+.intro-bg{
  position:absolute;
  width:500px;
  height:500px;
+ border:1px solid #9b5cff20;
  border-radius:50%;
- border:1px solid #9b5cff16;
- animation:introRing 3s linear infinite;
+ animation:introSpin 8s linear infinite
 }
 
-#intro:after{
- width:700px;
- height:700px;
- border-color:#ff3da810;
- animation-duration:5s;
- animation-direction:reverse;
+.intro-bg:before,
+.intro-bg:after{
+ content:"";
+ position:absolute;
+ inset:50px;
+ border:1px solid #ff3da820;
+ border-radius:50%
+}
+
+.intro-bg:after{
+ inset:110px;
+ border-color:#9b5cff30
+}
+
+@keyframes introSpin{
+ to{transform:rotate(360deg)}
 }
 
 .intro-inner{
+ text-align:center;
  position:relative;
  z-index:2;
- text-align:center;
- animation:introIn 1s cubic-bezier(.2,.8,.2,1);
+ animation:introIn 1s cubic-bezier(.2,.8,.2,1)
+}
+
+@keyframes introIn{
+ from{
+  opacity:0;
+  transform:scale(.65) translateY(30px);
+  filter:blur(15px)
+ }
+ to{
+  opacity:1;
+  transform:none;
+  filter:none
+ }
 }
 
 .intro-logo{
- font-size:clamp(55px,12vw,100px);
- font-weight:1000;
+ font-size:clamp(55px,13vw,100px);
+ font-weight:900;
  letter-spacing:-8px;
- text-shadow:0 0 50px #9b5cff44;
+ text-shadow:0 0 50px #9b5cff40
 }
 
 .grad{
- background:linear-gradient(90deg,#8d55ff,#ff3da8);
+ background:linear-gradient(90deg,var(--purple),var(--pink),#ff7ac8);
  background-clip:text;
  -webkit-background-clip:text;
- color:transparent;
+ color:transparent
 }
 
 .intro-line{
  height:2px;
- width:230px;
+ width:0;
  margin:20px auto;
- background:linear-gradient(90deg,#8d55ff,#ff3da8);
- box-shadow:0 0 20px #9b5cff;
- animation:lineIn 1.2s .3s both;
+ background:linear-gradient(90deg,var(--purple),var(--pink));
+ animation:lineIn 1s .3s forwards
+}
+
+@keyframes lineIn{
+ to{width:240px}
 }
 
 .intro-inner small{
  color:#777;
- letter-spacing:7px;
- font-size:10px;
+ letter-spacing:6px;
+ opacity:0;
+ animation:fadeIn 1s .7s forwards
 }
 
-.intro-loader{
- width:180px;
- height:3px;
- background:#ffffff0d;
- margin:18px auto 0;
- border-radius:20px;
- overflow:hidden;
+@keyframes fadeIn{
+ to{opacity:1}
 }
 
-.intro-loader i{
- display:block;
- height:100%;
- width:0;
- background:linear-gradient(90deg,#9b5cff,#ff3da8);
- animation:loader 1.6s forwards;
+.intro-pulse{
+ position:absolute;
+ width:12px;
+ height:12px;
+ background:var(--pink);
+ border-radius:50%;
+ box-shadow:0 0 40px 15px #ff3da855;
+ animation:pulse 1.5s infinite
 }
 
-.hide{
- opacity:0!important;
- visibility:hidden!important;
- pointer-events:none!important;
-}
-
-@keyframes introIn{
- from{opacity:0;transform:scale(.75) translateY(25px);filter:blur(15px)}
- to{opacity:1;transform:none;filter:none}
-}
-
-@keyframes lineIn{
- from{width:0;opacity:0}
- to{width:230px;opacity:1}
-}
-
-@keyframes loader{
- to{width:100%}
-}
-
-@keyframes introRing{
- from{transform:rotate(0) scale(.7);opacity:.2}
- 50%{opacity:.8}
- to{transform:rotate(360deg) scale(1.15);opacity:.2}
+@keyframes pulse{
+ 50%{transform:scale(2);opacity:.4}
 }
 
 /* NAV */
@@ -199,94 +231,88 @@ body:after{
  top:14px;
  left:50%;
  transform:translateX(-50%);
- width:min(1150px,calc(100% - 20px));
+ width:min(1120px,calc(100% - 24px));
  z-index:1000;
- padding:10px 12px;
- border:1px solid #ffffff12;
- border-radius:20px;
- background:#08080de8;
- backdrop-filter:blur(22px);
- box-shadow:0 15px 50px #0007;
+ padding:12px 14px;
+ border:1px solid var(--line);
+ border-radius:18px;
+ background:#08080df2;
+ backdrop-filter:blur(20px);
  display:flex;
  align-items:center;
- gap:10px;
+ justify-content:space-between;
+ box-shadow:0 10px 40px #0004
 }
 
 .logo{
  font-size:25px;
- font-weight:1000;
- letter-spacing:-2px;
- margin-left:auto;
+ font-weight:900;
+ letter-spacing:-2px
 }
 
 .navlinks{
  display:flex;
- gap:4px;
+ gap:5px
 }
 
-.navlinks a,
-.lang-btn{
- border:0;
- padding:9px 11px;
+.navlinks a{
+ padding:9px 12px;
  color:#999;
- border-radius:11px;
- background:transparent;
- transition:.2s;
+ border-radius:10px;
+ transition:.2s
 }
 
-.navlinks a:hover,
-.lang-btn:hover{
- color:#fff;
- background:#ffffff0b;
-}
-
-.nav-actions{
- display:flex;
- gap:7px;
- align-items:center;
-}
-
-.lang-btn{
- border:1px solid #ffffff10;
- color:#ccc;
+.navlinks a:hover{
+ background:#ffffff0d;
+ color:#fff
 }
 
 .join{
+ padding:10px 16px;
+ border-radius:11px;
  border:0;
  color:#fff;
- background:linear-gradient(135deg,#8c52ff,#ff3da8);
+ background:linear-gradient(135deg,var(--purple),var(--pink));
  font-weight:900;
- padding:10px 15px;
- border-radius:12px;
- box-shadow:0 7px 25px #9b5cff33;
+ box-shadow:0 0 25px #9b5cff25
+}
+
+.lang-btn{
+ margin-right:6px;
+ padding:9px 12px;
+ border:1px solid #ffffff12;
+ background:#ffffff07;
+ color:#ddd;
+ border-radius:10px;
+ font-weight:800
 }
 
 /* MAIN */
 
 main{
- width:min(1150px,calc(100% - 30px));
- margin:auto;
+ width:min(1120px,calc(100% - 30px));
+ margin:auto
 }
 
 .hero{
  min-height:100vh;
- padding-top:125px;
+ padding-top:120px;
  display:grid;
  grid-template-columns:1.1fr .9fr;
- gap:50px;
- align-items:center;
+ gap:40px;
+ align-items:center
 }
 
 .badge{
  display:inline-flex;
  align-items:center;
  gap:8px;
- border:1px solid #ffffff12;
+ border:1px solid var(--line);
  background:#ffffff06;
  padding:8px 13px;
  border-radius:99px;
  color:#aaa;
- font-size:12px;
+ font-size:12px
 }
 
 .dot{
@@ -294,48 +320,47 @@ main{
  height:8px;
  border-radius:50%;
  background:var(--green);
- box-shadow:0 0 15px var(--green);
- animation:pulse 1.5s infinite;
+ box-shadow:0 0 14px var(--green);
+ animation:dotPulse 1.5s infinite
 }
 
-@keyframes pulse{
- 50%{transform:scale(1.6);opacity:.5}
+@keyframes dotPulse{
+ 50%{transform:scale(1.5);opacity:.5}
 }
 
 .welcome{
  margin:18px 0 10px;
  color:#777;
- letter-spacing:6px;
- font-size:11px;
+ letter-spacing:5px;
+ font-size:11px
 }
 
 h1{
- font-size:clamp(70px,12vw,150px);
+ font-size:clamp(70px,12vw,145px);
  line-height:.9;
- letter-spacing:-11px;
+ letter-spacing:-10px
 }
 
 .desc{
  max-width:600px;
  color:#aaa;
  line-height:2;
- margin:27px 0;
+ margin:26px 0
 }
 
 .count{
- max-width:620px;
- border:1px solid #ffffff12;
- background:#ffffff05;
- border-radius:22px;
- padding:18px;
- box-shadow:0 20px 70px #0004;
+ max-width:610px;
+ border:1px solid var(--line);
+ background:#ffffff06;
+ border-radius:20px;
+ padding:17px
 }
 
 .count-title{
  font-size:10px;
- letter-spacing:5px;
+ letter-spacing:4px;
  color:#777;
- margin-bottom:13px;
+ margin-bottom:12px
 }
 
 .count-row{
@@ -343,137 +368,146 @@ h1{
  display:flex;
  justify-content:center;
  align-items:center;
- gap:7px;
+ gap:7px
 }
 
 .time{
  min-width:62px;
  text-align:center;
- padding:9px 4px;
+ padding:8px 4px;
  background:#ffffff08;
- border:1px solid #ffffff06;
- border-radius:13px;
+ border-radius:12px
 }
 
 .time b{
  display:block;
- font-size:23px;
+ font-size:22px
 }
 
 .time small{
  font-size:9px;
- color:#777;
+ color:#777
 }
 
-.sep{color:#555}
+.sep{
+ color:#555
+}
 
 .date{
  text-align:center;
  color:#666;
  font-size:9px;
  letter-spacing:3px;
- margin-top:9px;
+ margin-top:9px
 }
 
 /* VISUAL */
 
 .visual{
- width:min(410px,85vw);
+ width:min(390px,82vw);
  aspect-ratio:1;
  position:relative;
  display:grid;
  place-items:center;
- margin:auto;
+ margin:auto
 }
 
 .ring{
  position:absolute;
+ border:1px solid #9b5cff66;
  border-radius:50%;
- border:1px solid #9b5cff55;
+ animation:spinRing 12s linear infinite
 }
 
-.r1{
- inset:3%;
- animation:spin 18s linear infinite;
-}
-
+.r1{inset:4%}
 .r2{
- inset:16%;
+ inset:17%;
  border-color:#ff3da855;
- animation:spin 11s linear infinite reverse;
+ animation-direction:reverse;
+ animation-duration:8s
 }
 
-@keyframes spin{
+@keyframes spinRing{
  to{transform:rotate(360deg)}
 }
 
 .avatar{
- width:61%;
+ width:62%;
  aspect-ratio:1;
- border-radius:34%;
- background:
- radial-gradient(circle at 30% 25%,#9b5cff22,transparent 30%),
- #11111a;
- border:1px solid #ffffff16;
+ border-radius:32%;
+ background:linear-gradient(145deg,#161622,#0b0b11);
+ border:1px solid #ffffff14;
  display:grid;
  place-items:center;
  transform:rotate(-7deg);
- box-shadow:
- 0 0 100px #8e4dff2b,
- inset 0 0 50px #9b5cff0b;
- animation:float 4s ease-in-out infinite;
+ box-shadow:0 0 90px #8e4dff2b;
+ animation:avatarFloat 4s ease-in-out infinite
+}
+
+@keyframes avatarFloat{
+ 50%{
+  transform:rotate(-3deg) translateY(-12px);
+  box-shadow:0 0 120px #8e4dff45
+ }
 }
 
 .avatar b{
  font-size:70px;
  letter-spacing:-8px;
  color:#a862ff;
- transform:rotate(7deg);
- text-shadow:0 0 35px #9b5cff88;
-}
-
-@keyframes float{
- 50%{transform:rotate(-3deg) translateY(-12px)}
+ transform:rotate(7deg)
 }
 
 .float-tag{
  position:absolute;
  padding:10px 13px;
- border:1px solid #ffffff14;
- background:#0c0c13ed;
- backdrop-filter:blur(15px);
- border-radius:13px;
+ border:1px solid var(--line);
+ background:#0c0c13e8;
+ border-radius:12px;
  font-size:11px;
- box-shadow:0 10px 30px #0006;
+ box-shadow:0 10px 30px #0005;
+ animation:tagFloat 3s ease-in-out infinite
 }
 
-.tag1{right:0;top:18%}
-.tag2{left:0;bottom:18%}
+.tag1{
+ right:0;
+ top:19%
+}
+
+.tag2{
+ left:0;
+ bottom:19%;
+ animation-delay:1s
+}
+
+@keyframes tagFloat{
+ 50%{transform:translateY(-7px)}
+}
 
 /* SECTIONS */
 
 .section{
- padding:100px 0;
+ padding:100px 0
 }
 
 .heading{
  display:flex;
  align-items:end;
  gap:13px;
- margin-bottom:28px;
+ margin-bottom:28px
 }
 
 .heading span{
  color:#b56aff;
- font-weight:900;
+ font-weight:900
 }
 
 .heading h2{
- font-size:clamp(30px,5vw,50px);
+ font-size:clamp(30px,5vw,50px)
 }
 
 .heading b{
- color:#b56aff;
+ color:#b56aff
 }
 
 .about{
@@ -482,9 +516,9 @@ h1{
  gap:24px;
  align-items:center;
  padding:28px;
- border:1px solid #ffffff12;
- border-radius:25px;
- background:#11111acc;
+ border:1px solid var(--line);
+ border-radius:24px;
+ background:#11111acc
 }
 
 .about-logo{
@@ -493,252 +527,402 @@ h1{
  border-radius:28px;
  display:grid;
  place-items:center;
- background:linear-gradient(135deg,#965cff,#ff3da8);
+ background:linear-gradient(135deg,var(--purple),var(--pink));
  font-size:32px;
- font-weight:1000;
- box-shadow:0 15px 45px #9b5cff30;
+ font-weight:900;
+ box-shadow:0 0 50px #9b5cff25
 }
 
 .about p{
  color:#999;
  line-height:2;
- margin-top:8px;
+ margin-top:8px
 }
 
 .cards{
  display:grid;
  grid-template-columns:repeat(3,1fr);
- gap:14px;
+ gap:14px
 }
 
 .card{
  padding:25px;
- border:1px solid #ffffff12;
+ border:1px solid var(--line);
  border-radius:21px;
  background:#11111acc;
- transition:.25s;
+ transition:.25s
 }
 
 .card:hover{
- transform:translateY(-6px);
- border-color:#9b5cff55;
- box-shadow:0 20px 50px #0005;
+ transform:translateY(-5px);
+ border-color:#9b5cff55
 }
 
 .card .icon{
  font-size:30px;
- margin-bottom:12px;
+ margin-bottom:12px
 }
 
 .card p{
  color:#999;
  line-height:1.8;
- margin-top:7px;
+ margin-top:7px
 }
 
 .socials{
  display:grid;
  grid-template-columns:repeat(4,1fr);
- gap:12px;
+ gap:12px
 }
 
 .social{
  padding:19px;
  text-align:center;
- border:1px solid #ffffff12;
+ border:1px solid var(--line);
  border-radius:17px;
  background:#11111acc;
- transition:.2s;
+ transition:.2s
 }
 
 .social:hover{
- transform:translateY(-4px);
- border-color:#9b5cff66;
+ transform:translateY(-3px);
+ border-color:#9b5cff66
 }
 
 .social strong{
  display:block;
  font-size:25px;
- margin-bottom:6px;
+ margin-bottom:6px
 }
 
 .social span{
- color:#aaa;
+ color:#aaa
 }
 
-/* CHAT */
+/* CHAT BUTTON */
 
-.chat-wrap{
- border:1px solid #ffffff12;
- border-radius:27px;
- background:#11111acc;
- overflow:hidden;
- box-shadow:0 25px 100px #0007;
+.chat-launch-section{
+ padding:50px 0 100px;
+ text-align:center
 }
 
-.chat-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:19px;
- border-bottom:1px solid #ffffff10;
-}
-
-.chat-head small{
- display:block;
- color:#777;
- margin-top:5px;
-}
-
-.online{
- font-size:11px;
- color:var(--green);
-}
-
-.chat-tools{
- display:flex;
- justify-content:flex-start;
- align-items:center;
- gap:8px;
- padding:10px 13px;
- border-bottom:1px solid #ffffff0c;
- background:#0c0c12;
-}
-
-.tool-btn{
- border:1px solid #ffffff10;
- background:linear-gradient(135deg,#171522,#21142a);
- color:#ddd;
- padding:8px 11px;
- border-radius:11px;
- font-size:11px;
- transition:.2s;
-}
-
-.tool-btn:hover{
- transform:translateY(-2px);
- border-color:#9b5cff66;
- box-shadow:0 8px 25px #9b5cff18;
-}
-
-.tool-btn.red{
- color:#ff91aa;
-}
-
-.tool-btn.pink{
- color:#ff8dca;
-}
-
-.admin-badge{
- margin-right:auto;
- color:#ff79be;
- font-size:11px;
+.chat-launch{
+ position:relative;
+ min-width:280px;
+ padding:20px 30px;
+ border:1px solid #9b5cff66;
+ border-radius:20px;
+ color:white;
+ background:
+ linear-gradient(135deg,#9b5cff18,#ff3da812),
+ #11111a;
+ font-size:18px;
  font-weight:900;
+ box-shadow:0 15px 60px #9b5cff12;
+ transition:.25s;
+ overflow:hidden
 }
 
-.emoji-panel{
- display:none;
- padding:12px;
- background:#0b0b11;
- border-bottom:1px solid #ffffff0c;
- animation:panelIn .25s ease;
+.chat-launch:before{
+ content:"";
+ position:absolute;
+ inset:-100%;
+ background:linear-gradient(120deg,transparent,#ffffff12,transparent);
+ transform:rotate(20deg);
+ animation:shine 3s infinite
 }
 
-.emoji-panel.show{
+@keyframes shine{
+ 0%{transform:translateX(-50%) rotate(20deg)}
+ 50%,100%{transform:translateX(50%) rotate(20deg)}
+}
+
+.chat-launch:hover{
+ transform:translateY(-5px) scale(1.02);
+ box-shadow:0 20px 80px #9b5cff25
+}
+
+.chat-launch small{
  display:block;
+ color:#888;
+ font-size:10px;
+ margin-top:6px;
+ font-weight:normal
 }
 
-@keyframes panelIn{
- from{opacity:0;transform:translateY(-8px)}
- to{opacity:1;transform:none}
+/* MODALS */
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:#000d;
+ z-index:5000;
+ display:none;
+ place-items:center;
+ padding:18px;
+ backdrop-filter:blur(8px)
 }
 
-.emoji-panel-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:9px;
- font-size:11px;
+.modal.show{
+ display:grid;
+ animation:modalFade .2s
+}
+
+@keyframes modalFade{
+ from{opacity:0}
+ to{opacity:1}
+}
+
+.modal-card{
+ width:min(520px,100%);
+ padding:22px;
+ border:1px solid var(--line);
+ border-radius:24px;
+ background:#11111a;
+ box-shadow:0 25px 100px #000;
+ animation:modalUp .3s cubic-bezier(.2,.8,.2,1)
+}
+
+@keyframes modalUp{
+ from{
+  transform:translateY(25px) scale(.95);
+  opacity:0
+ }
+ to{
+  transform:none;
+  opacity:1
+ }
+}
+
+.modal-card h3{
+ margin-bottom:15px
+}
+
+.modal-info{
  color:#aaa;
+ font-size:12px;
+ line-height:1.8;
+ margin-bottom:15px
 }
 
-.emoji-lock{
- color:#ffca67;
+.input{
+ width:100%;
+ outline:0;
+ border:1px solid var(--line);
+ background:#08080d;
+ color:#fff;
+ border-radius:12px;
+ padding:13px;
+ margin-bottom:8px
 }
 
-.emoji-list{
+.input:focus{
+ border-color:#9b5cff99;
+ box-shadow:0 0 0 3px #9b5cff0b
+}
+
+.modal-actions{
  display:flex;
- flex-wrap:wrap;
- gap:7px;
+ gap:8px;
+ margin-top:10px
 }
 
-.emoji{
+.modal-actions button{
+ flex:1;
+ padding:12px;
+ border:0;
+ border-radius:11px;
+ color:#fff
+}
+
+.save{
+ background:linear-gradient(135deg,var(--purple),var(--pink));
+ font-weight:900
+}
+
+.cancel{
+ background:#292935
+}
+
+.status{
+ padding:10px;
+ margin:8px 0;
+ border-radius:10px;
+ font-size:11px;
+ display:none
+}
+
+.status.show{
+ display:block
+}
+
+.status.error{
+ background:#421b26;
+ color:#ff9ab0
+}
+
+.status.success{
+ background:#173a2b;
+ color:#8effc5
+}
+
+/* CHAT APP */
+
+.chat-modal{
+ position:fixed;
+ inset:0;
+ z-index:4500;
+ display:none;
+ background:#050509ee;
+ backdrop-filter:blur(18px)
+}
+
+.chat-modal.show{
+ display:flex;
+ animation:chatOpen .25s
+}
+
+@keyframes chatOpen{
+ from{opacity:0}
+ to{opacity:1}
+}
+
+.chat-app{
+ width:min(1100px,calc(100% - 20px));
+ height:min(750px,calc(100% - 30px));
+ margin:auto;
+ border:1px solid var(--line);
+ border-radius:25px;
+ background:#0d0d14;
+ box-shadow:0 30px 120px #000;
+ overflow:hidden;
+ display:grid;
+ grid-template-columns:230px 1fr;
+ direction:ltr
+}
+
+.chat-sidebar{
+ border-right:1px solid var(--line);
+ background:#0a0a10;
+ padding:14px;
+ direction:rtl
+}
+
+.chat-brand{
+ font-size:20px;
+ font-weight:900;
+ padding:10px
+}
+
+.user-profile{
+ margin:10px 0;
+ padding:15px;
+ border:1px solid var(--line);
+ background:#ffffff04;
+ border-radius:16px
+}
+
+.user-avatar{
  width:48px;
  height:48px;
- border:1px solid #ffffff12;
- background:#ffffff06;
- border-radius:13px;
  display:grid;
  place-items:center;
- transition:.2s;
+ border-radius:15px;
+ background:linear-gradient(135deg,var(--purple),var(--pink));
+ font-weight:900;
+ margin-bottom:10px
 }
 
-.emoji:hover{
- transform:scale(1.08);
- border-color:#9b5cff77;
- background:#9b5cff12;
+.user-profile strong{
+ display:block
 }
 
-.emoji img{
- width:32px;
- height:32px;
- object-fit:contain;
+.user-profile small{
+ color:#888
 }
 
-.emoji-empty{
- color:#777;
- font-size:11px;
- padding:8px;
+.sidebar-btn{
+ width:100%;
+ padding:12px;
+ margin-top:8px;
+ border:1px solid var(--line);
+ border-radius:12px;
+ background:#ffffff05;
+ color:#ddd;
+ text-align:right
+}
+
+.sidebar-btn.active{
+ background:#9b5cff18;
+ border-color:#9b5cff55
+}
+
+.sidebar-btn .lock{
+ float:left
+}
+
+.chat-main{
+ min-width:0;
+ display:flex;
+ flex-direction:column;
+ direction:rtl
+}
+
+.chat-top{
+ height:65px;
+ border-bottom:1px solid var(--line);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:10px 16px;
+ background:#0d0d14
+}
+
+.chat-top-title strong{
+ display:block
+}
+
+.chat-top-title small{
+ color:#777
+}
+
+.chat-close{
+ width:40px;
+ height:40px;
+ border:1px solid var(--line);
+ background:#ffffff06;
+ color:#fff;
+ border-radius:12px
 }
 
 .messages{
- height:430px;
+ flex:1;
  overflow:auto;
- padding:16px;
+ padding:18px
 }
 
 .empty{
  text-align:center;
  color:#777;
- padding:110px 10px;
- line-height:2;
+ padding:100px 10px
 }
 
 .msg{
+ position:relative;
  padding:12px 14px;
  border:1px solid #ffffff0d;
  background:#ffffff05;
- border-radius:16px;
+ border-radius:15px;
  margin-bottom:10px;
- position:relative;
+ transition:.2s
 }
 
 .msg:hover{
- background:#ffffff08;
+ border-color:#ffffff16
 }
 
-.msg.reply{
- border-right:3px solid #9b5cff;
-}
-
-.reply-preview{
- background:#9b5cff0b;
- border-right:3px solid #9b5cff;
- padding:7px 10px;
- border-radius:9px;
- margin-bottom:9px;
- color:#999;
- font-size:10px;
+.msg.reply-target{
+ border-right:3px solid var(--purple)
 }
 
 .msg-name{
@@ -748,258 +932,427 @@ h1{
  margin-bottom:6px;
  display:flex;
  align-items:center;
- flex-wrap:wrap;
  gap:5px;
+ flex-wrap:wrap
 }
 
 .msg-name.admin-name{
- color:#ff70bd;
+ color:#ff70bd
 }
 
-.admin-crown{
- width:21px;
- height:21px;
- display:inline-grid;
- place-items:center;
+/* TELEGRAM STYLE ADMIN BADGE */
+
+.admin-badge-icon{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ width:18px;
+ height:18px;
  border-radius:50%;
- background:linear-gradient(135deg,#ff4faa,#9b5cff);
- box-shadow:0 0 15px #ff3da866;
- font-size:11px;
- animation:crownGlow 2s infinite;
+ background:linear-gradient(135deg,#ffb4df,#ff3da8);
+ color:#fff;
+ font-size:10px;
+ box-shadow:0 0 10px #ff3da855;
+ position:relative
 }
 
-@keyframes crownGlow{
- 50%{box-shadow:0 0 25px #ff3da899}
+.admin-badge-icon:after{
+ content:"";
+ position:absolute;
+ inset:-2px;
+ border:1px solid #ff70bd66;
+ border-radius:50%;
+ animation:badgePulse 2s infinite
+}
+
+@keyframes badgePulse{
+ 50%{transform:scale(1.25);opacity:.3}
 }
 
 .admin-title{
  font-size:9px;
  color:#ff70bd;
- font-weight:normal;
+ font-weight:normal
 }
 
 .level{
- display:inline-flex;
- align-items:center;
+ display:inline-block;
  font-size:9px;
  background:#292040;
  color:#cbaeff;
  padding:3px 7px;
- border-radius:8px;
+ border-radius:7px
 }
 
 .level.two{
  background:#472338;
- color:#ff91c7;
+ color:#ff91c7
 }
 
 .level.high{
  background:#263b39;
- color:#7fffd4;
+ color:#7fffd4
 }
 
 .msg-text{
  color:#e5e3ea;
- line-height:1.8;
+ line-height:1.7;
  white-space:pre-wrap;
- word-break:break-word;
-}
-
-.msg-text img.inline-emoji{
- width:25px;
- height:25px;
- object-fit:contain;
- vertical-align:middle;
+ word-break:break-word
 }
 
 .msg-time{
  font-size:9px;
  color:#666;
- margin-top:5px;
+ margin-top:5px
+}
+
+.reply-preview{
+ padding:8px 10px;
+ border-right:3px solid var(--purple);
+ background:#9b5cff0b;
+ border-radius:8px;
+ margin-bottom:8px;
+ font-size:10px;
+ color:#aaa
 }
 
 .msg-actions{
  display:flex;
  flex-wrap:wrap;
- gap:6px;
- margin-top:9px;
+ gap:5px;
+ margin-top:8px
 }
 
 .msg-action{
  border:0;
  color:#bbb;
- background:#ffffff09;
- border-radius:9px;
- padding:6px 9px;
- font-size:10px;
+ border-radius:8px;
+ padding:5px 8px;
+ background:#ffffff07;
+ font-size:10px
 }
 
 .msg-action:hover{
- background:#9b5cff18;
- color:#fff;
+ background:#ffffff12;
+ color:#fff
 }
 
-.msg-action.danger{
- background:#a33d571c;
- color:#ff8da6;
+.danger{
+ background:#a33d57!important;
+ color:#fff!important
 }
 
-.composer{
- display:grid;
- grid-template-columns:145px 1fr auto;
- gap:8px;
- padding:14px;
- border-top:1px solid #ffffff10;
+/* COMPOSER */
+
+.composer-wrap{
+ border-top:1px solid var(--line);
+ background:#0a0a10;
+ padding:10px
 }
 
-.input{
- width:100%;
- outline:0;
- border:1px solid #ffffff12;
- background:#08080d;
- color:#fff;
- border-radius:12px;
- padding:12px;
-}
-
-.input:focus{
- border-color:#9b5cff99;
- box-shadow:0 0 0 3px #9b5cff0b;
-}
-
-.send{
- border:0;
- border-radius:12px;
- padding:0 18px;
- color:#fff;
- background:linear-gradient(135deg,#965cff,#ff3da8);
- font-weight:900;
-}
-
-.reply-bar{
+.reply-box{
  display:none;
- padding:9px 14px;
- background:#0b0b11;
- border-top:1px solid #ffffff0c;
- align-items:center;
- gap:9px;
-}
-
-.reply-bar.show{
- display:flex;
-}
-
-.reply-bar-text{
- flex:1;
- color:#999;
+ padding:9px 12px;
+ margin-bottom:8px;
+ border-right:3px solid var(--purple);
+ background:#9b5cff0b;
+ border-radius:10px;
  font-size:11px;
+ color:#aaa
+}
+
+.reply-box.show{
+ display:flex;
+ justify-content:space-between;
+ align-items:center
 }
 
 .reply-cancel{
  border:0;
- background:#ffffff09;
- color:#aaa;
- border-radius:8px;
- padding:6px 9px;
+ background:transparent;
+ color:#ff6cae
 }
 
-/* LOGIN */
-
-.register-modal{
- position:fixed;
- inset:0;
- background:#000d;
- z-index:9000;
- display:none;
- place-items:center;
- padding:18px;
- backdrop-filter:blur(10px);
-}
-
-.register-modal.show{
+.composer{
  display:grid;
+ grid-template-columns:1fr auto;
+ gap:8px
 }
 
-.register-card{
- width:min(470px,100%);
- background:#101018;
- border:1px solid #ffffff15;
- border-radius:25px;
- padding:24px;
- box-shadow:0 30px 120px #000;
- animation:modalIn .35s cubic-bezier(.2,.8,.2,1);
+.composer-input{
+ display:flex;
+ gap:7px
 }
 
-@keyframes modalIn{
- from{opacity:0;transform:scale(.88) translateY(20px)}
- to{opacity:1;transform:none}
+.composer-input .input{
+ margin:0
 }
 
-.register-icon{
+.send{
+ border:0;
+ color:#fff;
+ background:linear-gradient(135deg,var(--purple),var(--pink));
+ font-weight:900;
+ border-radius:12px;
+ padding:0 20px
+}
+
+/* EMOJI */
+
+.emoji-launch{
+ width:46px;
+ height:46px;
+ border:1px solid var(--line);
+ border-radius:13px;
+ background:#ffffff06;
+ color:#fff;
+ font-size:22px;
+ flex-shrink:0;
+ position:relative
+}
+
+.emoji-launch.locked{
+ filter:grayscale(1);
+ opacity:.7
+}
+
+.emoji-launch .lock-icon{
+ position:absolute;
+ bottom:-4px;
+ left:-4px;
+ width:18px;
+ height:18px;
+ border-radius:50%;
+ background:#252531;
+ font-size:10px;
+ display:grid;
+ place-items:center
+}
+
+.emoji-panel{
+ position:absolute;
+ bottom:80px;
+ right:15px;
+ width:min(370px,calc(100% - 30px));
+ max-height:280px;
+ background:#11111a;
+ border:1px solid var(--line);
+ border-radius:20px;
+ padding:12px;
+ box-shadow:0 25px 70px #000;
+ display:none;
+ z-index:20
+}
+
+.emoji-panel.show{
+ display:block;
+ animation:emojiPop .2s
+}
+
+@keyframes emojiPop{
+ from{
+  transform:translateY(10px) scale(.95);
+  opacity:0
+ }
+ to{
+  transform:none;
+  opacity:1
+ }
+}
+
+.emoji-panel-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:10px
+}
+
+.emoji-panel-head small{
+ color:#777
+}
+
+.emoji-grid{
+ display:grid;
+ grid-template-columns:repeat(6,1fr);
+ gap:7px;
+ max-height:200px;
+ overflow:auto
+}
+
+.emoji-item{
+ border:1px solid var(--line);
+ background:#ffffff05;
+ border-radius:12px;
+ padding:7px;
+ min-height:48px;
+ display:grid;
+ place-items:center;
+ transition:.15s
+}
+
+.emoji-item:hover{
+ transform:scale(1.08);
+ background:#9b5cff12;
+ border-color:#9b5cff55
+}
+
+.emoji-item img{
+ width:34px;
+ height:34px;
+ object-fit:contain
+}
+
+.emoji-lock{
+ text-align:center;
+ padding:30px 10px;
+ color:#999
+}
+
+.emoji-lock strong{
+ display:block;
+ font-size:28px;
+ margin-bottom:8px;
+ color:#ddd
+}
+
+/* ADMIN TOOLBAR */
+
+.admin-tools{
+ position:absolute;
+ top:76px;
+ left:15px;
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ z-index:30
+}
+
+.admin-tool{
+ border:1px solid #ff70bd25;
+ background:#151018ee;
+ color:#ddd;
+ border-radius:11px;
+ padding:8px 10px;
+ font-size:10px;
+ backdrop-filter:blur(10px);
+ transition:.2s
+}
+
+.admin-tool:hover{
+ transform:translateY(-2px);
+ border-color:#ff70bd66;
+ background:#241323
+}
+
+/* SAVED */
+
+.saved-view{
+ position:absolute;
+ inset:65px 0 0;
+ background:#0d0d14;
+ z-index:25;
+ display:none;
+ flex-direction:column
+}
+
+.saved-view.show{
+ display:flex
+}
+
+.saved-head{
+ padding:16px;
+ border-bottom:1px solid var(--line);
+ display:flex;
+ justify-content:space-between;
+ align-items:center
+}
+
+.saved-list{
+ overflow:auto;
+ padding:16px
+}
+
+.saved-msg{
+ padding:13px;
+ border:1px solid var(--line);
+ background:#ffffff05;
+ border-radius:14px;
+ margin-bottom:8px
+}
+
+.saved-msg small{
+ color:#777;
+ display:block;
+ margin-bottom:5px
+}
+
+/* REGISTRATION */
+
+.reg-avatar{
+ width:65px;
+ height:65px;
+ margin:0 auto 12px;
+ border-radius:20px;
+ display:grid;
+ place-items:center;
+ background:linear-gradient(135deg,var(--purple),var(--pink));
+ font-size:24px;
+ font-weight:900
+}
+
+.success-icon{
  width:70px;
  height:70px;
- margin:0 auto 14px;
- display:grid;
- place-items:center;
- border-radius:22px;
- background:linear-gradient(135deg,#965cff,#ff3da8);
- font-size:30px;
- box-shadow:0 15px 40px #9b5cff33;
-}
-
-.register-card h3{
- text-align:center;
- margin-bottom:7px;
- font-size:23px;
-}
-
-.register-card p{
- text-align:center;
- color:#777;
- font-size:11px;
- line-height:1.8;
- margin-bottom:17px;
-}
-
-.register-fields{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:8px;
-}
-
-.next-btn{
- width:100%;
- border:0;
- padding:13px;
- border-radius:12px;
- color:#fff;
- background:linear-gradient(135deg,#965cff,#ff3da8);
- font-weight:900;
- margin-top:10px;
-}
-
-.success-screen{
- display:none;
- text-align:center;
-}
-
-.success-screen.show{
- display:block;
- animation:modalIn .35s ease;
-}
-
-.success-check{
- width:75px;
- height:75px;
  margin:0 auto 15px;
  display:grid;
  place-items:center;
  border-radius:50%;
- background:#4df39a18;
- border:1px solid #4df39a55;
- color:#4df39a;
- font-size:35px;
- box-shadow:0 0 40px #4df39a22;
+ background:#173a2b;
+ color:#75ffc0;
+ font-size:30px;
+ box-shadow:0 0 40px #4df39a22
+}
+
+/* ADMIN LOGIN */
+
+.admin-login-section{
+ text-align:center;
+ margin-top:20px
+}
+
+.admin-open{
+ border:1px solid #9b5cff66;
+ background:#171222;
+ color:#d9c3ff;
+ border-radius:14px;
+ padding:12px 22px;
+ font-weight:900
+}
+
+/* EMOJI UPLOAD */
+
+.preview{
+ width:120px;
+ height:120px;
+ margin:10px auto;
+ border-radius:20px;
+ border:1px dashed #ffffff2a;
+ display:grid;
+ place-items:center;
+ overflow:hidden;
+ color:#777;
+ background:#08080d
+}
+
+.preview img{
+ width:100%;
+ height:100%;
+ object-fit:contain
+}
+
+.file-input{
+ padding:10px
 }
 
 /* FOOTER */
@@ -1007,88 +1360,85 @@ h1{
 footer{
  text-align:center;
  padding:55px 20px 30px;
- border-top:1px solid #ffffff0c;
- color:#777;
+ border-top:1px solid var(--line);
+ color:#777
 }
 
 .footer-logo{
- font-weight:1000;
+ font-weight:900;
  font-size:25px;
- margin-bottom:8px;
+ margin-bottom:8px
 }
 
-/* MOBILE */
+.footer-logo span{
+ color:#b56aff
+}
+
+/* RESPONSIVE */
 
 @media(max-width:800px){
 
- .navlinks{display:none}
-
- .nav{
-  padding:9px;
- }
-
- .logo{
-  margin-left:0;
-  margin-right:auto;
- }
-
- .nav-actions{
-  margin-right:auto;
- }
-
- .join{
-  display:none;
+ .navlinks{
+  display:none
  }
 
  .hero{
   grid-template-columns:1fr;
-  padding-top:125px;
+  padding-top:125px
  }
 
  .visual{
-  order:-1;
+  order:-1
  }
 
  .cards{
-  grid-template-columns:1fr;
+  grid-template-columns:1fr
  }
 
  .socials{
-  grid-template-columns:1fr 1fr;
- }
-
- .composer{
-  grid-template-columns:1fr;
- }
-
- .send{
-  padding:12px;
+  grid-template-columns:1fr 1fr
  }
 
  .about{
   grid-template-columns:1fr;
-  text-align:center;
+  text-align:center
  }
 
  .about-logo{
-  margin:auto;
+  margin:auto
  }
 
- .chat-tools{
-  overflow-x:auto;
-  justify-content:flex-start;
+ .chat-app{
+  width:100%;
+  height:100%;
+  border-radius:0;
+  grid-template-columns:1fr
  }
 
- .admin-badge{
-  display:none;
+ .chat-sidebar{
+  display:none
  }
 
- .messages{
-  height:390px;
+ .admin-tools{
+  top:72px;
+  left:8px;
+  right:8px
  }
 
- .register-fields{
-  grid-template-columns:1fr;
+ .admin-tool{
+  padding:7px 8px
+ }
+
+ .composer{
+  grid-template-columns:1fr
+ }
+
+ .send{
+  padding:12px
+ }
+
+ .chat-modal{
+  padding:0
  }
 
 }
@@ -1096,36 +1446,40 @@ footer{
 @media(max-width:460px){
 
  main{
-  width:min(100% - 20px,1150px);
+  width:min(100% - 20px,1120px)
  }
 
  h1{
   font-size:70px;
-  letter-spacing:-7px;
+  letter-spacing:-7px
  }
 
  .time{
-  min-width:52px;
+  min-width:52px
  }
 
  .time b{
-  font-size:18px;
+  font-size:18px
  }
 
  .count-row{
-  gap:3px;
+  gap:3px
  }
 
  .sep{
-  font-size:12px;
+  font-size:12px
  }
 
  .intro-logo{
-  font-size:55px;
+  font-size:55px
  }
 
  .socials{
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr 1fr
+ }
+
+ .emoji-grid{
+  grid-template-columns:repeat(5,1fr)
  }
 
 }
@@ -1137,16 +1491,22 @@ footer{
 <div class="grid"></div>
 
 <!-- INTRO -->
+
 <div id="intro">
+ <div class="intro-bg"></div>
+ <div class="intro-pulse"></div>
+
  <div class="intro-inner">
-  <div class="intro-logo"><span class="grad">AV</span>anta</div>
+  <div class="intro-logo">
+   <span class="grad">AV</span>anta
+  </div>
   <div class="intro-line"></div>
   <small id="introText">FIRST STREAM</small>
-  <div class="intro-loader"><i></i></div>
  </div>
 </div>
 
 <!-- NAV -->
+
 <header class="nav">
 
  <a class="logo" href="#home">
@@ -1154,22 +1514,14 @@ footer{
  </a>
 
  <nav class="navlinks">
-  <a href="#home" data-i18n="home">خانه</a>
-  <a href="#about" data-i18n="about">درباره</a>
-  <a href="#social" data-i18n="social">شبکه‌ها</a>
-  <a href="#chat" data-i18n="chat">چت</a>
+  <a href="#home" data-fa="خانه" data-en="Home">خانه</a>
+  <a href="#about" data-fa="درباره" data-en="About">درباره</a>
+  <a href="#social" data-fa="شبکه‌ها" data-en="Social">شبکه‌ها</a>
  </nav>
 
- <div class="nav-actions">
-
-  <button id="langBtn" class="lang-btn">
-   🌐 English
-  </button>
-
-  <a class="join" href="#chat" data-i18n="join">
-   همراه شو
-  </a>
-
+ <div>
+  <button id="langBtn" class="lang-btn">EN</button>
+  <a class="join" href="#chatLauncher" data-fa="چت" data-en="Chat">چت</a>
  </div>
 
 </header>
@@ -1184,16 +1536,19 @@ footer{
 
   <div class="badge">
    <span class="dot"></span>
-   <span data-i18n="streamComing">اولین استریم در راهه</span>
+   <span data-fa="اولین استریم در راهه" data-en="First stream is coming">
+    اولین استریم در راهه
+   </span>
   </div>
 
   <div class="welcome">WELCOME TO</div>
 
   <h1>A<span class="grad">V</span>anta</h1>
 
-  <p class="desc" data-i18n="heroDesc">
-   اینجا قراره اولین استریم من شروع بشه.
-   <br>
+  <p class="desc"
+     data-fa="اینجا قراره اولین استریم من شروع بشه.&#10;آماده‌ای با هم یه شروع خفن داشته باشیم؟"
+     data-en="This is where my first stream begins.&#10;Ready for an epic start?">
+   اینجا قراره اولین استریم من شروع بشه.<br>
    آماده‌ای با هم یه شروع خفن داشته باشیم؟
   </p>
 
@@ -1205,28 +1560,28 @@ footer{
 
     <div class="time">
      <b id="days">00</b>
-     <small data-i18n="days">روز</small>
+     <small data-fa="روز" data-en="DAYS">روز</small>
     </div>
 
     <span class="sep">:</span>
 
     <div class="time">
      <b id="hours">00</b>
-     <small data-i18n="hours">ساعت</small>
+     <small data-fa="ساعت" data-en="HOURS">ساعت</small>
     </div>
 
     <span class="sep">:</span>
 
     <div class="time">
      <b id="minutes">00</b>
-     <small data-i18n="minutes">دقیقه</small>
+     <small data-fa="دقیقه" data-en="MINUTES">دقیقه</small>
     </div>
 
     <span class="sep">:</span>
 
     <div class="time">
      <b id="seconds">00</b>
-     <small data-i18n="seconds">ثانیه</small>
+     <small data-fa="ثانیه" data-en="SECONDS">ثانیه</small>
     </div>
 
    </div>
@@ -1260,7 +1615,7 @@ footer{
  <div class="heading">
   <span>01</span>
   <h2>
-   <span data-i18n="about">درباره</span>
+   <span data-fa="درباره" data-en="About">درباره</span>
    <b>AVanta</b>
   </h2>
  </div>
@@ -1270,15 +1625,20 @@ footer{
   <div class="about-logo">AV</div>
 
   <div>
-   <h3 data-i18n="start">این تازه شروعشه.</h3>
+   <h3 data-fa="این تازه شروعشه." data-en="This is only the beginning.">
+    این تازه شروعشه.
+   </h3>
 
-   <p data-i18n="about1">
+   <p data-fa="AVanta قراره جایی باشه برای گیم، استریم و کلی لحظه خفن."
+      data-en="AVanta is going to be a place for gaming, streaming and awesome moments.">
     AVanta قراره جایی باشه برای گیم، استریم و کلی لحظه خفن.
    </p>
 
-   <p data-i18n="about2">
+   <p data-fa="اولین استریم هنوز شروع نشده، ولی قراره از همین‌جا همه‌چیز شروع بشه."
+      data-en="The first stream hasn't started yet, but everything starts right here.">
     اولین استریم هنوز شروع نشده، ولی قراره از همین‌جا همه‌چیز شروع بشه.
    </p>
+
   </div>
 
  </div>
@@ -1291,8 +1651,10 @@ footer{
 
  <div class="heading">
   <span>02</span>
-  <h2 data-i18n="what">
-   قراره چه <b>چیزهایی</b> ببینیم؟
+  <h2>
+   <span data-fa="قراره چه" data-en="What will we">قراره چه</span>
+   <b data-fa="چیزهایی" data-en="watch">چیزهایی</b>
+   <span data-fa="ببینیم؟" data-en="?">ببینیم؟</span>
   </h2>
  </div>
 
@@ -1301,7 +1663,8 @@ footer{
   <div class="card">
    <div class="icon">🎮</div>
    <h3>Gaming</h3>
-   <p data-i18n="gamingText">
+   <p data-fa="بازی‌های مختلف و لحظات هیجانی."
+      data-en="Different games and exciting moments.">
     بازی‌های مختلف و لحظات هیجانی.
    </p>
   </div>
@@ -1309,7 +1672,8 @@ footer{
   <div class="card">
    <div class="icon">👻</div>
    <h3>Horror</h3>
-   <p data-i18n="horrorText">
+   <p data-fa="بازی‌های ترسناک و واکنش‌های واقعی."
+      data-en="Horror games and real reactions.">
     بازی‌های ترسناک و واکنش‌های واقعی.
    </p>
   </div>
@@ -1317,7 +1681,8 @@ footer{
   <div class="card">
    <div class="icon">😂</div>
    <h3>Fun</h3>
-   <p data-i18n="funText">
+   <p data-fa="شوخی، خنده و لحظات غیرمنتظره."
+      data-en="Jokes, laughs and unexpected moments.">
     شوخی، خنده و لحظات غیرمنتظره.
    </p>
   </div>
@@ -1333,30 +1698,42 @@ footer{
  <div class="heading">
   <span>03</span>
   <h2>
-   <span data-i18n="follow">همراه</span>
+   <span data-fa="همراه" data-en="Follow">همراه</span>
    <b>AVanta</b>
-   <span data-i18n="follow2">شو</span>
+   <span data-fa="شو" data-en="us">شو</span>
   </h2>
  </div>
 
  <div class="socials">
 
-  <a class="social" href="https://youtube.com/@avanta_iran" target="_blank" rel="noopener">
+  <a class="social"
+     href="https://youtube.com/@avanta_iran"
+     target="_blank"
+     rel="noopener">
    <strong>▶</strong>
    <span>YouTube</span>
   </a>
 
-  <a class="social" href="https://www.instagram.com/amir_vanta" target="_blank" rel="noopener">
+  <a class="social"
+     href="https://www.instagram.com/amir_vanta"
+     target="_blank"
+     rel="noopener">
    <strong>◎</strong>
    <span>Instagram</span>
   </a>
 
-  <a class="social" href="https://t.me/amirvanta1" target="_blank" rel="noopener">
+  <a class="social"
+     href="https://t.me/amirvanta1"
+     target="_blank"
+     rel="noopener">
    <strong>✈</strong>
    <span>Telegram</span>
   </a>
 
-  <a class="social" href="https://discord.gg/GZrR3ez9e" target="_blank" rel="noopener">
+  <a class="social"
+     href="https://discord.gg/GZrR3ez9e"
+     target="_blank"
+     rel="noopener">
    <strong>◉</strong>
    <span>Discord</span>
   </a>
@@ -1365,140 +1742,24 @@ footer{
 
 </section>
 
-<!-- CHAT -->
+<!-- CHAT LAUNCH -->
 
-<section id="chat" class="section">
+<section id="chatLauncher" class="chat-launch-section">
 
- <div class="heading">
-  <span>04</span>
-  <h2>
-   AVanta <b>Chat</b>
-  </h2>
- </div>
+ <button id="openChat" class="chat-launch">
 
- <div class="chat-wrap">
+  💬
+  <span data-fa="چت آنلاین AVanta"
+        data-en="AVanta Online Chat">
+   چت آنلاین AVanta
+  </span>
 
-  <div class="chat-head">
+  <small data-fa="برای ورود کلیک کن"
+         data-en="Click to join">
+   برای ورود کلیک کن
+  </small>
 
-   <div>
-    <strong data-i18n="onlineChat">💬 چت آنلاین</strong>
-    <small data-i18n="chatLimit">
-     کاربران عادی هر ۱۰ ثانیه یک پیام
-    </small>
-   </div>
-
-   <div class="online">
-    ● <span data-i18n="online">آنلاین</span>
-   </div>
-
-  </div>
-
-  <!-- TOOLS -->
-
-  <div class="chat-tools" id="adminActions">
-
-   <button id="emojiToggle" class="tool-btn">
-    😀 <span data-i18n="emojis">ایموجی‌ها</span>
-   </button>
-
-   <button id="cleanup" class="tool-btn">
-    🧹 <span data-i18n="cleanup">پاکسازی ۱۰ دقیقه</span>
-   </button>
-
-   <button id="emojiMaker" class="tool-btn pink">
-    ✨ <span data-i18n="makeEmoji">ساخت ایموجی</span>
-   </button>
-
-   <button id="adminLogout" class="tool-btn red">
-    خروج
-   </button>
-
-   <span id="adminBadge" class="admin-badge">
-    👑 AVanta ADMIN
-   </span>
-
-  </div>
-
-  <!-- EMOJI PANEL -->
-
-  <div id="emojiPanel" class="emoji-panel">
-
-   <div class="emoji-panel-title">
-
-    <span>
-     😀 <span data-i18n="specialEmoji">ایموجی‌های اختصاصی</span>
-    </span>
-
-    <span id="emojiLock" class="emoji-lock">
-     🔒 Level 2+
-    </span>
-
-   </div>
-
-   <div id="emojiList" class="emoji-list">
-
-    <div class="emoji-empty" data-i18n="emojiLocked">
-     برای استفاده از ایموجی‌های اختصاصی حداقل باید Level 2 باشید.
-    </div>
-
-   </div>
-
-  </div>
-
-  <!-- MESSAGES -->
-
-  <div id="messages" class="messages">
-
-   <div class="empty">
-    💬
-    <br>
-    <span data-i18n="connecting">در حال اتصال به چت...</span>
-   </div>
-
-  </div>
-
-  <!-- REPLY -->
-
-  <div id="replyBar" class="reply-bar">
-
-   <span>↩️</span>
-
-   <div class="reply-bar-text">
-    <b data-i18n="replying">در حال پاسخ به:</b>
-    <span id="replyText"></span>
-   </div>
-
-   <button id="replyCancel" class="reply-cancel">✕</button>
-
-  </div>
-
-  <!-- COMPOSER -->
-
-  <form id="composer" class="composer">
-
-   <input
-    id="name"
-    class="input"
-    maxlength="40"
-    placeholder="نام شما"
-    required
-   >
-
-   <input
-    id="text"
-    class="input"
-    maxlength="300"
-    placeholder="پیامت رو بنویس..."
-    required
-   >
-
-   <button class="send" type="submit">
-    <span data-i18n="send">ارسال</span> 🚀
-   </button>
-
-  </form>
-
- </div>
+ </button>
 
 </section>
 
@@ -1507,7 +1768,7 @@ footer{
 <footer>
 
  <div class="footer-logo">
-  A<span class="grad">V</span>anta
+  A<span>V</span>anta
  </div>
 
  <p>© AVanta — First Stream</p>
@@ -1515,64 +1776,82 @@ footer{
 </footer>
 
 
-<!-- REGISTER MODAL -->
+<!-- REGISTRATION MODAL -->
 
-<div id="registerModal" class="register-modal">
+<div id="registerModal" class="modal">
 
- <div class="register-card">
+ <div class="modal-card">
 
-  <div id="registerForm">
+  <div class="reg-avatar">AV</div>
 
-   <div class="register-icon">💬</div>
+  <h3 id="registerTitle">👋 خوش اومدی</h3>
 
-   <h3 data-i18n="chatRegister">
-    ورود به چت آنلاین
-   </h3>
+  <div class="modal-info"
+       id="registerInfo">
+   برای ورود به چت آنلاین، نام و نام خانوادگی خودت را وارد کن.
+  </div>
 
-   <p data-i18n="registerDesc">
-    برای ورود به چت، نام و نام خانوادگی خود را وارد کنید.
-   </p>
+  <div id="registerStatus" class="status"></div>
 
-   <div class="register-fields">
+  <input
+   id="firstName"
+   class="input"
+   maxlength="20"
+   placeholder="نام"
+   autocomplete="given-name">
 
-    <input
-     id="firstName"
-     class="input"
-     maxlength="20"
-     placeholder="نام"
-    >
+  <input
+   id="lastName"
+   class="input"
+   maxlength="30"
+   placeholder="نام خانوادگی"
+   autocomplete="family-name">
 
-    <input
-     id="lastName"
-     class="input"
-     maxlength="25"
-     placeholder="نام خانوادگی"
-    >
+  <div class="modal-actions">
 
-   </div>
+   <button
+    id="nextRegister"
+    class="save"
+    type="button">
+    بعدی
+   </button>
 
-   <button id="registerNext" class="next-btn">
-    <span data-i18n="next">بعدی</span> →
+   <button
+    id="cancelRegister"
+    class="cancel"
+    type="button">
+    انصراف
    </button>
 
   </div>
 
+ </div>
 
-  <div id="successScreen" class="success-screen">
+</div>
 
-   <div class="success-check">✓</div>
 
-   <h3 data-i18n="registered">
-    ثبت‌نام انجام شد
-   </h3>
+<!-- REGISTER SUCCESS -->
 
-   <p>
-    <span data-i18n="welcomeUser">خوش اومدی</span>
-    <b id="registeredName"></b> ❤️
-   </p>
+<div id="successModal" class="modal">
 
-   <button id="confirmRegister" class="next-btn">
-    <span data-i18n="confirm">تأیید و ورود به چت</span> 🚀
+ <div class="modal-card" style="text-align:center">
+
+  <div class="success-icon">✓</div>
+
+  <h3>ثبت‌نام انجام شد 🎉</h3>
+
+  <div class="modal-info">
+   پروفایل شما با موفقیت ساخته شد.
+   برای ورود به چت روی تأیید بزن.
+  </div>
+
+  <div class="modal-actions">
+
+   <button
+    id="confirmRegister"
+    class="save"
+    type="button">
+    تأیید و ورود به چت
    </button>
 
   </div>
@@ -1584,21 +1863,15 @@ footer{
 
 <!-- ADMIN LOGIN -->
 
-<div id="adminModal" class="register-modal">
+<div id="adminModal" class="modal">
 
- <div class="register-card">
+ <div class="modal-card">
 
-  <div class="register-icon">👑</div>
+  <h3>👑 ورود مدیر AVanta</h3>
 
-  <h3 data-i18n="adminLogin">
-   ورود مدیر AVanta
-  </h3>
-
-  <p>
-   <span data-i18n="adminLoginDesc">
-    ایمیل و رمز حساب مدیر Firebase را وارد کنید.
-   </span>
-  </p>
+  <div class="modal-info">
+   ایمیل و رمز حساب ادمین Firebase را وارد کن.
+  </div>
 
   <div id="loginStatus" class="status"></div>
 
@@ -1607,93 +1880,320 @@ footer{
    class="input"
    type="email"
    autocomplete="username"
-   placeholder="ایمیل ادمین"
-  >
-
-  <br>
+   placeholder="ایمیل ادمین">
 
   <input
    id="modalPassword"
    class="input"
    type="password"
    autocomplete="current-password"
-   placeholder="رمز عبور"
-  >
+   placeholder="رمز عبور">
 
-  <button id="modalLogin" class="next-btn">
-   <span data-i18n="login">ورود</span> 👑
-  </button>
+  <div class="modal-actions">
 
-  <button id="closeAdmin" class="tool-btn" style="width:100%;margin-top:8px">
-   <span data-i18n="cancel">انصراف</span>
-  </button>
+   <button
+    id="modalLogin"
+    class="save"
+    type="button">
+    ورود
+   </button>
+
+   <button
+    id="closeAdmin"
+    class="cancel"
+    type="button">
+    انصراف
+   </button>
+
+  </div>
 
  </div>
 
 </div>
 
 
-<!-- EMOJI MAKER -->
+<!-- EMOJI CREATOR -->
 
-<div id="emojiModal" class="register-modal">
+<div id="emojiModal" class="modal">
 
- <div class="register-card">
+ <div class="modal-card">
 
-  <div class="register-icon">✨</div>
+  <h3>😀 ساخت ایموجی اختصاصی</h3>
 
-  <h3 data-i18n="makeEmoji">
-   ساخت ایموجی
-  </h3>
-
-  <p data-i18n="emojiMakerDesc">
-   عکس خودت را آپلود کن و یک نام برای ایموجی بگذار.
-  </p>
-
-  <div id="emojiStatus" class="status"></div>
+  <div class="modal-info">
+   عکس خودت را انتخاب کن و برای ایموجی یک نام بگذار.
+   ایموجی بعد از آپلود داخل چت نمایش داده می‌شود.
+  </div>
 
   <input
    id="emojiName"
    class="input"
    maxlength="20"
-   placeholder="نام ایموجی"
-  >
-
-  <br>
+   placeholder="نام ایموجی">
 
   <input
    id="emojiFile"
-   class="input"
+   class="input file-input"
    type="file"
-   accept="image/*"
-  >
+   accept="image/png,image/jpeg,image/webp,image/gif">
 
-  <div
-   id="preview"
-   style="
-    width:120px;
-    height:120px;
-    margin:12px auto;
-    border-radius:20px;
-    border:1px dashed #ffffff25;
-    display:grid;
-    place-items:center;
-    overflow:hidden;
-    color:#777;
-    background:#08080d;
-   "
-  >
-   🖼️
+  <div id="preview" class="preview">
+   عکس را انتخاب کن
   </div>
 
-  <button id="saveEmoji" class="next-btn">
-   <span data-i18n="uploadEmoji">آپلود ایموجی</span> 🚀
-  </button>
+  <div id="emojiStatus" class="status"></div>
 
-  <button id="closeEmoji" class="tool-btn" style="width:100%;margin-top:8px">
-   <span data-i18n="cancel">بستن</span>
-  </button>
+  <div class="modal-actions">
+
+   <button
+    id="saveEmoji"
+    class="save"
+    type="button">
+    آپلود ایموجی
+   </button>
+
+   <button
+    id="closeEmoji"
+    class="cancel"
+    type="button">
+    بستن
+   </button>
+
+  </div>
 
  </div>
+
+</div>
+
+
+<!-- CHAT APP -->
+
+<div id="chatModal" class="chat-modal">
+
+ <div class="chat-app">
+
+  <!-- SIDEBAR -->
+
+  <aside class="chat-sidebar">
+
+   <div class="chat-brand">
+    A<span class="grad">V</span>anta Chat
+   </div>
+
+   <div class="user-profile">
+
+    <div id="userAvatar" class="user-avatar">
+     AV
+    </div>
+
+    <strong id="profileName">
+     کاربر
+    </strong>
+
+    <small id="profileLevel">
+     LEVEL 1
+    </small>
+
+   </div>
+
+   <button
+    id="savedButton"
+    class="sidebar-btn">
+    ⭐ پیام‌های ذخیره‌شده
+   </button>
+
+   <button
+    id="backChatButton"
+    class="sidebar-btn">
+    💬 چت آنلاین
+   </button>
+
+  </aside>
+
+
+  <!-- MAIN CHAT -->
+
+  <section class="chat-main">
+
+   <div class="chat-top">
+
+    <div class="chat-top-title">
+
+     <strong>💬 AVanta Chat</strong>
+
+     <small id="onlineText">
+      ● آنلاین
+     </small>
+
+    </div>
+
+    <button
+     id="closeChat"
+     class="chat-close">
+     ✕
+    </button>
+
+   </div>
+
+
+   <!-- ADMIN TOOLS -->
+
+   <div
+    id="adminTools"
+    class="admin-tools"
+    style="display:none">
+
+    <button
+     id="cleanup"
+     class="admin-tool">
+     🧹 پاکسازی ۱۰ دقیقه
+    </button>
+
+    <button
+     id="emojiMaker"
+     class="admin-tool">
+     😀 ساخت ایموجی
+    </button>
+
+    <button
+     id="adminLogout"
+     class="admin-tool">
+     🚪 خروج
+    </button>
+
+   </div>
+
+
+   <!-- SAVED -->
+
+   <div id="savedView" class="saved-view">
+
+    <div class="saved-head">
+
+     <strong>⭐ پیام‌های ذخیره‌شده</strong>
+
+     <button
+      id="closeSaved"
+      class="chat-close">
+      ✕
+     </button>
+
+    </div>
+
+    <div id="savedList" class="saved-list">
+     <div class="empty">
+      هنوز پیامی ذخیره نکردی.
+     </div>
+    </div>
+
+   </div>
+
+
+   <!-- MESSAGES -->
+
+   <div
+    id="messages"
+    class="messages">
+
+    <div class="empty">
+     در حال اتصال به چت...
+    </div>
+
+   </div>
+
+
+   <!-- EMOJI PANEL -->
+
+   <div id="emojiPanel" class="emoji-panel">
+
+    <div class="emoji-panel-head">
+
+     <strong>😀 ایموجی‌های AVanta</strong>
+
+     <small id="emojiRequirement">
+      Level 2+
+     </small>
+
+    </div>
+
+    <div
+     id="emojiGrid"
+     class="emoji-grid">
+    </div>
+
+   </div>
+
+
+   <!-- COMPOSER -->
+
+   <div class="composer-wrap">
+
+    <div
+     id="replyBox"
+     class="reply-box">
+
+     <span id="replyText"></span>
+
+     <button
+      id="cancelReply"
+      class="reply-cancel">
+      ✕
+     </button>
+
+    </div>
+
+    <div class="composer">
+
+     <div class="composer-input">
+
+      <button
+       id="emojiButton"
+       class="emoji-launch locked"
+       type="button"
+       title="ایموجی‌های اختصاصی">
+
+       😀
+       <span class="lock-icon">🔒</span>
+
+      </button>
+
+      <input
+       id="chatText"
+       class="input"
+       maxlength="500"
+       placeholder="پیامت رو بنویس...">
+
+     </div>
+
+     <button
+      id="sendMessage"
+      class="send"
+      type="button">
+      ارسال 🚀
+     </button>
+
+    </div>
+
+   </div>
+
+  </section>
+
+ </div>
+
+</div>
+
+
+<!-- ADMIN BUTTON -->
+
+<div
+ style="text-align:center;padding-bottom:40px">
+
+ <button
+  id="openAdmin"
+  class="admin-open"
+  type="button">
+  👑 ورود مدیر AVanta
+ </button>
 
 </div>
 
@@ -1726,7 +2226,7 @@ import {
 import {
  getStorage,
  ref as storageRef,
- uploadBytesResumable,
+ uploadBytes,
  getDownloadURL
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
@@ -1743,23 +2243,51 @@ const firebaseConfig={
  appId:"1:879564538420:web:a0fc85cc43a9347d92c061"
 };
 
+
+/*
+ IMPORTANT:
+ این UID همان UID ادمین تو است.
+*/
+
 const ADMIN_UID="NNY1ymTKnwREwMo16ZI3lgFEni23";
 
+
 const app=initializeApp(firebaseConfig);
+
 const auth=getAuth(app);
+
 const db=getDatabase(app);
+
 const storage=getStorage(app);
 
+
+/* DATABASE REFERENCES */
+
 const messagesRef=ref(db,"messages");
+
 const emojiRef=ref(db,"emojis");
+
 const statsRef=ref(db,"userStats");
 
+const savedRef=ref(db,"savedMessages");
+
+
+/* STATE */
+
 let user=null;
+
 let isAdmin=false;
+
 let lastSent=0;
+
 let statsCache={};
-let currentLanguage=localStorage.getItem("avantaLanguage")||"fa";
-let replyTarget=null;
+
+let currentLanguage="fa";
+
+let registrationDone=false;
+
+let replyMessage=null;
+
 let selectedEmojiFile=null;
 
 
@@ -1768,169 +2296,15 @@ let selectedEmojiFile=null;
 const $=id=>document.getElementById(id);
 
 
-/* TRANSLATIONS */
-
-const translations={
-
- fa:{
-  home:"خانه",
-  about:"درباره",
-  social:"شبکه‌ها",
-  chat:"چت",
-  join:"همراه شو",
-  streamComing:"اولین استریم در راهه",
-  heroDesc:"اینجا قراره اولین استریم من شروع بشه.<br>آماده‌ای با هم یه شروع خفن داشته باشیم؟",
-  days:"روز",
-  hours:"ساعت",
-  minutes:"دقیقه",
-  seconds:"ثانیه",
-  start:"این تازه شروعشه.",
-  about1:"AVanta قراره جایی باشه برای گیم، استریم و کلی لحظه خفن.",
-  about2:"اولین استریم هنوز شروع نشده، ولی قراره از همین‌جا همه‌چیز شروع بشه.",
-  what:"قراره چه <b>چیزهایی</b> ببینیم؟",
-  gamingText:"بازی‌های مختلف و لحظات هیجانی.",
-  horrorText:"بازی‌های ترسناک و واکنش‌های واقعی.",
-  funText:"شوخی، خنده و لحظات غیرمنتظره.",
-  follow:"همراه",
-  follow2:"شو",
-  onlineChat:"💬 چت آنلاین",
-  chatLimit:"کاربران عادی هر ۱۰ ثانیه یک پیام",
-  online:"آنلاین",
-  emojis:"ایموجی‌ها",
-  cleanup:"پاکسازی ۱۰ دقیقه",
-  makeEmoji:"ساخت ایموجی",
-  specialEmoji:"ایموجی‌های اختصاصی",
-  emojiLocked:"برای استفاده از ایموجی‌های اختصاصی حداقل باید Level 2 باشید.",
-  connecting:"در حال اتصال به چت...",
-  replying:"در حال پاسخ به:",
-  send:"ارسال",
-  chatRegister:"ورود به چت آنلاین",
-  registerDesc:"برای ورود به چت، نام و نام خانوادگی خود را وارد کنید.",
-  next:"بعدی",
-  registered:"ثبت‌نام انجام شد",
-  welcomeUser:"خوش اومدی",
-  confirm:"تأیید و ورود به چت",
-  adminLogin:"ورود مدیر AVanta",
-  adminLoginDesc:"ایمیل و رمز حساب مدیر Firebase را وارد کنید.",
-  login:"ورود",
-  cancel:"انصراف",
-  emojiMakerDesc:"عکس خودت را آپلود کن و یک نام برای ایموجی بگذار.",
-  uploadEmoji:"آپلود ایموجی"
- },
-
- en:{
-  home:"Home",
-  about:"About",
-  social:"Social",
-  chat:"Chat",
-  join:"Join",
-  streamComing:"First stream is coming",
-  heroDesc:"This is where my first stream begins.<br>Ready to make an epic start together?",
-  days:"Days",
-  hours:"Hours",
-  minutes:"Minutes",
-  seconds:"Seconds",
-  start:"This is just the beginning.",
-  about1:"AVanta is going to be a place for gaming, streaming and unforgettable moments.",
-  about2:"The first stream hasn't started yet, but everything starts right here.",
-  what:"What are we going to <b>watch</b>?",
-  gamingText:"Different games and exciting moments.",
-  horrorText:"Horror games and real reactions.",
-  funText:"Jokes, laughs and unexpected moments.",
-  follow:"Follow",
-  follow2:"",
-  onlineChat:"💬 Online Chat",
-  chatLimit:"Regular users can send one message every 10 seconds",
-  online:"Online",
-  emojis:"Emojis",
-  cleanup:"Clean 10 minutes",
-  makeEmoji:"Create Emoji",
-  specialEmoji:"Custom Emojis",
-  emojiLocked:"You need at least Level 2 to use custom emojis.",
-  connecting:"Connecting to chat...",
-  replying:"Replying to:",
-  send:"Send",
-  chatRegister:"Join Online Chat",
-  registerDesc:"Enter your first and last name to join the chat.",
-  next:"Next",
-  registered:"Registration completed",
-  welcomeUser:"Welcome",
-  confirm:"Confirm & Enter Chat",
-  adminLogin:"AVanta Admin Login",
-  adminLoginDesc:"Enter your Firebase admin email and password.",
-  login:"Login",
-  cancel:"Cancel",
-  emojiMakerDesc:"Upload an image and give your custom emoji a name.",
-  uploadEmoji:"Upload Emoji"
- }
-
-};
-
-
-/* LANGUAGE */
-
-function applyLanguage(){
-
- const t=translations[currentLanguage];
-
- document.documentElement.lang=currentLanguage;
- document.documentElement.dir=currentLanguage==="fa"?"rtl":"ltr";
-
- document.querySelectorAll("[data-i18n]").forEach(el=>{
-  const key=el.dataset.i18n;
-  if(t[key]!==undefined)el.innerHTML=t[key];
- });
-
- $("langBtn").textContent=currentLanguage==="fa"
-  ?"🌐 English"
-  :"🌐 فارسی";
-
- $("name").placeholder=currentLanguage==="fa"
-  ?"نام شما"
-  :"Your name";
-
- $("text").placeholder=currentLanguage==="fa"
-  ?"پیامت رو بنویس..."
-  :"Write your message...";
-
- $("firstName").placeholder=currentLanguage==="fa"
-  ?"نام"
-  :"First name";
-
- $("lastName").placeholder=currentLanguage==="fa"
-  ?"نام خانوادگی"
-  :"Last name";
-
- $("modalEmail").placeholder=currentLanguage==="fa"
-  ?"ایمیل ادمین"
-  :"Admin email";
-
- $("modalPassword").placeholder=currentLanguage==="fa"
-  ?"رمز عبور"
-  :"Password";
-
- $("emojiName").placeholder=currentLanguage==="fa"
-  ?"نام ایموجی"
-  :"Emoji name";
-
- loadEmojiPanel();
-
-}
-
-$("langBtn").onclick=()=>{
- currentLanguage=currentLanguage==="fa"?"en":"fa";
- localStorage.setItem("avantaLanguage",currentLanguage);
- applyLanguage();
-};
-
-applyLanguage();
-
-
 /* INTRO */
 
 setTimeout(()=>{
- $("intro").classList.add("hide");
-},1900);
+
+ const intro=$("intro");
+
+ if(intro)intro.classList.add("hide");
+
+},1800);
 
 
 /* COUNTDOWN */
@@ -1942,19 +2316,82 @@ function updateCountdown(){
  let d=Math.max(0,target-Date.now());
 
  const days=Math.floor(d/86400000);
- const hours=Math.floor(d%86400000/3600000);
- const minutes=Math.floor(d%3600000/60000);
- const seconds=Math.floor(d%60000/1000);
 
- $("days").textContent=String(days).padStart(2,"0");
- $("hours").textContent=String(hours).padStart(2,"0");
- $("minutes").textContent=String(minutes).padStart(2,"0");
- $("seconds").textContent=String(seconds).padStart(2,"0");
+ const hours=Math.floor(
+  d%86400000/3600000
+ );
 
+ const minutes=Math.floor(
+  d%3600000/60000
+ );
+
+ const seconds=Math.floor(
+  d%60000/1000
+ );
+
+ $("days").textContent=
+  String(days).padStart(2,"0");
+
+ $("hours").textContent=
+  String(hours).padStart(2,"0");
+
+ $("minutes").textContent=
+  String(minutes).padStart(2,"0");
+
+ $("seconds").textContent=
+  String(seconds).padStart(2,"0");
 }
 
 updateCountdown();
+
 setInterval(updateCountdown,1000);
+
+
+/* LANGUAGE */
+
+function applyLanguage(){
+
+ document.documentElement.lang=currentLanguage;
+
+ document.documentElement.dir=
+  currentLanguage==="fa"?"rtl":"ltr";
+
+ document.querySelectorAll("[data-fa]").forEach(el=>{
+
+  const value=
+   currentLanguage==="fa"
+    ?el.dataset.fa
+    :el.dataset.en;
+
+  if(value!==undefined){
+
+   if(value.includes("&#10;")){
+
+    el.innerHTML=value.replaceAll("&#10;","<br>");
+
+   }else{
+
+    el.textContent=value;
+
+   }
+
+  }
+
+ });
+
+ $("langBtn").textContent=
+  currentLanguage==="fa"?"EN":"FA";
+
+}
+
+$("langBtn").onclick=()=>{
+
+ currentLanguage=
+  currentLanguage==="fa"?"en":"fa";
+
+ applyLanguage();
+
+};
 
 
 /* STATUS */
@@ -1962,394 +2399,197 @@ setInterval(updateCountdown,1000);
 function setStatus(id,msg,type){
 
  const el=$(id);
+
  if(!el)return;
 
  el.textContent=msg;
- el.style.display="block";
- el.style.padding="10px";
- el.style.margin="8px 0";
- el.style.borderRadius="10px";
- el.style.fontSize="11px";
 
- if(type==="error"){
-  el.style.background="#421b26";
-  el.style.color="#ff9ab0";
- }else{
-  el.style.background="#173a2b";
-  el.style.color="#8effc5";
- }
+ el.className="status show "+type;
 
 }
 
 
-/* TIME */
+/* REGISTRATION */
 
-function formatTime(time){
+$("openChat").onclick=async()=>{
 
- try{
-  return new Date(time).toLocaleTimeString(
-   currentLanguage==="fa"?"fa-IR":"en-US",
-   {hour:"2-digit",minute:"2-digit"}
+ if(user){
+
+  const stat=await get(
+   ref(db,"userStats/"+user.uid)
   );
- }catch{
-  return "";
- }
 
-}
+  if(stat.exists()&&stat.val().name){
 
+   openChat();
 
-/* LEVEL */
-
-function getLevel(uid){
-
- return Math.max(
-  1,
-  Number(
-   statsCache[uid]?.level||1
-  )
- );
-
-}
-
-
-/* CUSTOM EMOJI PARSER */
-
-function renderMessageText(text){
-
- const wrap=document.createElement("div");
- wrap.className="msg-text";
-
- const parts=text.split(/(:[a-zA-Z0-9_\-\u0600-\u06FF]+:)/g);
-
- parts.forEach(part=>{
-
-  const match=part.match(/^:([a-zA-Z0-9_\-\u0600-\u06FF]+):$/);
-
-  if(match){
-
-   const emojiData=Object.values(statsEmojiCache)
-    .find(x=>x.name===match[1]);
-
-   if(emojiData?.url){
-
-    const img=document.createElement("img");
-    img.className="inline-emoji";
-    img.src=emojiData.url;
-    img.alt=emojiData.name;
-    wrap.appendChild(img);
-    return;
-
-   }
+   return;
 
   }
 
-  wrap.appendChild(document.createTextNode(part));
+ }
 
- });
+ $("registerModal").classList.add("show");
 
- return wrap;
-
-}
-
-let statsEmojiCache={};
+};
 
 
-/* RENDER MESSAGES */
+$("cancelRegister").onclick=()=>{
 
-function renderMessages(snapshot){
+ $("registerModal").classList.remove("show");
 
- const box=$("messages");
+};
 
- if(!box)return;
 
- box.innerHTML="";
+$("nextRegister").onclick=async()=>{
 
- if(!snapshot.exists()){
+ const first=$("firstName").value.trim();
 
-  box.innerHTML=
-   `<div class="empty">
-    💬<br>
-    ${currentLanguage==="fa"?"هنوز پیامی نیست 👋":"No messages yet 👋"}
-   </div>`;
+ const last=$("lastName").value.trim();
+
+ if(!first||!last){
+
+  setStatus(
+   "registerStatus",
+   "لطفاً نام و نام خانوادگی را کامل وارد کن.",
+   "error"
+  );
 
   return;
+ }
+
+ try{
+
+  const current=await ensureUser();
+
+  user=current;
+
+  const fullName=first+" "+last;
+
+  await set(
+   ref(db,"userStats/"+current.uid),
+   {
+    name:fullName,
+    firstName:first,
+    lastName:last,
+    level:Number(
+     statsCache[current.uid]?.level||1
+    ),
+    words:Number(
+     statsCache[current.uid]?.words||0
+    ),
+    updatedAt:Date.now()
+   }
+  );
+
+  registrationDone=true;
+
+  $("registerModal").classList.remove("show");
+
+  $("successModal").classList.add("show");
+
+ }catch(e){
+
+  console.error(e);
+
+  setStatus(
+   "registerStatus",
+   "ثبت‌نام انجام نشد: "+e.message,
+   "error"
+  );
 
  }
 
- const list=[];
+};
 
- snapshot.forEach(c=>{
-  list.push({
-   key:c.key,
-   data:c.val()||{}
-  });
- });
 
- list.sort((a,b)=>
-  Number(a.data.time||0)-Number(b.data.time||0)
+$("confirmRegister").onclick=async()=>{
+
+ $("successModal").classList.remove("show");
+
+ await openChat();
+
+};
+
+
+/* OPEN CHAT */
+
+async function openChat(){
+
+ try{
+
+  const current=await ensureUser();
+
+  user=current;
+
+  const snap=await get(
+   ref(db,"userStats/"+current.uid)
+  );
+
+  if(!snap.exists()||!snap.val().name){
+
+   $("registerModal").classList.add("show");
+
+   return;
+
+  }
+
+  updateProfile();
+
+  $("chatModal").classList.add("show");
+
+  document.body.style.overflow="hidden";
+
+ }catch(e){
+
+  alert("ورود به چت انجام نشد:\n"+e.message);
+
+ }
+
+}
+
+
+$("closeChat").onclick=closeChat;
+
+
+function closeChat(){
+
+ $("chatModal").classList.remove("show");
+
+ document.body.style.overflow="";
+
+}
+
+
+/* PROFILE */
+
+function updateProfile(){
+
+ if(!user)return;
+
+ const stat=statsCache[user.uid]||{};
+
+ const name=stat.name||"کاربر";
+
+ const level=Math.max(
+  1,
+  Number(stat.level||1)
  );
 
- list.forEach(item=>{
-
-  const m=item.data;
-
-  const el=document.createElement("div");
-  el.className="msg";
-
-  if(m.replyTo){
-   el.classList.add("reply");
-  }
-
-  /* REPLY PREVIEW */
-
-  if(m.replyTo){
-
-   const rp=document.createElement("div");
-   rp.className="reply-preview";
-
-   rp.textContent=
-    "↩️ "+
-    (m.replyTo.name||"User")+
-    ": "+
-    (m.replyTo.text||"");
-
-   el.appendChild(rp);
-
-  }
-
-  /* NAME */
-
-  const name=document.createElement("div");
-  name.className="msg-name";
-
-  const levelNumber=getLevel(m.uid);
-
-  if(m.uid===ADMIN_UID){
-
-   name.classList.add("admin-name");
-
-   const crown=document.createElement("span");
-   crown.className="admin-crown";
-   crown.textContent="👑";
-
-   name.appendChild(crown);
-
-  }
-
-  const nameText=document.createElement("span");
-  nameText.textContent=m.name||"User";
-
-  name.appendChild(nameText);
-
-  const level=document.createElement("span");
-  level.className="level";
-
-  if(levelNumber>=3)
-   level.classList.add("high");
-  else if(levelNumber>=2)
-   level.classList.add("two");
-
-  level.textContent="LEVEL "+levelNumber;
-
-  name.appendChild(level);
-
-  if(m.uid===ADMIN_UID){
-
-   const title=document.createElement("span");
-   title.className="admin-title";
-
-   title.textContent=
-    currentLanguage==="fa"
-     ?"ادمین AVanta"
-     :"AVanta Admin";
-
-   name.appendChild(title);
-
-  }
-
-  el.appendChild(name);
-
-
-  /* TEXT */
-
-  el.appendChild(renderMessageText(m.text||""));
-
-
-  /* TIME */
-
-  const time=document.createElement("div");
-  time.className="msg-time";
-  time.textContent=formatTime(m.time||Date.now());
-
-  el.appendChild(time);
-
-
-  /* ACTIONS */
-
-  const actions=document.createElement("div");
-  actions.className="msg-actions";
-
-  const reply=document.createElement("button");
-  reply.className="msg-action";
-  reply.textContent="↩️ "+
-   (currentLanguage==="fa"?"پاسخ":"Reply");
-
-  reply.onclick=()=>{
-
-   replyTarget={
-    key:item.key,
-    name:m.name||"User",
-    text:m.text||""
-   };
-
-   $("replyText").textContent=
-    (m.name||"User")+": "+(m.text||"");
-
-   $("replyBar").classList.add("show");
-
-   $("text").focus();
-
-   window.scrollTo({
-    top:$("chat").offsetTop-80,
-    behavior:"smooth"
-   });
-
-  };
-
-  actions.appendChild(reply);
-
-
-  /* ADMIN ACTIONS */
-
-  if(isAdmin){
-
-   const del=document.createElement("button");
-
-   del.className="msg-action danger";
-
-   del.textContent="🗑 "+
-    (currentLanguage==="fa"?"حذف":"Delete");
-
-   del.onclick=async()=>{
-
-    try{
-     await remove(ref(db,"messages/"+item.key));
-    }catch(e){
-     alert(e.message);
-    }
-
-   };
-
-   actions.appendChild(del);
-
-
-   const ban=document.createElement("button");
-
-   ban.className="msg-action danger";
-
-   ban.textContent="🚫 "+
-    (currentLanguage==="fa"?"بن":"Ban");
-
-   ban.onclick=async()=>{
-
-    if(!m.uid||m.uid===ADMIN_UID){
-
-     alert(
-      currentLanguage==="fa"
-       ?"نمی‌توانی ادمین را بن کنی."
-       :"You cannot ban the admin."
-     );
-
-     return;
-
-    }
-
-    try{
-
-     await set(
-      ref(db,"banned/"+m.uid),
-      true
-     );
-
-     await remove(
-      ref(db,"messages/"+item.key)
-     );
-
-     alert(
-      currentLanguage==="fa"
-       ?"کاربر بن شد."
-       :"User banned."
-     );
-
-    }catch(e){
-
-     alert(e.message);
-
-    }
-
-   };
-
-   actions.appendChild(ban);
-
-
-   const down=document.createElement("button");
-
-   down.className="msg-action";
-
-   down.textContent="➖ Level";
-
-   down.onclick=async()=>{
-
-    if(!m.uid)return;
-
-    const current=getLevel(m.uid);
-
-    await update(
-     ref(db,"userStats/"+m.uid),
-     {
-      level:Math.max(1,current-1),
-      updatedAt:Date.now()
-     }
-    );
-
-   };
-
-   actions.appendChild(down);
-
-
-   const up=document.createElement("button");
-
-   up.className="msg-action";
-
-   up.textContent="➕ Level";
-
-   up.onclick=async()=>{
-
-    if(!m.uid)return;
-
-    const current=getLevel(m.uid);
-
-    await update(
-     ref(db,"userStats/"+m.uid),
-     {
-      level:current+1,
-      updatedAt:Date.now()
-     }
-    );
-
-   };
-
-   actions.appendChild(up);
-
-  }
-
-  el.appendChild(actions);
-
-  box.appendChild(el);
-
- });
-
- box.scrollTop=box.scrollHeight;
+ $("profileName").textContent=name;
+
+ $("profileLevel").textContent=
+  "LEVEL "+level;
+
+ $("userAvatar").textContent=
+  name
+   .split(" ")
+   .map(x=>x[0])
+   .slice(0,2)
+   .join("")
+   .toUpperCase();
+
+ updateEmojiAccess();
 
 }
 
@@ -2363,459 +2603,473 @@ onValue(statsRef,s=>{
  if(s.exists()){
 
   s.forEach(c=>{
+
    statsCache[c.key]=c.val()||{};
+
   });
 
  }
 
- renderMessagesSnapshot();
+ updateProfile();
+
+ if(user)renderMessagesFromCache();
 
 });
 
 
-let latestMessagesSnapshot=null;
+/* LEVEL */
 
-function renderMessagesSnapshot(){
+function getUserLevel(uid){
 
- if(latestMessagesSnapshot)
-  renderMessages(latestMessagesSnapshot);
+ return Math.max(
+  1,
+  Number(
+   statsCache[uid]?.level||1
+  )
+ );
 
 }
+
+
+/* EMOJI ACCESS */
+
+function updateEmojiAccess(){
+
+ if(!user)return;
+
+ const level=getUserLevel(user.uid);
+
+ const btn=$("emojiButton");
+
+ if(level>=2){
+
+  btn.classList.remove("locked");
+
+  btn.querySelector(".lock-icon").style.display="none";
+
+  $("emojiRequirement").textContent=
+   "باز است • LEVEL "+level;
+
+ }else{
+
+  btn.classList.add("locked");
+
+  btn.querySelector(".lock-icon").style.display="grid";
+
+  $("emojiRequirement").textContent=
+   "🔒 حداقل باید LEVEL 2 باشید";
+
+ }
+
+}
+
+
+/* MESSAGES */
+
+let latestMessages=[];
+
 
 onValue(messagesRef,s=>{
 
- latestMessagesSnapshot=s;
+ latestMessages=[];
 
- renderMessages(s);
+ if(s.exists()){
+
+  s.forEach(c=>{
+
+   latestMessages.push({
+    key:c.key,
+    data:c.val()||{}
+   });
+
+  });
+
+ }
+
+ latestMessages.sort(
+  (a,b)=>
+   Number(a.data.time||0)-
+   Number(b.data.time||0)
+ );
+
+ renderMessagesFromCache();
 
 });
 
 
-/* EMOJIS */
+function renderMessagesFromCache(){
 
-function loadEmojiPanel(){
-
- onValue(emojiRef,s=>{
-
-  statsEmojiCache={};
-
-  const list=[];
-
-  if(s.exists()){
-
-   s.forEach(c=>{
-
-    const data=c.val()||{};
-
-    if(data.name){
-
-     statsEmojiCache[c.key]=data;
-     list.push(data);
-
-    }
-
-   });
-
-  }
-
-  renderEmojiList(list);
-
- });
-
-}
-
-
-function renderEmojiList(list){
-
- const box=$("emojiList");
+ const box=$("messages");
 
  if(!box)return;
 
  box.innerHTML="";
 
- const myLevel=user?getLevel(user.uid):1;
+ if(!latestMessages.length){
 
- if(!user||myLevel<2){
-
-  $("emojiLock").textContent="🔒 Level 2+";
-
-  const locked=document.createElement("div");
-
-  locked.className="emoji-empty";
-
-  locked.textContent=
-   currentLanguage==="fa"
-    ?"🔒 برای استفاده از ایموجی‌های اختصاصی حداقل باید Level 2 باشید."
-    :"🔒 You need at least Level 2 to use custom emojis.";
-
-  box.appendChild(locked);
+  box.innerHTML=
+   '<div class="empty">هنوز پیامی نیست 👋</div>';
 
   return;
 
  }
 
- $("emojiLock").textContent="🔓 Level 2+";
+ latestMessages.forEach(item=>{
 
- if(!list.length){
+  renderMessage(item,box);
 
-  const empty=document.createElement("div");
+ });
 
-  empty.className="emoji-empty";
+ box.scrollTop=box.scrollHeight;
 
-  empty.textContent=
-   currentLanguage==="fa"
-    ?"هنوز ایموجی اختصاصی ساخته نشده."
-    :"No custom emojis yet.";
+}
 
-  box.appendChild(empty);
 
-  return;
+function renderMessage(item,box){
+
+ const m=item.data;
+
+ const el=document.createElement("div");
+
+ el.className="msg";
+
+ if(
+  replyMessage &&
+  replyMessage.key===item.key
+ ){
+
+  el.classList.add("reply-target");
 
  }
 
- list.forEach(emoji=>{
 
-  const button=document.createElement("button");
+ /* NAME */
 
-  button.type="button";
-  button.className="emoji";
+ const name=document.createElement("div");
 
-  const img=document.createElement("img");
+ name.className="msg-name";
 
-  img.src=emoji.url;
-  img.alt=emoji.name||"emoji";
+ if(m.uid===ADMIN_UID){
 
-  button.title=":"+emoji.name+":";
+  name.classList.add("admin-name");
 
-  button.appendChild(img);
+ }
 
-  button.onclick=()=>{
 
-   $("text").value+=" :"+emoji.name+": ";
-   $("text").focus();
+ name.textContent=m.name||"کاربر";
+
+
+ /* LEVEL */
+
+ const levelNumber=
+  getUserLevel(m.uid);
+
+
+ const level=document.createElement("span");
+
+ level.className="level";
+
+ if(levelNumber>=3){
+
+  level.classList.add("high");
+
+ }else if(levelNumber>=2){
+
+  level.classList.add("two");
+
+ }
+
+ level.textContent=
+  "LEVEL "+levelNumber;
+
+
+ name.appendChild(level);
+
+
+ /* ADMIN BADGE */
+
+ if(m.uid===ADMIN_UID){
+
+  const badge=
+   document.createElement("span");
+
+  badge.className="admin-badge-icon";
+
+  badge.textContent="✓";
+
+  badge.title="ادمین رسمی AVanta";
+
+  name.appendChild(badge);
+
+  const title=
+   document.createElement("span");
+
+  title.className="admin-title";
+
+  title.textContent="👑 AVanta Admin";
+
+  name.appendChild(title);
+
+ }
+
+
+ el.appendChild(name);
+
+
+ /* REPLY */
+
+ if(m.replyTo){
+
+  const reply=
+   document.createElement("div");
+
+  reply.className="reply-preview";
+
+  reply.textContent=
+   "↩ "+(
+    m.replyTo.name||"کاربر"
+   )+": "+
+   (m.replyTo.text||"");
+
+  el.appendChild(reply);
+
+ }
+
+
+ /* TEXT */
+
+ const text=
+  document.createElement("div");
+
+ text.className="msg-text";
+
+ text.textContent=m.text||"";
+
+ el.appendChild(text);
+
+
+ /* TIME */
+
+ const time=
+  document.createElement("div");
+
+ time.className="msg-time";
+
+ time.textContent=
+  formatTime(m.time||Date.now());
+
+ el.appendChild(time);
+
+
+ /* ACTIONS */
+
+ const actions=
+  document.createElement("div");
+
+ actions.className="msg-actions";
+
+
+ /* REPLY BUTTON */
+
+ const replyBtn=
+  document.createElement("button");
+
+ replyBtn.className="msg-action";
+
+ replyBtn.textContent="↩ پاسخ";
+
+ replyBtn.onclick=()=>{
+
+  replyMessage={
+   key:item.key,
+   name:m.name,
+   text:m.text
+  };
+
+  $("replyText").textContent=
+   "پاسخ به "+m.name+": "+m.text;
+
+  $("replyBox").classList.add("show");
+
+  $("chatText").focus();
+
+ };
+
+
+ actions.appendChild(replyBtn);
+
+
+ /* SAVE */
+
+ const saveBtn=
+  document.createElement("button");
+
+ saveBtn.className="msg-action";
+
+ saveBtn.textContent="⭐ ذخیره";
+
+ saveBtn.onclick=()=>saveMessage(item);
+
+ actions.appendChild(saveBtn);
+
+
+ /* ADMIN */
+
+ if(isAdmin){
+
+  const del=
+   document.createElement("button");
+
+  del.className=
+   "msg-action danger";
+
+  del.textContent="🗑 حذف";
+
+  del.onclick=async()=>{
+
+   if(confirm("این پیام حذف شود؟")){
+
+    await remove(
+     ref(db,"messages/"+item.key)
+    );
+
+   }
 
   };
 
-  box.appendChild(button);
+  actions.appendChild(del);
 
- });
+
+  const ban=
+   document.createElement("button");
+
+  ban.className=
+   "msg-action danger";
+
+  ban.textContent="🚫 بن";
+
+  ban.onclick=async()=>{
+
+   if(!m.uid||m.uid===ADMIN_UID){
+
+    alert("ادمین را نمی‌توان بن کرد.");
+
+    return;
+
+   }
+
+   await set(
+    ref(db,"banned/"+m.uid),
+    true
+   );
+
+   await remove(
+    ref(db,"messages/"+item.key)
+   );
+
+   alert("کاربر بن شد.");
+
+  };
+
+  actions.appendChild(ban);
+
+
+  const down=
+   document.createElement("button");
+
+  down.className="msg-action";
+
+  down.textContent="➖ لول";
+
+  down.onclick=async()=>{
+
+   if(!m.uid)return;
+
+   const current=
+    getUserLevel(m.uid);
+
+   await update(
+    ref(db,"userStats/"+m.uid),
+    {
+     level:Math.max(1,current-1),
+     updatedAt:Date.now()
+    }
+   );
+
+  };
+
+  actions.appendChild(down);
+
+
+  const up=
+   document.createElement("button");
+
+  up.className="msg-action";
+
+  up.textContent="➕ لول";
+
+  up.onclick=async()=>{
+
+   if(!m.uid)return;
+
+   const current=
+    getUserLevel(m.uid);
+
+   await update(
+    ref(db,"userStats/"+m.uid),
+    {
+     level:current+1,
+     updatedAt:Date.now()
+    }
+   );
+
+  };
+
+  actions.appendChild(up);
+
+ }
+
+ el.appendChild(actions);
+
+ box.appendChild(el);
 
 }
 
-loadEmojiPanel();
 
+/* FORMAT TIME */
 
-/* EMOJI TOGGLE */
-
-$("emojiToggle").onclick=async()=>{
+function formatTime(time){
 
  try{
 
-  if(!user)
-   await ensureUser();
-
-  const level=getLevel(user.uid);
-
-  if(level<2){
-
-   $("emojiPanel").classList.toggle("show");
-
-   return;
-
-  }
-
-  $("emojiPanel").classList.toggle("show");
-
- }catch(e){
-
-  alert(e.message);
-
- }
-
-};
-
-
-/* REGISTER */
-
-$("registerNext").onclick=()=>{
-
- const first=$("firstName").value.trim();
- const last=$("lastName").value.trim();
-
- if(!first||!last){
-
-  alert(
-   currentLanguage==="fa"
-    ?"نام و نام خانوادگی را کامل وارد کن."
-    :"Enter your first and last name."
-  );
-
-  return;
-
- }
-
- const full=(first+" "+last).trim();
-
- localStorage.setItem(
-  "avantaName",
-  full
- );
-
- $("registeredName").textContent=full;
-
- $("registerForm").style.display="none";
-
- $("successScreen").classList.add("show");
-
-};
-
-
-$("confirmRegister").onclick=async()=>{
-
- const savedName=localStorage.getItem("avantaName");
-
- if(savedName)
-  $("name").value=savedName;
-
- $("registerModal").classList.remove("show");
-
- $("registerForm").style.display="block";
-
- $("successScreen").classList.remove("show");
-
- setTimeout(()=>{
-  $("text").focus();
- },300);
-
-};
-
-
-/* CHAT BUTTON / REGISTER */
-
-function openChatRegister(){
-
- const saved=localStorage.getItem("avantaName");
-
- if(saved){
-
-  $("name").value=saved;
-
-  document.querySelector("#chat").scrollIntoView({
-   behavior:"smooth"
-  });
-
-  setTimeout(()=>{
-   $("text").focus();
-  },500);
-
- }else{
-
-  $("registerModal").classList.add("show");
-
- }
-
-}
-
-
-/* CLICK CHAT NAV */
-
-document.querySelectorAll('a[href="#chat"]').forEach(a=>{
-
- a.addEventListener("click",e=>{
-
-  e.preventDefault();
-
-  openChatRegister();
-
- });
-
-});
-
-
-/* ADMIN LOGIN BUTTON */
-
-const adminLoginOpen=document.createElement("button");
-
-adminLoginOpen.className="tool-btn";
-adminLoginOpen.style.display="none";
-
-$("chat").querySelector(".chat-wrap").appendChild(adminLoginOpen);
-
-
-/* SECRET ADMIN ACCESS:
-   double click AVanta logo
-*/
-
-document.querySelector(".logo").addEventListener("dblclick",()=>{
- $("adminModal").classList.add("show");
-});
-
-
-$("closeAdmin").onclick=()=>{
- $("adminModal").classList.remove("show");
-};
-
-$("adminModal").addEventListener("click",e=>{
-
- if(e.target===$("adminModal"))
-  $("adminModal").classList.remove("show");
-
-});
-
-
-/* ADMIN LOGIN */
-
-async function loginAdmin(){
-
- const email=$("modalEmail").value.trim();
- const password=$("modalPassword").value;
-
- if(!email||!password){
-
-  setStatus(
-   "loginStatus",
-   currentLanguage==="fa"
-    ?"ایمیل و رمز را وارد کن."
-    :"Enter email and password.",
-   "error"
-  );
-
-  return;
-
- }
-
- const btn=$("modalLogin");
-
- btn.disabled=true;
- btn.textContent="...";
-
- try{
-
-  const credential=
-   await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
+  return new Date(time)
+   .toLocaleTimeString(
+    currentLanguage==="fa"
+     ?"fa-IR"
+     :"en-US",
+    {
+     hour:"2-digit",
+     minute:"2-digit"
+    }
    );
 
-  const uid=credential.user.uid;
+ }catch{
 
-  if(uid!==ADMIN_UID){
-
-   await signOut(auth);
-
-   setStatus(
-    "loginStatus",
-    currentLanguage==="fa"
-     ?"این حساب ادمین AVanta نیست. UID این حساب: "+uid
-     :"This account is not the AVanta admin. UID: "+uid,
-    "error"
-   );
-
-   return;
-
-  }
-
-  $("adminModal").classList.remove("show");
-
- }catch(e){
-
-  console.error(e);
-
-  let msg=
-   currentLanguage==="fa"
-    ?"ایمیل یا رمز عبور اشتباه است."
-    :"Incorrect email or password.";
-
-  if(e.code==="auth/too-many-requests"){
-
-   msg=
-    currentLanguage==="fa"
-     ?"تلاش‌های ورود زیاد بوده؛ کمی بعد دوباره امتحان کن."
-     :"Too many attempts. Try again later.";
-
-  }
-
-  setStatus(
-   "loginStatus",
-   msg+" "+e.code,
-   "error"
-  );
-
- }finally{
-
-  btn.disabled=false;
-
-  btn.textContent=
-   currentLanguage==="fa"
-    ?"ورود 👑"
-    :"Login 👑";
+  return "";
 
  }
 
 }
 
-$("modalLogin").onclick=loginAdmin;
 
+/* SEND */
 
-/* AUTH */
+async function sendMessage(){
 
-onAuthStateChanged(auth,currentUser=>{
+ const text=
+  $("chatText").value.trim();
 
- user=currentUser;
-
- isAdmin=
-  !!currentUser &&
-  currentUser.uid===ADMIN_UID;
-
- $("adminActions").style.display=
-  isAdmin?"flex":"none";
-
- renderEmojiList(
-  Object.values(statsEmojiCache)
- );
-
- if(isAdmin)
-  console.log(
-   "AVanta admin active:",
-   currentUser.uid
-  );
-
-});
-
-
-/* ANONYMOUS USER */
-
-async function ensureUser(){
-
- if(user)return user;
-
- const credential=
-  await signInAnonymously(auth);
-
- user=credential.user;
-
- return user;
-
-}
-
-
-/* REPLY CANCEL */
-
-$("replyCancel").onclick=()=>{
-
- replyTarget=null;
-
- $("replyBar").classList.remove("show");
-
-};
-
-
-/* SEND MESSAGE */
-
-$("composer").addEventListener("submit",async e=>{
-
- e.preventDefault();
+ if(!text)return;
 
  try{
 
@@ -2823,22 +3077,55 @@ $("composer").addEventListener("submit",async e=>{
 
   user=current;
 
-  isAdmin=current.uid===ADMIN_UID;
+  const statSnap=
+   await get(
+    ref(db,"userStats/"+current.uid)
+   );
+
+  if(!statSnap.exists()||
+     !statSnap.val().name){
+
+   closeChat();
+
+   $("registerModal").classList.add("show");
+
+   return;
+
+  }
+
+  const stat=
+   statSnap.val()||{};
 
   const now=Date.now();
 
-  if(!isAdmin&&now-lastSent<10000){
+  const level=
+   Math.max(
+    1,
+    Number(stat.level||1)
+   );
+
+
+  /* RATE LIMIT */
+
+  if(
+   !isAdmin &&
+   now-lastSent<10000
+  ){
 
    alert(
-    currentLanguage==="fa"
-     ?"لطفاً "+Math.ceil((10000-(now-lastSent))/1000)+" ثانیه صبر کن."
-     :"Please wait "+Math.ceil((10000-(now-lastSent))/1000)+" seconds."
+    "لطفاً "+
+    Math.ceil(
+     (10000-(now-lastSent))/1000
+    )+
+    " ثانیه صبر کن."
    );
 
    return;
 
   }
 
+
+  /* BAN */
 
   const banned=
    await get(
@@ -2851,20 +3138,12 @@ $("composer").addEventListener("submit",async e=>{
   ){
 
    alert(
-    currentLanguage==="fa"
-     ?"دسترسی شما به چت مسدود شده است."
-     :"You are banned from the chat."
+    "دسترسی شما به چت مسدود شده است."
    );
 
    return;
 
   }
-
-
-  const name=$("name").value.trim();
-  const text=$("text").value.trim();
-
-  if(!name||!text)return;
 
 
   const words=
@@ -2874,77 +3153,59 @@ $("composer").addEventListener("submit",async e=>{
     .length;
 
 
-  const statRef=
-   ref(db,"userStats/"+current.uid);
-
-  const snap=await get(statRef);
-
-  const stat=
-   snap.exists()
-    ?snap.val()||{}
-    :{};
-
-
   const oldWords=
    Number(stat.words||0);
-
-  let level=
-   Number(stat.level||1);
 
   const totalWords=
    oldWords+words;
 
 
+  let newLevel=level;
+
+
   if(!isAdmin){
 
-   if(totalWords>=150)
-    level=Math.max(level,3);
+   if(totalWords>=150){
 
-   else if(totalWords>=50)
-    level=Math.max(level,2);
+    newLevel=Math.max(level,3);
 
-   else
-    level=Math.max(level,1);
+   }else if(totalWords>=50){
+
+    newLevel=Math.max(level,2);
+
+   }
 
   }
 
 
   await set(
-   statRef,
+   ref(db,"userStats/"+current.uid),
    {
+    ...stat,
     words:totalWords,
-    level,
-    name,
+    level:newLevel,
     updatedAt:now
    }
   );
 
 
   const message={
-
    uid:current.uid,
-
-   name,
-
+   name:stat.name,
    text,
-
    words,
-
    totalWords,
-
-   level,
-
+   level:newLevel,
    time:now
-
   };
 
 
-  if(replyTarget){
+  if(replyMessage){
 
    message.replyTo={
-    key:replyTarget.key,
-    name:replyTarget.name,
-    text:replyTarget.text.slice(0,150)
+    key:replyMessage.key,
+    name:replyMessage.name,
+    text:replyMessage.text
    };
 
   }
@@ -2958,32 +3219,563 @@ $("composer").addEventListener("submit",async e=>{
 
   lastSent=now;
 
-  $("text").value="";
+  $("chatText").value="";
 
-  replyTarget=null;
-
-  $("replyBar").classList.remove("show");
+  cancelReply();
 
  }catch(e){
 
   console.error(e);
 
   alert(
-   currentLanguage==="fa"
-    ?"ارسال پیام انجام نشد:\n"+e.message
-    :"Message failed:\n"+e.message
+   "ارسال پیام انجام نشد:\n"+
+   e.message
   );
 
  }
 
-});
+}
+
+
+$("sendMessage").onclick=sendMessage;
+
+
+$("chatText").addEventListener(
+ "keydown",
+ e=>{
+
+  if(
+   e.key==="Enter" &&
+   !e.shiftKey
+  ){
+
+   e.preventDefault();
+
+   sendMessage();
+
+  }
+
+ }
+);
+
+
+/* REPLY */
+
+function cancelReply(){
+
+ replyMessage=null;
+
+ $("replyBox").classList.remove("show");
+
+ $("replyText").textContent="";
+
+}
+
+$("cancelReply").onclick=cancelReply;
+
+
+/* SAVED MESSAGES */
+
+async function saveMessage(item){
+
+ if(!user)return;
+
+ try{
+
+  await set(
+   ref(
+    db,
+    "savedMessages/"+
+    user.uid+
+    "/"+
+    item.key
+   ),
+   {
+    ...item.data,
+    originalKey:item.key,
+    savedAt:Date.now()
+   }
+  );
+
+  alert("پیام ذخیره شد ⭐");
+
+  loadSaved();
+
+ }catch(e){
+
+  alert(
+   "ذخیره پیام انجام نشد:\n"+
+   e.message
+  );
+
+ }
+
+}
+
+
+async function loadSaved(){
+
+ if(!user)return;
+
+ const list=$("savedList");
+
+ list.innerHTML=
+  '<div class="empty">در حال بارگذاری...</div>';
+
+ try{
+
+  const snap=
+   await get(
+    ref(
+     db,
+     "savedMessages/"+user.uid
+    )
+   );
+
+  list.innerHTML="";
+
+  if(!snap.exists()){
+
+   list.innerHTML=
+    '<div class="empty">هنوز پیامی ذخیره نکردی ⭐</div>';
+
+   return;
+
+  }
+
+
+  snap.forEach(c=>{
+
+   const m=c.val()||{};
+
+   const el=
+    document.createElement("div");
+
+   el.className="saved-msg";
+
+   const small=
+    document.createElement("small");
+
+   small.textContent=
+    "⭐ "+
+    (m.name||"کاربر");
+
+   const text=
+    document.createElement("div");
+
+   text.textContent=
+    m.text||"";
+
+   const del=
+    document.createElement("button");
+
+   del.className="msg-action danger";
+
+   del.textContent="حذف";
+
+   del.style.marginTop="8px";
+
+   del.onclick=async()=>{
+
+    await remove(
+     ref(
+      db,
+      "savedMessages/"+
+      user.uid+
+      "/"+
+      c.key
+     )
+    );
+
+    loadSaved();
+
+   };
+
+   el.append(
+    small,
+    text,
+    del
+   );
+
+   list.appendChild(el);
+
+  });
+
+ }catch(e){
+
+  list.innerHTML=
+   '<div class="empty">خطا در دریافت پیام‌ها.</div>';
+
+ }
+
+}
+
+
+/* SAVED VIEW */
+
+$("savedButton").onclick=()=>{
+
+ loadSaved();
+
+ $("savedView").classList.add("show");
+
+};
+
+
+$("closeSaved").onclick=()=>{
+
+ $("savedView").classList.remove("show");
+
+};
+
+
+$("backChatButton").onclick=()=>{
+
+ $("savedView").classList.remove("show");
+
+};
+
+
+/* EMOJIS */
+
+function loadEmojis(){
+
+ onValue(
+  emojiRef,
+  s=>{
+
+   const grid=
+    $("emojiGrid");
+
+   grid.innerHTML="";
+
+   if(!s.exists()){
+
+    grid.innerHTML=
+     '<div class="emoji-lock">هنوز ایموجی‌ای ساخته نشده.</div>';
+
+    return;
+
+   }
+
+   s.forEach(c=>{
+
+    const emoji=
+     c.val()||{};
+
+    const button=
+     document.createElement("button");
+
+    button.className="emoji-item";
+
+    button.type="button";
+
+
+    if(emoji.url){
+
+     const img=
+      document.createElement("img");
+
+     img.src=emoji.url;
+
+     img.alt=
+      emoji.name||"emoji";
+
+     img.loading="lazy";
+
+     button.appendChild(img);
+
+    }else{
+
+     button.textContent="😀";
+
+    }
+
+
+    button.title=
+     emoji.name||"emoji";
+
+
+    button.onclick=()=>{
+
+     const level=
+      user?
+      getUserLevel(user.uid):
+      1;
+
+     if(level<2){
+
+      alert(
+       "🔒 برای استفاده از ایموجی‌های اختصاصی حداقل باید LEVEL 2 باشید."
+      );
+
+      return;
+
+     }
+
+
+     $("chatText").value+=
+      " :"+(
+       emoji.name||"emoji"
+      )+": ";
+
+     $("chatText").focus();
+
+     $("emojiPanel")
+      .classList.remove("show");
+
+    };
+
+
+    grid.appendChild(button);
+
+   });
+
+  }
+ );
+
+}
+
+loadEmojis();
+
+
+/* EMOJI BUTTON */
+
+$("emojiButton").onclick=()=>{
+
+ const level=
+  user?
+  getUserLevel(user.uid):
+  1;
+
+ if(level<2){
+
+  alert(
+   "🔒 ایموجی‌های اختصاصی فقط برای LEVEL 2 به بالا هستند.\n\nپیام بیشتری بفرست تا به LEVEL 2 برسی."
+  );
+
+  return;
+
+ }
+
+ $("emojiPanel")
+  .classList.toggle("show");
+
+};
+
+
+/* CLOSE EMOJI WHEN CLICK OUTSIDE */
+
+document.addEventListener(
+ "click",
+ e=>{
+
+  const panel=$("emojiPanel");
+
+  const button=$("emojiButton");
+
+  if(
+   panel &&
+   !panel.contains(e.target) &&
+   !button.contains(e.target)
+  ){
+
+   panel.classList.remove("show");
+
+  }
+
+ }
+);
+
+
+/* ADMIN */
+
+$("openAdmin").onclick=()=>{
+
+ $("adminModal").classList.add("show");
+
+};
+
+
+$("closeAdmin").onclick=()=>{
+
+ $("adminModal").classList.remove("show");
+
+};
+
+
+$("adminModal").onclick=e=>{
+
+ if(e.target===$("adminModal")){
+
+  $("adminModal").classList.remove("show");
+
+ }
+
+};
+
+
+/* ADMIN LOGIN */
+
+async function loginAdmin(){
+
+ const email=
+  $("modalEmail").value.trim();
+
+ const password=
+  $("modalPassword").value;
+
+
+ if(!email||!password){
+
+  setStatus(
+   "loginStatus",
+   "ایمیل و رمز را وارد کن.",
+   "error"
+  );
+
+  return;
+
+ }
+
+
+ const btn=$("modalLogin");
+
+ btn.disabled=true;
+
+ btn.textContent="در حال ورود...";
+
+
+ try{
+
+  const credential=
+   await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+   );
+
+
+  const uid=
+   credential.user.uid;
+
+
+  if(uid!==ADMIN_UID){
+
+   await signOut(auth);
+
+   setStatus(
+    "loginStatus",
+    "این حساب ادمین AVanta نیست. UID این حساب: "+uid,
+    "error"
+   );
+
+   return;
+
+  }
+
+
+  $("adminModal")
+   .classList.remove("show");
+
+
+  $("openAdmin")
+   .style.display="none";
+
+
+  alert("ورود مدیر موفق بود 👑");
+
+
+ }catch(e){
+
+  console.error(e);
+
+  let msg=
+   "ایمیل یا رمز عبور اشتباه است.";
+
+
+  if(
+   e.code==="auth/too-many-requests"
+  ){
+
+   msg=
+    "تلاش‌های ورود زیاد بوده؛ کمی بعد دوباره امتحان کن.";
+
+  }
+
+
+  setStatus(
+   "loginStatus",
+   msg,
+   "error"
+  );
+
+
+ }finally{
+
+  btn.disabled=false;
+
+  btn.textContent="ورود";
+
+ }
+
+}
+
+
+$("modalLogin").onclick=loginAdmin;
+
+
+/* AUTH STATE */
+
+onAuthStateChanged(
+ auth,
+ currentUser=>{
+
+  user=currentUser;
+
+  isAdmin=
+   !!currentUser &&
+   currentUser.uid===ADMIN_UID;
+
+
+  $("adminTools").style.display=
+   isAdmin?"flex":"none";
+
+
+  if(isAdmin){
+
+   $("openAdmin").style.display="none";
+
+  }else{
+
+   $("openAdmin").style.display="inline-block";
+
+  }
+
+
+  updateProfile();
+
+ }
+);
+
+
+/* ENSURE ANONYMOUS USER */
+
+async function ensureUser(){
+
+ if(user)return user;
+
+ const credential=
+  await signInAnonymously(auth);
+
+ return credential.user;
+
+}
 
 
 /* ADMIN LOGOUT */
 
 $("adminLogout").onclick=async()=>{
-
- if(!isAdmin)return;
 
  try{
 
@@ -3011,35 +3803,39 @@ $("cleanup").onclick=async()=>{
   const snap=
    await get(messagesRef);
 
+
   if(!snap.exists()){
 
-   alert(
-    currentLanguage==="fa"
-     ?"پیامی وجود ندارد."
-     :"No messages."
-   );
+   alert("پیامی وجود ندارد.");
 
    return;
 
   }
 
+
   const now=Date.now();
 
   const jobs=[];
+
 
   snap.forEach(c=>{
 
    const m=c.val()||{};
 
+
    if(
     now-
     Number(m.time||now)
-    >600000
+    >
+    600000
    ){
 
     jobs.push(
      remove(
-      ref(db,"messages/"+c.key)
+      ref(
+       db,
+       "messages/"+c.key
+      )
      )
     );
 
@@ -3047,89 +3843,111 @@ $("cleanup").onclick=async()=>{
 
   });
 
+
   await Promise.all(jobs);
 
+
   alert(
-   currentLanguage==="fa"
-    ?jobs.length+" پیام قدیمی پاک شد."
-    :jobs.length+" old messages deleted."
+   jobs.length+
+   " پیام قدیمی پاک شد."
   );
+
 
  }catch(e){
 
-  alert(e.message);
+  alert(
+   "پاکسازی انجام نشد:\n"+
+   e.message
+  );
 
  }
 
 };
 
 
-/* EMOJI MAKER OPEN */
+/* EMOJI MAKER */
 
 $("emojiMaker").onclick=()=>{
 
  if(!isAdmin){
 
   alert(
-   currentLanguage==="fa"
-    ?"فقط ادمین می‌تواند ایموجی بسازد."
-    :"Only the admin can create emojis."
+   "فقط ادمین می‌تواند ایموجی بسازد."
   );
 
   return;
 
  }
 
- $("emojiModal").classList.add("show");
+ $("emojiModal")
+  .classList.add("show");
 
 };
 
 
 $("closeEmoji").onclick=()=>{
 
- $("emojiModal").classList.remove("show");
+ $("emojiModal")
+  .classList.remove("show");
 
 };
 
 
-$("emojiModal").addEventListener("click",e=>{
+$("emojiModal").onclick=e=>{
 
- if(e.target===$("emojiModal"))
-  $("emojiModal").classList.remove("show");
+ if(
+  e.target===
+  $("emojiModal")
+ ){
 
-});
+  $("emojiModal")
+   .classList.remove("show");
+
+ }
+
+};
 
 
 /* FILE PREVIEW */
 
-$("emojiFile").addEventListener("change",function(){
+$("emojiFile").onchange=function(){
 
- const file=this.files?.[0];
+ const file=
+  this.files?.[0];
 
- selectedEmojiFile=file||null;
+ selectedEmojiFile=
+  file||null;
 
- const preview=$("preview");
+
+ const preview=
+  $("preview");
+
 
  if(!file){
 
-  preview.textContent="🖼️";
+  preview.textContent=
+   "عکس را انتخاب کن";
 
   return;
 
  }
 
 
- if(!file.type.startsWith("image/")){
-
-  selectedEmojiFile=null;
+ if(
+  file.size>
+  2*1024*1024
+ ){
 
   this.value="";
 
+  selectedEmojiFile=null;
+
+  preview.textContent=
+   "عکس را انتخاب کن";
+
   setStatus(
    "emojiStatus",
-   currentLanguage==="fa"
-    ?"فقط فایل تصویری انتخاب کن."
-    :"Please select an image.",
+   "حجم عکس باید کمتر از ۲ مگابایت باشد.",
    "error"
   );
 
@@ -3138,46 +3956,28 @@ $("emojiFile").addEventListener("change",function(){
  }
 
 
- if(file.size>2*1024*1024){
+ const reader=
+  new FileReader();
 
-  selectedEmojiFile=null;
-
-  this.value="";
-
-  setStatus(
-   "emojiStatus",
-   currentLanguage==="fa"
-    ?"حجم عکس باید کمتر از ۲ مگابایت باشد."
-    :"Image must be smaller than 2 MB.",
-   "error"
-  );
-
-  return;
-
- }
-
-
- const reader=new FileReader();
 
  reader.onload=e=>{
 
   preview.innerHTML="";
 
-  const img=document.createElement("img");
+  const img=
+   document.createElement("img");
 
-  img.src=e.target.result;
-
-  img.style.width="100%";
-  img.style.height="100%";
-  img.style.objectFit="contain";
+  img.src=
+   e.target.result;
 
   preview.appendChild(img);
 
  };
 
+
  reader.readAsDataURL(file);
 
-});
+};
 
 
 /* EMOJI UPLOAD */
@@ -3187,9 +3987,7 @@ $("saveEmoji").onclick=async()=>{
  if(!isAdmin){
 
   alert(
-   currentLanguage==="fa"
-    ?"فقط ادمین می‌تواند ایموجی آپلود کند."
-    :"Only the admin can upload emojis."
+   "فقط ادمین می‌تواند ایموجی آپلود کند."
   );
 
   return;
@@ -3201,9 +3999,7 @@ $("saveEmoji").onclick=async()=>{
 
   setStatus(
    "emojiStatus",
-   currentLanguage==="fa"
-    ?"اول یک عکس انتخاب کن."
-    :"Select an image first.",
+   "اول یک عکس انتخاب کن.",
    "error"
   );
 
@@ -3212,15 +4008,15 @@ $("saveEmoji").onclick=async()=>{
  }
 
 
- const name=$("emojiName").value.trim();
+ const name=
+  $("emojiName").value.trim();
+
 
  if(!name){
 
   setStatus(
    "emojiStatus",
-   currentLanguage==="fa"
-    ?"برای ایموجی یک نام بنویس."
-    :"Enter an emoji name.",
+   "برای ایموجی یک نام بنویس.",
    "error"
   );
 
@@ -3229,125 +4025,98 @@ $("saveEmoji").onclick=async()=>{
  }
 
 
- const button=$("saveEmoji");
+ const button=
+  $("saveEmoji");
+
 
  button.disabled=true;
 
  button.textContent=
-  currentLanguage==="fa"
-   ?"در حال اتصال..."
-   :"Connecting...";
+  "در حال آپلود...";
+
+
+ setStatus(
+  "emojiStatus",
+  "در حال اتصال به Firebase Storage...",
+  "success"
+ );
 
 
  try{
 
+  /*
+   نام امن فایل
+  */
+
   const safe=
    name
     .replace(/[^\w\u0600-\u06FF-]/g,"_")
-    .slice(0,30);
+    .slice(0,40);
 
-  const filePath=
+
+  const extension=
+   selectedEmojiFile.name
+    .split(".")
+    .pop()
+    .toLowerCase();
+
+
+  const path=
    "emojis/"+
    Date.now()+
    "_"+
    safe+
    "."+
-   (
-    selectedEmojiFile.type.split("/")[1]||
-    "jpg"
-   );
+   extension;
 
 
   const fileRef=
-   storageRef(storage,filePath);
+   storageRef(
+    storage,
+    path
+   );
 
 
-  const uploadTask=
-   uploadBytesResumable(
+  /*
+   آپلود واقعی
+  */
+
+  const result=
+   await uploadBytes(
     fileRef,
     selectedEmojiFile,
     {
      contentType:
       selectedEmojiFile.type
+      ||
+      "image/jpeg"
     }
    );
 
 
-  await new Promise((resolve,reject)=>{
-
-   let finished=false;
-
-   const timeout=setTimeout(()=>{
-
-    if(finished)return;
-
-    reject(
-     new Error(
-      currentLanguage==="fa"
-       ?"آپلود بیش از ۳۰ ثانیه طول کشید. احتمالاً Storage Rules اجازه آپلود نمی‌دهد."
-       :"Upload took more than 30 seconds. Storage Rules may be blocking the upload."
-     )
-    );
-
-   },30000);
-
-
-   uploadTask.on(
-
-    "state_changed",
-
-    snapshot=>{
-
-     const percent=
-      Math.round(
-       snapshot.bytesTransferred/
-       snapshot.totalBytes*
-       100
-      );
-
-     button.textContent=
-      currentLanguage==="fa"
-       ?"آپلود "+percent+"٪"
-       :"Uploading "+percent+"%";
-
-    },
-
-    error=>{
-
-     finished=true;
-
-     clearTimeout(timeout);
-
-     reject(error);
-
-    },
-
-    ()=>{
-
-     finished=true;
-
-     clearTimeout(timeout);
-
-     resolve();
-
-    }
-
-   );
-
-  });
+  setStatus(
+   "emojiStatus",
+   "آپلود انجام شد؛ در حال گرفتن لینک...",
+   "success"
+  );
 
 
   const url=
    await getDownloadURL(
-    uploadTaskRef(uploadTask)
+    result.ref
    );
 
+
+  /*
+   ذخیره در Realtime Database
+  */
 
   await push(
    emojiRef,
    {
     name,
     url,
+    path,
     createdAt:Date.now(),
     createdBy:user.uid
    }
@@ -3356,63 +4125,75 @@ $("saveEmoji").onclick=async()=>{
 
   setStatus(
    "emojiStatus",
-   currentLanguage==="fa"
-    ?"ایموجی با موفقیت ساخته شد 😀🔥"
-    :"Emoji created successfully 😀🔥",
+   "ایموجی با موفقیت ساخته شد! 😀🔥",
    "success"
   );
 
 
   $("emojiName").value="";
+
   $("emojiFile").value="";
-  $("preview").textContent="🖼️";
+
+  $("preview").textContent=
+   "عکس را انتخاب کن";
+
   selectedEmojiFile=null;
 
 
   setTimeout(()=>{
 
-   $("emojiModal").classList.remove("show");
+   $("emojiModal")
+    .classList.remove("show");
 
   },900);
 
 
  }catch(e){
 
-  console.error("EMOJI UPLOAD ERROR:",e);
+  console.error(
+   "EMOJI UPLOAD ERROR:",
+   e
+  );
 
-  let errorMessage=e?.message||String(e);
 
-  if(e?.code==="storage/unauthorized"){
+  let message=
+   e.message||
+   "خطای نامشخص";
 
-   errorMessage=
-    currentLanguage==="fa"
-     ?"Firebase Storage اجازه آپلود نمی‌دهد. Storage Rules را بررسی کن."
-     :"Firebase Storage denied the upload. Check your Storage Rules.";
 
-  }
+  if(
+   e.code==="storage/unauthorized"
+  ){
 
-  if(e?.code==="storage/unauthenticated"){
-
-   errorMessage=
-    currentLanguage==="fa"
-     ?"کاربر احراز هویت نشده است."
-     :"User is not authenticated.";
+   message=
+    "Firebase Storage اجازه آپلود نمی‌دهد. Storage Rules را بررسی کن.";
 
   }
 
-  if(e?.code==="storage/quota-exceeded"){
 
-   errorMessage=
-    currentLanguage==="fa"
-     ?"فضای Storage کافی نیست."
-     :"Storage quota exceeded.";
+  if(
+   e.code==="storage/unauthenticated"
+  ){
+
+   message=
+    "حساب Firebase احراز هویت نشده است.";
+
+  }
+
+
+  if(
+   e.code==="storage/retry-limit-exceeded"
+  ){
+
+   message=
+    "ارتباط با Storage قطع شد. اینترنت را بررسی کن.";
 
   }
 
 
   setStatus(
    "emojiStatus",
-   "❌ "+errorMessage,
+   "آپلود انجام نشد: "+message,
    "error"
   );
 
@@ -3422,28 +4203,14 @@ $("saveEmoji").onclick=async()=>{
   button.disabled=false;
 
   button.textContent=
-   currentLanguage==="fa"
-    ?"آپلود ایموجی 🚀"
-    :"Upload Emoji 🚀";
+   "آپلود ایموجی";
 
  }
 
 };
 
 
-/*
- Firebase uploadBytesResumable returns an UploadTask.
- This helper obtains its internal ref safely.
-*/
-
-function uploadTaskRef(task){
-
- return task.snapshot.ref;
-
-}
-
-
-/* START ANONYMOUS */
+/* START AUTH */
 
 ensureUser().catch(e=>{
 
@@ -3452,43 +4219,12 @@ ensureUser().catch(e=>{
   e
  );
 
- $("messages").innerHTML=
-  `<div class="empty">
-   ❌<br>
-   ${currentLanguage==="fa"
-    ?"اتصال به حساب کاربری انجام نشد. Anonymous Authentication را در Firebase فعال کن."
-    :"Could not authenticate anonymously. Enable Anonymous Authentication in Firebase."}
-  </div>`;
-
 });
 
 
-/* RESTORE NAME */
+/* INITIAL LANGUAGE */
 
-const savedName=
- localStorage.getItem("avantaName");
-
-if(savedName){
-
- $("name").value=savedName;
-
-}
-
-
-/* AUTO SAVE NAME */
-
-$("name").addEventListener("change",()=>{
-
- const value=$("name").value.trim();
-
- if(value)
-  localStorage.setItem(
-   "avantaName",
-   value
-  );
-
-});
-
+applyLanguage();
 
 </script>
 
