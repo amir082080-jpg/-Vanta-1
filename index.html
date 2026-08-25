@@ -1268,6 +1268,13 @@ footer{
 .forward-card{border:1px solid #2b2840;background:#10101a;border-radius:14px;padding:10px;margin-bottom:8px}
 .forward-card button{width:100%;margin-top:7px}
 .vc-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px;border:1px solid #292936;border-radius:12px;margin-bottom:8px}
+
+/* AVANTA HOME UX */
+#chatModal .chat-window{max-width:1180px;width:min(96vw,1180px);height:min(92vh,820px);padding:0;overflow:hidden}
+#chatModal .chat-window>.panel-head{display:none}
+.av-home{display:grid;grid-template-columns:255px 1fr;height:100%;background:#0d0d15}
+.av-home-side{padding:18px;border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:8px;background:#11111b}.av-brand{font-size:23px;font-weight:900;padding:5px 8px 13px}.av-search{width:100%;box-sizing:border-box;height:42px;border-radius:14px;border:1px solid #292938;background:#191923;color:#fff;padding:0 12px;outline:none}.av-navbtn{border:0;background:transparent;color:#bdbdca;border-radius:13px;padding:12px;text-align:right;font:inherit;cursor:pointer;display:flex;align-items:center;gap:10px}.av-navbtn:hover,.av-navbtn.active{background:rgba(155,92,255,.16);color:#fff}.av-side-bottom{margin-top:auto;border-top:1px solid rgba(255,255,255,.07);padding-top:8px}.av-home-main{min-width:0;display:grid;grid-template-rows:auto 1fr;position:relative}.av-home-head{padding:17px 20px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}.av-home-title{font-size:20px;font-weight:850}.av-home-sub{font-size:11px;color:#888894;margin-top:3px}.av-user-pill{border:1px solid #30303d;background:#181822;color:#fff;border-radius:12px;padding:9px 12px;cursor:pointer}.av-home-content{padding:20px;overflow:auto}.av-section-title{font-size:12px;color:#8e8e9d;margin:0 0 9px}.av-list{display:grid;gap:8px;margin-bottom:20px}.av-item{border:1px solid #282834;background:#15151f;color:#fff;border-radius:15px;padding:12px;display:flex;gap:11px;align-items:center;text-align:right;cursor:pointer}.av-item:hover{border-color:#9b5cff;background:#191526}.av-avatar{width:43px;height:43px;border-radius:13px;background:linear-gradient(135deg,#9b5cff,#5e8bff);display:grid;place-items:center;font-weight:900}.av-item-info{min-width:0;flex:1}.av-item-name{font-weight:800}.av-item-meta{font-size:11px;color:#898997;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.av-mobile-nav{display:none}@media(max-width:720px){#chatModal .chat-window{width:100vw;height:100vh;max-width:none;border-radius:0}.av-home{grid-template-columns:1fr}.av-home-side{display:none}.av-home-main{padding-bottom:64px}.av-mobile-nav{display:grid;grid-template-columns:repeat(4,1fr);position:absolute;bottom:0;left:0;right:0;height:64px;background:#11111b;border-top:1px solid #282834}.av-mobile-nav button{border:0;background:transparent;color:#888;font:inherit;font-size:10px}.av-mobile-nav button.active{color:#fff}.av-mobile-nav span{display:block;font-size:19px;margin-bottom:2px}}
+.admin-google-btn{width:100%;height:48px;border:1px solid #ddd;border-radius:13px;background:#fff;color:#15151c;font-weight:800;cursor:pointer}
 </style>
 </head>
 
@@ -1299,8 +1306,8 @@ footer{
 
  <div class="nav-right">
   <button class="lang" id="langBtn">EN</button>
-  <button class="join" id="navChat" data-fa>💬 چت آنلاین</button>
-  <button class="join" id="navChatEn" data-en>💬 Live Chat</button>
+  <button class="join" id="navChat" data-fa>ورود به ÀVanta</button>
+  <button class="join" id="navChatEn" data-en>Enter ÀVanta</button>
  </div>
 
 </header>
@@ -1463,8 +1470,8 @@ footer{
 
 <button id="chatLauncher" class="chat-launch">
  💬
- <span class="chat-label" data-fa>چت آنلاین</span>
- <span class="chat-label" data-en>Live Chat</span>
+ <span class="chat-label" data-fa>ورود به ÀVanta</span>
+ <span class="chat-label" data-en>Enter ÀVanta</span>
 </button>
 
 <!-- REGISTER -->
@@ -1532,6 +1539,24 @@ footer{
 
   <div class="chat-body">
 
+   <div id="avantaHomeView" class="av-home">
+    <aside class="av-home-side">
+     <div class="av-brand">À<span class="grad">V</span>anta</div>
+     <input id="avHomeSearch" class="av-search" placeholder="جستجو...">
+     <button class="av-navbtn active" data-home-tab="chats">◉ &nbsp; چت‌ها</button>
+     <button class="av-navbtn" data-home-tab="groups">👥 &nbsp; گروه‌ها</button>
+     <button class="av-navbtn" data-home-tab="channels">▣ &nbsp; کانال‌ها</button>
+     <button class="av-navbtn" data-home-tab="contacts">◎ &nbsp; کاربران</button>
+     <button class="av-navbtn" id="avSavedHome">★ &nbsp; Saved Messages</button>
+     <div class="av-side-bottom"><button class="av-navbtn" id="avSettingsHome">⚙ &nbsp; تنظیمات</button></div>
+    </aside>
+    <section class="av-home-main">
+     <div class="av-home-head"><div><div class="av-home-title" id="avHomeTitle">چت‌ها</div><div class="av-home-sub">پیام‌رسان اختصاصی ÀVanta</div></div><button class="av-user-pill" id="avHomeProfile">پروفایل</button></div>
+     <div class="av-home-content" id="avHomeContent"></div>
+     <div class="av-mobile-nav"><button data-home-tab="chats" class="active"><span>◉</span>چت‌ها</button><button data-home-tab="groups"><span>👥</span>گروه‌ها</button><button data-home-tab="channels"><span>▣</span>کانال‌ها</button><button id="avMobileSettings"><span>⚙</span>تنظیمات</button></div>
+    </section>
+   </div>
+
    <aside class="chat-side">
 
     <div id="myProfile" class="profile-mini"></div>
@@ -1544,6 +1569,7 @@ footer{
     <button class="side-btn" id="emojiSideBtn">😀 ایموجی‌ها</button>
     <button class="side-btn" id="profileBtn">✨ پروفایل</button>
     <button class="side-btn" id="privateBtn">💌 پیام‌های خصوصی</button>
+    <button class="side-btn" id="settingsBtn">⚙ تنظیمات</button>
 
    </aside>
 
@@ -1584,6 +1610,23 @@ footer{
 
 </div>
 
+<!-- SETTINGS -->
+<div class="modal" id="settingsModal">
+ <div class="panel" style="max-width:520px">
+  <div class="panel-head"><strong>⚙ تنظیمات ÀVanta</strong><button class="close" data-close="settingsModal">×</button></div>
+  <div class="panel-body">
+   <button class="side-btn" style="width:100%;margin-bottom:8px" id="settingsProfile">👤 پروفایل</button>
+   <button class="side-btn" style="width:100%;margin-bottom:8px" id="settingsPremium">💎 Premium</button>
+   <button class="side-btn" style="width:100%;margin-bottom:8px" id="settingsGifts">🎁 VANTA Gifts</button>
+   <button class="side-btn" style="width:100%;margin-bottom:8px" id="settingsVC">🪙 VANTAcoin</button>
+   <button class="side-btn" style="width:100%;margin-bottom:8px" id="settingsAppearance">◐ Appearance</button>
+   <div style="height:1px;background:rgba(255,255,255,.08);margin:14px 0"></div>
+   <div class="notice">ورود مدیریت فقط از این بخش انجام می‌شود و فقط حساب Google با UID ادمین اجازه ورود دارد.</div>
+   <button class="primary" style="width:100%" id="settingsAdminLogin">👑 ورود مدیریت</button>
+  </div>
+ </div>
+</div>
+
 <!-- ADMIN LOGIN -->
 
 <div class="modal" id="adminModal">
@@ -1597,18 +1640,9 @@ footer{
 
   <div class="panel-body">
 
-   <div class="notice">
-    ورود فقط با حساب Firebase ادمین مجاز است.
-   </div>
-
-   <input id="adminEmail" class="input" type="email" placeholder="ایمیل ادمین">
-   <input id="adminPassword" class="input" type="password" placeholder="رمز ادمین">
-
+   <div class="notice">برای ورود مدیریت، حساب Google خودت را با Firebase تأیید کن. رمز Gmail داخل ÀVanta دریافت یا ذخیره نمی‌شود؛ فقط حساب Google و UID ادمین بررسی می‌شود.</div>
+   <button id="adminLogin" class="admin-google-btn">G &nbsp; تأیید با Google</button>
    <div id="adminStatus" class="status"></div>
-
-   <button id="adminLogin" class="primary" style="width:100%">
-    ورود 👑
-   </button>
 
   </div>
 
@@ -1620,9 +1654,7 @@ footer{
 
 <div class="admin-float" id="adminFloat">
 
- <button class="admin-main" id="adminMain">
-  👑 مدیریت AVanta
- </button>
+ <button class="admin-main" id="adminMain" aria-label="پنل مدیریت" title="ÀVanta Control Center">✎</button>
 
  <div class="admin-menu" id="adminMenu">
 
@@ -2387,7 +2419,7 @@ async()=>{
 
   renderProfile();
   loadEmojis();
-  switchRoom("global","global","چت عمومی");
+  showHome();
 
  }catch(e){
 
@@ -2488,7 +2520,7 @@ async()=>{
 
   renderProfile();
   loadEmojis();
-  switchRoom("global","global","چت عمومی");
+  showHome();
 
  }catch(e){
 
@@ -2501,6 +2533,51 @@ async()=>{
  }
 };
 
+
+/* =========================
+   AVANTA HOME
+========================= */
+function showHome(){
+ const h=$("avantaHomeView"); if(h)h.style.display="grid";
+ const legacy=$("legacyChatSide"); if(legacy)legacy.style.display="none";
+ const msgs=$("messages"); if(msgs)msgs.parentElement.style.display="none";
+ renderHomeTab("chats");
+}
+function openMessengerRoom(type="global",id="global",title="چت عمومی"){
+ const h=$("avantaHomeView"); if(h)h.style.display="none";
+ const legacy=$("legacyChatSide"); if(legacy)legacy.style.display="block";
+ const wrap=$("messages")?.parentElement; if(wrap)wrap.style.display="grid";
+ switchRoom(type,id,title);
+}
+function renderHomeTab(tab){
+ const title={chats:"چت‌ها",groups:"گروه‌ها",channels:"کانال‌ها",contacts:"کاربران"}[tab]||"چت‌ها";
+ $("avHomeTitle").textContent=title;
+ document.querySelectorAll("[data-home-tab]").forEach(b=>b.classList.toggle("active",b.dataset.homeTab===tab));
+ const c=$("avHomeContent"); if(!c)return;
+ if(tab==="chats"){
+  c.innerHTML=`<div class="av-section-title">گفتگوهای اخیر</div><div class="av-list"><button class="av-item" id="avGlobalRoom"><div class="av-avatar">ÀV</div><div class="av-item-info"><div class="av-item-name">چت عمومی</div><div class="av-item-meta">ورود به گفتگوی عمومی</div></div><div>›</div></button></div>`;
+  $("avGlobalRoom").onclick=()=>openMessengerRoom("global","global","چت عمومی");
+ }else if(tab==="groups"){
+  c.innerHTML=`<div class="av-section-title">گروه‌ها</div><div class="av-list"><button class="av-item" id="avGroupsRoom"><div class="av-avatar">👥</div><div class="av-item-info"><div class="av-item-name">گروه‌ها</div><div class="av-item-meta">گروه‌های عضو شده</div></div><div>›</div></button></div>`;
+  $("avGroupsRoom").onclick=()=>{modal("chatModal",true); $("groupsBtn")?.click()};
+ }else if(tab==="channels"){
+  c.innerHTML=`<div class="av-section-title">کانال‌ها</div><div class="av-list"><button class="av-item" id="avChannelsRoom"><div class="av-avatar">▣</div><div class="av-item-info"><div class="av-item-name">کانال‌ها</div><div class="av-item-meta">کانال‌های دنبال‌شده</div></div><div>›</div></button></div>`;
+  $("avChannelsRoom").onclick=()=>{$("channelsBtn")?.click()};
+ }else{
+  c.innerHTML=`<div class="av-section-title">کاربران</div><div class="av-list"><div class="av-item"><div class="av-avatar">◎</div><div class="av-item-info"><div class="av-item-name">کاربران ÀVanta</div><div class="av-item-meta">از بخش کاربران برای شروع پیام خصوصی استفاده کن.</div></div></div></div>`;
+ }
+}
+[...document.querySelectorAll("[data-home-tab]")].forEach(b=>b.addEventListener("click",()=>renderHomeTab(b.dataset.homeTab)));
+$("avSettingsHome")?.addEventListener("click",()=>modal("settingsModal",true));
+$("avMobileSettings")?.addEventListener("click",()=>modal("settingsModal",true));
+$("settingsBtn")?.addEventListener("click",()=>{showHome();modal("settingsModal",true)});
+$("settingsAdminLogin")?.addEventListener("click",()=>{modal("settingsModal",false);modal("adminModal",true)});
+$("settingsProfile")?.addEventListener("click",()=>{modal("settingsModal",false);$("profileBtn")?.click()});
+$("settingsPremium")?.addEventListener("click",()=>{modal("settingsModal",false);modal("premiumModal",true)});
+$("settingsVC")?.addEventListener("click",()=>{modal("settingsModal",false);modal("vcModal",true)});
+$("avHomeProfile")?.addEventListener("click",()=>$("profileBtn")?.click());
+$("avSavedHome")?.addEventListener("click",()=>openMessengerRoom("saved","saved","Saved Messages"));
+$("avHomeSearch")?.addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll("#avHomeContent .av-item").forEach(x=>x.style.display=(!q||x.innerText.toLowerCase().includes(q))?"flex":"none")});
 
 /* =========================
    OPEN CHAT
@@ -2528,7 +2605,7 @@ async function openChat(){
 
   renderProfile();
   loadEmojis();
-  switchRoom("global","global","چت عمومی");
+  showHome();
 
  }catch(e){
 
@@ -2607,6 +2684,11 @@ onAuthStateChanged(
    }
 
    renderProfile();
+
+   // Authenticated users enter ÀVanta directly: no intermediate "Live Chat" page.
+   modal("registerModal",false);
+   modal("chatModal",true);
+   showHome();
 
   }catch(e){
    console.error(e);
@@ -3657,76 +3739,28 @@ function renderEmojiPanel(){
 
 
 /* =========================
-   ADMIN LOGIN
+   ADMIN LOGIN — GOOGLE ONLY
 ========================= */
 
-$("adminLogin").onclick=
-async()=>{
-
- const email=
-  $("adminEmail").value.trim();
-
- const password=
-  $("adminPassword").value;
-
- if(!email||!password){
-
-  status(
-   "adminStatus",
-   "ایمیل و رمز را وارد کن."
-  );
-
-  return;
- }
-
+$("adminLogin").onclick=async()=>{
  try{
-
-  const result=
-   await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-   );
-
-  if(
-   result.user.uid!==ADMIN_UID
-  ){
-
+  status("adminStatus","در حال تأیید حساب Google...");
+  const result=await signInWithPopup(auth,googleProvider);
+  if(result.user.uid!==ADMIN_UID){
    await signOut(auth);
-
-   status(
-    "adminStatus",
-    "این حساب Admin AVanta نیست. UID این حساب: "+
-    result.user.uid
-   );
-
+   status("adminStatus","این حساب Google دسترسی مدیریت ندارد.");
    return;
   }
-
+  user=result.user; isAdmin=true; stats.level=99;
   modal("adminModal",false);
-
-  isAdmin=true;
-
-  $("adminFloat")
-   .classList.add("show");
-
-  stats.level=99;
-
+  $("adminFloat").classList.add("show");
   renderProfile();
-
+  toast("ورود مدیریت با موفقیت انجام شد.");
  }catch(e){
-
-  status(
-   "adminStatus",
-   "ایمیل یا رمز اشتباه است."
-  );
-
   console.error(e);
- };
-
-
+  status("adminStatus",e.code==="auth/popup-closed-by-user"?"پنجره Google بسته شد.":"تأیید Google انجام نشد: "+e.message);
+ }
 };
-
 
 /* =========================
    ADMIN MENU
