@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ÀVanta Messenger</title>
+<style>
+:root{
+ --accent:#7662ff;--bg:#080c13;--panel:#111923;--panel2:#172230;
+ --line:#2a384b;--muted:#91a0b5
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer;color:#fff;border:0}
+#app{height:100dvh;max-width:960px;margin:auto;background:var(--bg);display:flex;flex-direction:column}
+.top{height:66px;display:flex;align-items:center;gap:8px;padding:9px 12px;background:#0e151f;border-bottom:1px solid var(--line);z-index:5}
+.brand{font-size:21px;font-weight:1000;white-space:nowrap}.brand b,.logoBig b{color:#a493ff}
+.search{flex:1;min-width:40px;background:#182331;border:1px solid #2c3b4e;color:#fff;border-radius:17px;padding:10px 12px;outline:0}
+main{flex:1;overflow:auto;padding:14px 12px 100px}
+.page{display:none}.page.on{display:block}
+.card,.row{background:var(--panel);border:1px solid var(--line);border-radius:21px;padding:14px;margin-bottom:10px}
+.row{display:flex;align-items:center;gap:11px;transition:.15s}.row:active{transform:scale(.985)}
+.title{font-size:21px;font-weight:950;margin-bottom:5px}.muted{color:var(--muted)}.small{font-size:12px}.grow{flex:1;min-width:0}
+.avatar{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;flex:none;background:linear-gradient(135deg,#806bff,#21c9ff);font-weight:950;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}.avatar.big{width:118px;height:118px;border-radius:35px;margin:4px auto 10px;font-size:42px}
+.cover{height:145px;border-radius:22px;background:linear-gradient(135deg,#6d5ce7,#1cc7ff);background-size:cover;background-position:center;margin:-14px -14px 12px}
+.btn{background:#1b2634;border:1px solid #34445a;border-radius:15px;padding:10px 13px;font-weight:800;transition:.15s}
+.btn:active{transform:scale(.96)}.primary{background:linear-gradient(135deg,#7b65ff,#4d83ff);border-color:#8274ff}
+.danger{background:#481e2b;border-color:#713347}.full{width:100%;margin-top:7px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bottom{position:fixed;bottom:9px;left:50%;transform:translateX(-50%);width:min(940px,calc(100% - 16px));display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:6px;background:#111a25ee;border:1px solid #34445b;border-radius:27px;backdrop-filter:blur(20px);z-index:20;box-shadow:0 12px 45px #0008}
+.bottom button{background:transparent;border-radius:21px;padding:7px 3px;color:#8997aa}.bottom button.on{background:#7461ff22;color:#fff}.navico{font-size:21px;display:block;line-height:22px}
+.input,.textarea{width:100%;background:#0a1018;border:1px solid #314055;border-radius:15px;color:#fff;padding:11px;outline:0;margin:4px 0 8px}.textarea{min-height:90px;resize:vertical}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:linear-gradient(135deg,#9c86ff,#547dff);font-size:11px;font-weight:950;box-shadow:0 0 17px #806cff66}
+.modal{position:fixed;inset:0;background:#000b;z-index:50;display:none;align-items:flex-end;padding:8px}.modal.on{display:flex}
+.sheet{width:min(720px,100%);max-height:92dvh;overflow:auto;background:#101923;border:1px solid #34445a;border-radius:28px;padding:16px}
+.sheethead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.chat{position:fixed;inset:0;z-index:40;background:#080d14;display:none;flex-direction:column}.chat.on{display:flex}
+.chathead{height:66px;display:flex;align-items:center;gap:9px;padding:8px;background:#111a24;border-bottom:1px solid var(--line)}
+.messages{flex:1;overflow:auto;padding:13px}.msg{max-width:80%;width:max-content;background:#172434;border:1px solid #2d3c50;border-radius:18px;padding:8px 11px;margin:6px 0}
+.msg.mine{margin-right:auto;background:#4d3e9b;border-color:#6d5bc3}.msg img{max-width:260px;border-radius:13px;display:block}
+.msg.emoji-message{background:transparent!important;border:0!important;padding:3px!important}.msg.emoji-message img{width:72px;height:72px;max-width:72px;max-height:72px;object-fit:contain;border-radius:0}
+.gift-message{display:flex;align-items:center;gap:10px}.gift-icon{font-size:40px}.nft{border:1px solid #8d6cff;background:linear-gradient(135deg,#291d55,#101923);padding:12px;border-radius:18px}
+.composer{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:#0e151f}.composer input{flex:1;min-width:0;background:#182331;border:1px solid #314055;border-radius:18px;color:#fff;padding:10px;outline:0}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;background:#172230;border:1px solid #40506a;border-radius:15px;padding:10px 15px;display:none;max-width:90%;text-align:center}.toast.on{display:block}
+.empty{text-align:center;padding:30px 10px;color:var(--muted)}
+.login{position:fixed;inset:0;background:radial-gradient(circle at 50% 0,#221c4b,#080c13 55%);z-index:200;display:grid;place-items:center;padding:20px}.login.hide{display:none}
+.loginbox{width:min(440px,100%);background:#111923ee;border:1px solid #35445a;border-radius:30px;padding:24px;text-align:center;box-shadow:0 20px 80px #0009}
+.logoBig{font-size:42px;font-weight:1000}.color{width:43px;height:43px;border-radius:50%;border:2px solid #fff3}.colors{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.emoji-picker{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-height:55dvh;overflow:auto}.emoji-picker-item{min-height:82px;background:#0b111a;border:1px solid #2d3c50;border-radius:17px;display:flex;align-items:center;justify-content:center;padding:8px}.emoji-picker-item img{width:58px;height:58px;object-fit:contain}
+.wallet{font-size:26px;font-weight:1000;text-align:center;padding:15px;border-radius:20px;background:linear-gradient(135deg,#2d235d,#151d2a);border:1px solid #6757c7}
+.gift-card{text-align:center;background:#0b111a;border:1px solid #2d3c50;border-radius:18px;padding:14px}.gift-card .icon{font-size:46px}.premium-time{font-weight:900;color:#b6a6ff}
+@media(max-width:500px){.top{gap:6px}.brand{font-size:18px}.btn{padding:9px 10px}.emoji-picker{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<div id="login" class="login">
+<div class="loginbox">
+<div class="logoBig">À<b>Vanta</b></div>
+<div class="muted" style="margin-bottom:22px">Messenger</div>
+<button id="googleLogin" class="btn primary full">ورود با Google</button>
+<button id="guestLogin" class="btn full">ورود به‌عنوان مهمان</button>
+<div id="loginStatus" class="muted small" style="margin-top:12px"></div>
+</div>
+</div>
+
+<div id="app">
+<header class="top">
+<div class="brand">À<b>Vanta</b></div>
+<input id="search" class="search" placeholder="جستجوی چت یا مخاطب">
+<button id="newBtn" class="btn primary">＋</button>
+</header>
+
+<main>
+
+<section id="chatsPage" class="page on">
+<div class="card"><div class="title">Chats</div><div class="muted small">پیام‌ها، گروه‌ها و کانال‌ها</div></div>
+<div id="chatList"></div>
+</section>
+
+<section id="contactsPage" class="page">
+<div class="card">
+<div class="title">مخاطبین</div>
+<input id="contactInput" class="input" placeholder="ID یا username">
+<button id="findContact" class="btn primary full">افزودن مخاطب</button>
+</div>
+<div id="contactsList"></div>
+</section>
+
+<section id="settingsPage" class="page">
+<div class="card">
+<div class="title">Settings</div>
+<button id="editInfo" class="btn full">👤 Edit Info</button>
+<button id="setPhoto" class="btn full">🖼 Set Photo</button>
+<button id="profileColor" class="btn full">🎨 Profile Colour</button>
+<button id="nameEmoji" class="btn full">✨ Premium Name Emoji</button>
+<button id="storyBtn" class="btn full">⭕ Add Story</button>
+<button id="premiumBtn" class="btn full">⭐ ÀVanta Premium</button>
+<button id="walletBtn" class="btn full">⭐ VANTAcoin Wallet</button>
+<button id="savedBtn" class="btn full">🔖 Saved Messages</button>
+<button id="giftBtn" class="btn full">🎁 Gifts</button>
+<button id="gifMakerBtn" class="btn full">GIF</button>
+<button id="adminBtn" class="btn primary full" style="display:none">⚡ Admin Panel</button>
+<button id="logoutBtn" class="btn danger full">خروج</button>
+</div>
+
+<div class="card">
+<div class="title">Create</div>
+<div class="grid2">
+<button id="groupBtn" class="btn primary">👥 Group</button>
+<button id="channelBtn" class="btn primary">📢 Channel</button>
+</div>
+</div>
+</section>
+
+<section id="profilePage" class="page">
+<div class="card">
+<div id="profileCover" class="cover"></div>
+<div style="text-align:center">
+<div id="bigAvatar"></div>
+<h2 id="profileName"></h2>
+<div id="profileUsername" class="muted"></div>
+<div id="profileId" class="muted small" style="margin-top:5px"></div>
+<div id="profileBadges" style="margin:10px"></div>
+<div id="profileBio" class="muted"></div>
+<div class="grid3" style="margin-top:15px">
+<button id="profileEdit" class="btn primary">Edit</button>
+<button id="profilePhoto" class="btn">Photo</button>
+<button id="profileMore" class="btn">•••</button>
+</div>
+</div>
+</div>
+<div class="card"><div class="title">Gift Collection</div><div id="giftCollection" class="empty"></div></div>
+<div class="card"><div class="title">Stories</div><div id="storyList" class="empty">هنوز Storyای نیست.</div></div>
+</section>
+
+</main>
+
+<nav class="bottom">
+<button data-page="contactsPage"><span class="navico">♙</span>مخاطبین</button>
+<button data-page="chatsPage" class="on"><span class="navico">◌</span>چت‌ها</button>
+<button data-page="settingsPage"><span class="navico">⚙</span>تنظیمات</button>
+<button data-page="profilePage"><span class="navico">◎</span>پروفایل</button>
+</nav>
+</div>
+
+<input id="photoFile" type="file" accept="image/*" hidden>
+<input id="coverFile" type="file" accept="image/*" hidden>
+<input id="storyFile" type="file" accept="image/*,video/*" hidden>
+<input id="gifFile" type="file" accept="image/gif" hidden>
+
+<div id="modal" class="modal">
+<div class="sheet">
+<div class="sheethead"><h3 id="modalTitle">ÀVanta</h3><button id="closeModal" class="btn">×</button></div>
+<div id="modalBody"></div>
+</div>
+</div>
+
+<div id="chat" class="chat">
+<header class="chathead">
+<button id="backChat" class="btn">‹</button>
+<div id="chatAvatar" class="avatar">A</div>
+<div class="grow"><b id="chatTitle">Chat</b><div id="chatSub" class="muted small"></div></div>
+<button id="chatMenu" class="btn">•••</button>
+</header>
+<div id="messages" class="messages"></div>
+<div class="composer">
+<button id="chatEmoji" class="btn">😊</button>
+<button id="chatGif" class="btn">GIF</button>
+<button id="chatGift" class="btn">🎁</button>
+<input id="messageInput" placeholder="پیام...">
+<button id="sendMessage" class="btn primary">➤</button>
+</div>
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import{getAuth,GoogleAuthProvider,signInWithPopup,signInAnonymously,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import{getDatabase,ref,set,get,push,onValue,update,runTransaction,remove}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8Zjb-zpI",
+authDomain:"avanta-3db7e.firebaseapp.com",
+databaseURL:"https://avanta-3db7e-default-rtdb.firebaseio.com",
+projectId:"avanta-3db7e",
+storageBucket:"avanta-3db7e.firebasestorage.app",
+messagingSenderId:"879564538420",
+appId:"1:879564538420:web:a0fc85cc43a9347d92c061"
+};
+
+const ADMIN_UID="NNY1ymTknwREwMo16ZI3lgFEni23";
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
+const $=id=>document.getElementById(id);
+let user=null,profile=null,activeChat=null,chatMeta=null,premiumEmojisCache=[],premiumEmojisLoaded=false;
+
+const toast=t=>{
+const x=$("toast");x.textContent=t;x.classList.add("on");
+clearTimeout(window._toast);window._toast=setTimeout(()=>x.classList.remove("on"),2400)
+};
+
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const ownerUser=()=>!!user&&user.uid===ADMIN_UID;
+const normId=v=>String(v||"").trim().replace(/^@/,"").toLowerCase().replace(/[^a-z0-9_]/g,"").slice(0,32);
+
+function friendlyError(e){
+const m={
+"auth/popup-blocked":"Popup توسط مرورگر مسدود شد.",
+"auth/popup-closed-by-user":"ورود لغو شد.",
+"auth/network-request-failed":"اتصال اینترنت یا Firebase مشکل دارد.",
+"auth/unauthorized-domain":"دامنه در Firebase مجاز نشده است.",
+"auth/operation-not-allowed":"روش ورود در Firebase فعال نیست.",
+"PERMISSION_DENIED":"Firebase Rules اجازه این عملیات را نمی‌دهد.",
+"username/taken":"این Username قبلاً استفاده شده است."
+};
+return m[e?.code]||e?.message||"خطای نامشخص";
+}
+
+function modal(t,h){$("modalTitle").textContent=t;$("modalBody").innerHTML=h;$("modal").classList.add("on")}
+function closeModal(){$("modal").classList.remove("on")}
+$("closeModal").onclick=closeModal;
+$("modal").onclick=e=>{if(e.target===$("modal"))closeModal()};
+
+function fileData(f){
+return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(f)})
+}
+
+function compressImage(file,max=500,size=512){
+return new Promise((resolve,reject)=>{
+const r=new FileReader();
+r.onload=e=>{
+const img=new Image();
+img.onload=()=>{
+const scale=Math.min(1,size/Math.max(img.width,img.height));
+const c=document.createElement("canvas");
+c.width=Math.max(1,Math.round(img.width*scale));
+c.height=Math.max(1,Math.round(img.height*scale));
+const x=c.getContext("2d");x.drawImage(img,0,0,c.width,c.height);
+let q=.82,data=c.toDataURL("image/webp",q);
+while(data.length>max*1024&&q>.35){q-=.07;data=c.toDataURL("image/webp",q)}
+resolve(data)
+};img.onerror=reject;img.src=e.target.result
+};r.onerror=reject;r.readAsDataURL(file)
+})
+}
+
+/* AUTH */
+$("googleLogin").onclick=async()=>{
+try{$("loginStatus").textContent="در حال ورود...";await signInWithPopup(auth,new GoogleAuthProvider())}
+catch(e){$("loginStatus").textContent=friendlyError(e);toast(friendlyError(e))}
+};
+$("guestLogin").onclick=async()=>{
+try{$("loginStatus").textContent="در حال ورود...";await signInAnonymously(auth)}
+catch(e){$("loginStatus").textContent=friendlyError(e);toast(friendlyError(e))}
+};
+$("logoutBtn").onclick=()=>signOut(auth);
+
+/* PROFILE */
+async function ensureProfile(u){
+const r=ref(db,"users/"+u.uid),s=await get(r);
+if(!s.exists()){
+const p={
+uid:u.uid,id:"AV-"+u.uid.slice(0,10).toUpperCase(),
+name:u.displayName||"ÀVanta User",
+username:u.email?.split("@")[0]||"guest_"+u.uid.slice(0,6),
+email:u.email||"",photo:u.photoURL||"",cover:"",bio:"",
+premium:u.uid===ADMIN_UID,verified:u.uid===ADMIN_UID,owner:u.uid===ADMIN_UID,
+profileColor:"#7662ff",nameEmoji:"",premiumUntil:u.uid===ADMIN_UID?Date.now()+31536000000:0,createdAt:Date.now()
+};
+await set(r,p);return p
+}
+const p=s.val();
+if(!p.id){p.id="AV-"+u.uid.slice(0,10).toUpperCase();await update(r,{id:p.id})}
+return p
+}
+
+onAuthStateChanged(auth,async u=>{
+user=u;
+if(!u){$("login").classList.remove("hide");return}
+$("login").classList.add("hide");
+try{
+profile=await ensureProfile(u);
+$("adminBtn").style.display=ownerUser()?"block":"none";
+renderAll();subscribeUser();startChatSubscription();renderStories();joinFromLink()
+}catch(e){toast(friendlyError(e))}
+});
+
+function subscribeUser(){
+if(window.userUnsub)window.userUnsub();
+window.userUnsub=onValue(ref(db,"users/"+user.uid),s=>{profile=s.val()||profile;renderAll()})
+}
+
+function avatar(o,big=false){
+return `<div class="avatar${big?" big":""}" style="background:${esc(o?.profileColor||"#7662ff")}">${o?.photo?`<img src="${esc(o.photo)}">`:esc((o?.name||"A").slice(0,1).toUpperCase())}</div>`
+}
+
+function premiumActive(p=profile){return !!p?.premium&&(!p.premiumUntil||p.premiumUntil>Date.now())}
+
+function renderProfile(){
+if(!profile)return;
+$("bigAvatar").outerHTML=avatar(profile,true).replace('class="avatar big"','class="avatar big" id="bigAvatar"');
+$("profileName").innerHTML=esc(profile.name||"ÀVanta User")+(profile.nameEmoji?" "+esc(profile.nameEmoji):"");
+$("profileUsername").textContent="@"+(profile.username||"user");
+$("profileId").textContent="ID: "+(profile.id||"AV-"+user.uid.slice(0,10).toUpperCase());
+$("profileBadges").innerHTML=(profile.verified?`<span class="badge">✓ Verified</span> `:"")+(premiumActive()?`<span class="badge">⭐ Premium</span>`:"");
+$("profileBio").textContent=profile.bio||"";
+$("profileCover").style.backgroundImage=profile.cover?`url("${profile.cover}")`:"";
+renderGiftCollection()
+}
+
+/* CHAT LIST */
+function startChatSubscription(){
+if(!user)return;
+if(window.chatListUnsub)window.chatListUnsub();
+window.chatListUnsub=onValue(ref(db,"userChats/"+user.uid),s=>{window._chats=s.val()||{};renderChats()})
+}
+
+function renderChats(){
+const box=$("chatList"),data=window._chats||{};
+const arr=Object.entries(data).map(([id,v])=>({id,...v})).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+box.innerHTML=arr.length?"":`<div class="empty">هنوز چتی ندارید.<br>از ＋ یک چت، گروه یا کانال بسازید.</div>`;
+arr.forEach(c=>{
+const d=document.createElement("div");d.className="row";
+d.innerHTML=`${avatar(c)}<div class="grow"><b>${esc(c.name||"Chat")}</b><div class="muted small">${esc(c.lastMessage||c.type||"chat")}</div></div><span class="small muted">${esc(c.type||"")}</span>`;
+d.onclick=()=>openChat(c);box.appendChild(d)
+})
+}
+
+/* CONTACTS */
+function renderContacts(s){
+const box=$("contactsList"),data=s?.val?.()||{};box.innerHTML="";
+const arr=Object.entries(data).map(([id,v])=>({id,...v}));
+if(!arr.length){box.innerHTML=`<div class="empty">مخاطبی ندارید.</div>`;return}
+arr.forEach(c=>{
+const d=document.createElement("div");d.className="row";
+d.innerHTML=`${avatar(c)}<div class="grow"><b>${esc(c.name)}</b><div class="muted">@${esc(c.username||"")}</div><div class="small">ID: ${esc(c.id||c.uid||"")}</div></div><button class="btn primary">Chat</button>`;
+d.onclick=()=>openUser(c);d.querySelector("button").onclick=e=>{e.stopPropagation();openPrivate(c)};box.appendChild(d)
+})
+}
+$("findContact").onclick=async()=>{
+const q=$("contactInput").value.trim();if(!q)return toast("ID یا username را وارد کن");
+try{
+const s=await get(ref(db,"users"));let p=null;
+for(const [uid,x] of Object.entries(s.val()||{}))if(uid===q||x.id===q||String(x.username||"").toLowerCase()===q.replace(/^@/,"").toLowerCase()){p={uid,...x};break}
+if(!p)return toast("کاربر پیدا نشد");
+if(p.uid===user.uid)return toast("نمی‌توانی خودت را اضافه کنی");
+await set(ref(db,`contacts/${user.uid}/${p.uid}`),p);
+$("contactInput").value="";toast("مخاطب اضافه شد")
+}catch(e){toast(friendlyError(e))}
+};
+
+/* USER / PRIVATE CHAT */
+function openUser(c){
+modal("Profile",`${avatar(c,true)}<div style="text-align:center"><h2>${esc(c.name)}</h2><div class="muted">@${esc(c.username||"")}</div><div class="small">ID: ${esc(c.id||c.uid||"")}</div><p>${esc(c.bio||"")}</p><div class="grid2"><button id="userMessage" class="btn primary">Message</button><button id="userGift" class="btn">🎁 Gift</button></div></div>`);
+$("userMessage").onclick=()=>{closeModal();openPrivate(c)};
+$("userGift").onclick=()=>{closeModal();openPrivate(c)}
+}
+
+async function openPrivate(c){
+const id=[user.uid,c.uid].sort().join("_");
+const meta={name:c.name,type:"private",photo:c.photo||"",otherUid:c.uid,updatedAt:Date.now()};
+await update(ref(db,`chats/${id}`),meta);
+await set(ref(db,`userChats/${user.uid}/${id}`),meta);
+await set(ref(db,`userChats/${c.uid}/${id}`),{...meta,name:profile.name,otherUid:user.uid});
+openChat({id,...meta})
+}
+
+/* MESSAGES */
+function openChat(c){
+activeChat=c.id;chatMeta=c;$("chat").classList.add("on");
+$("chatTitle").textContent=c.name||"Chat";$("chatSub").textContent=c.type||"chat";
+$("chatAvatar").outerHTML=avatar({name:c.name,photo:c.photo}).replace('class="avatar"','class="avatar" id="chatAvatar"');
+subscribeMessages()
+}
+
+function renderMessage(m){
+const mine=m.uid===user.uid;let content="";
+if(m.premiumEmoji&&m.premiumEmoji.data)content=`<img src="${esc(m.premiumEmoji.data)}" alt="">`;
+else if(m.gif)content=`<img src="${esc(m.gif)}" alt="GIF">`;
+else if(m.gift){
+const g=m.gift;
+content=`<div class="${g.nft?"nft":"gift-message"}"><span class="gift-icon">${esc(g.icon||"🎁")}</span><div><b>${esc(g.name||"Gift")}</b><br><span class="small">${g.nft?"💎 NFT Gift":"Gift"}</span></div></div>`
+}else content=esc(m.text||"");
+return `<div class="msg ${mine?"mine":""} ${m.premiumEmoji?"emoji-message":""}">${content}</div>`
+}
+
+function subscribeMessages(){
+if(window.msgUnsub)window.msgUnsub();
+window.msgUnsub=onValue(ref(db,`messages/${activeChat}`),s=>{
+const arr=Object.values(s.val()||{}).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+const box=$("messages");box.innerHTML=arr.length?"":`<div class="empty">هنوز پیامی نیست.</div>`;
+arr.forEach(m=>box.insertAdjacentHTML("beforeend",renderMessage(m)));
+box.scrollTop=box.scrollHeight
+})
+}
+
+async function sendMessage(){
+const v=$("messageInput").value.trim();if(!v||!activeChat)return;
+try{
+await set(push(ref(db,`messages/${activeChat}`)),{uid:user.uid,name:profile.name,text:v,createdAt:Date.now()});
+await update(ref(db,`chats/${activeChat}`),{lastMessage:v,updatedAt:Date.now()});
+await update(ref(db,`userChats/${user.uid}/${activeChat}`),{lastMessage:v,updatedAt:Date.now()});
+$("messageInput").value=""
+}catch(e){toast(friendlyError(e))}
+}
+$("sendMessage").onclick=sendMessage;
+$("messageInput").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();sendMessage()}};
+
+/* PROFILE EDIT */
+async function claimUsername(uid,name,old=""){
+const n=normId(name);if(!n||n.length<3)throw Object.assign(new Error("Username حداقل 3 کاراکتر باشد"),{code:"username/invalid"});
+if(n===normId(old))return n;
+const r=ref(db,"usernames/"+n),tx=await runTransaction(r,c=>c===null||c===uid?uid:undefined);
+if(!tx.committed)throw Object.assign(new Error("این Username قبلاً استفاده شده"),{code:"username/taken"});
+if(old&&normId(old)!==n){const o=ref(db,"usernames/"+normId(old));const s=await get(o);if(s.exists()&&s.val()===uid)await remove(o)}
+return n
+}
+
+async function saveProfile(fields){
+if(fields.username!==undefined)fields={...fields,username:await claimUsername(user.uid,fields.username,profile.username)};
+await update(ref(db,"users/"+user.uid),fields);profile={...profile,...fields};renderProfile()
+}
+
+function editInfo(){
+modal("Edit Info",`
+<input id="editName" class="input" placeholder="Name" value="${esc(profile.name||"")}">
+<input id="editUsername" class="input" placeholder="Username" value="${esc(profile.username||"")}">
+<textarea id="editBio" class="textarea" placeholder="Bio">${esc(profile.bio||"")}</textarea>
+<button id="saveInfo" class="btn primary full">Save</button>`);
+$("saveInfo").onclick=async()=>{
+try{await saveProfile({name:$("editName").value.trim()||"ÀVanta User",username:$("editUsername").value.trim(),bio:$("editBio").value.trim()});closeModal();toast("اطلاعات ذخیره شد")}
+catch(e){toast(friendlyError(e))}
+}
+}
+$("editInfo").onclick=editInfo;$("profileEdit").onclick=editInfo;
+
+/* PHOTO */
+function choosePhoto(){$("photoFile").click()}
+$("setPhoto").onclick=choosePhoto;$("profilePhoto").onclick=choosePhoto;
+$("photoFile").onchange=async e=>{
+const f=e.target.files[0];if(!f)return;
+if(f.size>1800000)return toast("عکس حداکثر 1.8MB");
+try{await saveProfile({photo:await compressImage(f,450,512)});toast("عکس تغییر کرد")}catch(x){toast(friendlyError(x))}
+e.target.value=""
+};
+
+/* COLOR */
+$("profileColor").onclick=()=>{
+if(!premiumActive())return toast("این قابلیت فقط برای Premium است");
+const cs=["#7662ff","#21c9ff","#ff4f9a","#36d89a","#ffad45","#a85cff","#ef62ff","#4d8cff"];
+modal("Change Profile Colour",`<div class="colors">${cs.map(c=>`<button class="color" data-c="${c}" style="background:${c}"></button>`).join("")}</div>`);
+document.querySelectorAll(".color").forEach(b=>b.onclick=async()=>{await saveProfile({profileColor:b.dataset.c});closeModal();toast("رنگ تغییر کرد")})
+};
+
+/* NAME EMOJI */
+$("nameEmoji").onclick=()=>{
+if(!premiumActive())return toast("این قابلیت فقط برای Premium است");
+const em=["✦","✧","⚡","◆","◈","✪","♛","☄","À","💎","🌟"];
+modal("Premium Name Emoji",`<div class="grid3">${em.map(x=>`<button class="btn pem">${x}</button>`).join("")}</div>`);
+document.querySelectorAll(".pem").forEach(b=>b.onclick=async()=>{await saveProfile({nameEmoji:b.textContent.trim()});closeModal();toast("Emoji فعال شد")})
+};
+
+/* PREMIUM */
+$("premiumBtn").onclick=()=>{
+const days=Math.max(0,Math.ceil(((profile.premiumUntil||0)-Date.now())/86400000));
+modal("ÀVanta Premium",`
+<div class="card" style="text-align:center"><div class="title">⭐ ÀVanta Premium</div>
+<div class="muted">رنگ پروفایل، Emoji نام، Giftهای ویژه و امکانات بیشتر</div>
+<div class="premium-time" style="margin-top:10px">${premiumActive()?days+" روز باقی مانده":"فعال نیست"}</div></div>
+<button id="premiumDemo" class="btn primary full">فعال‌سازی آزمایشی 30 روزه</button>`);
+$("premiumDemo").onclick=async()=>{
+await saveProfile({premium:true,premiumUntil:Math.max(Date.now(),profile.premiumUntil||0)+30*86400000});
+closeModal();toast("Premium برای 30 روز فعال شد")
+}
+};
+
+/* WALLET */
+async function walletFor(uid=user.uid){
+const s=await get(ref(db,`wallets/${uid}/vc`));return Number(s.val())||0
+}
+$("walletBtn").onclick=async()=>{
+const bal=await walletFor();
+modal("VANTAcoin Wallet",`
+<div class="wallet">⭐ ${bal.toLocaleString()} VC</div>
+<div class="card" style="margin-top:10px">VANTAcoin واحد داخلی ÀVanta برای Gift و امکانات است.</div>
+<button id="walletRefresh" class="btn primary full">Refresh</button>`);
+$("walletRefresh").onclick=()=>{$("walletBtn").click()}
+};
+
+/* STORIES */
+$("storyBtn").onclick=()=>$("storyFile").click();
+$("storyFile").onchange=e=>{
+const f=e.target.files[0];if(!f)return;if(f.size>2000000)return toast("Story حداکثر 2MB");
+const r=new FileReader();r.onload=async()=>{
+try{await set(push(ref(db,`stories/${user.uid}`)),{data:r.result,type:f.type,createdAt:Date.now(),expiresAt:Date.now()+86400000});toast("Story منتشر شد");renderStories()}
+catch(x){toast(friendlyError(x))}
+};r.readAsDataURL(f);e.target.value=""
+};
+async function renderStories(){
+try{
+const s=await get(ref(db,`stories/${user.uid}`)),a=Object.values(s.val()||{}).filter(x=>(x.expiresAt||0)>Date.now());
+$("storyList").innerHTML=a.length?a.map(x=>x.type?.startsWith("video")?`<video src="${esc(x.data)}" controls style="max-width:100%;border-radius:15px"></video>`:`<img src="${esc(x.data)}" style="max-width:100%;border-radius:15px">`).join("<hr>"):"هنوز Storyای نیست."
+}catch(e){}
+}
+
+/* GIF */
+$("gifMakerBtn").onclick=()=>$("gifFile").click();
+$("chatGif").onclick=()=>activeChat?$("gifFile").click():toast("اول یک چت باز کن");
+$("gifFile").onchange=e=>{
+const f=e.target.files[0];if(!f)return;if(!activeChat)return toast("اول یک چت باز کن");if(f.size>3000000)return toast("GIF حداکثر 3MB");
+const r=new FileReader();r.onload=async()=>{
+try{await set(push(ref(db,`messages/${activeChat}`)),{uid:user.uid,name:profile.name,gif:r.result,createdAt:Date.now()});toast("GIF ارسال شد")}
+catch(x){toast(friendlyError(x))}
+};r.readAsDataURL(f);e.target.value=""
+};
+
+/* PREMIUM EMOJI */
+async function loadPremiumEmojis(){
+try{
+const s=await get(ref(db,"premiumEmojis"));
+premiumEmojisCache=Object.values(s.val()||{}).filter(x=>x&&x.data);
+premiumEmojisLoaded=true;return premiumEmojisCache
+}catch(e){premiumEmojisCache=[];premiumEmojisLoaded=true;return[]}
+}
+
+async function openPremiumEmojiPicker(){
+if(!activeChat)return toast("اول یک چت باز کن");
+const list=premiumEmojisLoaded?premiumEmojisCache:await loadPremiumEmojis();
+if(!list.length){
+modal("Premium Emoji",`<div class="empty">هنوز Premium Emoji ساخته نشده است.</div>${ownerUser()?`<button id="openEmojiAdmin" class="btn primary full">ساخت Emoji</button>`:""});
+if(ownerUser())$("openEmojiAdmin").onclick=()=>{closeModal();openAdminEmojiBuilder()};
+return
+}
+modal("Premium Emoji",`<div class="emoji-picker">${list.map((x,i)=>`<button class="emoji-picker-item" data-index="${i}"><img src="${esc(x.data)}"></button>`).join("")}</div>`);
+document.querySelectorAll(".emoji-picker-item").forEach(btn=>btn.onclick=async()=>{
+const e=list[Number(btn.dataset.index)];
+await set(push(ref(db,`messages/${activeChat}`)),{uid:user.uid,name:profile.name,premiumEmoji:{id:e.id,name:e.name,data:e.data,type:e.type},createdAt:Date.now()});
+await update(ref(db,`chats/${activeChat}`),{lastMessage:"✨ Premium Emoji",updatedAt:Date.now()});
+await update(ref(db,`userChats/${user.uid}/${activeChat}`),{lastMessage:"✨ Premium Emoji",updatedAt:Date.now()});
+closeModal();toast("Emoji ارسال شد")
+})
+}
+$("chatEmoji").onclick=openPremiumEmojiPicker;
+
+/* GIFTS */
+function defaultGifts(){return[
+{id:"rose",name:"Crystal Rose",icon:"🌹",price:10,nft:false},
+{id:"star",name:"VANTA Star",icon:"⭐",price:25,nft:false},
+{id:"crown",name:"Royal Crown",icon:"👑",price:50,nft:false},
+{id:"gem",name:"ÀVanta Gem",icon:"💎",price:100,nft:false},
+{id:"dragon",name:"VANTA Dragon NFT",icon:"🐉",price:500,nft:true}
+]}
+async function getGifts(){
+const s=await get(ref(db,"gifts")),v=s.val()||{};
+const a=Object.entries(v).map(([id,g])=>({id,...g}));return a.length?a:defaultGifts()
+}
+
+async function openGiftShop(target=false){
+const gifts=await getGifts(),bal=await walletFor();
+modal(target?"Send Gift":"VANTA Gifts",`
+<div class="wallet">⭐ ${bal.toLocaleString()} VC</div>
+<div class="grid2" style="margin-top:10px">${gifts.map(g=>`
+<div class="gift-card">
+<div class="icon">${esc(g.icon||"🎁")}</div>
+<b>${esc(g.name)}</b>
+<div class="small">${g.nft?"💎 NFT":"Gift"}</div>
+<div style="margin:8px">${Number(g.price)||0} VC</div>
+<button class="btn primary buyGift" data-id="${esc(g.id)}">${target?"Send":"Buy"}</button>
+</div>`).join("")}</div>`);
+document.querySelectorAll(".buyGift").forEach(b=>b.onclick=async()=>{
+const g=gifts.find(x=>x.id===b.dataset.id);if(!g)return;
+const price=Number(g.price)||0,now=await walletFor();
+if(now<price)return toast("VANTAcoin کافی نیست");
+await set(ref(db,`wallets/${user.uid}/vc`),now-price);
+if(target){
+await set(push(ref(db,`messages/${activeChat}`)),{uid:user.uid,name:profile.name,gift:g,createdAt:Date.now()});
+toast("Gift ارسال شد")
+}else{
+await set(push(ref(db,`giftCollections/${user.uid}`)),{...g,boughtAt:Date.now()});
+toast("Gift خریداری شد");renderGiftCollection()
+}
+closeModal()
+})
+}
+$("giftBtn").onclick=()=>openGiftShop();
+$("chatGift").onclick=()=>activeChat?openGiftShop(true):toast("اول یک چت باز کن");
+
+async function showMyGifts(){
+const s=await get(ref(db,`giftCollections/${user.uid}`)),a=Object.values(s.val()||{});
+modal("Gift Collection",a.length?`<div class="grid2">${a.map(g=>`<div class="gift-card"><div class="icon">${esc(g.icon)}</div><b>${esc(g.name)}</b><div class="small">${g.nft?"💎 NFT Gift":"Purchased Gift"}</div></div>`).join("")}</div>`:`<div class="empty">هنوز گیفتی نداری.</div>`)
+}
+async function renderGiftCollection(){
+try{
+const s=await get(ref(db,`giftCollections/${user.uid}`)),a=Object.values(s.val()||{});
+$("giftCollection").innerHTML=a.length?`<div class="grid3">${a.slice(0,12).map(g=>`<div class="gift-card"><div class="icon">${esc(g.icon)}</div><div class="small">${esc(g.name)}</div></div>`).join("")}</div><button id="allGifts" class="btn full">مشاهده کامل</button>`:`<div class="empty">هنوز Giftای نداری.</div>`;
+if($("allGifts"))$("allGifts").onclick=showMyGifts
+}catch(e){}
+}
+
+/* GROUP / CHANNEL */
+async function createCommunity(type){
+modal(type==="group"?"Create Group":"Create Channel",`
+<input id="communityName" class="input" placeholder="Name">
+<input id="communityUsername" class="input" placeholder="Username / Link">
+<textarea id="communityBio" class="textarea" placeholder="Description"></textarea>
+<button id="createCommunity" class="btn primary full">Create</button>`);
+$("createCommunity").onclick=async()=>{
+const name=$("communityName").value.trim();if(!name)return toast("نام را وارد کن");
+try{
+const id=push(ref(db,"chats")).key;
+const username=normId($("communityUsername").value)||"avanta_"+id.slice(0,8);
+const tx=await runTransaction(ref(db,"communityUsernames/"+username),c=>c===null?id:c);
+if(!tx.committed)return toast("Username قبلاً استفاده شده");
+const meta={name,type,username,bio:$("communityBio").value.trim(),owner:user.uid,updatedAt:Date.now(),inviteLink:location.origin+location.pathname+"?join="+encodeURIComponent(username)};
+await set(ref(db,`chats/${id}`),meta);
+await set(ref(db,`chatMembers/${id}/${user.uid}`),{role:"owner",joinedAt:Date.now()});
+await set(ref(db,`userChats/${user.uid}/${id}`),meta);
+closeModal();startChatSubscription();openChat({id,...meta});toast("ساخته شد")
+}catch(e){toast(friendlyError(e))}
+}
+}
+$("groupBtn").onclick=()=>createCommunity("group");$("channelBtn").onclick=()=>createCommunity("channel");
+
+/* SAVED */
+$("savedBtn").onclick=async()=>{
+const id="saved_"+user.uid,meta={name:"Saved Messages",type:"saved",owner:user.uid,updatedAt:Date.now()};
+await set(ref(db,`userChats/${user.uid}/${id}`),meta);startChatSubscription();openChat({id,...meta})
+};
+
+/* ADMIN */
+function openAdminEmojiBuilder(){
+if(!ownerUser())return toast("دسترسی فقط Admin");
+modal("Premium Emoji Builder",`
+<input id="emojiName" class="input" placeholder="نام Emoji">
+<input id="emojiFileAdmin" type="file" accept="image/*" class="input">
+<input id="emojiId" class="input" placeholder="ID اختیاری">
+<div id="emojiPreview" class="emojiBox" style="padding:15px;text-align:center">Preview</div>
+<button id="savePremiumEmoji" class="btn primary full">ساخت Emoji</button>`);
+$("emojiFileAdmin").onchange=async()=>{
+const f=$("emojiFileAdmin").files[0];if(!f)return;
+try{$("emojiPreview").innerHTML=`<img src="${esc(await compressImage(f,450,512))}">`}catch(e){toast("خطا در فشرده‌سازی")}
+};
+$("savePremiumEmoji").onclick=async()=>{
+try{
+const f=$("emojiFileAdmin").files[0],name=$("emojiName").value.trim();if(!f||!name)return toast("نام و تصویر لازم است");
+const data=await compressImage(f,450,512),id=$("emojiId").value.trim()||push(ref(db,"premiumEmojis")).key;
+await set(ref(db,`premiumEmojis/${id}`),{id,name,data,type:"image/webp",createdAt:Date.now(),owner:user.uid});
+premiumEmojisLoaded=false;premiumEmojisCache=[];closeModal();toast("Premium Emoji ساخته شد")
+}catch(e){toast(friendlyError(e))}
+}
+}
+
+$("adminBtn").onclick=()=>{
+if(!ownerUser())return;
+modal("⚡ ÀVANTA ADMIN",`
+<div class="grid2">
+<button id="adminUsers" class="btn">👥 Users</button>
+<button id="adminVC" class="btn">⭐ VANTAcoin</button>
+<button id="adminGift" class="btn">🎁 Gift Manager</button>
+<button id="adminPremium" class="btn">💎 Premium</button>
+<button id="adminEmoji" class="btn primary">😊 Premium Emoji</button>
+<button id="adminStats" class="btn">📊 Stats</button>
+</div>`);
+$("adminEmoji").onclick=()=>{closeModal();openAdminEmojiBuilder()};
+
+/* USERS */
+$("adminUsers").onclick=async()=>{
+const s=await get(ref(db,"users")),a=Object.values(s.val()||{});
+modal("Users",`<div class="stat">${a.length}</div><div class="muted">Registered users</div>${a.slice(0,50).map(x=>`<div class="row">${avatar(x)}<div class="grow"><b>${esc(x.name)}</b><div class="small">@${esc(x.username||"")}</div><div class="small">ID: ${esc(x.id||x.uid)}</div></div></div>`).join("")}`)
+};
+
+/* VC */
+$("adminVC").onclick=()=>{
+modal("VANTAcoin Manager",`
+<input id="vcId" class="input" placeholder="User ID یا UID">
+<input id="vcAmount" class="input" type="number" placeholder="مقدار VC (مثبت یا منفی)">
+<button id="giveVC" class="btn primary full">ثبت VC</button>`);
+$("giveVC").onclick=async()=>{
+try{
+const q=$("vcId").value.trim(),n=Number($("vcAmount").value);if(!q||!Number.isFinite(n))return toast("اطلاعات ناقص");
+const s=await get(ref(db,"users"));let uid=null;
+for(const [id,p] of Object.entries(s.val()||{}))if(id===q||p.id===q){uid=id;break}
+if(!uid)return toast("کاربر پیدا نشد");
+const old=await walletFor(uid);await set(ref(db,`wallets/${uid}/vc`),Math.max(0,old+n));
+toast("VC ثبت شد");closeModal()
+}catch(e){toast(friendlyError(e))}
+}
+};
+
+/* PREMIUM ADMIN */
+$("adminPremium").onclick=()=>{
+modal("Premium Manager",`
+<input id="premiumUid" class="input" placeholder="User ID یا UID">
+<input id="premiumDays" class="input" type="number" placeholder="روز (+ افزایش / - کاهش)">
+<div class="grid2"><button id="addPremium" class="btn primary">افزایش</button><button id="removePremium" class="btn danger">کاهش</button></div>`);
+async function changePremium(days){
+const q=$("premiumUid").value.trim(),n=Number($("premiumDays").value);if(!q||!Number.isFinite(n))return toast("اطلاعات ناقص");
+const s=await get(ref(db,"users"));let uid=null,p=null;
+for(const [id,x] of Object.entries(s.val()||{}))if(id===q||x.id===q){uid=id;p=x;break}
+if(!uid)return toast("کاربر پیدا نشد");
+const base=Math.max(Date.now(),Number(p.premiumUntil)||0),until=Math.max(0,base+n*86400000);
+await update(ref(db,"users/"+uid),{premium:until>Date.now(),premiumUntil:until});
+toast("Premium تغییر کرد");closeModal()
+}
+$("addPremium").onclick=()=>changePremium(Math.abs(Number($("premiumDays").value)||0));
+$("removePremium").onclick=()=>changePremium(-Math.abs(Number($("premiumDays").value)||0))
+};
+
+/* GIFT ADMIN */
+$("adminGift").onclick=()=>{
+modal("Gift Manager",`
+<input id="giftName" class="input" placeholder="Gift name">
+<input id="giftIcon" class="input" placeholder="Emoji">
+<input id="giftPrice" class="input" type="number" placeholder="VC price">
+<label class="row"><input id="giftNFT" type="checkbox"> <span>NFT Gift</span></label>
+<button id="createGiftAdmin" class="btn primary full">Create Gift</button>`);
+$("createGiftAdmin").onclick=async()=>{
+const name=$("giftName").value.trim(),price=Number($("giftPrice").value)||0;if(!name)return toast("نام لازم است");
+const id=push(ref(db,"gifts")).key;
+await set(ref(db,`gifts/${id}`),{id,name,icon:$("giftIcon").value||"🎁",price,nft:$("giftNFT").checked,createdAt:Date.now(),owner:user.uid});
+toast("Gift ساخته شد");closeModal()
+}
+};
+
+/* STATS */
+$("adminStats").onclick=async()=>{
+const u=await get(ref(db,"users")),c=await get(ref(db,"chats")),e=await get(ref(db,"premiumEmojis")),g=await get(ref(db,"gifts"));
+modal("Stats",`<div class="grid2">
+<div class="card"><div class="stat">${Object.keys(u.val()||{}).length}</div>Users</div>
+<div class="card"><div class="stat">${Object.keys(c.val()||{}).length}</div>Chats</div>
+<div class="card"><div class="stat">${Object.keys(e.val()||{}).length}</div>Emojis</div>
+<div class="card"><div class="stat">${Object.keys(g.val()||{}).length}</div>Gifts</div>
+</div>`)
+};
+
+/* JOIN */
+async function joinFromLink(){
+const raw=new URLSearchParams(location.search).get("join");if(!raw||!user)return;
+try{
+const s=await get(ref(db,"communityUsernames/"+normId(raw)));const id=s.val()||raw;
+const cs=await get(ref(db,"chats/"+id));if(!cs.exists())return toast("لینک معتبر نیست");
+const meta=cs.val();if(meta.type!=="group"&&meta.type!=="channel")return;
+await set(ref(db,`chatMembers/${id}/${user.uid}`),{role:meta.owner===user.uid?"owner":"member",joinedAt:Date.now()});
+await set(ref(db,`userChats/${user.uid}/${id}`),meta);
+history.replaceState({}, "", location.pathname);toast("با موفقیت وارد شدی");startChatSubscription()
+}catch(e){toast(friendlyError(e))}
+}
+
+/* CHAT MENU */
+$("chatMenu").onclick=()=>{
+modal("Chat",`<div class="grid2"><button id="clearChat" class="btn danger">Clear</button><button id="closeChatMenu" class="btn">Close</button></div>`);
+$("clearChat").onclick=async()=>{await set(ref(db,`messages/${activeChat}`),null);closeModal();toast("پیام‌ها پاک شدند")};
+$("closeChatMenu").onclick=closeModal
+};
+$("backChat").onclick=()=>{
+$("chat").classList.remove("on");activeChat=null;chatMeta=null;
+if(window.msgUnsub){window.msgUnsub();window.msgUnsub=null}
+};
+
+/* NAV */
+document.querySelectorAll(".bottom button").forEach(b=>b.onclick=()=>{
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+$(b.dataset.page).classList.add("on");
+document.querySelectorAll(".bottom button").forEach(x=>x.classList.toggle("on",x===b))
+});
+
+/* SEARCH */
+$("search").oninput=e=>{
+const q=e.target.value.toLowerCase();
+document.querySelectorAll("#chatList .row").forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?"":"none")
+};
+
+/* NEW */
+$("newBtn").onclick=()=>{
+modal("Create",`
+<div class="grid2">
+<button id="newGroup" class="btn primary">👥 Group</button>
+<button id="newChannel" class="btn primary">📢 Channel</button>
+<button id="newGift" class="btn">🎁 Gifts</button>
+<button id="newEmoji" class="btn">😊 Premium Emoji</button>
+</div>`);
+$("newGroup").onclick=()=>{closeModal();createCommunity("group")};
+$("newChannel").onclick=()=>{closeModal();createCommunity("channel")};
+$("newGift").onclick=()=>{closeModal();openGiftShop()};
+$("newEmoji").onclick=()=>{closeModal();openPremiumEmojiPicker()}
+};
+
+/* PROFILE MORE */
+$("profileMore").onclick=()=>modal("Profile Options",`
+<button id="pmGifts" class="btn full">🎁 Gift Collection</button>
+<button id="pmCover" class="btn full">🖼 Change Cover</button>
+<button id="pmEmoji" class="btn full">✨ Premium Emoji</button>
+<button id="pmStory" class="btn full">⭕ Story</button>`);
+$("modalBody").onclick=e=>{
+if(e.target.id==="pmGifts"){closeModal();showMyGifts()}
+if(e.target.id==="pmCover"){closeModal();$("coverFile").click()}
+if(e.target.id==="pmEmoji"){closeModal();$("nameEmoji").click()}
+if(e.target.id==="pmStory"){closeModal();$("storyBtn").click()}
+};
+
+/* COVER */
+$("coverFile").onchange=async e=>{
+const f=e.target.files[0];if(!f)return;if(f.size>2500000)return toast("کاور حداکثر 2.5MB");
+try{await saveProfile({cover:await compressImage(f,700,1200)});toast("کاور تغییر کرد")}catch(x){toast(friendlyError(x))}
+e.target.value=""
+};
+
+/* RENDER */
+function renderAll(){renderProfile();renderChats()}
+</script>
+</body>
+</html>
