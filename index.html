@@ -104,7 +104,7 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
   position:fixed;bottom:9px;left:50%;
   transform:translateX(-50%);
   width:min(940px,calc(100% - 16px));
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(5,1fr);
   gap:4px;padding:6px;background:rgba(17,26,37,.72);
   border:1px solid rgba(100,125,155,.28);border-radius:27px;
   backdrop-filter:blur(25px);z-index:20;
@@ -303,6 +303,34 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
   border-radius:14px;padding:10px;word-break:break-all;
   direction:ltr;text-align:left
 }
+
+/* ÀVanta Glass Refresh */
+:root{--accent:#36e0a0;--accent2:#27bfff;--green:#36e0a0;--blue:#27bfff;--bg:#050b0c;--panel:rgba(12,25,24,.66);--glass:rgba(10,28,27,.58);--glass2:rgba(14,39,46,.52);--line:rgba(100,240,205,.18)}
+html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),radial-gradient(circle at 100% 10%,#1265a855,transparent 32%),radial-gradient(circle at 50% 100%,#064c3c44,transparent 35%),var(--bg)}
+#app{background:rgba(3,12,12,.62)}
+.top{background:rgba(6,22,21,.58);border-bottom-color:rgba(90,235,190,.18)}
+.brand{font-size:24px;letter-spacing:.5px;text-shadow:0 0 20px #36e0a066;font-family:Georgia,serif}
+.brand b,.logoBig b{color:#36e0a0}
+.card,.row{background:linear-gradient(145deg,rgba(20,53,49,.54),rgba(9,25,34,.48));border-color:rgba(95,235,205,.18);box-shadow:0 14px 45px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.05)}
+.btn{background:rgba(15,35,39,.62);border-color:rgba(100,230,210,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.primary{background:linear-gradient(135deg,#20b987,#168bd8);border-color:#43e3b2}
+.search,.input,.textarea{background:rgba(5,20,22,.58);border-color:rgba(100,230,210,.18)}
+.bottom{background:rgba(7,25,27,.62);border-color:rgba(90,230,200,.2)}
+.bottom button.on{background:linear-gradient(135deg,#22b98922,#1caee022);color:#fff}
+.chat{background:radial-gradient(circle at 0 0,#0d403855,transparent 30%),#050c0d}
+.chathead,.composer{background:rgba(7,25,27,.65);border-color:rgba(100,230,210,.16)}
+.composer input{background:rgba(11,29,33,.7);border-color:rgba(100,230,210,.18)}
+.msg{background:linear-gradient(145deg,rgba(24,55,55,.76),rgba(12,34,40,.7));border-color:rgba(100,230,210,.16);border-radius:20px 20px 20px 7px;backdrop-filter:blur(18px)}
+.msg.mine{background:linear-gradient(145deg,rgba(24,130,102,.82),rgba(20,104,153,.78));border-color:rgba(110,240,210,.3);border-radius:20px 20px 7px 20px}
+.avatar{background:linear-gradient(135deg,#1acb91,#20aee8)!important;box-shadow:0 8px 24px #16c89a22}
+.cover{background:linear-gradient(135deg,#0b765d,#0874ad)}
+.login{background:radial-gradient(circle at 50% 0,#0d5a4d,#061013 55%)}
+.loginbox{background:rgba(8,28,29,.68);border-color:rgba(100,240,205,.22);box-shadow:0 25px 100px #000b,inset 0 1px 0 #ffffff12}
+.logoBig{font-family:Georgia,serif;letter-spacing:-2px;text-shadow:0 0 28px #32dfaa55}
+.explore-hero{position:relative;overflow:hidden}.explore-hero:after{content:"ÀVanta";position:absolute;left:18px;bottom:8px;font:900 38px Georgia,serif;color:#36e0a012;transform:rotate(-8deg);pointer-events:none}
+.inline-premium-emoji{width:25px;height:25px;object-fit:contain;vertical-align:middle;display:inline-block;margin:0 2px}.message-text{white-space:pre-wrap;word-break:break-word}
+.post-card{background:linear-gradient(145deg,rgba(16,43,42,.7),rgba(10,28,37,.62));border:1px solid rgba(100,230,210,.18);border-radius:24px;padding:15px;margin:10px 0;backdrop-filter:blur(20px);box-shadow:0 15px 45px #0003}.post-text{font-size:17px;line-height:1.8;margin:10px 0}.post-image{width:100%;max-height:440px;object-fit:cover;border-radius:18px;display:block}
+
 @media(max-width:500px){
   .top{gap:6px}.brand{font-size:18px}
   .btn{padding:9px 10px}
@@ -321,7 +349,6 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
     <div class="muted" style="margin-bottom:22px">Messenger</div>
 
     <button id="googleLogin" class="btn primary full">🔵 ورود با Google</button>
-    <button id="guestLogin" class="btn full">👤 ورود به‌عنوان مهمان</button>
 
     <div id="loginStatus" class="muted small" style="margin-top:12px"></div>
   </div>
@@ -343,6 +370,15 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
     <div class="muted small">پیام‌ها، گروه‌ها و کانال‌ها</div>
   </div>
   <div id="chatList"></div>
+</section>
+
+<section id="explorePage" class="page">
+  <div class="card explore-hero">
+    <div class="title">Explore</div>
+    <div class="muted small">پست‌های منتشرشده در ÀVanta</div>
+    <button id="newPostBtn" class="btn primary full">＋ ساخت پست</button>
+  </div>
+  <div id="exploreList"></div>
 </section>
 
 <section id="contactsPage" class="page">
@@ -404,12 +440,6 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
       <button id="savedBtn" class="btn">›</button>
     </div>
 
-    <div class="settingsRow">
-      <div class="settingsIcon">🪙</div>
-      <div class="grow"><b>VANTAcoin Wallet</b></div>
-      <button id="walletBtn" class="btn">›</button>
-    </div>
-
     <button id="adminBtn" class="btn primary full" style="display:none">
       ⚡ Admin Panel
     </button>
@@ -422,7 +452,6 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
     <div class="grid2">
       <button id="groupBtn" class="btn primary">👥 Group</button>
       <button id="channelBtn" class="btn primary">📢 Channel</button>
-      <button id="giftBtn" class="btn">🎁 Gifts Shop</button>
       <button id="gifMakerBtn" class="btn">GIF</button>
     </div>
   </div>
@@ -451,11 +480,6 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
   </div>
 
   <div class="card">
-    <div class="title">Gift Collection</div>
-    <div id="giftCollection" class="empty"></div>
-  </div>
-
-  <div class="card">
     <div class="title">Stories</div>
     <div id="storyList" class="empty">هنوز Storyای نیست.</div>
   </div>
@@ -465,6 +489,7 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
 </main>
 
 <nav class="bottom">
+  <button data-page="explorePage"><span class="navico">✦</span>اکسپلور</button>
   <button data-page="contactsPage">
     <span class="navico">♙</span>مخاطبین
   </button>
@@ -485,6 +510,7 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
 <input id="coverFile" type="file" accept="image/*" hidden>
 <input id="storyFile" type="file" accept="image/*,video/*" hidden>
 <input id="gifFile" type="file" accept="image/gif" hidden>
+<input id="postImageFile" type="file" accept="image/*" hidden>
 
 <div id="modal" class="modal">
   <div class="sheet">
@@ -531,7 +557,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInAnonymously,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -706,17 +731,6 @@ $("googleLogin").onclick=async()=>{
   }
 };
 
-$("guestLogin").onclick=async()=>{
-  try{
-    $("loginStatus").innerHTML=
-      `<span class="spinner"></span> در حال ورود...`;
-
-    await signInAnonymously(auth);
-  }catch(e){
-    $("loginStatus").textContent=friendlyError(e);
-    toast(friendlyError(e));
-  }
-};
 
 $("logoutBtn").onclick=()=>signOut(auth);
 
@@ -1048,7 +1062,6 @@ function renderProfile(){
     ?`url("${profile.cover}")`
     :"";
 
-  renderGiftCollection();
 }
 
 
@@ -1262,20 +1275,12 @@ function openUser(c){
           <button id="userMessage" class="btn primary">
             💬 Message
           </button>
-          <button id="userGift" class="btn">
-            🎁 Gift
-          </button>
         </div>
       </div>
     `
   );
 
   $("userMessage").onclick=()=>{
-    closeModal();
-    openPrivate(c);
-  };
-
-  $("userGift").onclick=()=>{
     closeModal();
     openPrivate(c);
   };
@@ -1365,6 +1370,12 @@ function openChat(c){
 
 async function sendMessage(){
 
+  if(chatMeta?.type==="group" || chatMeta?.type==="channel"){
+    const ms=await get(ref(db,`chatMembers/${activeChat}/${user.uid}`));
+    const mem=ms.val();
+    if(mem?.banned){ return toast("دسترسی شما به این گپ محدود شده است"); }
+  }
+
   const v=$("messageInput")
     .value
     .trim();
@@ -1379,6 +1390,12 @@ async function sendMessage(){
       text:v,
       createdAt:Date.now()
     };
+
+    const peMatch=v.match(/\[\[PE:([^\]]+)\]\]/);
+    if(peMatch){
+      const pe=(premiumEmojisLoaded?premiumEmojisCache:[]).find(x=>String(x.id||"")===peMatch[1]);
+      if(pe) msg.premiumInline={id:pe.id,name:pe.name||"Premium Emoji",data:pe.data,type:pe.type||"image/png"};
+    }
 
     if(replyTo){
       msg.replyTo={
@@ -1458,22 +1475,15 @@ function renderMessage(m,id){
       >
     `;
 
-  }else if(m.gift){
-
-    const g=m.gift;
-
-    content=`
-      <div class="gift-message">
-        <span class="gift-icon">${esc(g.icon||"🎁")}</span>
-        <span>${esc(g.name||"Gift")}</span>
-      </div>
-    `;
-
   }else{
 
-    content=`
-      <div>${esc(m.text||"")}</div>
-    `;
+    let safeText=esc(m.text||"");
+    if(m.premiumInline?.data){
+      const token=esc(`[[PE:${m.premiumInline.id||""}]]`);
+      const img=`<img class="inline-premium-emoji" src="${esc(m.premiumInline.data)}" alt="${esc(m.premiumInline.name||"Premium Emoji")}">`;
+      safeText=safeText.replace(token,img);
+    }
+    content=`<div class="message-text">${safeText}</div>`;
   }
 
   const reply=m.replyTo
@@ -1521,19 +1531,15 @@ function renderMessage(m,id){
         >😊</button>
 
         ${
-          mine&&m.text
+          (mine&&m.text)
           ?`
-            <button
-              class="btn editMsg"
-              data-id="${esc(id)}"
-            >✏️</button>
+            <button class="btn editMsg" data-id="${esc(id)}">✏️</button>
+          ` : ""
+        }
 
-            <button
-              class="btn danger deleteMsg"
-              data-id="${esc(id)}"
-            >🗑️</button>
-          `
-          :""
+        ${(ownerUser() || (chatMeta?.type==="group" || chatMeta?.type==="channel") && chatMeta?.owner===user.uid)
+          ?`<button class="btn danger deleteMsg" data-id="${esc(id)}">🗑️ حذف</button>`
+          : (mine ? `<button class="btn danger deleteMsg" data-id="${esc(id)}">🗑️ حذف</button>` : "")
         }
 
       </div>
@@ -2139,9 +2145,6 @@ $("profileMore").onclick=()=>{
     "Profile Options",
     `
       <div class="grid2">
-        <button id="pmGifts" class="btn">
-          🎁 Gift Collection
-        </button>
 
         <button id="pmCover" class="btn">
           🖼 Change Cover
@@ -2157,11 +2160,6 @@ $("profileMore").onclick=()=>{
       </div>
     `
   );
-
-  $("pmGifts").onclick=()=>{
-    closeModal();
-    showMyGifts();
-  };
 
   $("pmCover").onclick=()=>{
     closeModal();
@@ -2587,536 +2585,21 @@ async function openPremiumEmojiPicker(){
     `
   );
 
-  document
-    .querySelectorAll(".premiumPickerItem")
-    .forEach(btn=>{
-
-      btn.onclick=async()=>{
-
-        const emoji=
-          list[
-            Number(btn.dataset.index)
-          ];
-
-        if(!emoji||!activeChat)return;
-
-        try{
-
-          const msg={
-            uid:user.uid,
-            name:profile.name,
-
-            premiumEmoji:{
-              id:emoji.id||"",
-              name:emoji.name||"",
-              data:emoji.data,
-              type:emoji.type||"image/png"
-            },
-
-            createdAt:Date.now()
-          };
-
-          if(replyTo){
-            msg.replyTo={
-              id:replyTo.id,
-              uid:replyTo.uid,
-              name:replyTo.name,
-              text:replyTo.text||""
-            };
-          }
-
-          await set(
-            push(
-              ref(
-                db,
-                `messages/${activeChat}`
-              )
-            ),
-            msg
-          );
-
-          await update(
-            ref(db,`chats/${activeChat}`),
-            {
-              lastMessage:"✨ Premium Emoji",
-              updatedAt:Date.now()
-            }
-          );
-
-          await update(
-            ref(
-              db,
-              `userChats/${user.uid}/${activeChat}`
-            ),
-            {
-              lastMessage:"✨ Premium Emoji",
-              updatedAt:Date.now()
-            }
-          );
-
-          replyTo=null;
-          $("messageInput").placeholder="پیام...";
-          closeModal();
-          toast("Emoji ارسال شد");
-
-        }catch(e){
-          toast(friendlyError(e));
-        }
-      };
-    });
+  document.querySelectorAll(".premiumPickerItem").forEach(btn=>{
+    btn.onclick=()=>{
+      const emoji=list[Number(btn.dataset.index)];
+      if(!emoji)return;
+      const token=`[[PE:${emoji.id||Date.now()}]]`;
+      const input=$("messageInput");
+      input.value += token;
+      input.focus();
+      closeModal();
+      toast("Premium Emoji به متن اضافه شد");
+    };
+  });
 }
 
 $("chatEmoji").onclick=openStandardEmojiPicker;
-
-
-/* =========================================================
-   GIFTS
-========================================================= */
-
-function defaultGifts(){
-
-  return [
-    {
-      id:"rose",
-      name:"Crystal Rose",
-      icon:"🌹",
-      price:10
-    },
-    {
-      id:"star",
-      name:"VANTA Star",
-      icon:"⭐",
-      price:25
-    },
-    {
-      id:"crown",
-      name:"Royal Crown",
-      icon:"👑",
-      price:50
-    },
-    {
-      id:"gem",
-      name:"ÀVanta Gem",
-      icon:"💎",
-      price:100
-    }
-  ];
-}
-
-async function getGifts(){
-
-  const s=await get(ref(db,"gifts"));
-  const v=s.val()||{};
-
-  const custom=
-    Object.entries(v)
-    .map(([id,g])=>({
-      id,
-      ...g
-    }));
-
-  return custom.length
-    ?custom
-    :defaultGifts();
-}
-
-
-/* =========================================================
-   VANTACOIN WALLET
-========================================================= */
-
-async function walletFor(uid){
-
-  const s=
-    await get(
-      ref(db,`wallets/${uid}/vc`)
-    );
-
-  return Number(s.val())||0;
-}
-
-async function wallet(){
-  return walletFor(user.uid);
-}
-
-async function addWalletTransaction(
-  type,
-  amount,
-  note
-){
-
-  const id=
-    push(
-      ref(
-        db,
-        `walletTransactions/${user.uid}`
-      )
-    ).key;
-
-  await set(
-    ref(
-      db,
-      `walletTransactions/${user.uid}/${id}`
-    ),
-    {
-      type,
-      amount,
-      note,
-      createdAt:Date.now()
-    }
-  );
-}
-
-async function openWallet(){
-
-  const balance=await wallet();
-
-  const tx=
-    await get(
-      ref(
-        db,
-        `walletTransactions/${user.uid}`
-      )
-    );
-
-  const list=
-    Object.values(tx.val()||{})
-    .sort(
-      (a,b)=>
-        (b.createdAt||0)-
-        (a.createdAt||0)
-    )
-    .slice(0,20);
-
-  modal(
-    "VANTAcoin Wallet",
-    `
-      <div class="wallet">
-        <div class="muted">VANTAcoin</div>
-        <div class="walletBalance">
-          ${balance.toLocaleString()} VC
-        </div>
-        <div class="small">
-          موجودی کیف پول
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:10px">
-        <div class="title">History</div>
-
-        ${
-          list.length
-          ?list.map(x=>`
-            <div class="row">
-              <div class="grow">
-                <b>${esc(x.note||"Transaction")}</b>
-                <div class="muted small">
-                  ${new Date(
-                    x.createdAt||Date.now()
-                  ).toLocaleString("fa-IR")}
-                </div>
-              </div>
-
-              <b style="color:${Number(x.amount)>=0?"#65e0a4":"#ff718e"}">
-                ${Number(x.amount)>=0?"+":""}${Number(x.amount)} VC
-              </b>
-            </div>
-          `).join("")
-          :`
-            <div class="empty">
-              تراکنشی وجود ندارد.
-            </div>
-          `
-        }
-      </div>
-    `
-  );
-}
-
-$("walletBtn").onclick=openWallet;
-
-
-/* =========================================================
-   GIFT SHOP
-========================================================= */
-
-async function openGiftShop(target=null){
-
-  const gifts=await getGifts();
-  const balance=await wallet();
-
-  modal(
-    target?"Send Gift":"VANTA Gifts Shop",
-    `
-      <div class="wallet" style="margin-bottom:10px">
-        <div class="muted">VANTAcoin</div>
-        <div class="walletBalance">
-          ${balance.toLocaleString()} VC
-        </div>
-      </div>
-
-      <div class="grid2">
-
-        ${gifts.map(g=>`
-          <div class="card shopItem">
-
-            <div style="font-size:48px">
-              ${esc(g.icon||"💎")}
-            </div>
-
-            <b>${esc(g.name)}</b>
-
-            <div class="muted small">
-              ${Number(g.price)||0} VC
-            </div>
-
-            <button
-              class="btn primary full buyGift"
-              data-id="${esc(g.id)}"
-            >
-              ${target?"Send":"Buy"}
-            </button>
-
-          </div>
-        `).join("")}
-
-      </div>
-    `
-  );
-
-  document
-    .querySelectorAll(".buyGift")
-    .forEach(b=>{
-
-      b.onclick=async()=>{
-
-        const g=
-          gifts.find(
-            x=>x.id===b.dataset.id
-          );
-
-        if(!g)return;
-
-        const price=Number(g.price)||0;
-
-        try{
-
-          const bal=await wallet();
-
-          if(bal<price){
-            return toast(
-              "VANTAcoin کافی نیست"
-            );
-          }
-
-          await set(
-            ref(
-              db,
-              `wallets/${user.uid}/vc`
-            ),
-            bal-price
-          );
-
-          await addWalletTransaction(
-            "spend",
-            -price,
-            `Gift: ${g.name}`
-          );
-
-          if(target){
-
-            if(!activeChat){
-              return toast(
-                "اول چت را باز کن"
-              );
-            }
-
-            await set(
-              push(
-                ref(
-                  db,
-                  `messages/${activeChat}`
-                )
-              ),
-              {
-                uid:user.uid,
-                name:profile.name,
-                gift:g,
-                createdAt:Date.now()
-              }
-            );
-
-            await update(
-              ref(db,`chats/${activeChat}`),
-              {
-                lastMessage:"🎁 "+g.name,
-                updatedAt:Date.now()
-              }
-            );
-
-            await update(
-              ref(db,`userChats/${user.uid}/${activeChat}`),
-              {
-                lastMessage:"🎁 "+g.name,
-                updatedAt:Date.now()
-              }
-            );
-
-            toast("Gift ارسال شد");
-
-          }else{
-
-            await set(
-              push(
-                ref(
-                  db,
-                  `giftCollections/${user.uid}`
-                )
-              ),
-              {
-                ...g,
-                boughtAt:Date.now()
-              }
-            );
-
-            toast("Gift خریداری شد");
-          }
-
-          closeModal();
-          renderGiftCollection();
-
-        }catch(e){
-          toast(friendlyError(e));
-        }
-      };
-    });
-}
-
-
-/* =========================================================
-   MY GIFTS
-========================================================= */
-
-async function showMyGifts(){
-
-  const s=
-    await get(
-      ref(
-        db,
-        `giftCollections/${user.uid}`
-      )
-    );
-
-  const a=
-    Object.values(s.val()||{});
-
-  modal(
-    "Gift Collection",
-    a.length
-    ?`
-      <div class="grid2">
-        ${a.map(g=>`
-          <div class="card shopItem">
-            <div style="font-size:48px">
-              ${esc(g.icon||"🎁")}
-            </div>
-
-            <b>${esc(g.name)}</b>
-
-            <div class="muted small">
-              Purchased
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `
-    :`
-      <div class="empty">
-        هنوز گیفتی نداری.
-
-        <button
-          id="openShopFromCollection"
-          class="btn primary full"
-        >
-          باز کردن Gift Shop
-        </button>
-      </div>
-    `
-  );
-
-  const b=$("openShopFromCollection");
-
-  if(b){
-    b.onclick=()=>{
-      closeModal();
-      openGiftShop();
-    };
-  }
-}
-
-async function renderGiftCollection(){
-
-  if(!user)return;
-
-  try{
-
-    const s=
-      await get(
-        ref(
-          db,
-          `giftCollections/${user.uid}`
-        )
-      );
-
-    const a=
-      Object.values(s.val()||{});
-
-    $("giftCollection").innerHTML=
-      a.length
-      ?`
-        <div class="grid3">
-          ${a.slice(0,12).map(g=>`
-            <div class="card shopItem">
-              <div style="font-size:35px">
-                ${esc(g.icon||"🎁")}
-              </div>
-              <b>${esc(g.name)}</b>
-            </div>
-          `).join("")}
-        </div>
-
-        <button
-          id="allGifts"
-          class="btn full"
-        >
-          مشاهده کامل
-        </button>
-      `
-      :`
-        <div class="empty">
-          هنوز Giftای نداری.
-
-          <button
-            id="buyFirstGift"
-            class="btn primary full"
-          >
-            خرید Gift
-          </button>
-        </div>
-      `;
-
-    const x=$("allGifts");
-
-    if(x)x.onclick=showMyGifts;
-
-    const y=$("buyFirstGift");
-
-    if(y)y.onclick=()=>openGiftShop();
-
-  }catch(e){}
-}
-
-$("giftBtn").onclick=()=>openGiftShop();
 
 
 /* =========================================================
@@ -3140,7 +2623,7 @@ async function createCommunity(type){
       <input
         id="communityUsername"
         class="input"
-        placeholder="Username / Link (اختیاری)"
+        placeholder="Username / Link"
       >
 
       <textarea
@@ -3301,6 +2784,55 @@ $("channelBtn").onclick=
 
 
 /* =========================================================
+   EXPLORE / POSTS
+========================================================= */
+
+async function renderExplore(){
+  const box=$("exploreList");
+  if(!box)return;
+  try{
+    const s=await get(ref(db,"posts"));
+    const posts=Object.values(s.val()||{})
+      .sort((a,b)=>(b.approvedAt||b.createdAt||0)-(a.approvedAt||a.createdAt||0));
+    box.innerHTML=posts.length?posts.map(x=>`
+      <article class="post-card">
+        <div class="row" style="background:transparent;border:0;padding:0;margin:0">
+          ${avatar({name:x.authorName,photo:x.authorPhoto,profileColor:x.authorColor})}
+          <div class="grow"><b>${esc(x.authorName||"ÀVanta User")}</b><div class="muted small">@${esc(x.authorUsername||"")}</div></div>
+        </div>
+        <div class="post-text">${esc(x.text||"")}</div>
+        ${x.image?`<img class="post-image" src="${esc(x.image)}" alt="">`:""}
+        <div class="muted small">${new Date(x.approvedAt||x.createdAt||Date.now()).toLocaleString("fa-IR")}</div>
+      </article>`).join("") : `<div class="empty">هنوز پستی منتشر نشده.</div>`;
+  }catch(e){ box.innerHTML=`<div class="empty">${esc(friendlyError(e))}</div>`; }
+}
+
+$("newPostBtn").onclick=()=>{
+  modal("ساخت پست",`
+    <textarea id="postText" class="textarea" placeholder="چی می‌خوای منتشر کنی؟"></textarea>
+    <button id="postImagePick" class="btn full">🖼️ افزودن عکس</button>
+    <div id="postImagePreview" class="coverPreview"></div>
+    <button id="submitPost" class="btn primary full">ارسال برای بررسی</button>
+  `);
+  let image="";
+  $("postImagePick").onclick=()=>$("postImageFile").click();
+  $("postImageFile").onchange=e=>{
+    const f=e.target.files[0]; if(!f)return;
+    if(f.size>2500000)return toast("عکس حداکثر 2.5MB");
+    const r=new FileReader(); r.onload=()=>{image=r.result;$("postImagePreview").style.backgroundImage=`url("${image}")`;}; r.readAsDataURL(f);
+  };
+  $("submitPost").onclick=async()=>{
+    const text=$("postText").value.trim();
+    if(!text&&!image)return toast("متن یا عکس لازم است");
+    try{
+      const id=push(ref(db,"pendingPosts")).key;
+      await set(ref(db,`pendingPosts/${id}`),{uid:user.uid,authorName:profile.name,authorUsername:profile.username||"",authorPhoto:profile.photo||"",authorColor:profile.profileColor||"#36e0a0",text,image,createdAt:Date.now()});
+      closeModal(); toast("پست برای بررسی ادمین ارسال شد");
+    }catch(e){toast(friendlyError(e));}
+  };
+};
+
+/* =========================================================
    SAVED MESSAGES
 ========================================================= */
 
@@ -3369,24 +2901,10 @@ $("newBtn").onclick=()=>{
         </button>
 
         <button
-          id="newGift"
-          class="btn"
-        >
-          🎁 Gift Shop
-        </button>
-
-        <button
           id="newEmoji"
           class="btn"
         >
           😊 Emoji
-        </button>
-
-        <button
-          id="newWallet"
-          class="btn"
-        >
-          🪙 Wallet
         </button>
 
         <button
@@ -3410,11 +2928,6 @@ $("newBtn").onclick=()=>{
     createCommunity("channel");
   };
 
-  $("newGift").onclick=()=>{
-    closeModal();
-    openGiftShop();
-  };
-
   $("newEmoji").onclick=()=>{
     closeModal();
 
@@ -3423,11 +2936,6 @@ $("newBtn").onclick=()=>{
     }else{
       toast("اول یک چت باز کن");
     }
-  };
-
-  $("newWallet").onclick=()=>{
-    closeModal();
-    openWallet();
   };
 
   $("newSaved").onclick=()=>{
@@ -3590,458 +3098,42 @@ $("adminBtn").onclick=()=>{
     "ÀVANTA ADMIN",
     `
       <div class="grid2">
-
-        <button
-          id="adminUsers"
-          class="btn"
-        >👥 Users</button>
-
-        <button
-          id="adminVC"
-          class="btn"
-        >🪙 VANTAcoin</button>
-
-        <button
-          id="adminGift"
-          class="btn"
-        >🎁 Gift Manager</button>
-
-        <button
-          id="adminPremium"
-          class="btn"
-        >💎 Premium</button>
-
-        <button
-          id="adminEmoji"
-          class="btn primary"
-        >✨ Premium Emoji</button>
-
-        <button
-          id="adminStats"
-          class="btn"
-        >📊 Stats</button>
-
-        <button
-          id="adminLink"
-          class="btn primary"
-        >🔗 Account Link</button>
-
+        <button id="adminPosts" class="btn primary">📝 پست‌های در انتظار</button>
+        <button id="adminMessages" class="btn">🗑️ مدیریت پیام‌ها</button>
       </div>
     `
   );
 
 
-  $("adminUsers").onclick=async()=>{
 
-    const s=
-      await get(ref(db,"users"));
-
-    const a=
-      Object.values(s.val()||{});
-
-    modal(
-      "Users",
-
-      `
-        <div class="stat">
-          ${a.length}
-        </div>
-
-        <div class="muted">
-          Registered users
-        </div>
-
-        ${a.slice(0,30).map(x=>`
-          <div class="row">
-            ${avatar(x)}
-
-            <div class="grow">
-              <b>${esc(x.name)}</b>
-              <div class="muted small">
-                @${esc(x.username||"")}
-              </div>
-            </div>
-          </div>
-        `).join("")}
-      `
-    );
-  };
-
-
-  $("adminVC").onclick=()=>{
-
-    modal(
-      "VANTAcoin",
-      `
-        <input
-          id="vcUid"
-          class="input"
-          placeholder="User UID"
-        >
-
-        <input
-          id="vcAmount"
-          class="input"
-          type="number"
-          placeholder="Amount"
-        >
-
-        <button
-          id="giveVC"
-          class="btn primary full"
-        >
-          Grant VC
-        </button>
-      `
-    );
-
-    $("giveVC").onclick=async()=>{
-
-      try{
-
-        const uid=
-          $("vcUid").value.trim();
-
-        const n=
-          Number($("vcAmount").value);
-
-        if(
-          !uid||
-          !Number.isFinite(n)
-        ){
-          return toast(
-            "اطلاعات ناقص"
-          );
-        }
-
-        const old=
-          await walletFor(uid);
-
-        await set(
-          ref(
-            db,
-            `wallets/${uid}/vc`
-          ),
-          old+n
-        );
-
-        const tid=
-          push(
-            ref(
-              db,
-              `walletTransactions/${uid}`
-            )
-          ).key;
-
-        await set(
-          ref(
-            db,
-            `walletTransactions/${uid}/${tid}`
-          ),
-          {
-            type:"grant",
-            amount:n,
-            note:"Admin Grant",
-            createdAt:Date.now()
-          }
-        );
-
-        toast("VC ثبت شد");
-        closeModal();
-
-      }catch(x){
-        toast(friendlyError(x));
-      }
-    };
-  };
-
-
-  $("adminGift").onclick=()=>{
-
-    modal(
-      "Gift Manager",
-      `
-        <input
-          id="giftName"
-          class="input"
-          placeholder="Gift name"
-        >
-
-        <input
-          id="giftIcon"
-          class="input"
-          placeholder="Emoji"
-        >
-
-        <input
-          id="giftPrice"
-          class="input"
-          type="number"
-          placeholder="VC price"
-        >
-
-        <button
-          id="createGiftAdmin"
-          class="btn primary full"
-        >
-          Create Gift
-        </button>
-      `
-    );
-
-    $("createGiftAdmin").onclick=async()=>{
-
-      try{
-
-        const id=
-          push(ref(db,"gifts")).key;
-
-        const name=
-          $("giftName").value.trim();
-
-        if(!name){
-          return toast(
-            "نام Gift را وارد کن"
-          );
-        }
-
-        await set(
-          ref(db,`gifts/${id}`),
-          {
-            name,
-            icon:
-              $("giftIcon").value||
-              "💎",
-            price:
-              Number(
-                $("giftPrice").value
-              )||0,
-            createdAt:Date.now()
-          }
-        );
-
-        toast("Gift ساخته شد");
-        closeModal();
-
-      }catch(x){
-        toast(friendlyError(x));
-      }
-    };
-  };
-
-
-  $("adminPremium").onclick=()=>{
-
-    modal(
-      "Premium Manager",
-      `
-        <input
-          id="premiumUid"
-          class="input"
-          placeholder="User UID"
-        >
-
+  $("adminPosts").onclick=async()=>{
+    const snap=await get(ref(db,"pendingPosts"));
+    const posts=Object.entries(snap.val()||{});
+    modal("پست‌های در انتظار", posts.length ? posts.map(([id,x])=>`
+      <div class="post-card">
+        <div class="muted small">${esc(x.authorName||"کاربر")} · ${new Date(x.createdAt||Date.now()).toLocaleString("fa-IR")}</div>
+        <div class="post-text">${esc(x.text||"")}</div>
+        ${x.image?`<img class="post-image" src="${esc(x.image)}" alt="">`:""}
         <div class="grid2">
-
-          <button
-            id="grantPremium"
-            class="btn primary"
-          >
-            Grant
-          </button>
-
-          <button
-            id="revokePremium"
-            class="btn danger"
-          >
-            Revoke
-          </button>
-
+          <button class="btn primary approvePost" data-id="${esc(id)}">انتشار</button>
+          <button class="btn danger rejectPost" data-id="${esc(id)}">رد</button>
         </div>
-      `
-    );
-
-    $("grantPremium").onclick=
-      ()=>changePremium(true);
-
-    $("revokePremium").onclick=
-      ()=>changePremium(false);
+      </div>`).join("") : `<div class="empty">پست در انتظاری نیست.</div>`);
+    document.querySelectorAll(".approvePost").forEach(b=>b.onclick=async()=>{
+      const id=b.dataset.id; const ps=await get(ref(db,`pendingPosts/${id}`)); const x=ps.val(); if(!x)return;
+      await set(ref(db,`posts/${id}`),{...x,approvedAt:Date.now(),approvedBy:user.uid});
+      await remove(ref(db,`pendingPosts/${id}`)); toast("پست منتشر شد"); closeModal(); renderExplore();
+    });
+    document.querySelectorAll(".rejectPost").forEach(b=>b.onclick=async()=>{ await remove(ref(db,`pendingPosts/${b.dataset.id}`)); toast("پست رد شد"); closeModal(); });
   };
 
-
-  $("adminEmoji").onclick=()=>{
+  $("adminMessages").onclick=()=>{
+    if(!activeChat)return toast("اول یک چت را باز کن");
     closeModal();
-    openAdminEmojiBuilder();
-  };
-
-
-  $("adminStats").onclick=async()=>{
-
-    const users=
-      await get(ref(db,"users"));
-
-    const chats=
-      await get(ref(db,"chats"));
-
-    const emojis=
-      await get(ref(db,"premiumEmojis"));
-
-    modal(
-      "Stats",
-      `
-        <div class="grid3">
-
-          <div class="card" style="text-align:center">
-            <div class="stat">
-              ${Object.keys(
-                users.val()||{}
-              ).length}
-            </div>
-            <div class="muted small">
-              Users
-            </div>
-          </div>
-
-          <div class="card" style="text-align:center">
-            <div class="stat">
-              ${Object.keys(
-                chats.val()||{}
-              ).length}
-            </div>
-            <div class="muted small">
-              Chats
-            </div>
-          </div>
-
-          <div class="card" style="text-align:center">
-            <div class="stat">
-              ${Object.keys(
-                emojis.val()||{}
-              ).length}
-            </div>
-            <div class="muted small">
-              Emojis
-            </div>
-          </div>
-
-        </div>
-      `
-    );
-  };
-
-
-  $("adminLink").onclick=async()=>{
-
-    const p=await get(
-      ref(db,"users/"+user.uid)
-    );
-
-    const data=p.val()||profile;
-
-    const username=
-      normId(data.username);
-
-    const link=
-      location.origin+
-      location.pathname+
-      "?user="+
-      encodeURIComponent(username||user.uid);
-
-    modal(
-      "Admin Account Link",
-      `
-        <div class="card">
-
-          <div class="title">
-            🔗 لینک اختصاصی Admin
-          </div>
-
-          <div class="muted small">
-            این لینک برای دسترسی سریع به
-            صفحه مدیریت اکانت استفاده می‌شود.
-          </div>
-
-          <div
-            class="linkbox"
-            style="margin-top:10px"
-          >
-            ${esc(link)}
-          </div>
-
-          <button
-            id="copyAdminLink"
-            class="btn primary full"
-          >
-            کپی لینک
-          </button>
-
-          <button
-            id="openAdminLink"
-            class="btn full"
-          >
-            باز کردن لینک
-          </button>
-
-        </div>
-      `
-    );
-
-    $("copyAdminLink").onclick=async()=>{
-
-      try{
-        await navigator.clipboard.writeText(link);
-        toast("لینک کپی شد");
-      }catch(e){
-        toast(link);
-      }
-    };
-
-    $("openAdminLink").onclick=()=>{
-      location.href=link;
-    };
+    toast("در چت، حذف پیام برای ادمین فعال است");
   };
 
 };
-
-
-/* =========================================================
-   PREMIUM ADMIN HELPER
-========================================================= */
-
-async function changePremium(value){
-
-  try{
-
-    const uid=
-      $("premiumUid")
-      .value
-      .trim();
-
-    if(!uid){
-      return toast(
-        "UID را وارد کن"
-      );
-    }
-
-    await update(
-      ref(db,"users/"+uid),
-      {
-        premium:value
-      }
-    );
-
-    toast(
-      value
-      ?"Premium فعال شد"
-      :"Premium غیرفعال شد"
-    );
-
-    closeModal();
-
-  }catch(x){
-    toast(friendlyError(x));
-  }
-}
 
 
 /* =========================================================
@@ -4054,6 +3146,7 @@ $("chatMenu").onclick=()=>{
     "Chat",
     `
       <div class="grid2">
+        ${(chatMeta?.type==="group"||chatMeta?.type==="channel")&&chatMeta?.owner===user.uid ? `<button id="communityLinkBtn" class="btn primary">🔗 لینک گپ</button><button id="communityBanBtn" class="btn danger">🚫 بن کاربر</button>` : ""}
 
         <button
           id="clearChat"
@@ -4080,9 +3173,23 @@ $("chatMenu").onclick=()=>{
     `
   );
 
+  const cl=$("communityLinkBtn");
+  if(cl)cl.onclick=async()=>{
+    const link=chatMeta?.inviteLink||communityLink(chatMeta?.username,activeChat);
+    try{await navigator.clipboard.writeText(link);toast("لینک گپ کپی شد");}catch(e){toast(link);}
+  };
+  const cb=$("communityBanBtn");
+  if(cb)cb.onclick=async()=>{
+    const uid=prompt("UID کاربری که می‌خواهی بن کنی:"); if(!uid)return;
+    await update(ref(db,`chatMembers/${activeChat}/${uid}`),{banned:true,bannedAt:Date.now(),bannedBy:user.uid});
+    toast("کاربر بن شد");
+  };
+
   $("clearChat").onclick=async()=>{
 
     if(!activeChat)return;
+    const canClear=ownerUser() || ((chatMeta?.type==="group"||chatMeta?.type==="channel") && chatMeta?.owner===user.uid);
+    if(!canClear)return toast("فقط ادمین/مالک گپ می‌تواند پیام‌ها را پاک کند");
 
     try{
 
@@ -4213,6 +3320,7 @@ $("search").oninput=e=>{
 function renderAll(){
   renderProfile();
   renderChats();
+  renderExplore();
 }
 h47
 </script>
