@@ -104,7 +104,7 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
   position:fixed;bottom:9px;left:50%;
   transform:translateX(-50%);
   width:min(940px,calc(100% - 16px));
-  display:grid;grid-template-columns:repeat(5,1fr);
+  display:grid;grid-template-columns:repeat(6,1fr);
   gap:4px;padding:6px;background:rgba(17,26,37,.72);
   border:1px solid rgba(100,125,155,.28);border-radius:27px;
   backdrop-filter:blur(25px);z-index:20;
@@ -357,6 +357,8 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
   .btn{padding:9px 10px}
   .emoji-picker{grid-template-columns:repeat(5,1fr)}
 }
+
+.post-card{background:linear-gradient(145deg,rgba(16,43,42,.72),rgba(10,28,37,.64));border:1px solid rgba(100,230,210,.2);border-radius:24px;padding:15px;margin:10px 0;backdrop-filter:blur(22px);box-shadow:0 15px 45px #0003;animation:postIn .35s ease both}.post-text{font-size:17px;line-height:1.8;margin:10px 0;white-space:pre-wrap;word-break:break-word}.post-image,.post-video{width:100%;max-height:520px;object-fit:cover;border-radius:18px;display:block;background:#020708}.post-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.post-actions .btn{flex:1;min-width:80px}.post-author{cursor:pointer}.post-stats{display:flex;gap:12px;align-items:center;margin-top:9px;color:var(--muted);font-size:12px}.liked{background:linear-gradient(135deg,#ff4f88,#9b5cff)!important;border-color:#ff79a8!important}.comment-item{padding:9px 0;border-bottom:1px solid #ffffff0c}.comment-item:last-child{border-bottom:0}.like-user{display:flex;align-items:center;gap:8px;padding:8px 0}.home-hero{text-align:center;padding:30px 18px}.home-brand{font-family:Georgia,serif;font-size:42px;letter-spacing:5px;margin-bottom:8px;text-shadow:0 0 28px #36e0a055}.home-brand b{color:#36e0a0}@keyframes postIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 </style>
 </head>
 
@@ -385,7 +387,19 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 
 <main>
 
-<section id="chatsPage" class="page on">
+<section id="homePage" class="page on">
+  <div class="card home-hero">
+    <div class="brand home-brand">A<b>VANTA</b></div>
+    <div class="title">HOME</div>
+    <div class="muted">به ÀVanta خوش آمدی</div>
+  </div>
+  <div class="card">
+    <button id="downloadShortcut" class="btn primary full">📥 دانلود برنامه</button>
+    <button id="homeLogout" class="btn danger full">🚪 خروج از حساب کاربری</button>
+  </div>
+</section>
+
+<section id="chatsPage" class="page">
   <div class="card">
     <div class="title">Chats</div>
     <div class="muted small">پیام‌ها، گروه‌ها و کانال‌ها</div>
@@ -498,6 +512,7 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 </main>
 
 <nav class="bottom">
+  <button data-page="homePage" class="on"><span class="navico">⌂</span>HOME</button>
   <button data-page="explorePage"><span class="navico">✦</span>اکسپلور</button>
   <button data-page="contactsPage">
     <span class="navico">♙</span>مخاطبین
@@ -520,6 +535,7 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 <input id="storyFile" type="file" accept="image/*,video/*" hidden>
 <input id="gifFile" type="file" accept="image/gif" hidden>
 <input id="postImageFile" type="file" accept="image/*" hidden>
+<input id="postMediaFile" type="file" accept="image/*,video/*" hidden>
 
 <div id="modal" class="modal">
   <div class="sheet">
@@ -947,6 +963,11 @@ onAuthStateChanged(auth,async u=>{
     $("login").classList.remove("hide");
     return;
   }
+
+  try{
+    const bs=await get(ref(db,`users/${u.uid}/banned`));
+    if(bs.val()===true){ await signOut(auth); toast("این حساب بن شده است"); return; }
+  }catch(e){}
 
   $("login").classList.add("hide");
 
@@ -2367,51 +2388,16 @@ $("channelBtn").onclick=
 /* =========================================================
    EXPLORE / POSTS
 ========================================================= */
-
-async function renderExplore(){
-  const box=$("exploreList");
-  if(!box)return;
-  try{
-    const s=await get(ref(db,"posts"));
-    const posts=Object.values(s.val()||{})
-      .sort((a,b)=>(b.approvedAt||b.createdAt||0)-(a.approvedAt||a.createdAt||0));
-    box.innerHTML=posts.length?posts.map(x=>`
-      <article class="post-card">
-        <div class="row" style="background:transparent;border:0;padding:0;margin:0">
-          ${avatar({name:x.authorName,photo:x.authorPhoto,profileColor:x.authorColor})}
-          <div class="grow"><b>${esc(x.authorName||"ÀVanta User")}</b><div class="muted small">@${esc(x.authorUsername||"")}</div></div>
-        </div>
-        <div class="post-text">${esc(x.text||"")}</div>
-        ${x.image?`<img class="post-image" src="${esc(x.image)}" alt="">`:""}
-        <div class="muted small">${new Date(x.approvedAt||x.createdAt||Date.now()).toLocaleString("fa-IR")}</div>
-      </article>`).join("") : `<div class="empty">هنوز پستی منتشر نشده.</div>`;
-  }catch(e){ box.innerHTML=`<div class="empty">${esc(friendlyError(e))}</div>`; }
-}
-
-$("newPostBtn").onclick=()=>{
-  modal("ساخت پست",`
-    <textarea id="postText" class="textarea" placeholder="چی می‌خوای منتشر کنی؟"></textarea>
-    <button id="postImagePick" class="btn full">🖼️ افزودن عکس</button>
-    <div id="postImagePreview" class="coverPreview"></div>
-    <button id="submitPost" class="btn primary full">ارسال برای بررسی</button>
-  `);
-  let image="";
-  $("postImagePick").onclick=()=>$("postImageFile").click();
-  $("postImageFile").onchange=e=>{
-    const f=e.target.files[0]; if(!f)return;
-    if(f.size>2500000)return toast("عکس حداکثر 2.5MB");
-    const r=new FileReader(); r.onload=()=>{image=r.result;$("postImagePreview").style.backgroundImage=`url("${image}")`;}; r.readAsDataURL(f);
-  };
-  $("submitPost").onclick=async()=>{
-    const text=$("postText").value.trim();
-    if(!text&&!image)return toast("متن یا عکس لازم است");
-    try{
-      const id=push(ref(db,"pendingPosts")).key;
-      await set(ref(db,`pendingPosts/${id}`),{uid:user.uid,authorName:profile.name,authorUsername:profile.username||"",authorPhoto:profile.photo||"",authorColor:profile.profileColor||"#36e0a0",text,image,createdAt:Date.now()});
-      closeModal(); toast("پست برای بررسی ادمین ارسال شد");
-    }catch(e){toast(friendlyError(e));}
-  };
-};
+function postAuthor(x){return {uid:x.uid,name:x.authorName,username:x.authorUsername,photo:x.authorPhoto,profileColor:x.authorColor,level:x.authorLevel||1};}
+async function getPostStats(id){const [ls,cs]=await Promise.all([get(ref(db,`postLikes/${id}`)),get(ref(db,`postComments/${id}`))]);const likes=ls.val()||{},comments=cs.val()||{};return {likes,comments,likeCount:Object.keys(likes).length,commentCount:Object.keys(comments).length};}
+async function recordPostView(id){if(!user||!id)return;try{const vr=ref(db,`postViews/${id}/${user.uid}`);const vs=await get(vr);if(!vs.exists()){await set(vr,{uid:user.uid,at:Date.now()});await runTransaction(ref(db,`postViewCounts/${id}`),v=>(Number(v)||0)+1);}}catch(e){}}
+function mediaHtml(x){if(x.mediaType==='video'&&x.media)return `<video class="post-video" src="${esc(x.media)}" controls playsinline preload="metadata"></video>`;if(x.media)return `<img class="post-image" src="${esc(x.media)}" alt="" loading="lazy">`;if(x.image)return `<img class="post-image" src="${esc(x.image)}" alt="" loading="lazy">`;return '';}
+async function renderPostCard(x,id){const st=await getPostStats(id);const vs=await get(ref(db,`postViewCounts/${id}`));const views=Number(vs.val()||0);const liked=!!st.likes[user?.uid];const canDelete=x.uid===user?.uid||user?.uid===ADMIN_UID;return `<article class="post-card"><div class="row post-author" data-uid="${esc(x.uid||'')}" style="background:transparent;border:0;padding:0;margin:0">${avatar(postAuthor(x))}<div class="grow"><b>${esc(x.authorName||'ÀVanta User')}</b><div class="muted small">@${esc(x.authorUsername||'')}</div></div></div>${x.text?`<div class="post-text">${esc(x.text)}</div>`:''}${mediaHtml(x)}<div class="post-stats"><span>👁️ ${views}</span><span>❤️ ${st.likeCount}</span><span>💬 ${st.commentCount}</span></div><div class="post-actions"><button class="btn ${liked?'liked':''} postLike" data-id="${esc(id)}">${liked?'❤️':'🤍'} لایک</button><button class="btn postLikes" data-id="${esc(id)}">👥 لایک‌ها</button><button class="btn postComments" data-id="${esc(id)}">💬 کامنت</button>${canDelete?`<button class="btn danger postDelete" data-id="${esc(id)}">🗑️ حذف</button>`:''}</div></article>`;}
+async function openPostLikes(id){try{const s=await get(ref(db,`postLikes/${id}`));const likes=Object.values(s.val()||{});modal('لایک‌ها',likes.length?likes.map(x=>`<div class="like-user">${avatar(x)}<div><b>${esc(x.name||'کاربر')}</b><div class="muted small">@${esc(x.username||'')}</div></div></div>`).join(''):'<div class="empty">هنوز کسی لایک نکرده.</div>');}catch(e){toast(friendlyError(e));}}
+async function openPostComments(id){const s=await get(ref(db,`postComments/${id}`));const comments=Object.values(s.val()||{}).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));modal('کامنت‌ها',`${comments.length?comments.map(x=>`<div class="comment-item"><b>${esc(x.name||'کاربر')}</b><div class="muted small">@${esc(x.username||'')}</div><div>${esc(x.text||'')}</div></div>`).join(''):'<div class="empty">هنوز کامنتی نیست.</div>'}<input id="commentInput" class="input" placeholder="کامنتت را بنویس..."><button id="sendComment" class="btn primary full">ارسال کامنت</button>`);$('sendComment').onclick=async()=>{const text=$('commentInput').value.trim();if(!text)return;try{const cid=push(ref(db,`postComments/${id}`)).key;await set(ref(db,`postComments/${id}/${cid}`),{uid:user.uid,name:profile.name||'',username:profile.username||'',photo:profile.photo||'',text,createdAt:Date.now()});openPostComments(id);renderExplore();}catch(e){toast(friendlyError(e));}};}
+async function bindPostActions(){document.querySelectorAll('.postLike').forEach(b=>b.onclick=async()=>{const r=ref(db,`postLikes/${b.dataset.id}/${user.uid}`);try{const s=await get(r);if(s.exists())await remove(r);else await set(r,{uid:user.uid,name:profile.name||'',username:profile.username||'',photo:profile.photo||'',at:Date.now()});renderExplore();}catch(e){toast(friendlyError(e));}});document.querySelectorAll('.postLikes').forEach(b=>b.onclick=()=>openPostLikes(b.dataset.id));document.querySelectorAll('.postComments').forEach(b=>b.onclick=()=>openPostComments(b.dataset.id));document.querySelectorAll('.postDelete').forEach(b=>b.onclick=async()=>{const id=b.dataset.id,s=await get(ref(db,`posts/${id}`)),x=s.val();if(!x)return;if(x.uid!==user.uid&&user.uid!==ADMIN_UID)return toast('اجازه حذف این پست را نداری');if(!confirm('این پست حذف شود؟'))return;try{const u={};u[`posts/${id}`]=null;u[`postLikes/${id}`]=null;u[`postComments/${id}`]=null;u[`postViews/${id}`]=null;u[`postViewCounts/${id}`]=null;await update(ref(db),u);toast('پست حذف شد');renderExplore();}catch(e){toast(friendlyError(e));}});document.querySelectorAll('.post-author').forEach(el=>el.onclick=async()=>{const uid=el.dataset.uid,s=await get(ref(db,`users/${uid}`));if(!s.exists())return;const x=s.val();modal('پروفایل',`${avatar(x,true)}<div style="text-align:center"><h3>${esc(x.name||'کاربر')}</h3><div class="muted">@${esc(x.username||'')}</div><p class="muted">${esc(x.bio||'')}</p></div>`);});}
+async function renderExplore(){const box=$('exploreList');if(!box)return;try{const s=await get(ref(db,'posts'));const entries=Object.entries(s.val()||{}).sort((a,b)=>(b[1].approvedAt||b[1].createdAt||0)-(a[1].approvedAt||a[1].createdAt||0));if(!entries.length){box.innerHTML='<div class="empty">هنوز پستی منتشر نشده.</div>';return;}box.innerHTML='';for(const [id,x] of entries)box.insertAdjacentHTML('beforeend',await renderPostCard(x,id));await bindPostActions();entries.forEach(([id])=>recordPostView(id));}catch(e){box.innerHTML=`<div class="empty">${esc(friendlyError(e))}</div>`;}}
+$('newPostBtn').onclick=()=>{modal('ساخت پست',`<textarea id="postText" class="textarea" placeholder="چی می‌خوای منتشر کنی؟"></textarea><button id="postMediaPick" class="btn full">🖼️ / 🎬 افزودن عکس یا ویدیو</button><div id="postMediaPreview"></div><button id="submitPost" class="btn primary full">ارسال برای بررسی ادمین</button>`);let media='',mediaType='';$('postMediaPick').onclick=()=>$('postMediaFile').click();$('postMediaFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const isVideo=f.type.startsWith('video/');const max=isVideo?5000000:3000000;if(f.size>max)return toast(`حجم ${isVideo?'ویدیو':'عکس'} زیاد است`);const r=new FileReader();r.onload=()=>{media=r.result;mediaType=isVideo?'video':'image';$('postMediaPreview').innerHTML=isVideo?`<video class="post-video" src="${media}" controls></video>`:`<img class="post-image" src="${media}" alt="">`;};r.readAsDataURL(f);};$('submitPost').onclick=async()=>{const text=$('postText').value.trim();if(!text&&!media)return toast('متن یا عکس/ویدیو لازم است');try{const id=push(ref(db,'pendingPosts')).key;await set(ref(db,`pendingPosts/${id}`),{uid:user.uid,authorName:profile.name,authorUsername:profile.username||'',authorPhoto:profile.photo||'',authorColor:profile.profileColor||'#36e0a0',authorLevel:profile.level||1,text,media,mediaType,createdAt:Date.now()});closeModal();toast('پست برای بررسی ادمین ارسال شد');}catch(e){toast(friendlyError(e));}};};
 
 /* =========================================================
    SAVED MESSAGES
@@ -2502,7 +2488,8 @@ $("newBtn").onclick=()=>{
     createCommunity("channel");
   };
 
-  $("newEmoji").onclick=()=>{
+  const newEmoji=$("newEmoji");
+  if(newEmoji)newEmoji.onclick=()=>{
     closeModal();
 
     if(activeChat){
@@ -2543,22 +2530,18 @@ $("adminBtn").onclick=()=>{
   $("adminPosts").onclick=async()=>{
     const snap=await get(ref(db,"pendingPosts"));
     const posts=Object.entries(snap.val()||{});
-    modal("پست‌های در انتظار", posts.length ? posts.map(([id,x])=>`
-      <div class="post-card">
-        <div class="muted small">${esc(x.authorName||"کاربر")} · ${new Date(x.createdAt||Date.now()).toLocaleString("fa-IR")}</div>
-        <div class="post-text">${esc(x.text||"")}</div>
-        ${x.image?`<img class="post-image" src="${esc(x.image)}" alt="">`:""}
-        <div class="grid2">
-          <button class="btn primary approvePost" data-id="${esc(id)}">انتشار</button>
-          <button class="btn danger rejectPost" data-id="${esc(id)}">رد</button>
-        </div>
-      </div>`).join("") : `<div class="empty">پست در انتظاری نیست.</div>`);
-    document.querySelectorAll(".approvePost").forEach(b=>b.onclick=async()=>{
-      const id=b.dataset.id; const ps=await get(ref(db,`pendingPosts/${id}`)); const x=ps.val(); if(!x)return;
-      await set(ref(db,`posts/${id}`),{...x,approvedAt:Date.now(),approvedBy:user.uid});
-      await remove(ref(db,`pendingPosts/${id}`)); toast("پست منتشر شد"); closeModal(); renderExplore();
-    });
-    document.querySelectorAll(".rejectPost").forEach(b=>b.onclick=async()=>{ await remove(ref(db,`pendingPosts/${b.dataset.id}`)); toast("پست رد شد"); closeModal(); });
+    modal("پست‌های در انتظار",posts.length?posts.map(([id,x])=>`<div class="post-card"><div class="muted small">${esc(x.authorName||"کاربر")}</div><div class="post-text">${esc(x.text||"")}</div>${mediaHtml(x)}<div class="grid2"><button class="btn primary approvePost" data-id="${esc(id)}">انتشار</button><button class="btn danger rejectPost" data-id="${esc(id)}">رد</button></div></div>`).join(""):'<div class="empty">پست در انتظاری نیست.</div>');
+    document.querySelectorAll(".approvePost").forEach(b=>b.onclick=async()=>{const id=b.dataset.id;const ps=await get(ref(db,`pendingPosts/${id}`));const x=ps.val();if(!x)return;await set(ref(db,`posts/${id}`),{...x,approvedAt:Date.now(),approvedBy:user.uid});await remove(ref(db,`pendingPosts/${id}`));toast("پست منتشر شد");closeModal();renderExplore();});
+    document.querySelectorAll(".rejectPost").forEach(b=>b.onclick=async()=>{await remove(ref(db,`pendingPosts/${b.dataset.id}`));toast("پست رد شد");closeModal();});
+  };
+
+  const adminUsersBtn=document.createElement('button');
+  adminUsersBtn.id='adminUsers';adminUsersBtn.className='btn danger';adminUsersBtn.textContent='🚫 مدیریت کاربران';
+  document.querySelector('#modalBody .grid2')?.appendChild(adminUsersBtn);
+  adminUsersBtn.onclick=async()=>{
+    const uid=prompt('UID کاربری که می‌خواهی بن کنی:');if(!uid)return;
+    if(uid.trim()===ADMIN_UID)return toast('ادمین اصلی قابل بن نیست');
+    try{await update(ref(db,`users/${uid.trim()}`),{banned:true,bannedAt:Date.now(),bannedBy:user.uid});toast('کاربر بن شد');closeModal();}catch(e){toast(friendlyError(e));}
   };
 
   $("adminMessages").onclick=()=>{
@@ -2750,6 +2733,12 @@ $("backChat").onclick=()=>{
 
 
 /* =========================================================
+   HOME
+========================================================= */
+$('homeLogout').onclick=()=>signOut(auth);
+$('downloadShortcut').onclick=()=>{const url=location.href.split('?')[0];const blob=new Blob([`<!doctype html><meta charset="utf-8"><title>AVANTA</title><script>location.replace(${JSON.stringify(url)})<\/script>`],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AVANTA-Shortcut.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+
+/* =========================================================
    BOTTOM NAV
 ========================================================= */
 
@@ -2815,7 +2804,6 @@ function renderAll(){
   renderChats();
   renderExplore();
 }
-h47
 </script>
 </body>
 </html>
