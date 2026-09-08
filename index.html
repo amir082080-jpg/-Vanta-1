@@ -239,6 +239,36 @@ main{flex:1;overflow:auto;padding:14px 12px 100px}
   vertical-align:middle
 }
 @keyframes spin{to{transform:rotate(360deg)}}
+/* AVANTA UI ICONS + GLOBAL THEME */
+.uiIcon{width:22px;height:22px;display:inline-grid;place-items:center;flex:none;color:currentColor}
+.uiIcon svg{width:100%;height:100%;display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.settingsIcon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);box-shadow:0 8px 25px color-mix(in srgb,var(--accent) 12%,transparent);transition:.2s}
+.settingsRow:hover .settingsIcon{transform:translateY(-1px) scale(1.03);box-shadow:0 10px 28px color-mix(in srgb,var(--accent) 22%,transparent)}
+.btn .uiIcon{vertical-align:middle;margin-left:6px}
+.btn.iconOnly{display:inline-grid;place-items:center;padding:9px;min-width:42px}
+.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.theme-btn{min-height:72px;border-radius:18px;border:1px solid var(--line);background:var(--glass);color:#fff;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:.18s}
+.theme-btn:active{transform:scale(.96)}
+.theme-dot{width:27px;height:27px;border-radius:50%;box-shadow:0 0 0 3px #fff2}
+.announcement{position:fixed;top:74px;left:50%;transform:translateX(-50%) translateY(-15px);width:min(700px,calc(100% - 24px));z-index:45;background:var(--panel2);border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));border-radius:18px;padding:10px 13px;display:none;backdrop-filter:blur(22px);box-shadow:0 15px 45px #0008;opacity:0;transition:.25s}
+.announcement.on{display:flex;align-items:center;gap:10px;opacity:1;transform:translateX(-50%) translateY(0)}
+.announcement .uiIcon{color:var(--accent)}
+.admin-tools{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.admin-section{background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:12px;margin-bottom:10px}
+.admin-section-title{font-weight:950;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.admin-action{min-height:54px;display:flex;align-items:center;justify-content:flex-start;gap:8px;text-align:right}
+@media(max-width:500px){.theme-grid{grid-template-columns:repeat(3,1fr)}}
+body.theme-white{color:#10131a}
+body.theme-white #app{background:rgba(247,249,252,.88)}
+body.theme-white .top,body.theme-white .composer{background:rgba(255,255,255,.82)}
+body.theme-white .card,body.theme-white .row,body.theme-white .sheet,body.theme-white .bottom{background:rgba(255,255,255,.82);color:#10131a}
+body.theme-white .btn{background:rgba(239,243,248,.92);color:#151922;border-color:#d7dee8}
+body.theme-white .search,body.theme-white .input,body.theme-white .textarea,body.theme-white .composer input{background:#fff;color:#111;border-color:#d3dbe6}
+body.theme-white .muted{color:#647184}
+body.theme-white .modal{background:#0007}
+body.theme-white .announcement{color:#10131a;background:rgba(255,255,255,.94)}
+body.theme-white .post-card{background:rgba(255,255,255,.9);color:#10131a}
+
 .color{
   width:43px;height:43px;border-radius:50%;
   border:2px solid #fff3
@@ -378,6 +408,7 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 </div>
 
 <div id="app">
+<div id="globalAnnouncement" class="announcement"><span class="uiIcon" data-icon="megaphone"></span><div id="announcementText" class="grow"></div><button id="closeAnnouncement" class="btn iconOnly" aria-label="بستن">×</button></div>
 
 <header class="top">
   <div class="brand">À<b>Vanta</b></div>
@@ -394,8 +425,8 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
     <div class="muted">به ÀVanta خوش آمدی</div>
   </div>
   <div class="card">
-    <button id="downloadShortcut" class="btn primary full">📥 دانلود برنامه</button>
-    <button id="homeLogout" class="btn danger full">🚪 خروج از حساب کاربری</button>
+    <button id="downloadShortcut" class="btn primary full"><span class="uiIcon" data-icon="download"></span>دانلود برنامه</button>
+    <button id="homeLogout" class="btn danger full"><span class="uiIcon" data-icon="logout"></span>خروج از حساب کاربری</button>
   </div>
 </section>
 
@@ -431,7 +462,7 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
     <div class="title">Settings</div>
 
     <div class="settingsRow">
-      <div class="settingsIcon">👤</div>
+      <div class="settingsIcon"><span class="uiIcon" data-icon="user"></span></div>
       <div class="grow">
         <b>Edit Info</b>
         <div class="muted small">نام، Username و Bio</div>
@@ -440,41 +471,42 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
     </div>
 
     <div class="settingsRow">
-      <div class="settingsIcon">🖼️</div>
+      <div class="settingsIcon"><span class="uiIcon" data-icon="image"></span></div>
       <div class="grow"><b>Set Photo</b></div>
       <button id="setPhoto" class="btn">›</button>
     </div>
 
     <div class="settingsRow">
-      <div class="settingsIcon">🎨</div>
+      <div class="settingsIcon"><span class="uiIcon" data-icon="palette"></span></div>
       <div class="grow"><b>Profile Colour</b></div>
       <button id="profileColor" class="btn">›</button>
     </div>
 
     <div class="settingsRow">
-      <div class="settingsIcon">⭕</div>
+      <div class="settingsIcon"><span class="uiIcon" data-icon="story"></span></div>
       <div class="grow"><b>Stories</b></div>
       <button id="storyBtn" class="btn">›</button>
     </div>
 
     <div class="settingsRow">
-      <div class="settingsIcon">🔖</div>
+      <div class="settingsIcon"><span class="uiIcon" data-icon="bookmark"></span></div>
       <div class="grow"><b>Saved Messages</b></div>
       <button id="savedBtn" class="btn">›</button>
     </div>
 
     <button id="adminBtn" class="btn primary full" style="display:none">
-      ⚡ Admin Panel
+      <span class="uiIcon" data-icon="shield"></span>Admin Panel
     </button>
 
-    <button id="logoutBtn" class="btn danger full">خروج</button>
+    <button id="uidBtn" class="btn full"><span class="uiIcon" data-icon="id"></span>نمایش و کپی UID</button>
+    <button id="logoutBtn" class="btn danger full"><span class="uiIcon" data-icon="logout"></span>خروج</button>
   </div>
 
   <div class="card">
     <div class="title">Create</div>
     <div class="grid2">
-      <button id="groupBtn" class="btn primary">👥 Group</button>
-      <button id="channelBtn" class="btn primary">📢 Channel</button>
+      <button id="groupBtn" class="btn primary"><span class="uiIcon" data-icon="group"></span>Group</button>
+      <button id="channelBtn" class="btn primary"><span class="uiIcon" data-icon="channel"></span>Channel</button>
       <button id="gifMakerBtn" class="btn">GIF</button>
     </div>
   </div>
@@ -512,19 +544,19 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 </main>
 
 <nav class="bottom">
-  <button data-page="homePage" class="on"><span class="navico">⌂</span>HOME</button>
-  <button data-page="explorePage"><span class="navico">✦</span>اکسپلور</button>
+  <button data-page="homePage" class="on"><span class="navico"><span class="uiIcon" data-icon="home"></span></span>HOME</button>
+  <button data-page="explorePage"><span class="navico"><span class="uiIcon" data-icon="compass"></span></span>اکسپلور</button>
   <button data-page="contactsPage">
-    <span class="navico">♙</span>مخاطبین
+    <span class="navico"><span class="uiIcon" data-icon="users"></span></span>مخاطبین
   </button>
-  <button data-page="chatsPage" class="on">
-    <span class="navico">◌</span>چت‌ها
+  <button data-page="chatsPage">
+    <span class="navico"><span class="uiIcon" data-icon="chat"></span></span>چت‌ها
   </button>
   <button data-page="settingsPage">
-    <span class="navico">⚙</span>تنظیمات
+    <span class="navico"><span class="uiIcon" data-icon="settings"></span></span>تنظیمات
   </button>
   <button data-page="profilePage">
-    <span class="navico">◎</span>پروفایل
+    <span class="navico"><span class="uiIcon" data-icon="user"></span></span>پروفایل
   </button>
 </nav>
 
@@ -564,10 +596,10 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 <div id="messages" class="messages"></div>
 
 <div class="composer">
-  <button id="chatEmoji" class="btn" title="Emoji">😊</button>
+  <button id="chatEmoji" class="btn iconOnly" title="Emoji"><span class="uiIcon" data-icon="smile"></span></button>
   <button id="chatGif" class="btn">GIF</button>
   <input id="messageInput" placeholder="پیام...">
-  <button id="sendMessage" class="btn primary">➤</button>
+  <button id="sendMessage" class="btn primary iconOnly"><span class="uiIcon" data-icon="send"></span></button>
 </div>
 
 </div>
@@ -630,6 +662,59 @@ let unsubs=[];
 
 
 /* =========================================================
+   AVANTA ICONS + GLOBAL THEME
+========================================================= */
+const ICONS={
+  user:'<circle cx="12" cy="8" r="3"></circle><path d="M5 20c1.2-3.2 3.5-5 7-5s5.8 1.8 7 5"></path>',
+  image:'<rect x="3" y="4" width="18" height="16" rx="3"></rect><circle cx="8" cy="9" r="1.5"></circle><path d="m4 17 5-5 3 3 2-2 5 5"></path>',
+  palette:'<path d="M12 3a9 9 0 0 0 0 18h1.2a1.8 1.8 0 0 0 0-3.6h-.7a1.7 1.7 0 0 1 0-3.4H15a6 6 0 0 0 0-12Z"></path><circle cx="7.5" cy="10" r="1"></circle><circle cx="10" cy="6.8" r="1"></circle><circle cx="14" cy="6.8" r="1"></circle>',
+  story:'<circle cx="12" cy="12" r="9"></circle><path d="m12 7 1.7 3.4L17 12l-3.3 1.6L12 17l-1.7-3.4L7 12l3.3-1.6Z"></path>',
+  bookmark:'<path d="M6 4.5A2.5 2.5 0 0 1 8.5 2h7A2.5 2.5 0 0 1 18 4.5V21l-6-3.5L6 21Z"></path>',
+  shield:'<path d="M12 3 19 6v5c0 4.5-2.6 7.4-7 10-4.4-2.6-7-5.5-7-10V6Z"></path><path d="m9 12 2 2 4-4"></path>',
+  id:'<rect x="3" y="5" width="18" height="14" rx="3"></rect><circle cx="8" cy="12" r="2"></circle><path d="M13 10h5M13 14h4"></path>',
+  logout:'<path d="M10 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4"></path><path d="m14 8 4 4-4 4M9 12h9"></path>',
+  download:'<path d="M12 3v11"></path><path d="m7 10 5 5 5-5"></path><path d="M4 20h16"></path>',
+  group:'<circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c.5-3.6 2.5-5.5 6-5.5s5.5 1.9 6 5.5M14 15c2.7-.8 5 .9 5.5 5"></path>',
+  channel:'<path d="M4 7h16v10H4z"></path><path d="m8 7 2-3h4l2 3M9 17v3h6v-3"></path>',
+  home:'<path d="m3 11 9-7 9 7"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path>',
+  compass:'<circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8Z"></path>',
+  users:'<circle cx="9" cy="9" r="3"></circle><path d="M3.5 20c.5-3.3 2.3-5 5.5-5s5 1.7 5.5 5M16 7a2.5 2.5 0 0 1 0 5M16 15c2.5.2 4 1.8 4.5 4"></path>',
+  chat:'<path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H11l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"></path>',
+  settings:'<circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a8 8 0 0 0-2-1.2L14.3 3h-4.1l-.4 2.7a8 8 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5.4 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a8 8 0 0 0 2 1.2l.4 2.7h4.1l.4-2.7a8 8 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2Z"></path>',
+  smile:'<circle cx="12" cy="12" r="9"></circle><circle cx="9" cy="10" r="1"></circle><circle cx="15" cy="10" r="1"></circle><path d="M8 14c1.1 2 2.8 3 4 3s2.9-1 4-3"></path>',
+  send:'<path d="m3 11 18-8-8 18-2-7Z"></path><path d="m11 14 5-5"></path>',
+  megaphone:'<path d="M4 14V10l13-5v14Z"></path><path d="M17 9h2a2 2 0 0 1 0 4h-2M7 15l1 5"></path>',
+  trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"></path>',
+  heart:'<path d="M20 8.5c0 5-8 9.5-8 9.5S4 13.5 4 8.5A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 8 2.5Z"></path>',
+  eye:'<path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"></path><circle cx="12" cy="12" r="2.5"></circle>',
+  comment:'<path d="M5 5h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"></path>',
+  people:'<circle cx="9" cy="9" r="2.5"></circle><circle cx="16.5" cy="10" r="2"></circle><path d="M4 19c.5-3 2.2-4.5 5-4.5S13.5 16 14 19M14 15c2.6-.3 4.4 1.1 5 4"></path>',
+  edit:'<path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"></path><path d="m14.5 8.5 3 3"></path>',
+  reply:'<path d="M9 7 4 12l5 5"></path><path d="M5 12h8a6 6 0 0 1 6 6"></path>',
+  link:'<path d="M10 13.5a4 4 0 0 0 5.7.1l2-2a4 4 0 0 0-5.7-5.7l-1.2 1.2"></path><path d="M14 10.5a4 4 0 0 0-5.7-.1l-2 2A4 4 0 0 0 8 18.1l1.2-1.2"></path>',
+  ban:'<circle cx="12" cy="12" r="9"></circle><path d="m7 7 10 10"></path>'
+};
+function icon(name){return `<span class="uiIcon" aria-hidden="true"><svg viewBox="0 0 24 24">${ICONS[name]||ICONS.user}</svg></span>`;}
+function hydrateIcons(root=document){root.querySelectorAll('.uiIcon[data-icon]').forEach(el=>{const n=el.dataset.icon;el.innerHTML=ICONS[n]?`<svg viewBox="0 0 24 24">${ICONS[n]}</svg>`:'';});}
+hydrateIcons();
+
+const THEMES={
+  blue:{accent:'#4d8cff',bg:'#080d16',panel:'rgba(17,25,35,.74)',panel2:'rgba(23,34,48,.82)',glass:'rgba(18,27,40,.68)'},
+  green:{accent:'#25d39a',bg:'#07120f',panel:'rgba(13,31,27,.74)',panel2:'rgba(18,43,36,.82)',glass:'rgba(14,35,30,.68)'},
+  yellow:{accent:'#f2c94c',bg:'#151108',panel:'rgba(35,29,12,.74)',panel2:'rgba(49,40,16,.82)',glass:'rgba(38,31,13,.68)'},
+  red:{accent:'#ff5367',bg:'#16090d',panel:'rgba(38,17,23,.74)',panel2:'rgba(55,21,30,.82)',glass:'rgba(40,18,25,.68)'},
+  white:{accent:'#3f73d8',bg:'#f2f5f9',panel:'rgba(255,255,255,.84)',panel2:'rgba(255,255,255,.94)',glass:'rgba(255,255,255,.80)'}
+};
+function applyTheme(name){
+  const t=THEMES[name]||THEMES.blue;
+  const r=document.documentElement.style;
+  r.setProperty('--accent',t.accent);r.setProperty('--bg',t.bg);r.setProperty('--panel',t.panel);r.setProperty('--panel2',t.panel2);r.setProperty('--glass',t.glass);
+  document.body.classList.toggle('theme-white',name==='white');
+  document.body.dataset.theme=name||'blue';
+}
+applyTheme('blue');
+
+/* =========================================================
    HELPERS
 ========================================================= */
 
@@ -674,6 +759,7 @@ function friendlyError(e){
 function modal(t,h){
   $("modalTitle").textContent=t;
   $("modalBody").innerHTML=h;
+  hydrateIcons($("modalBody"));
   $("modal").classList.add("on");
 }
 
@@ -1303,7 +1389,7 @@ function openUser(c){
 
         <div class="grid2">
           <button id="userMessage" class="btn primary">
-            💬 Message
+            ${icon('comment')} Message
           </button>
         </div>
       </div>
@@ -1498,7 +1584,7 @@ function renderMessage(m,id){
   const reply=m.replyTo
     ?`
       <div class="reply-box">
-        ↩ ${esc(m.replyTo.name||"")}
+        ${icon('reply')} ${esc(m.replyTo.name||'')}
         <br>
         ${esc(m.replyTo.text||"")}
       </div>
@@ -1530,23 +1616,23 @@ function renderMessage(m,id){
         <button
           class="btn replyMsg"
           data-id="${esc(id)}"
-        >↩ Reply</button>
+        >${icon('reply')} Reply</button>
 
         <button
           class="btn reactMsg"
           data-id="${esc(id)}"
-        >😊</button>
+        >${icon('smile')}</button>
 
         ${
           (mine&&m.text)
           ?`
-            <button class="btn editMsg" data-id="${esc(id)}">✏️</button>
+            <button class="btn editMsg" data-id="${esc(id)}">${icon('edit')}</button>
           ` : ""
         }
 
         ${(ownerUser() || (chatMeta?.type==="group" || chatMeta?.type==="channel") && chatMeta?.owner===user.uid)
-          ?`<button class="btn danger deleteMsg" data-id="${esc(id)}">🗑️ حذف</button>`
-          : (mine ? `<button class="btn danger deleteMsg" data-id="${esc(id)}">🗑️ حذف</button>` : "")
+          ?`<button class="btn danger deleteMsg" data-id="${esc(id)}">${icon('trash')} حذف</button>`
+          : (mine ? `<button class="btn danger deleteMsg" data-id="${esc(id)}">${icon('trash')} حذف</button>` : "")
         }
 
       </div>
@@ -1610,7 +1696,7 @@ function subscribeMessages(){
               };
 
               $("messageInput").placeholder=
-                "↩ پاسخ به "+
+                "پاسخ به "+
                 (entry[1].name||"پیام")+"...";
 
               $("messageInput").focus();
@@ -2053,11 +2139,11 @@ $("profileMore").onclick=()=>{
       <div class="grid2">
 
         <button id="pmCover" class="btn">
-          🖼 Change Cover
+          ${icon('image')} Change Cover
         </button>
 
         <button id="pmStory" class="btn">
-          ⭕ Story
+          ${icon('story')} Story
         </button>
       </div>
     `
@@ -2392,12 +2478,12 @@ function postAuthor(x){return {uid:x.uid,name:x.authorName,username:x.authorUser
 async function getPostStats(id){const [ls,cs]=await Promise.all([get(ref(db,`postLikes/${id}`)),get(ref(db,`postComments/${id}`))]);const likes=ls.val()||{},comments=cs.val()||{};return {likes,comments,likeCount:Object.keys(likes).length,commentCount:Object.keys(comments).length};}
 async function recordPostView(id){if(!user||!id)return;try{const vr=ref(db,`postViews/${id}/${user.uid}`);const vs=await get(vr);if(!vs.exists()){await set(vr,{uid:user.uid,at:Date.now()});await runTransaction(ref(db,`postViewCounts/${id}`),v=>(Number(v)||0)+1);}}catch(e){}}
 function mediaHtml(x){if(x.mediaType==='video'&&x.media)return `<video class="post-video" src="${esc(x.media)}" controls playsinline preload="metadata"></video>`;if(x.media)return `<img class="post-image" src="${esc(x.media)}" alt="" loading="lazy">`;if(x.image)return `<img class="post-image" src="${esc(x.image)}" alt="" loading="lazy">`;return '';}
-async function renderPostCard(x,id){const st=await getPostStats(id);const vs=await get(ref(db,`postViewCounts/${id}`));const views=Number(vs.val()||0);const liked=!!st.likes[user?.uid];const canDelete=x.uid===user?.uid||user?.uid===ADMIN_UID;return `<article class="post-card"><div class="row post-author" data-uid="${esc(x.uid||'')}" style="background:transparent;border:0;padding:0;margin:0">${avatar(postAuthor(x))}<div class="grow"><b>${esc(x.authorName||'ÀVanta User')}</b><div class="muted small">@${esc(x.authorUsername||'')}</div></div></div>${x.text?`<div class="post-text">${esc(x.text)}</div>`:''}${mediaHtml(x)}<div class="post-stats"><span>👁️ ${views}</span><span>❤️ ${st.likeCount}</span><span>💬 ${st.commentCount}</span></div><div class="post-actions"><button class="btn ${liked?'liked':''} postLike" data-id="${esc(id)}">${liked?'❤️':'🤍'} لایک</button><button class="btn postLikes" data-id="${esc(id)}">👥 لایک‌ها</button><button class="btn postComments" data-id="${esc(id)}">💬 کامنت</button>${canDelete?`<button class="btn danger postDelete" data-id="${esc(id)}">🗑️ حذف</button>`:''}</div></article>`;}
+async function renderPostCard(x,id){const st=await getPostStats(id);const vs=await get(ref(db,`postViewCounts/${id}`));const views=Number(vs.val()||0);const liked=!!st.likes[user?.uid];const canDelete=x.uid===user?.uid||user?.uid===ADMIN_UID;return `<article class="post-card"><div class="row post-author" data-uid="${esc(x.uid||'')}" style="background:transparent;border:0;padding:0;margin:0">${avatar(postAuthor(x))}<div class="grow"><b>${esc(x.authorName||'ÀVanta User')}</b><div class="muted small">@${esc(x.authorUsername||'')}</div></div></div>${x.text?`<div class="post-text">${esc(x.text)}</div>`:''}${mediaHtml(x)}<div class="post-stats"><span>${icon('eye')} ${views}</span><span>${icon('heart')} ${st.likeCount}</span><span>${icon('comment')} ${st.commentCount}</span></div><div class="post-actions"><button class="btn ${liked?'liked':''} postLike" data-id="${esc(id)}">${icon('heart')} لایک</button><button class="btn postLikes" data-id="${esc(id)}">${icon('people')} لایک‌ها</button><button class="btn postComments" data-id="${esc(id)}">${icon('comment')} کامنت</button>${canDelete?`<button class="btn danger postDelete" data-id="${esc(id)}">${icon('trash')} حذف</button>`:''}</div></article>`;}
 async function openPostLikes(id){try{const s=await get(ref(db,`postLikes/${id}`));const likes=Object.values(s.val()||{});modal('لایک‌ها',likes.length?likes.map(x=>`<div class="like-user">${avatar(x)}<div><b>${esc(x.name||'کاربر')}</b><div class="muted small">@${esc(x.username||'')}</div></div></div>`).join(''):'<div class="empty">هنوز کسی لایک نکرده.</div>');}catch(e){toast(friendlyError(e));}}
 async function openPostComments(id){const s=await get(ref(db,`postComments/${id}`));const comments=Object.values(s.val()||{}).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));modal('کامنت‌ها',`${comments.length?comments.map(x=>`<div class="comment-item"><b>${esc(x.name||'کاربر')}</b><div class="muted small">@${esc(x.username||'')}</div><div>${esc(x.text||'')}</div></div>`).join(''):'<div class="empty">هنوز کامنتی نیست.</div>'}<input id="commentInput" class="input" placeholder="کامنتت را بنویس..."><button id="sendComment" class="btn primary full">ارسال کامنت</button>`);$('sendComment').onclick=async()=>{const text=$('commentInput').value.trim();if(!text)return;try{const cid=push(ref(db,`postComments/${id}`)).key;await set(ref(db,`postComments/${id}/${cid}`),{uid:user.uid,name:profile.name||'',username:profile.username||'',photo:profile.photo||'',text,createdAt:Date.now()});openPostComments(id);renderExplore();}catch(e){toast(friendlyError(e));}};}
 async function bindPostActions(){document.querySelectorAll('.postLike').forEach(b=>b.onclick=async()=>{const r=ref(db,`postLikes/${b.dataset.id}/${user.uid}`);try{const s=await get(r);if(s.exists())await remove(r);else await set(r,{uid:user.uid,name:profile.name||'',username:profile.username||'',photo:profile.photo||'',at:Date.now()});renderExplore();}catch(e){toast(friendlyError(e));}});document.querySelectorAll('.postLikes').forEach(b=>b.onclick=()=>openPostLikes(b.dataset.id));document.querySelectorAll('.postComments').forEach(b=>b.onclick=()=>openPostComments(b.dataset.id));document.querySelectorAll('.postDelete').forEach(b=>b.onclick=async()=>{const id=b.dataset.id,s=await get(ref(db,`posts/${id}`)),x=s.val();if(!x)return;if(x.uid!==user.uid&&user.uid!==ADMIN_UID)return toast('اجازه حذف این پست را نداری');if(!confirm('این پست حذف شود؟'))return;try{const u={};u[`posts/${id}`]=null;u[`postLikes/${id}`]=null;u[`postComments/${id}`]=null;u[`postViews/${id}`]=null;u[`postViewCounts/${id}`]=null;await update(ref(db),u);toast('پست حذف شد');renderExplore();}catch(e){toast(friendlyError(e));}});document.querySelectorAll('.post-author').forEach(el=>el.onclick=async()=>{const uid=el.dataset.uid,s=await get(ref(db,`users/${uid}`));if(!s.exists())return;const x=s.val();modal('پروفایل',`${avatar(x,true)}<div style="text-align:center"><h3>${esc(x.name||'کاربر')}</h3><div class="muted">@${esc(x.username||'')}</div><p class="muted">${esc(x.bio||'')}</p></div>`);});}
 async function renderExplore(){const box=$('exploreList');if(!box)return;try{const s=await get(ref(db,'posts'));const entries=Object.entries(s.val()||{}).sort((a,b)=>(b[1].approvedAt||b[1].createdAt||0)-(a[1].approvedAt||a[1].createdAt||0));if(!entries.length){box.innerHTML='<div class="empty">هنوز پستی منتشر نشده.</div>';return;}box.innerHTML='';for(const [id,x] of entries)box.insertAdjacentHTML('beforeend',await renderPostCard(x,id));await bindPostActions();entries.forEach(([id])=>recordPostView(id));}catch(e){box.innerHTML=`<div class="empty">${esc(friendlyError(e))}</div>`;}}
-$('newPostBtn').onclick=()=>{modal('ساخت پست',`<textarea id="postText" class="textarea" placeholder="چی می‌خوای منتشر کنی؟"></textarea><button id="postMediaPick" class="btn full">🖼️ / 🎬 افزودن عکس یا ویدیو</button><div id="postMediaPreview"></div><button id="submitPost" class="btn primary full">ارسال برای بررسی ادمین</button>`);let media='',mediaType='';$('postMediaPick').onclick=()=>$('postMediaFile').click();$('postMediaFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const isVideo=f.type.startsWith('video/');const max=isVideo?5000000:3000000;if(f.size>max)return toast(`حجم ${isVideo?'ویدیو':'عکس'} زیاد است`);const r=new FileReader();r.onload=()=>{media=r.result;mediaType=isVideo?'video':'image';$('postMediaPreview').innerHTML=isVideo?`<video class="post-video" src="${media}" controls></video>`:`<img class="post-image" src="${media}" alt="">`;};r.readAsDataURL(f);};$('submitPost').onclick=async()=>{const text=$('postText').value.trim();if(!text&&!media)return toast('متن یا عکس/ویدیو لازم است');try{const id=push(ref(db,'pendingPosts')).key;await set(ref(db,`pendingPosts/${id}`),{uid:user.uid,authorName:profile.name,authorUsername:profile.username||'',authorPhoto:profile.photo||'',authorColor:profile.profileColor||'#36e0a0',authorLevel:profile.level||1,text,media,mediaType,createdAt:Date.now()});closeModal();toast('پست برای بررسی ادمین ارسال شد');}catch(e){toast(friendlyError(e));}};};
+$('newPostBtn').onclick=()=>{modal('ساخت پست',`<textarea id="postText" class="textarea" placeholder="چی می‌خوای منتشر کنی؟"></textarea><button id="postMediaPick" class="btn full">${icon('image')} / ${icon('story')} افزودن عکس یا ویدیو</button><div id="postMediaPreview"></div><button id="submitPost" class="btn primary full">ارسال برای بررسی ادمین</button>`);let media='',mediaType='';$('postMediaPick').onclick=()=>$('postMediaFile').click();$('postMediaFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const isVideo=f.type.startsWith('video/');const max=isVideo?5000000:3000000;if(f.size>max)return toast(`حجم ${isVideo?'ویدیو':'عکس'} زیاد است`);const r=new FileReader();r.onload=()=>{media=r.result;mediaType=isVideo?'video':'image';$('postMediaPreview').innerHTML=isVideo?`<video class="post-video" src="${media}" controls></video>`:`<img class="post-image" src="${media}" alt="">`;};r.readAsDataURL(f);};$('submitPost').onclick=async()=>{const text=$('postText').value.trim();if(!text&&!media)return toast('متن یا عکس/ویدیو لازم است');try{const id=push(ref(db,'pendingPosts')).key;await set(ref(db,`pendingPosts/${id}`),{uid:user.uid,authorName:profile.name,authorUsername:profile.username||'',authorPhoto:profile.photo||'',authorColor:profile.profileColor||'#36e0a0',authorLevel:profile.level||1,text,media,mediaType,createdAt:Date.now()});closeModal();toast('پست برای بررسی ادمین ارسال شد');}catch(e){toast(friendlyError(e));}};};
 
 /* =========================================================
    SAVED MESSAGES
@@ -2457,21 +2543,21 @@ $("newBtn").onclick=()=>{
           id="newGroup"
           class="btn primary"
         >
-          👥 Group
+          ${icon('group')} Group
         </button>
 
         <button
           id="newChannel"
           class="btn primary"
         >
-          📢 Channel
+          ${icon('channel')} Channel
         </button>
 
         <button
           id="newSaved"
           class="btn"
         >
-          🔖 Saved
+          ${icon('bookmark')} Saved
         </button>
 
       </div>
@@ -2510,6 +2596,17 @@ $("newBtn").onclick=()=>{
    ADMIN PANEL
 ========================================================= */
 
+const uidBtn=$("uidBtn");
+if(uidBtn)uidBtn.onclick=async()=>{
+  if(!user?.uid){toast("ابتدا وارد حساب شو");return;}
+  modal("UID حساب کاربری",`<div class="card" style="margin:0"><div class="muted small">UID شما:</div><div style="word-break:break-all;margin:10px 0;font-weight:700">${esc(user.uid)}</div><button id="copyUidBtn" class="btn primary full">📋 کپی UID</button></div>`);
+  const b=$("copyUidBtn");
+  if(b)b.onclick=async()=>{
+    try{await navigator.clipboard.writeText(user.uid);toast("UID کپی شد ✓");}
+    catch(e){toast("کپی خودکار انجام نشد؛ UID را دستی کپی کن");}
+  };
+};
+
 $("adminBtn").onclick=()=>{
 
   if(user.uid!==ADMIN_UID)return;
@@ -2517,10 +2614,33 @@ $("adminBtn").onclick=()=>{
   modal(
     "ÀVANTA ADMIN",
     `
-      <div class="grid2">
-        <button id="adminPosts" class="btn primary">📝 پست‌های در انتظار</button>
-        <button id="adminMessages" class="btn">🗑️ مدیریت پیام‌ها</button>
-        <button id="adminLevels" class="btn">⭐ مدیریت Level اعضا</button>
+      <div class="admin-section">
+        <div class="admin-section-title">${icon("shield")} کنترل‌های اصلی</div>
+        <div class="grid2">
+          <button id="adminPosts" class="btn primary admin-action">${icon("bookmark")} پست‌های در انتظار</button>
+          <button id="adminMessages" class="btn admin-action">${icon("trash")} مدیریت پیام‌ها</button>
+          <button id="adminLevels" class="btn admin-action">${icon("user")} مدیریت Level اعضا</button>
+          <button id="adminUsers" class="btn danger admin-action">${icon("users")} مدیریت کاربران</button>
+        </div>
+      </div>
+      <div class="admin-section">
+        <div class="admin-section-title">${icon("palette")} تم سایت برای همه</div>
+        <div class="theme-grid">
+          <button class="theme-btn" data-theme="blue"><span class="theme-dot" style="background:#4d8cff"></span>آبی</button>
+          <button class="theme-btn" data-theme="green"><span class="theme-dot" style="background:#25d39a"></span>سبز</button>
+          <button class="theme-btn" data-theme="yellow"><span class="theme-dot" style="background:#f2c94c"></span>زرد</button>
+          <button class="theme-btn" data-theme="red"><span class="theme-dot" style="background:#ff5367"></span>قرمز</button>
+          <button class="theme-btn" data-theme="white"><span class="theme-dot" style="background:#fff;border:1px solid #ccd4df"></span>سفید</button>
+        </div>
+      </div>
+      <div class="admin-section">
+        <div class="admin-section-title">${icon("megaphone")} کنترل‌های جذاب</div>
+        <div class="grid2">
+          <button id="adminAnnouncement" class="btn admin-action">${icon("megaphone")} اعلان سراسری</button>
+          <button id="adminHomeButton" class="btn admin-action">${icon("settings")} تغییر دکمه HOME</button>
+          <button id="adminMaintenance" class="btn danger admin-action">${icon("shield")} حالت تعمیرات</button>
+          <button id="adminClearAnnouncement" class="btn admin-action">${icon("trash")} حذف اعلان</button>
+        </div>
       </div>
     `
   );
@@ -2530,18 +2650,44 @@ $("adminBtn").onclick=()=>{
   $("adminPosts").onclick=async()=>{
     const snap=await get(ref(db,"pendingPosts"));
     const posts=Object.entries(snap.val()||{});
-    modal("پست‌های در انتظار",posts.length?posts.map(([id,x])=>`<div class="post-card"><div class="muted small">${esc(x.authorName||"کاربر")}</div><div class="post-text">${esc(x.text||"")}</div>${mediaHtml(x)}<div class="grid2"><button class="btn primary approvePost" data-id="${esc(id)}">انتشار</button><button class="btn danger rejectPost" data-id="${esc(id)}">رد</button></div></div>`).join(""):'<div class="empty">پست در انتظاری نیست.</div>');
+    modal("پست‌های در انتظار",posts.length?posts.map(([id,x])=>`<div class="post-card"><div class="muted small">${esc(x.authorName||"کاربر")}</div><div class="post-text">${esc(x.text||"")}</div>${mediaHtml(x)}<div class="grid2"><button class="btn primary approvePost" data-id="${esc(id)}">${icon('send')} انتشار</button><button class="btn danger rejectPost" data-id="${esc(id)}">${icon('trash')} رد</button></div></div>`).join(""):'<div class="empty">پست در انتظاری نیست.</div>');
     document.querySelectorAll(".approvePost").forEach(b=>b.onclick=async()=>{const id=b.dataset.id;const ps=await get(ref(db,`pendingPosts/${id}`));const x=ps.val();if(!x)return;await set(ref(db,`posts/${id}`),{...x,approvedAt:Date.now(),approvedBy:user.uid});await remove(ref(db,`pendingPosts/${id}`));toast("پست منتشر شد");closeModal();renderExplore();});
     document.querySelectorAll(".rejectPost").forEach(b=>b.onclick=async()=>{await remove(ref(db,`pendingPosts/${b.dataset.id}`));toast("پست رد شد");closeModal();});
   };
 
-  const adminUsersBtn=document.createElement('button');
-  adminUsersBtn.id='adminUsers';adminUsersBtn.className='btn danger';adminUsersBtn.textContent='🚫 مدیریت کاربران';
-  document.querySelector('#modalBody .grid2')?.appendChild(adminUsersBtn);
-  adminUsersBtn.onclick=async()=>{
+  $("adminUsers").onclick=async()=>{
     const uid=prompt('UID کاربری که می‌خواهی بن کنی:');if(!uid)return;
     if(uid.trim()===ADMIN_UID)return toast('ادمین اصلی قابل بن نیست');
     try{await update(ref(db,`users/${uid.trim()}`),{banned:true,bannedAt:Date.now(),bannedBy:user.uid});toast('کاربر بن شد');closeModal();}catch(e){toast(friendlyError(e));}
+  };
+
+  document.querySelectorAll('.theme-btn').forEach(b=>b.onclick=async()=>{
+    try{await set(ref(db,'appSettings/theme'),b.dataset.theme);applyTheme(b.dataset.theme);toast('تم برای همه کاربران تغییر کرد');}
+    catch(e){toast(friendlyError(e));}
+  });
+
+  $("adminAnnouncement").onclick=async()=>{
+    const text=prompt('متن اعلان سراسری را بنویس:');
+    if(text===null)return;
+    try{await set(ref(db,'appSettings/announcement'),{text:text.trim(),at:Date.now(),by:user.uid});toast('اعلان برای همه ارسال شد');}
+    catch(e){toast(friendlyError(e));}
+  };
+
+  $("adminClearAnnouncement").onclick=async()=>{try{await set(ref(db,'appSettings/announcement'),null);toast('اعلان حذف شد');}catch(e){toast(friendlyError(e));}};
+
+  $("adminHomeButton").onclick=async()=>{
+    const text=prompt('متن جدید دکمه دانلود برنامه در HOME:',localStorage.getItem('avantaHomeButton')||'دانلود برنامه');
+    if(text===null||!text.trim())return;
+    try{await set(ref(db,'appSettings/homeButtonText'),text.trim());toast('متن دکمه HOME برای همه تغییر کرد');}
+    catch(e){toast(friendlyError(e));}
+  };
+
+  $("adminMaintenance").onclick=async()=>{
+    const snap=await get(ref(db,'appSettings/maintenance'));
+    const on=!!snap.val()?.enabled;
+    if(!confirm(on?'حالت تعمیرات خاموش شود؟':'حالت تعمیرات برای کاربران فعال شود؟'))return;
+    try{await set(ref(db,'appSettings/maintenance'),{enabled:!on,message:'AVANTA موقتاً در حال بروزرسانی است.',at:Date.now(),by:user.uid});toast(on?'حالت تعمیرات خاموش شد':'حالت تعمیرات فعال شد');}
+    catch(e){toast(friendlyError(e));}
   };
 
   $("adminMessages").onclick=()=>{
@@ -2582,8 +2728,8 @@ $("chatMenu").onclick=()=>{
     "Chat",
     `
       <div class="grid2">
-        ${(chatMeta?.type==="group"||chatMeta?.type==="channel")&&(chatMeta?.owner===user.uid||ownerUser()) ? `<button id="communityLinkBtn" class="btn primary">🔗 لینک گپ</button><button id="communityBanBtn" class="btn danger">🚫 بن کاربر</button><button id="communityDeleteBtn" class="btn danger">🗑️ حذف ${chatMeta.type==="group"?"گروه":"کانال"}</button>` : ""}
-        ${(chatMeta?.type==="group"||chatMeta?.type==="channel")&&chatMeta?.owner!==user.uid&&!ownerUser() ? `<button id="communityLeaveBtn" class="btn danger">🚪 ترک ${chatMeta.type==="group"?"گروه":"کانال"}</button>` : ""}
+        ${(chatMeta?.type==="group"||chatMeta?.type==="channel")&&(chatMeta?.owner===user.uid||ownerUser()) ? `<button id="communityLinkBtn" class="btn primary">${icon('link')} لینک گپ</button><button id="communityBanBtn" class="btn danger">${icon('ban')} بن کاربر</button><button id="communityDeleteBtn" class="btn danger">${icon('trash')} حذف ${chatMeta.type==="group"?"گروه":"کانال"}</button>` : ""}
+        ${(chatMeta?.type==="group"||chatMeta?.type==="channel")&&chatMeta?.owner!==user.uid&&!ownerUser() ? `<button id="communityLeaveBtn" class="btn danger">${icon('logout')} ترک ${chatMeta.type==="group"?"گروه":"کانال"}</button>` : ""}
 
         <button
           id="clearChat"
@@ -2733,9 +2879,31 @@ $("backChat").onclick=()=>{
 
 
 /* =========================================================
+   GLOBAL APP SETTINGS (ADMIN CONTROLLED)
+========================================================= */
+onValue(ref(db,'appSettings/theme'),snap=>applyTheme(snap.val()||'blue'));
+onValue(ref(db,'appSettings/announcement'),snap=>{
+  const x=snap.val(); const box=$('globalAnnouncement'); const txt=$('announcementText');
+  if(x?.text){txt.textContent=x.text;box.classList.add('on');}else box.classList.remove('on');
+});
+$('closeAnnouncement').onclick=()=>$('globalAnnouncement').classList.remove('on');
+onValue(ref(db,'appSettings/homeButtonText'),snap=>{
+  const text=snap.val()||'دانلود برنامه';
+  localStorage.setItem('avantaHomeButton',text);
+  const b=$('downloadShortcut'); if(b)b.innerHTML=icon('download')+text;
+});
+onValue(ref(db,'appSettings/maintenance'),snap=>{
+  const x=snap.val();
+  if(x?.enabled && user?.uid!==ADMIN_UID){
+    modal('AVANTA',`<div class="empty">${esc(x.message||'سایت موقتاً در حال بروزرسانی است.')}</div>`);
+  }
+});
+
+/* =========================================================
    HOME
 ========================================================= */
 $('homeLogout').onclick=()=>signOut(auth);
+const savedHomeButton=localStorage.getItem('avantaHomeButton'); if(savedHomeButton)$('downloadShortcut').innerHTML=icon('download')+esc(savedHomeButton);
 $('downloadShortcut').onclick=()=>{const url=location.href.split('?')[0];const blob=new Blob([`<!doctype html><meta charset="utf-8"><title>AVANTA</title><script>location.replace(${JSON.stringify(url)})<\/script>`],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AVANTA-Shortcut.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
 
 /* =========================================================
