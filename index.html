@@ -389,6 +389,17 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 }
 
 .post-card{background:linear-gradient(145deg,rgba(16,43,42,.72),rgba(10,28,37,.64));border:1px solid rgba(100,230,210,.2);border-radius:24px;padding:15px;margin:10px 0;backdrop-filter:blur(22px);box-shadow:0 15px 45px #0003;animation:postIn .35s ease both}.post-text{font-size:17px;line-height:1.8;margin:10px 0;white-space:pre-wrap;word-break:break-word}.post-image,.post-video{width:100%;max-height:520px;object-fit:cover;border-radius:18px;display:block;background:#020708}.post-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.post-actions .btn{flex:1;min-width:80px}.post-author{cursor:pointer}.post-stats{display:flex;gap:12px;align-items:center;margin-top:9px;color:var(--muted);font-size:12px}.liked{background:linear-gradient(135deg,#ff4f88,#9b5cff)!important;border-color:#ff79a8!important}.comment-item{padding:9px 0;border-bottom:1px solid #ffffff0c}.comment-item:last-child{border-bottom:0}.like-user{display:flex;align-items:center;gap:8px;padding:8px 0}.home-hero{text-align:center;padding:30px 18px}.home-brand{font-family:Georgia,serif;font-size:42px;letter-spacing:5px;margin-bottom:8px;text-shadow:0 0 28px #36e0a055}.home-brand b{color:#36e0a0}@keyframes postIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+
+/* Premium AVANTA AUTH */
+.login{overflow:hidden;background:#020708;isolation:isolate}
+.login-grid{position:absolute;inset:-50%;opacity:.16;background-image:linear-gradient(#36e0a011 1px,transparent 1px),linear-gradient(90deg,#36e0a011 1px,transparent 1px);background-size:46px 46px;transform:perspective(700px) rotateX(58deg) translateY(12%);animation:gridMove 18s linear infinite;pointer-events:none}
+@keyframes gridMove{to{transform:perspective(700px) rotateX(58deg) translateY(18%)}}
+.login-orb{position:absolute;border-radius:50%;filter:blur(75px);opacity:.42;pointer-events:none}.orb1{width:360px;height:360px;background:#18c99a;top:-130px;right:-110px}.orb2{width:300px;height:300px;background:#1679d8;bottom:-130px;left:-90px}
+.auth-card{position:relative;overflow:hidden;border:1px solid rgba(104,245,210,.25);background:linear-gradient(145deg,rgba(8,28,29,.88),rgba(4,14,19,.84));box-shadow:0 35px 120px #000d,0 0 70px #20dba522,inset 0 1px 0 #fff1;animation:authIn .65s cubic-bezier(.2,.8,.2,1)}
+@keyframes authIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.auth-glow{position:absolute;width:180px;height:180px;top:-100px;left:50%;transform:translateX(-50%);background:#36e0a0;filter:blur(70px);opacity:.15;pointer-events:none}
+.auth-logo{position:relative;margin-top:2px}.auth-kicker{font-size:9px;letter-spacing:4px;color:#67e9c2;margin:8px 0 18px;font-weight:900}.auth-title{font-size:25px;font-weight:1000;margin-bottom:7px}.auth-sub{line-height:1.8;margin-bottom:20px}.auth-choice,.auth-methods{display:grid;gap:9px}.auth-main,.auth-secondary,.auth-provider{min-height:54px;border-radius:17px;font-weight:950;border:1px solid transparent;transition:.2s}.auth-main{color:#fff}.auth-main:hover,.auth-secondary:hover,.auth-provider:hover{transform:translateY(-2px)}.auth-secondary{background:#ffffff08;border-color:#ffffff14;color:#fff}.auth-main span,.auth-secondary span{float:left;opacity:.65}.auth-provider{display:flex;align-items:center;justify-content:center;gap:11px;background:#ffffff09;border-color:#ffffff16;color:#fff}.provider-mark{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#fff;color:#111;font-weight:1000}.phone .provider-mark{background:#36e0a0;color:#03100c}.auth-back{background:transparent;color:#91a0b5;padding:10px;font-size:12px}.auth-status{min-height:20px;margin-top:10px}.auth-input{margin-top:6px;margin-bottom:10px}.phone-label{text-align:right;font-size:12px;font-weight:800;margin-top:2px}.otp-title{font-weight:950;font-size:19px;margin-bottom:5px}.otp-hint{margin-bottom:16px}.otp-inputs{display:flex;gap:7px;justify-content:center;margin:12px 0 16px}.otp-digit{width:48px;height:58px;text-align:center;font-size:25px;font-weight:1000;color:#fff;background:#061315;border:1px solid #28534d;border-radius:15px;outline:0;box-shadow:inset 0 1px #fff08;transition:.18s}.otp-digit:focus{border-color:#36e0a0;box-shadow:0 0 0 3px #36e0a018,0 0 22px #36e0a022}.auth-card #recaptcha-container{display:flex;justify-content:center;margin:4px 0 8px}
+@media(max-width:500px){.otp-digit{width:42px;height:54px}.auth-card{padding:20px}.auth-title{font-size:22px}}
 </style>
 </head>
 
@@ -397,13 +408,44 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 <div id="toast" class="toast"></div>
 
 <div id="login" class="login">
-  <div class="loginbox">
-    <div class="logoBig">À<b>Vanta</b></div>
-    <div class="muted" style="margin-bottom:22px">Messenger</div>
+  <div class="login-orb orb1"></div><div class="login-orb orb2"></div><div class="login-grid"></div>
+  <div class="loginbox auth-card">
+    <div class="auth-glow"></div>
+    <div class="logoBig auth-logo">À<b>Vanta</b></div>
+    <div class="auth-kicker">PRIVATE • FAST • SECURE</div>
+    <div class="auth-title" id="authTitle">به ÀVanta خوش آمدی</div>
+    <div class="muted auth-sub" id="authSub">برای ادامه، وارد حساب خودت شو یا یک حساب جدید بساز.</div>
 
-    <button id="googleLogin" class="btn primary full">🔵 ورود با Google</button>
+    <div class="auth-choice" id="authChoice">
+      <button id="showRegister" class="auth-main primary">ثبت‌نام <span>→</span></button>
+      <button id="showLogin" class="auth-secondary">ورود به حساب <span>→</span></button>
+    </div>
 
-    <div id="loginStatus" class="muted small" style="margin-top:12px"></div>
+    <div id="authMethods" class="auth-methods" style="display:none">
+      <button id="googleLogin" class="auth-provider google"><span class="provider-mark">G</span><span>ادامه با Google</span></button>
+      <button id="phoneAuthBtn" class="auth-provider phone"><span class="provider-mark">☎</span><span>ادامه با شماره تلفن</span></button>
+      <button id="authBack" class="auth-back">← بازگشت</button>
+    </div>
+
+    <div id="phoneBox" style="display:none">
+      <div class="phone-label">شماره موبایل</div>
+      <input id="phoneNumber" class="input auth-input" inputmode="tel" autocomplete="tel" placeholder="مثلاً +989121234567" dir="ltr">
+      <div id="recaptcha-container"></div>
+      <button id="sendOtp" class="auth-main primary full">ارسال کد تأیید</button>
+      <button id="phoneBack" class="auth-back">← بازگشت</button>
+    </div>
+
+    <div id="otpBox" style="display:none">
+      <div class="otp-title">کد ۶ رقمی را وارد کن</div>
+      <div class="otp-hint muted small" id="otpHint"></div>
+      <div class="otp-inputs" id="otpInputs" dir="ltr">
+        <input maxlength="1" inputmode="numeric" class="otp-digit"><input maxlength="1" inputmode="numeric" class="otp-digit"><input maxlength="1" inputmode="numeric" class="otp-digit"><input maxlength="1" inputmode="numeric" class="otp-digit"><input maxlength="1" inputmode="numeric" class="otp-digit"><input maxlength="1" inputmode="numeric" class="otp-digit">
+      </div>
+      <button id="verifyOtp" class="auth-main primary full">تأیید و ادامه</button>
+      <button id="otpBack" class="auth-back">← تغییر شماره</button>
+    </div>
+
+    <div id="loginStatus" class="muted small auth-status"></div>
   </div>
 </div>
 
@@ -614,6 +656,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithPhoneNumber,
+  RecaptchaVerifier,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -828,27 +872,115 @@ function avatar(o,big=false){
 
 
 /* =========================================================
-   AUTH
+   AUTH — Google + Phone OTP (Firebase structure untouched)
 ========================================================= */
+let authMode="login";
+let confirmationResult=null;
+let recaptchaVerifier=null;
+let phoneAuthPending=false;
 
-$("googleLogin").onclick=async()=>{
-  try{
-    $("loginStatus").innerHTML=
-      `<span class="spinner"></span> در حال ورود...`;
-
-    await signInWithPopup(
-      auth,
-      new GoogleAuthProvider()
-    );
-  }catch(e){
-    $("loginStatus").textContent=friendlyError(e);
-    toast(friendlyError(e));
-  }
+const setAuthStatus=t=>{$("loginStatus").textContent=t||"";};
+const showAuthMethods=mode=>{
+  authMode=mode;
+  $("authChoice").style.display="none";
+  $("authMethods").style.display="grid";
+  $("phoneBox").style.display="none";
+  $("otpBox").style.display="none";
+  $("authTitle").textContent=mode==="register"?"حساب ÀVanta خودت را بساز":"به ÀVanta برگرد";
+  $("authSub").textContent=mode==="register"?"روش ثبت‌نامت را انتخاب کن.":"روش ورودت را انتخاب کن.";
+  setAuthStatus("");
+};
+$("showRegister").onclick=()=>showAuthMethods("register");
+$("showLogin").onclick=()=>showAuthMethods("login");
+$("authBack").onclick=()=>{
+  $("authChoice").style.display="grid";$("authMethods").style.display="none";$("phoneBox").style.display="none";$("otpBox").style.display="none";setAuthStatus("");
 };
 
+async function googleAuth(){
+  try{
+    setAuthStatus("در حال اتصال به Google...");
+    await signInWithPopup(auth,new GoogleAuthProvider());
+  }catch(e){setAuthStatus(friendlyError(e));toast(friendlyError(e));}
+}
+$("googleLogin").onclick=googleAuth;
+
+function resetRecaptcha(){
+  if(recaptchaVerifier){try{recaptchaVerifier.clear();}catch(e){} recaptchaVerifier=null;}
+  $("recaptcha-container").innerHTML="";
+}
+
+$("phoneAuthBtn").onclick=()=>{
+  $("authMethods").style.display="none";
+  $("phoneBox").style.display="block";
+  $("authTitle").textContent=authMode==="register"?"ثبت‌نام با شماره":"ورود با شماره";
+  $("authSub").textContent="شماره را با کد کشور وارد کن؛ مثال: +989121234567";
+  setAuthStatus("");
+  setTimeout(()=>{
+    try{
+      resetRecaptcha();
+      recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal",callback:()=>setAuthStatus("")});
+      recaptchaVerifier.render();
+    }catch(e){setAuthStatus("reCAPTCHA آماده نشد. دامنه را در Firebase مجاز کن.");}
+  },50);
+};
+
+$("sendOtp").onclick=async()=>{
+  const phone=$("phoneNumber").value.trim().replace(/\s+/g,"");
+  if(!/^\+\d{8,15}$/.test(phone)){setAuthStatus("شماره را با + و کد کشور وارد کن.");return;}
+  try{
+    $("sendOtp").disabled=true;setAuthStatus("در حال ارسال کد...");
+    if(!recaptchaVerifier){recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});await recaptchaVerifier.render();}
+    confirmationResult=await signInWithPhoneNumber(auth,phone,recaptchaVerifier);
+    phoneAuthPending=true;
+    $("phoneBox").style.display="none";$("otpBox").style.display="block";
+    $("otpHint").textContent="کد ارسال‌شده به "+phone;
+    setAuthStatus("");
+    $("otpInputs").querySelector(".otp-digit")?.focus();
+  }catch(e){
+    try{resetRecaptcha();}catch(x){}
+    setAuthStatus(friendlyError(e));toast(friendlyError(e));
+  }finally{$("sendOtp").disabled=false;}
+};
+
+const otpDigits=[...document.querySelectorAll(".otp-digit")];
+otpDigits.forEach((el,i)=>{
+  el.addEventListener("input",()=>{el.value=el.value.replace(/\D/g,"").slice(-1);if(el.value&&i<otpDigits.length-1)otpDigits[i+1].focus();});
+  el.addEventListener("keydown",e=>{if(e.key==="Backspace"&&!el.value&&i>0)otpDigits[i-1].focus();});
+  el.addEventListener("paste",e=>{
+    e.preventDefault();const v=(e.clipboardData.getData("text")||"").replace(/\D/g,"").slice(0,6);
+    v.split("").forEach((d,j)=>{if(otpDigits[j])otpDigits[j].value=d;});
+    otpDigits[Math.min(v.length,5)]?.focus();
+  });
+});
+
+$("verifyOtp").onclick=async()=>{
+  const code=otpDigits.map(x=>x.value).join("");
+  if(!/^\d{6}$/.test(code)){setAuthStatus("کد باید دقیقاً ۶ رقم باشد.");return;}
+  try{
+    $("verifyOtp").disabled=true;setAuthStatus("در حال تأیید...");
+    const result=await confirmationResult.confirm(code);
+    // Registration/login mode is enforced against the existing AVANTA profile.
+    const existing=await get(ref(db,"users/"+result.user.uid));
+    if(authMode==="login"&&!existing.exists()){
+      await signOut(auth);
+      setAuthStatus("این شماره هنوز ثبت‌نام نکرده است؛ ابتدا ثبت‌نام کنید.");
+      toast("ابتدا ثبت‌نام کنید");
+      $("authChoice").style.display="grid";$("authMethods").style.display="none";$("otpBox").style.display="none";
+      return;
+    }
+    if(authMode==="register"&&existing.exists()){
+      await signOut(auth);setAuthStatus("این شماره قبلاً ثبت‌نام شده؛ از گزینه ورود استفاده کن.");toast("این حساب قبلاً وجود دارد");return;
+    }
+    // Save phone on the existing AVANTA user profile without changing the database structure.
+    if(authMode==="register"){await update(ref(db,"users/"+result.user.uid),{phone:result.user.phoneNumber||""});}
+  }catch(e){setAuthStatus(friendlyError(e));toast(friendlyError(e));}
+  finally{$("verifyOtp").disabled=false;}
+};
+
+$("phoneBack").onclick=()=>{resetRecaptcha();$("phoneBox").style.display="none";$("authMethods").style.display="grid";setAuthStatus("");};
+$("otpBack").onclick=()=>{otpDigits.forEach(x=>x.value="");$("otpBox").style.display="none";$("phoneBox").style.display="block";setAuthStatus("");};
 
 $("logoutBtn").onclick=()=>signOut(auth);
-
 
 /* =========================================================
    USERNAME
@@ -1055,6 +1187,23 @@ onAuthStateChanged(auth,async u=>{
     if(bs.val()===true){ await signOut(auth); toast("این حساب بن شده است"); return; }
   }catch(e){}
 
+  // Google registration/login enforcement against the existing AVANTA profile.
+  if(!phoneAuthPending){
+    const existing=await get(ref(db,"users/"+u.uid));
+    if(authMode==="login"&&!existing.exists()){
+      await signOut(auth);
+      setAuthStatus("این حساب ثبت‌نام نشده است؛ ابتدا ثبت‌نام کنید.");
+      toast("ابتدا ثبت‌نام کنید");
+      return;
+    }
+    if(authMode==="register"&&existing.exists()){
+      await signOut(auth);
+      setAuthStatus("این حساب قبلاً ثبت‌نام شده؛ از گزینه ورود استفاده کن.");
+      toast("این حساب قبلاً وجود دارد");
+      return;
+    }
+  }
+  phoneAuthPending=false;
   $("login").classList.add("hide");
 
   try{
