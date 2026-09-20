@@ -967,21 +967,25 @@ async function googleAuth(){
 $("googleLogin").onclick=googleAuth;
 
 // نتیجه ورود Google بعد از برگشت از صفحه Google
-(async function handleGoogleRedirect(){
+// مهم: onAuthStateChanged نباید قبل از تمام شدن getRedirectResult تصمیم بگیرد
+// چون در غیر این صورت حالت ثبت‌نام/ورود دوباره روی مقدار پیش‌فرض login می‌افتد.
+const googleRedirectReady=(async function handleGoogleRedirect(){
   try{
     const savedMode=sessionStorage.getItem("avanta_google_auth_mode");
     if(savedMode==="login"||savedMode==="register") authMode=savedMode;
     const result=await getRedirectResult(auth);
     if(result){
-      sessionStorage.removeItem("avanta_google_auth_mode");
-      setAuthStatus("ورود Google با موفقیت انجام شد...");
+      // حالت را تا بعد از پردازش کامل onAuthStateChanged نگه می‌داریم.
+      setAuthStatus("Google با موفقیت تأیید شد؛ در حال ورود به ÀVanta...");
     }
+    return result;
   }catch(e){
     sessionStorage.removeItem("avanta_google_auth_mode");
     console.error("ÀVanta Google Redirect:",e);
     const msg=friendlyError(e);
     setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
     toast(msg);
+    return null;
   }
 })();
 
@@ -1274,6 +1278,9 @@ async function ensureProfile(u){
 
 onAuthStateChanged(auth,async u=>{
 
+  // صبر کن نتیجه Redirect و authMode مشخص شود؛ این جلوی برگشت اشتباهی
+  // به صفحه «ثبت‌نام / ورود» بعد از انتخاب اکانت Google را می‌گیرد.
+  await googleRedirectReady;
   user=u;
 
   if(!u){
@@ -1304,6 +1311,7 @@ onAuthStateChanged(auth,async u=>{
   }
   phoneAuthPending=false;
   $("login").classList.add("hide");
+  sessionStorage.removeItem("avanta_google_auth_mode");
 
   try{
 
