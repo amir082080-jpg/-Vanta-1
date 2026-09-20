@@ -674,6 +674,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signInWithPhoneNumber,
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -942,13 +944,46 @@ async function googleAuth(){
     setAuthStatus("در حال اتصال به Google...");
     const provider=new GoogleAuthProvider();
     provider.setCustomParameters({prompt:"select_account"});
+
+    // حالت ثبت‌نام/ورود را قبل از هر نوع OAuth ذخیره می‌کنیم تا بعد از برگشت
+    // از Google، onAuthStateChanged دوباره روی حالت پیش‌فرض login نیفتد.
     sessionStorage.setItem("avanta_google_auth_mode",authMode);
+    sessionStorage.setItem("avanta_google_auth_pending","1");
+
+    // روی موبایل ابتدا Redirect؛ روی دسکتاپ Popup. اگر Popup بعد از انتخاب
+    // حساب توسط مرورگر بسته شد، به‌صورت خودکار Redirect را امتحان می‌کنیم.
+    const mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    if(mobile){
+      setAuthStatus("در حال انتقال به Google...");
+      await signInWithRedirect(auth,provider);
+      return;
+    }
+
     await signInWithPopup(auth,provider);
   }catch(e){
     console.error("ÀVanta Google Auth:",e);
+
+    // بعضی مرورگرها Popup را حتی بعد از انتخاب حساب می‌بندند.
+    // در این حالت Redirect را به‌عنوان مسیر پشتیبان اجرا می‌کنیم.
+    if(e?.code==="auth/popup-closed-by-user" || e?.code==="auth/popup-blocked"){
+      try{
+        setAuthStatus("در حال انتقال امن به Google...");
+        const provider=new GoogleAuthProvider();
+        provider.setCustomParameters({prompt:"select_account"});
+        sessionStorage.setItem("avanta_google_auth_mode",authMode);
+        sessionStorage.setItem("avanta_google_auth_pending","1");
+        await signInWithRedirect(auth,provider);
+        return;
+      }catch(fallbackError){
+        console.error("ÀVanta Google Redirect fallback:",fallbackError);
+        e=fallbackError;
+      }
+    }
+
     const msg=friendlyError(e);
     setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
     toast(msg);
+    sessionStorage.removeItem("avanta_google_auth_pending");
     btn.disabled=false;
   }
 }
@@ -1241,7 +1276,29 @@ async function ensureProfile(u){
   return s.val();
 }
 
+// اگر صفحه از مسیر Google Redirect برگشته، حالت ثبت‌نام/ورود را
+// قبل از اجرای listener برمی‌گردانیم.
+const savedGoogleMode=sessionStorage.getItem("avanta_google_auth_mode");
+if(savedGoogleMode==="login" || savedGoogleMode==="register") authMode=savedGoogleMode;
+
+// نتیجه Redirect را یک بار مصرف می‌خوانیم تا Firebase credential قبل از
+// تصمیم‌گیری‌های مربوط به پروفایل آماده باشد.
+const googleRedirectReady=(async()=>{
+  if(sessionStorage.getItem("avanta_google_auth_pending")!=="1") return null;
+  try{
+    return await getRedirectResult(auth);
+  }catch(e){
+    console.error("ÀVanta Google Redirect:",e);
+    const msg=friendlyError(e);
+    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
+    toast(msg);
+    sessionStorage.removeItem("avanta_google_auth_pending");
+    return null;
+  }
+})();
+
 onAuthStateChanged(auth,async u=>{
+  await googleRedirectReady;
   user=u;
 
   if(!u){
@@ -1273,6 +1330,8 @@ onAuthStateChanged(auth,async u=>{
   phoneAuthPending=false;
   $("login").classList.add("hide");
   sessionStorage.removeItem("avanta_google_auth_mode");
+  sessionStorage.removeItem("avanta_google_auth_pending");
+  $("googleLogin").disabled=false;
 
   try{
 
@@ -2826,7 +2885,7 @@ async function geminiGenerate(prompt, useSearch=false){
   if(useSearch) body.tools=[{googleSearch:{}}];
   const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-goog-api-key':GEMINI_API_KEY},
+    headers:{'Content-Type':'application/json','x-goog-api-key':AQ.Ab8RN6Jvt3NaV8set8F31ZqbON8GRW0tTpJfhcwE0wO3x2EHZw},
     body:JSON.stringify(body)
   });
   const data=await res.json();
