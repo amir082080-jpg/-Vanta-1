@@ -674,8 +674,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
   signInWithPhoneNumber,
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -944,17 +942,7 @@ async function googleAuth(){
     setAuthStatus("در حال اتصال به Google...");
     const provider=new GoogleAuthProvider();
     provider.setCustomParameters({prompt:"select_account"});
-
-    // روی موبایل Popup ممکن است بی‌صدا گیر کند؛ Firebase برای موبایل Redirect را ترجیح می‌دهد.
-    const mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
     sessionStorage.setItem("avanta_google_auth_mode",authMode);
-
-    if(mobile){
-      setAuthStatus("در حال انتقال به Google...");
-      await signInWithRedirect(auth,provider);
-      return;
-    }
-
     await signInWithPopup(auth,provider);
   }catch(e){
     console.error("ÀVanta Google Auth:",e);
@@ -965,29 +953,6 @@ async function googleAuth(){
   }
 }
 $("googleLogin").onclick=googleAuth;
-
-// نتیجه ورود Google بعد از برگشت از صفحه Google
-// مهم: onAuthStateChanged نباید قبل از تمام شدن getRedirectResult تصمیم بگیرد
-// چون در غیر این صورت حالت ثبت‌نام/ورود دوباره روی مقدار پیش‌فرض login می‌افتد.
-const googleRedirectReady=(async function handleGoogleRedirect(){
-  try{
-    const savedMode=sessionStorage.getItem("avanta_google_auth_mode");
-    if(savedMode==="login"||savedMode==="register") authMode=savedMode;
-    const result=await getRedirectResult(auth);
-    if(result){
-      // حالت را تا بعد از پردازش کامل onAuthStateChanged نگه می‌داریم.
-      setAuthStatus("Google با موفقیت تأیید شد؛ در حال ورود به ÀVanta...");
-    }
-    return result;
-  }catch(e){
-    sessionStorage.removeItem("avanta_google_auth_mode");
-    console.error("ÀVanta Google Redirect:",e);
-    const msg=friendlyError(e);
-    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
-    toast(msg);
-    return null;
-  }
-})();
 
 function resetRecaptcha(){
   if(recaptchaVerifier){try{recaptchaVerifier.clear();}catch(e){} recaptchaVerifier=null;}
@@ -1277,10 +1242,6 @@ async function ensureProfile(u){
 }
 
 onAuthStateChanged(auth,async u=>{
-
-  // صبر کن نتیجه Redirect و authMode مشخص شود؛ این جلوی برگشت اشتباهی
-  // به صفحه «ثبت‌نام / ورود» بعد از انتخاب اکانت Google را می‌گیرد.
-  await googleRedirectReady;
   user=u;
 
   if(!u){
@@ -2865,7 +2826,7 @@ async function geminiGenerate(prompt, useSearch=false){
   if(useSearch) body.tools=[{googleSearch:{}}];
   const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-goog-api-key':AQ.Ab8RN6Jvt3NaV8set8F31ZqbON8GRW0tTpJfhcwE0wO3x2EHZw},
+    headers:{'Content-Type':'application/json','x-goog-api-key':GEMINI_API_KEY},
     body:JSON.stringify(body)
   });
   const data=await res.json();
