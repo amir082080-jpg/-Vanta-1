@@ -673,8 +673,7 @@ import {
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
   signInWithPhoneNumber,
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -810,13 +809,26 @@ const esc=s=>String(s??"").replace(
 
 function friendlyError(e){
   const m={
-    "auth/popup-blocked":"Popup توسط مرورگر مسدود شد.",
-    "auth/popup-closed-by-user":"ورود لغو شد.",
-    "auth/redirect-cancelled-by-user":"ورود لغو شد.",
+    "auth/popup-blocked":"پنجره Google توسط مرورگر مسدود شد. پنجره بازشو را برای این سایت مجاز کن.",
+    "auth/popup-closed-by-user":"پنجره Google بسته شد.",
+    "auth/cancelled-popup-request":"درخواست قبلی Google هنوز فعال است؛ دوباره تلاش کن.",
     "auth/network-request-failed":"اتصال اینترنت یا Firebase مشکل دارد.",
-    "auth/unauthorized-domain":"دامنه در Firebase مجاز نشده است.",
-    "auth/operation-not-allowed":"روش ورود در Firebase فعال نیست.",
+    "auth/unauthorized-domain":"دامنه فعلی سایت در Firebase Authentication مجاز نشده است.",
+    "auth/operation-not-allowed":"ورود با این روش در Firebase فعال نیست.",
     "auth/admin-restricted-operation":"این عملیات در Firebase فعال نیست.",
+    "auth/web-storage-unsupported":"مرورگر اجازه ذخیره‌سازی لازم برای ورود را نمی‌دهد.",
+    "auth/account-exists-with-different-credential":"این ایمیل قبلاً با روش ورود دیگری ثبت شده است.",
+    "auth/invalid-credential":"اطلاعات ورود Google معتبر نیست.",
+    "auth/app-not-authorized":"این دامنه/برنامه برای Firebase Authentication مجاز نیست.",
+    "auth/internal-error":"Firebase یک خطای داخلی برگرداند. دوباره امتحان کن.",
+    "auth/invalid-phone-number":"شماره تلفن معتبر نیست.",
+    "auth/missing-phone-number":"شماره تلفن وارد نشده است.",
+    "auth/captcha-check-failed":"تأیید reCAPTCHA ناموفق بود. reCAPTCHA را دوباره انجام بده.",
+    "auth/invalid-app-credential":"اعتبار برنامه/reCAPTCHA معتبر نیست. دامنه و reCAPTCHA را بررسی کن.",
+    "auth/quota-exceeded":"سقف درخواست‌های SMS این پروژه پر شده است.",
+    "auth/too-many-requests":"تعداد درخواست‌ها زیاد شده؛ کمی بعد دوباره امتحان کن.",
+    "auth/billing-not-enabled":"برای ارسال SMS واقعی باید Billing پروژه Firebase فعال باشد.",
+    "auth/missing-app-credential":"اعتبار reCAPTCHA برنامه موجود نیست. دامنه مجاز را بررسی کن.",
     "PERMISSION_DENIED":"Firebase Rules اجازه این عملیات را نمی‌دهد.",
     "username/taken":"این Username قبلاً استفاده شده است.",
     "username/invalid":"Username باید حداقل 3 کاراکتر داشته باشد.",
@@ -900,7 +912,7 @@ function avatar(o,big=false){
 /* =========================================================
    AUTH — Google + Phone OTP (Firebase structure untouched)
 ========================================================= */
-let authMode=sessionStorage.getItem("avantaGoogleAuthMode")||"login";
+let authMode="login";
 let confirmationResult=null;
 let recaptchaVerifier=null;
 let phoneAuthPending=false;
@@ -923,16 +935,21 @@ $("authBack").onclick=()=>{
 };
 
 async function googleAuth(){
+  const btn=$("googleLogin");
+  if(btn.disabled)return;
   try{
-    setAuthStatus("در حال انتقال به Google...");
-    sessionStorage.setItem("avantaGoogleAuthMode",authMode);
-    // Use Firebase's full-page redirect directly. This avoids popup
-    // blocking/hanging on mobile browsers and completes through
-    // getRedirectResult() after Google sends the user back.
-    await signInWithRedirect(auth,new GoogleAuthProvider());
+    btn.disabled=true;
+    setAuthStatus("در حال اتصال به Google...");
+    const provider=new GoogleAuthProvider();
+    provider.setCustomParameters({prompt:"select_account"});
+    await signInWithPopup(auth,provider);
   }catch(e){
-    setAuthStatus(friendlyError(e));
-    toast(friendlyError(e));
+    console.error("ÀVanta Google Auth:",e);
+    const msg=friendlyError(e);
+    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
+    toast(msg);
+  }finally{
+    btn.disabled=false;
   }
 }
 $("googleLogin").onclick=googleAuth;
@@ -942,36 +959,53 @@ function resetRecaptcha(){
   $("recaptcha-container").innerHTML="";
 }
 
-$("phoneAuthBtn").onclick=()=>{
+$("phoneAuthBtn").onclick=async()=>{
   $("authMethods").style.display="none";
   $("phoneBox").style.display="block";
   $("authTitle").textContent=authMode==="register"?"ثبت‌نام با شماره":"ورود با شماره";
   $("authSub").textContent="شماره را با کد کشور وارد کن؛ مثال: +989121234567";
-  setAuthStatus("");
-  setTimeout(()=>{
-    try{
-      resetRecaptcha();
-      recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal",callback:()=>setAuthStatus("")});
-      recaptchaVerifier.render();
-    }catch(e){setAuthStatus("reCAPTCHA آماده نشد. دامنه را در Firebase مجاز کن.");}
-  },50);
+  setAuthStatus("در حال آماده‌سازی تأیید شماره...");
+  try{
+    resetRecaptcha();
+    recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{
+      size:"normal",
+      callback:()=>setAuthStatus("reCAPTCHA تأیید شد؛ حالا ارسال کد را بزن."),
+      "expired-callback":()=>setAuthStatus("reCAPTCHA منقضی شد؛ دوباره آن را تأیید کن.")
+    });
+    await recaptchaVerifier.render();
+    setAuthStatus("");
+  }catch(e){
+    console.error("ÀVanta reCAPTCHA:",e);
+    const msg=friendlyError(e);
+    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
+    toast(msg);
+    resetRecaptcha();
+  }
 };
 
 $("sendOtp").onclick=async()=>{
   const phone=$("phoneNumber").value.trim().replace(/\s+/g,"");
   if(!/^\+\d{8,15}$/.test(phone)){setAuthStatus("شماره را با + و کد کشور وارد کن.");return;}
   try{
-    $("sendOtp").disabled=true;setAuthStatus("در حال ارسال کد...");
-    if(!recaptchaVerifier){recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});await recaptchaVerifier.render();}
+    $("sendOtp").disabled=true;
+    if(!recaptchaVerifier){
+      recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});
+      await recaptchaVerifier.render();
+    }
+    setAuthStatus("در حال ارسال کد...");
     confirmationResult=await signInWithPhoneNumber(auth,phone,recaptchaVerifier);
     phoneAuthPending=true;
-    $("phoneBox").style.display="none";$("otpBox").style.display="block";
+    $("phoneBox").style.display="none";
+    $("otpBox").style.display="block";
     $("otpHint").textContent="کد ارسال‌شده به "+phone;
     setAuthStatus("");
     $("otpInputs").querySelector(".otp-digit")?.focus();
   }catch(e){
+    console.error("ÀVanta Phone Auth:",e);
+    const msg=friendlyError(e);
+    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
+    toast(msg);
     try{resetRecaptcha();}catch(x){}
-    setAuthStatus(friendlyError(e));toast(friendlyError(e));
   }finally{$("sendOtp").disabled=false;}
 };
 
@@ -991,6 +1025,7 @@ $("verifyOtp").onclick=async()=>{
   if(!/^\d{6}$/.test(code)){setAuthStatus("کد باید دقیقاً ۶ رقم باشد.");return;}
   try{
     $("verifyOtp").disabled=true;setAuthStatus("در حال تأیید...");
+    if(!confirmationResult){throw Object.assign(new Error("No confirmation result"),{code:"auth/internal-error"});}
     const result=await confirmationResult.confirm(code);
     // Registration/login mode is enforced against the existing AVANTA profile.
     const existing=await get(ref(db,"users/"+result.user.uid));
@@ -1206,13 +1241,6 @@ async function ensureProfile(u){
   return s.val();
 }
 
-// Complete a Google redirect sign-in after returning to the site.
-getRedirectResult(auth).catch(e=>{
-  sessionStorage.removeItem("avantaGoogleAuthMode");
-  setAuthStatus(friendlyError(e));
-  toast(friendlyError(e));
-});
-
 onAuthStateChanged(auth,async u=>{
 
   user=u;
@@ -1244,7 +1272,6 @@ onAuthStateChanged(auth,async u=>{
     }
   }
   phoneAuthPending=false;
-  sessionStorage.removeItem("avantaGoogleAuthMode");
   $("login").classList.add("hide");
 
   try{
