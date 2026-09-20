@@ -262,6 +262,8 @@ body.theme-white{color:#10131a}
 body.theme-white #app{background:rgba(247,249,252,.88)}
 body.theme-white .top,body.theme-white .composer{background:rgba(255,255,255,.82)}
 body.theme-white .card,body.theme-white .row,body.theme-white .sheet,body.theme-white .bottom{background:rgba(255,255,255,.82);color:#10131a}
+.creator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.creator-card{position:relative;overflow:hidden;min-height:128px;padding:16px;border-radius:22px;border:1px solid rgba(120,240,220,.18);background:linear-gradient(145deg,rgba(20,55,54,.72),rgba(11,28,38,.7));box-shadow:0 18px 45px #0003}.creator-card:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-25px;top:-30px;background:#36e0a01c;filter:blur(8px)}.creator-card .bigicon{font-size:30px;margin-bottom:8px}.creator-card b{display:block;font-size:15px}.creator-card .muted{line-height:1.7}.creator-panel{margin-top:12px}.challenge-box{border:1px solid rgba(255,255,255,.1);background:#ffffff06;border-radius:18px;padding:14px;margin-top:10px}.challenge-status{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:11px;background:#ffffff0b}.news-item{padding:14px 0;border-bottom:1px solid #ffffff0c}.news-item:last-child{border-bottom:0}.news-item h4{margin:0 0 6px;font-size:15px}.news-item p{margin:0;line-height:1.8}.source-pill{display:inline-block;margin-top:7px;font-size:11px;color:#7fe8c6}.ai-output{white-space:pre-wrap;line-height:1.9}.level-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:linear-gradient(135deg,#36e0a022,#7c6cff22);border:1px solid #ffffff12;font-weight:900}.creator-hint{font-size:12px;line-height:1.8;margin-top:8px}.@media(max-width:650px){.creator-grid{grid-template-columns:1fr}}
+
 body.theme-white .btn{background:rgba(239,243,248,.92);color:#151922;border-color:#d7dee8}
 body.theme-white .search,body.theme-white .input,body.theme-white .textarea,body.theme-white .composer input{background:#fff;color:#111;border-color:#d3dbe6}
 body.theme-white .muted{color:#647184}
@@ -498,6 +500,21 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
   <div id="contactsList"></div>
 </section>
 
+<section id="creatorHubPage" class="page">
+  <div class="card">
+    <div class="title">🎙️ Creator Hub</div>
+    <div class="muted small">ابزارهای هوشمند مخصوص استریمرها و یوتیوبرها</div>
+    <div class="creator-grid">
+      <button id="achBtn" class="creator-card btn" type="button"><div class="bigicon">🎯</div><b>ACh Challenge</b><div class="muted small">یک چالش ساده و جذاب بگیر</div></button>
+      <button id="streamCoachBtn" class="creator-card btn" type="button"><div class="bigicon">🧠</div><b>AI Stream Coach</b><div class="muted small">تحلیل حرف‌های استریم</div></button>
+      <button id="ytNewsBtn" class="creator-card btn" type="button"><div class="bigicon">📰</div><b>YT News</b><div class="muted small">خبرهای جدید یوتیوب فارسی</div></button>
+    </div>
+  </div>
+  <div id="creatorHubBody" class="card creator-panel">
+    <div class="empty">یکی از ابزارهای بالا را انتخاب کن.</div>
+  </div>
+</section>
+
 <section id="settingsPage" class="page">
 
   <div class="card">
@@ -594,6 +611,7 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
   <button data-page="chatsPage">
     <span class="navico"><span class="uiIcon" data-icon="chat"></span></span>چت‌ها
   </button>
+  <button data-page="creatorHubPage"><span class="navico">🎙️</span>CREATOR</button>
   <button data-page="settingsPage">
     <span class="navico"><span class="uiIcon" data-icon="settings"></span></span>تنظیمات
   </button>
@@ -690,6 +708,12 @@ const firebaseConfig={
 };
 
 const ADMIN_UID="NNY1ymTknwREwMo16ZI3lgFEni23";
+
+/* =========================================================
+   GEMINI AI — فقط کلید جدید خودت را اینجا قرار بده
+========================================================= */
+const GEMINI_API_KEY="PASTE_YOUR_NEW_GEMINI_API_KEY_HERE";
+const GEMINI_MODEL="gemini-2.5-flash";
 
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
@@ -2742,6 +2766,80 @@ $("newBtn").onclick=()=>{
 
 
 /* =========================================================
+   CREATOR HUB / GEMINI AI
+========================================================= */
+function creatorReady(){
+  if(!GEMINI_API_KEY || GEMINI_API_KEY.includes('PASTE_YOUR')){
+    toast('اول API Key جدید Gemini را در GEMINI_API_KEY وارد کن');
+    return false;
+  }
+  return true;
+}
+
+async function geminiGenerate(prompt, useSearch=false){
+  if(!creatorReady()) throw new Error('Gemini API Key تنظیم نشده است');
+  const body={contents:[{parts:[{text:prompt}]}]};
+  if(useSearch) body.tools=[{googleSearch:{}}];
+  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-goog-api-key':GEMINI_API_KEY},
+    body:JSON.stringify(body)
+  });
+  const data=await res.json();
+  if(!res.ok) throw new Error(data?.error?.message||'خطا در ارتباط با Gemini');
+  return data?.candidates?.[0]?.content?.parts?.map(x=>x.text||'').join('')||'پاسخی دریافت نشد.';
+}
+
+function setCreatorBody(html){$('creatorHubBody').innerHTML=html;}
+
+$('achBtn').onclick=async()=>{
+  setCreatorBody(`<div class="title">🎯 ACh Challenge</div><div class="muted small">Gemini یک چالش کوتاه، امن و قابل انجام در استریم می‌سازد.</div><div id="achResult" class="challenge-box"><div class="empty">در حال ساخت چالش...</div></div>`);
+  try{
+    const prompt=`برای یک استریمر فارسی‌زبان یک چالش کوتاه و سرگرم‌کننده برای انجام داخل استریم بساز.\nقوانین: خطرناک، آسیب‌زا، تحقیر شدید، جنسی، غیرقانونی یا پرهزینه نباشد؛ سختی متوسط رو به آسان باشد؛ در 1 تا 5 دقیقه قابل انجام باشد.\nخروجی فقط این قالب را بده:\nعنوان: ...\nچالش: ...\nمدرک لازم: ...\nXP: یک عدد بین 20 تا 100`;
+    const text=await geminiGenerate(prompt);
+    $('achResult').innerHTML=`<div class="ai-output">${esc(text)}</div><div class="grid2" style="margin-top:10px"><button id="acceptChallenge" class="btn primary">🎯 این چالش را می‌پذیرم</button><button id="newChallenge" class="btn">🔄 چالش جدید</button></div>`;
+    $('newChallenge').onclick=()=>$('achBtn').click();
+    $('acceptChallenge').onclick=async()=>{
+      const challenge={text,uid:user.uid,name:profile?.name||'',username:profile?.username||'',status:'active',createdAt:Date.now()};
+      const id=push(ref(db,'streamerChallenges')).key;
+      await set(ref(db,`streamerChallenges/${id}`),challenge);
+      $('achResult').innerHTML=`<div class="challenge-status">🟡 چالش فعال شد</div><div class="ai-output" style="margin-top:10px">${esc(text)}</div><div class="muted small" style="margin-top:10px">بعد از انجام، مدرک را ارسال کن تا ادمین بررسی کند.</div><button id="doneChallenge" class="btn primary full" style="margin-top:10px">✅ انجام دادم</button>`;
+      $('doneChallenge').onclick=async()=>{
+        const proof=prompt('لینک یا توضیح مدرک انجام چالش را وارد کن:');
+        if(proof===null||!proof.trim())return;
+        await update(ref(db,`streamerChallenges/${id}`),{status:'pending',proof:proof.trim(),submittedAt:Date.now()});
+        toast('برای بررسی ادمین ارسال شد ✓');
+        $('doneChallenge').disabled=true;
+        $('doneChallenge').textContent='🟡 در انتظار بررسی ادمین';
+      };
+    };
+  }catch(e){$('achResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}
+};
+
+$('streamCoachBtn').onclick=()=>{
+  setCreatorBody(`<div class="title">🧠 AI Stream Coach</div><div class="muted small">لینک استریم را وارد کن و متن پیاده‌شده‌ی صحبت‌ها را برای تحلیل بده.</div><input id="streamUrl" class="input" placeholder="https://youtube.com/... یا لینک استریم"><textarea id="streamTranscript" class="input" rows="8" placeholder="متن صحبت‌های استریم را اینجا وارد کن...\nمثال: [00:12:41] ..."></textarea><div class="creator-hint muted">برای تحلیل دقیق جمله‌ها، متن گفتار باید در دسترس باشد. خودِ لینک کانال همیشه صدای استریم را در اختیار صفحه قرار نمی‌دهد.</div><button id="runCoach" class="btn primary full" style="margin-top:10px">🧠 تحلیل با Gemini</button><div id="coachResult" class="challenge-box" style="display:none"></div>`);
+  $('runCoach').onclick=async()=>{
+    const url=$('streamUrl').value.trim(), transcript=$('streamTranscript').value.trim();
+    if(!url&&!transcript)return toast('لینک یا متن استریم را وارد کن');
+    $('coachResult').style.display='block';$('coachResult').innerHTML='<div class="empty">در حال تحلیل...</div>';
+    try{
+      const prompt=`تو یک مربی حرفه‌ای استریمر فارسی‌زبان هستی. متن زیر را از نظر حفظ مخاطب، لحن، توهین، جمله‌های نامناسب، وضوح، ریتم و تعامل بررسی کن.\nبرای هر مورد زمان را اگر وجود داشت ذکر کن. به جای قضاوت شخص، روی جمله و اثر احتمالی آن تمرکز کن. برای هر جمله مشکل‌دار یک جایگزین طبیعی پیشنهاد بده.\nلینک استریم: ${url||'وارد نشده'}\nمتن:\n${transcript||'متن وارد نشده؛ فقط درباره محدودیت تحلیل لینک توضیح بده.'}`;
+      const text=await geminiGenerate(prompt);
+      $('coachResult').innerHTML=`<div class="ai-output">${esc(text)}</div>`;
+    }catch(e){$('coachResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}
+  };
+};
+
+$('ytNewsBtn').onclick=async()=>{
+  setCreatorBody(`<div class="title">📰 خبرهای یوتیوب فارسی</div><div class="muted small">Gemini با جستجوی وب، خبرهای تازه را جمع‌آوری و خلاصه می‌کند.</div><div id="newsResult" class="challenge-box"><div class="empty">در حال جستجوی خبرهای جدید...</div></div>`);
+  try{
+    const prompt=`خبرهای مهم و جدید مربوط به YouTube فارسی و یوتیوبرهای فارسی‌زبان را برای امروز پیدا کن. موضوعات می‌توانند شامل تغییر درآمد/قوانین یوتیوب، حواشی بین کریتورهای فارسی، تغییرات مهم کانال‌ها و اتفاقات مهم اکوسیستم یوتیوب فارسی باشند. فقط مواردی را بیاور که منبع قابل بررسی دارند. شایعه را به عنوان شایعه علامت بزن و آن را به عنوان واقعیت قطعی بیان نکن. حداکثر 6 خبر. برای هر خبر: تیتر، خلاصه 2 جمله‌ای، تاریخ، و منبع/لینک را بده.`;
+    const text=await geminiGenerate(prompt,true);
+    $('newsResult').innerHTML=`<div class="ai-output">${esc(text)}</div><div class="muted small" style="margin-top:10px">نتایج خبری باید قبل از انتشار عمومی توسط خودت بررسی شوند.</div>`;
+  }catch(e){$('newsResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}
+};
+
+/* =========================================================
    ADMIN PANEL
 ========================================================= */
 
@@ -2770,6 +2868,7 @@ $("adminBtn").onclick=()=>{
           <button id="adminMessages" class="btn admin-action">${icon("trash")} مدیریت پیام‌ها</button>
           <button id="adminLevels" class="btn admin-action">${icon("user")} مدیریت Level اعضا</button>
           <button id="adminUsers" class="btn danger admin-action">${icon("users")} مدیریت کاربران</button>
+          <button id="adminChallenges" class="btn admin-action">🎯 چالش‌های استریمرها</button>
         </div>
       </div>
       <div class="admin-section">
@@ -2802,6 +2901,19 @@ $("adminBtn").onclick=()=>{
     modal("پست‌های در انتظار",posts.length?posts.map(([id,x])=>`<div class="post-card"><div class="muted small">${esc(x.authorName||"کاربر")}</div><div class="post-text">${esc(x.text||"")}</div>${mediaHtml(x)}<div class="grid2"><button class="btn primary approvePost" data-id="${esc(id)}">${icon('send')} انتشار</button><button class="btn danger rejectPost" data-id="${esc(id)}">${icon('trash')} رد</button></div></div>`).join(""):'<div class="empty">پست در انتظاری نیست.</div>');
     document.querySelectorAll(".approvePost").forEach(b=>b.onclick=async()=>{const id=b.dataset.id;const ps=await get(ref(db,`pendingPosts/${id}`));const x=ps.val();if(!x)return;await set(ref(db,`posts/${id}`),{...x,approvedAt:Date.now(),approvedBy:user.uid});await remove(ref(db,`pendingPosts/${id}`));toast("پست منتشر شد");closeModal();renderExplore();});
     document.querySelectorAll(".rejectPost").forEach(b=>b.onclick=async()=>{await remove(ref(db,`pendingPosts/${b.dataset.id}`));toast("پست رد شد");closeModal();});
+  };
+
+  $('adminChallenges').onclick=async()=>{
+    const snap=await get(ref(db,'streamerChallenges'));
+    const items=Object.entries(snap.val()||{}).filter(([id,x])=>x.status==='pending').sort((a,b)=>(b[1].submittedAt||0)-(a[1].submittedAt||0));
+    modal('چالش‌های در انتظار بررسی',items.length?items.map(([id,x])=>`<div class="post-card"><b>${esc(x.name||'کاربر')}</b><div class="muted small">@${esc(x.username||'')} · ${new Date(x.submittedAt||Date.now()).toLocaleString('fa-IR')}</div><div class="challenge-box"><div class="ai-output">${esc(x.text||'')}</div></div><div class="muted small" style="margin-top:8px">مدرک: ${esc(x.proof||'بدون مدرک')}</div><div class="grid2" style="margin-top:10px"><button class="btn primary approveChallenge" data-id="${esc(id)}">✅ تأیید و Level +1</button><button class="btn danger rejectChallenge" data-id="${esc(id)}">❌ رد</button></div></div>`).join(''):'<div class="empty">چالش در انتظار بررسی نیست.</div>');
+    document.querySelectorAll('.approveChallenge').forEach(b=>b.onclick=async()=>{
+      const id=b.dataset.id,snap=await get(ref(db,`streamerChallenges/${id}`)),x=snap.val();if(!x)return;
+      const us=await get(ref(db,`users/${x.uid}`));const u=us.val()||{};const current=Math.max(1,Math.min(10,parseInt(u.level,10)||1));const next=Math.min(10,current+1);
+      await update(ref(db),{[`streamerChallenges/${id}/status`]:'approved',[`streamerChallenges/${id}/reviewedAt`]:Date.now(),[`streamerChallenges/${id}/reviewedBy`]:user.uid,[`users/${x.uid}/level`]:next,[`users/${x.uid}/levelUpdatedAt`]:Date.now(),[`users/${x.uid}/levelUpdatedBy`]:user.uid});
+      toast(next===current?'Level در سقف 10 بود':'چالش تأیید شد و Level +1 شد ✓');closeModal();
+    });
+    document.querySelectorAll('.rejectChallenge').forEach(b=>b.onclick=async()=>{const reason=prompt('دلیل رد (اختیاری):')??'';await update(ref(db,`streamerChallenges/${b.dataset.id}`),{status:'rejected',reason:reason.trim(),reviewedAt:Date.now(),reviewedBy:user.uid});toast('چالش رد شد');closeModal();});
   };
 
   $("adminUsers").onclick=async()=>{
