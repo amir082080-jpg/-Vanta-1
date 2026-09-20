@@ -673,7 +673,6 @@ import {
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
   signInWithPhoneNumber,
@@ -925,23 +924,13 @@ $("authBack").onclick=()=>{
 
 async function googleAuth(){
   try{
-    setAuthStatus("در حال اتصال به Google...");
+    setAuthStatus("در حال انتقال به Google...");
     sessionStorage.setItem("avantaGoogleAuthMode",authMode);
-    await signInWithPopup(auth,new GoogleAuthProvider());
+    // Use Firebase's full-page redirect directly. This avoids popup
+    // blocking/hanging on mobile browsers and completes through
+    // getRedirectResult() after Google sends the user back.
+    await signInWithRedirect(auth,new GoogleAuthProvider());
   }catch(e){
-    // On browsers/devices that close or block the popup, fall back to
-    // Firebase's full-page redirect flow instead of treating it as a failure.
-    if(e?.code==="auth/popup-blocked" || e?.code==="auth/popup-closed-by-user"){
-      try{
-        setAuthStatus("در حال انتقال به Google...");
-        await signInWithRedirect(auth,new GoogleAuthProvider());
-        return;
-      }catch(redirectError){
-        setAuthStatus(friendlyError(redirectError));
-        toast(friendlyError(redirectError));
-        return;
-      }
-    }
     setAuthStatus(friendlyError(e));
     toast(friendlyError(e));
   }
