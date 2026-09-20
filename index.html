@@ -674,6 +674,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signInWithPhoneNumber,
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -942,17 +944,46 @@ async function googleAuth(){
     setAuthStatus("در حال اتصال به Google...");
     const provider=new GoogleAuthProvider();
     provider.setCustomParameters({prompt:"select_account"});
+
+    // روی موبایل Popup ممکن است بی‌صدا گیر کند؛ Firebase برای موبایل Redirect را ترجیح می‌دهد.
+    const mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    sessionStorage.setItem("avanta_google_auth_mode",authMode);
+
+    if(mobile){
+      setAuthStatus("در حال انتقال به Google...");
+      await signInWithRedirect(auth,provider);
+      return;
+    }
+
     await signInWithPopup(auth,provider);
   }catch(e){
     console.error("ÀVanta Google Auth:",e);
     const msg=friendlyError(e);
     setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
     toast(msg);
-  }finally{
     btn.disabled=false;
   }
 }
 $("googleLogin").onclick=googleAuth;
+
+// نتیجه ورود Google بعد از برگشت از صفحه Google
+(async function handleGoogleRedirect(){
+  try{
+    const savedMode=sessionStorage.getItem("avanta_google_auth_mode");
+    if(savedMode==="login"||savedMode==="register") authMode=savedMode;
+    const result=await getRedirectResult(auth);
+    if(result){
+      sessionStorage.removeItem("avanta_google_auth_mode");
+      setAuthStatus("ورود Google با موفقیت انجام شد...");
+    }
+  }catch(e){
+    sessionStorage.removeItem("avanta_google_auth_mode");
+    console.error("ÀVanta Google Redirect:",e);
+    const msg=friendlyError(e);
+    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
+    toast(msg);
+  }
+})();
 
 function resetRecaptcha(){
   if(recaptchaVerifier){try{recaptchaVerifier.clear();}catch(e){} recaptchaVerifier=null;}
