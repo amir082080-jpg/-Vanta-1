@@ -674,6 +674,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signInWithPhoneNumber,
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -811,6 +813,7 @@ function friendlyError(e){
   const m={
     "auth/popup-blocked":"Popup توسط مرورگر مسدود شد.",
     "auth/popup-closed-by-user":"ورود لغو شد.",
+    "auth/redirect-cancelled-by-user":"ورود لغو شد.",
     "auth/network-request-failed":"اتصال اینترنت یا Firebase مشکل دارد.",
     "auth/unauthorized-domain":"دامنه در Firebase مجاز نشده است.",
     "auth/operation-not-allowed":"روش ورود در Firebase فعال نیست.",
@@ -898,7 +901,7 @@ function avatar(o,big=false){
 /* =========================================================
    AUTH — Google + Phone OTP (Firebase structure untouched)
 ========================================================= */
-let authMode="login";
+let authMode=sessionStorage.getItem("avantaGoogleAuthMode")||"login";
 let confirmationResult=null;
 let recaptchaVerifier=null;
 let phoneAuthPending=false;
@@ -923,8 +926,25 @@ $("authBack").onclick=()=>{
 async function googleAuth(){
   try{
     setAuthStatus("در حال اتصال به Google...");
+    sessionStorage.setItem("avantaGoogleAuthMode",authMode);
     await signInWithPopup(auth,new GoogleAuthProvider());
-  }catch(e){setAuthStatus(friendlyError(e));toast(friendlyError(e));}
+  }catch(e){
+    // On browsers/devices that close or block the popup, fall back to
+    // Firebase's full-page redirect flow instead of treating it as a failure.
+    if(e?.code==="auth/popup-blocked" || e?.code==="auth/popup-closed-by-user"){
+      try{
+        setAuthStatus("در حال انتقال به Google...");
+        await signInWithRedirect(auth,new GoogleAuthProvider());
+        return;
+      }catch(redirectError){
+        setAuthStatus(friendlyError(redirectError));
+        toast(friendlyError(redirectError));
+        return;
+      }
+    }
+    setAuthStatus(friendlyError(e));
+    toast(friendlyError(e));
+  }
 }
 $("googleLogin").onclick=googleAuth;
 
@@ -1197,6 +1217,13 @@ async function ensureProfile(u){
   return s.val();
 }
 
+// Complete a Google redirect sign-in after returning to the site.
+getRedirectResult(auth).catch(e=>{
+  sessionStorage.removeItem("avantaGoogleAuthMode");
+  setAuthStatus(friendlyError(e));
+  toast(friendlyError(e));
+});
+
 onAuthStateChanged(auth,async u=>{
 
   user=u;
@@ -1228,6 +1255,7 @@ onAuthStateChanged(auth,async u=>{
     }
   }
   phoneAuthPending=false;
+  sessionStorage.removeItem("avantaGoogleAuthMode");
   $("login").classList.add("hide");
 
   try{
