@@ -674,10 +674,10 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
   signInWithPhoneNumber,
   RecaptchaVerifier,
+  setPersistence,
+  browserLocalPersistence,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -720,6 +720,9 @@ const GEMINI_MODEL="gemini-2.5-flash";
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getDatabase(app);
+
+// Keep the Firebase login session after refresh/browser restart.
+setPersistence(auth,browserLocalPersistence).catch(()=>{});
 
 const $=id=>document.getElementById(id);
 
@@ -811,26 +814,12 @@ const esc=s=>String(s??"").replace(
 
 function friendlyError(e){
   const m={
-    "auth/popup-blocked":"پنجره Google توسط مرورگر مسدود شد. پنجره بازشو را برای این سایت مجاز کن.",
-    "auth/popup-closed-by-user":"پنجره Google بسته شد.",
-    "auth/cancelled-popup-request":"درخواست قبلی Google هنوز فعال است؛ دوباره تلاش کن.",
+    "auth/popup-blocked":"Popup توسط مرورگر مسدود شد.",
+    "auth/popup-closed-by-user":"ورود لغو شد.",
     "auth/network-request-failed":"اتصال اینترنت یا Firebase مشکل دارد.",
-    "auth/unauthorized-domain":"دامنه فعلی سایت در Firebase Authentication مجاز نشده است.",
-    "auth/operation-not-allowed":"ورود با این روش در Firebase فعال نیست.",
+    "auth/unauthorized-domain":"دامنه در Firebase مجاز نشده است.",
+    "auth/operation-not-allowed":"روش ورود در Firebase فعال نیست.",
     "auth/admin-restricted-operation":"این عملیات در Firebase فعال نیست.",
-    "auth/web-storage-unsupported":"مرورگر اجازه ذخیره‌سازی لازم برای ورود را نمی‌دهد.",
-    "auth/account-exists-with-different-credential":"این ایمیل قبلاً با روش ورود دیگری ثبت شده است.",
-    "auth/invalid-credential":"اطلاعات ورود Google معتبر نیست.",
-    "auth/app-not-authorized":"این دامنه/برنامه برای Firebase Authentication مجاز نیست.",
-    "auth/internal-error":"Firebase یک خطای داخلی برگرداند. دوباره امتحان کن.",
-    "auth/invalid-phone-number":"شماره تلفن معتبر نیست.",
-    "auth/missing-phone-number":"شماره تلفن وارد نشده است.",
-    "auth/captcha-check-failed":"تأیید reCAPTCHA ناموفق بود. reCAPTCHA را دوباره انجام بده.",
-    "auth/invalid-app-credential":"اعتبار برنامه/reCAPTCHA معتبر نیست. دامنه و reCAPTCHA را بررسی کن.",
-    "auth/quota-exceeded":"سقف درخواست‌های SMS این پروژه پر شده است.",
-    "auth/too-many-requests":"تعداد درخواست‌ها زیاد شده؛ کمی بعد دوباره امتحان کن.",
-    "auth/billing-not-enabled":"برای ارسال SMS واقعی باید Billing پروژه Firebase فعال باشد.",
-    "auth/missing-app-credential":"اعتبار reCAPTCHA برنامه موجود نیست. دامنه مجاز را بررسی کن.",
     "PERMISSION_DENIED":"Firebase Rules اجازه این عملیات را نمی‌دهد.",
     "username/taken":"این Username قبلاً استفاده شده است.",
     "username/invalid":"Username باید حداقل 3 کاراکتر داشته باشد.",
@@ -937,54 +926,19 @@ $("authBack").onclick=()=>{
 };
 
 async function googleAuth(){
-  const btn=$("googleLogin");
-  if(btn.disabled)return;
   try{
-    btn.disabled=true;
     setAuthStatus("در حال اتصال به Google...");
     const provider=new GoogleAuthProvider();
     provider.setCustomParameters({prompt:"select_account"});
 
-    // حالت ثبت‌نام/ورود را قبل از هر نوع OAuth ذخیره می‌کنیم تا بعد از برگشت
-    // از Google، onAuthStateChanged دوباره روی حالت پیش‌فرض login نیفتد.
-    sessionStorage.setItem("avanta_google_auth_mode",authMode);
-    sessionStorage.setItem("avanta_google_auth_pending","1");
-
-    // روی موبایل ابتدا Redirect؛ روی دسکتاپ Popup. اگر Popup بعد از انتخاب
-    // حساب توسط مرورگر بسته شد، به‌صورت خودکار Redirect را امتحان می‌کنیم.
-    const mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-    if(mobile){
-      setAuthStatus("در حال انتقال به Google...");
-      await signInWithRedirect(auth,provider);
-      return;
-    }
-
+    // Make sure the auth session is persisted before opening Google.
+    await setPersistence(auth,browserLocalPersistence);
     await signInWithPopup(auth,provider);
+    // onAuthStateChanged below is the single place that opens ÀVanta.
+    setAuthStatus("ورود موفق بود؛ در حال ورود به ÀVanta...");
   }catch(e){
-    console.error("ÀVanta Google Auth:",e);
-
-    // بعضی مرورگرها Popup را حتی بعد از انتخاب حساب می‌بندند.
-    // در این حالت Redirect را به‌عنوان مسیر پشتیبان اجرا می‌کنیم.
-    if(e?.code==="auth/popup-closed-by-user" || e?.code==="auth/popup-blocked"){
-      try{
-        setAuthStatus("در حال انتقال امن به Google...");
-        const provider=new GoogleAuthProvider();
-        provider.setCustomParameters({prompt:"select_account"});
-        sessionStorage.setItem("avanta_google_auth_mode",authMode);
-        sessionStorage.setItem("avanta_google_auth_pending","1");
-        await signInWithRedirect(auth,provider);
-        return;
-      }catch(fallbackError){
-        console.error("ÀVanta Google Redirect fallback:",fallbackError);
-        e=fallbackError;
-      }
-    }
-
-    const msg=friendlyError(e);
-    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
-    toast(msg);
-    sessionStorage.removeItem("avanta_google_auth_pending");
-    btn.disabled=false;
+    setAuthStatus(friendlyError(e));
+    toast(friendlyError(e));
   }
 }
 $("googleLogin").onclick=googleAuth;
@@ -994,53 +948,36 @@ function resetRecaptcha(){
   $("recaptcha-container").innerHTML="";
 }
 
-$("phoneAuthBtn").onclick=async()=>{
+$("phoneAuthBtn").onclick=()=>{
   $("authMethods").style.display="none";
   $("phoneBox").style.display="block";
   $("authTitle").textContent=authMode==="register"?"ثبت‌نام با شماره":"ورود با شماره";
   $("authSub").textContent="شماره را با کد کشور وارد کن؛ مثال: +989121234567";
-  setAuthStatus("در حال آماده‌سازی تأیید شماره...");
-  try{
-    resetRecaptcha();
-    recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{
-      size:"normal",
-      callback:()=>setAuthStatus("reCAPTCHA تأیید شد؛ حالا ارسال کد را بزن."),
-      "expired-callback":()=>setAuthStatus("reCAPTCHA منقضی شد؛ دوباره آن را تأیید کن.")
-    });
-    await recaptchaVerifier.render();
-    setAuthStatus("");
-  }catch(e){
-    console.error("ÀVanta reCAPTCHA:",e);
-    const msg=friendlyError(e);
-    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
-    toast(msg);
-    resetRecaptcha();
-  }
+  setAuthStatus("");
+  setTimeout(()=>{
+    try{
+      resetRecaptcha();
+      recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal",callback:()=>setAuthStatus("")});
+      recaptchaVerifier.render();
+    }catch(e){setAuthStatus("reCAPTCHA آماده نشد. دامنه را در Firebase مجاز کن.");}
+  },50);
 };
 
 $("sendOtp").onclick=async()=>{
   const phone=$("phoneNumber").value.trim().replace(/\s+/g,"");
   if(!/^\+\d{8,15}$/.test(phone)){setAuthStatus("شماره را با + و کد کشور وارد کن.");return;}
   try{
-    $("sendOtp").disabled=true;
-    if(!recaptchaVerifier){
-      recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});
-      await recaptchaVerifier.render();
-    }
-    setAuthStatus("در حال ارسال کد...");
+    $("sendOtp").disabled=true;setAuthStatus("در حال ارسال کد...");
+    if(!recaptchaVerifier){recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});await recaptchaVerifier.render();}
     confirmationResult=await signInWithPhoneNumber(auth,phone,recaptchaVerifier);
     phoneAuthPending=true;
-    $("phoneBox").style.display="none";
-    $("otpBox").style.display="block";
+    $("phoneBox").style.display="none";$("otpBox").style.display="block";
     $("otpHint").textContent="کد ارسال‌شده به "+phone;
     setAuthStatus("");
     $("otpInputs").querySelector(".otp-digit")?.focus();
   }catch(e){
-    console.error("ÀVanta Phone Auth:",e);
-    const msg=friendlyError(e);
-    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
-    toast(msg);
     try{resetRecaptcha();}catch(x){}
+    setAuthStatus(friendlyError(e));toast(friendlyError(e));
   }finally{$("sendOtp").disabled=false;}
 };
 
@@ -1060,7 +997,6 @@ $("verifyOtp").onclick=async()=>{
   if(!/^\d{6}$/.test(code)){setAuthStatus("کد باید دقیقاً ۶ رقم باشد.");return;}
   try{
     $("verifyOtp").disabled=true;setAuthStatus("در حال تأیید...");
-    if(!confirmationResult){throw Object.assign(new Error("No confirmation result"),{code:"auth/internal-error"});}
     const result=await confirmationResult.confirm(code);
     // Registration/login mode is enforced against the existing AVANTA profile.
     const existing=await get(ref(db,"users/"+result.user.uid));
@@ -1276,29 +1212,8 @@ async function ensureProfile(u){
   return s.val();
 }
 
-// اگر صفحه از مسیر Google Redirect برگشته، حالت ثبت‌نام/ورود را
-// قبل از اجرای listener برمی‌گردانیم.
-const savedGoogleMode=sessionStorage.getItem("avanta_google_auth_mode");
-if(savedGoogleMode==="login" || savedGoogleMode==="register") authMode=savedGoogleMode;
-
-// نتیجه Redirect را یک بار مصرف می‌خوانیم تا Firebase credential قبل از
-// تصمیم‌گیری‌های مربوط به پروفایل آماده باشد.
-const googleRedirectReady=(async()=>{
-  if(sessionStorage.getItem("avanta_google_auth_pending")!=="1") return null;
-  try{
-    return await getRedirectResult(auth);
-  }catch(e){
-    console.error("ÀVanta Google Redirect:",e);
-    const msg=friendlyError(e);
-    setAuthStatus(msg+" "+(e?.code?"["+e.code+"]":""));
-    toast(msg);
-    sessionStorage.removeItem("avanta_google_auth_pending");
-    return null;
-  }
-})();
-
 onAuthStateChanged(auth,async u=>{
-  await googleRedirectReady;
+
   user=u;
 
   if(!u){
@@ -1311,27 +1226,12 @@ onAuthStateChanged(auth,async u=>{
     if(bs.val()===true){ await signOut(auth); toast("این حساب بن شده است"); return; }
   }catch(e){}
 
-  // Google registration/login enforcement against the existing AVANTA profile.
-  if(!phoneAuthPending){
-    const existing=await get(ref(db,"users/"+u.uid));
-    if(authMode==="login"&&!existing.exists()){
-      await signOut(auth);
-      setAuthStatus("این حساب ثبت‌نام نشده است؛ ابتدا ثبت‌نام کنید.");
-      toast("ابتدا ثبت‌نام کنید");
-      return;
-    }
-    if(authMode==="register"&&existing.exists()){
-      await signOut(auth);
-      setAuthStatus("این حساب قبلاً ثبت‌نام شده؛ از گزینه ورود استفاده کن.");
-      toast("این حساب قبلاً وجود دارد");
-      return;
-    }
-  }
+  // Google sign-in is handled by Firebase Auth. If the Google account has
+  // never used ÀVanta before, ensureProfile() creates its ÀVanta profile.
+  // This prevents a successful Google login from being immediately signed out
+  // and sent back to the first login/register screen.
   phoneAuthPending=false;
   $("login").classList.add("hide");
-  sessionStorage.removeItem("avanta_google_auth_mode");
-  sessionStorage.removeItem("avanta_google_auth_pending");
-  $("googleLogin").disabled=false;
 
   try{
 
