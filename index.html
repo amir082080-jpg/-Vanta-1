@@ -402,6 +402,10 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 .auth-glow{position:absolute;width:180px;height:180px;top:-100px;left:50%;transform:translateX(-50%);background:#36e0a0;filter:blur(70px);opacity:.15;pointer-events:none}
 .auth-logo{position:relative;margin-top:2px}.auth-kicker{font-size:9px;letter-spacing:4px;color:#67e9c2;margin:8px 0 18px;font-weight:900}.auth-title{font-size:25px;font-weight:1000;margin-bottom:7px}.auth-sub{line-height:1.8;margin-bottom:20px}.auth-choice,.auth-methods{display:grid;gap:9px}.auth-main,.auth-secondary,.auth-provider{min-height:54px;border-radius:17px;font-weight:950;border:1px solid transparent;transition:.2s}.auth-main{color:#fff}.auth-main:hover,.auth-secondary:hover,.auth-provider:hover{transform:translateY(-2px)}.auth-secondary{background:#ffffff08;border-color:#ffffff14;color:#fff}.auth-main span,.auth-secondary span{float:left;opacity:.65}.auth-provider{display:flex;align-items:center;justify-content:center;gap:11px;background:#ffffff09;border-color:#ffffff16;color:#fff}.provider-mark{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#fff;color:#111;font-weight:1000}.phone .provider-mark{background:#36e0a0;color:#03100c}.auth-back{background:transparent;color:#91a0b5;padding:10px;font-size:12px}.auth-status{min-height:20px;margin-top:10px}.auth-input{margin-top:6px;margin-bottom:10px}.phone-label{text-align:right;font-size:12px;font-weight:800;margin-top:2px}.otp-title{font-weight:950;font-size:19px;margin-bottom:5px}.otp-hint{margin-bottom:16px}.otp-inputs{display:flex;gap:7px;justify-content:center;margin:12px 0 16px}.otp-digit{width:48px;height:58px;text-align:center;font-size:25px;font-weight:1000;color:#fff;background:#061315;border:1px solid #28534d;border-radius:15px;outline:0;box-shadow:inset 0 1px #fff08;transition:.18s}.otp-digit:focus{border-color:#36e0a0;box-shadow:0 0 0 3px #36e0a018,0 0 22px #36e0a022}.auth-card #recaptcha-container{display:flex;justify-content:center;margin:4px 0 8px}
 @media(max-width:500px){.otp-digit{width:42px;height:54px}.auth-card{padding:20px}.auth-title{font-size:22px}}
+
+.creator-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.creator-card{min-height:150px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}.creator-card .bigicon{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 28%,transparent)}.creator-card .bigicon .uiIcon{width:30px;height:30px}.creator-panel{margin-top:12px}.challenge-box{margin-top:12px}.ai-output{white-space:pre-wrap;line-height:1.9;background:#ffffff08;border:1px solid #ffffff12;border-radius:16px;padding:14px}.creator-hint{margin-top:8px;line-height:1.7}.theme-white .ai-output{background:#00000006;border-color:#00000012}
+@media(max-width:900px){.creator-grid{grid-template-columns:1fr}.creator-card{min-height:105px;flex-direction:row;justify-content:flex-start;text-align:right}.creator-card .bigicon{flex:none}}
+@media(max-width:600px){.creator-card{padding:14px}.creator-panel{padding:12px}.creator-panel .input{font-size:14px}.bottom{overflow-x:auto}.bottom button{min-width:76px}.bottom .navico{height:24px}}
 </style>
 </head>
 
@@ -502,12 +506,12 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
 
 <section id="creatorHubPage" class="page">
   <div class="card">
-    <div class="title">🎙️ Creator Hub</div>
+    <div class="title"><span class="uiIcon" data-icon="spark"></span> Creator Hub</div>
     <div class="muted small">ابزارهای هوشمند مخصوص استریمرها و یوتیوبرها</div>
     <div class="creator-grid">
-      <button id="achBtn" class="creator-card btn" type="button"><div class="bigicon">🎯</div><b>ACh Challenge</b><div class="muted small">یک چالش ساده و جذاب بگیر</div></button>
-      <button id="streamCoachBtn" class="creator-card btn" type="button"><div class="bigicon">🧠</div><b>AI Stream Coach</b><div class="muted small">تحلیل حرف‌های استریم</div></button>
-      <button id="ytNewsBtn" class="creator-card btn" type="button"><div class="bigicon">📰</div><b>YT News</b><div class="muted small">خبرهای جدید یوتیوب فارسی</div></button>
+      <button id="achBtn" class="creator-card btn" type="button"><div class="bigicon"><span class="uiIcon" data-icon="challenge"></span></div><b>ACh Challenge</b><div class="muted small">یک چالش ساده و جذاب بگیر</div></button>
+      <button id="streamCoachBtn" class="creator-card btn" type="button"><div class="bigicon"><span class="uiIcon" data-icon="brain"></span></div><b>AI Stream Coach</b><div class="muted small">تحلیل حرف‌های استریم</div></button>
+      <button id="ytNewsBtn" class="creator-card btn" type="button"><div class="bigicon"><span class="uiIcon" data-icon="news"></span></div><b>YT News</b><div class="muted small">خبرهای جدید یوتیوب فارسی</div></button>
     </div>
   </div>
   <div id="creatorHubBody" class="card creator-panel">
@@ -611,7 +615,7 @@ html,body{background:radial-gradient(circle at 8% 0,#0c5a4c55,transparent 30%),r
   <button data-page="chatsPage">
     <span class="navico"><span class="uiIcon" data-icon="chat"></span></span>چت‌ها
   </button>
-  <button data-page="creatorHubPage"><span class="navico">🎙️</span>CREATOR</button>
+  <button data-page="creatorHubPage"><span class="navico"><span class="uiIcon" data-icon="spark"></span></span>CREATOR</button>
   <button data-page="settingsPage">
     <span class="navico"><span class="uiIcon" data-icon="settings"></span></span>تنظیمات
   </button>
@@ -674,10 +678,9 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   signInWithPhoneNumber,
   RecaptchaVerifier,
-  setPersistence,
-  browserLocalPersistence,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -714,15 +717,13 @@ const ADMIN_UID="NNY1ymTknwREwMo16ZI3lgFEni23";
 /* =========================================================
    GEMINI AI — فقط کلید جدید خودت را اینجا قرار بده
 ========================================================= */
-const GEMINI_API_KEY="PASTE_YOUR_NEW_GEMINI_API_KEY_HERE";
+const GEMINI_API_KEY_KEY="avanta_gemini_api_key";
 const GEMINI_MODEL="gemini-2.5-flash";
+const getGeminiKey=()=>localStorage.getItem(GEMINI_API_KEY_KEY)||"";
 
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getDatabase(app);
-
-// Keep the Firebase login session after refresh/browser restart.
-setPersistence(auth,browserLocalPersistence).catch(()=>{});
 
 const $=id=>document.getElementById(id);
 
@@ -765,7 +766,14 @@ const ICONS={
   edit:'<path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"></path><path d="m14.5 8.5 3 3"></path>',
   reply:'<path d="M9 7 4 12l5 5"></path><path d="M5 12h8a6 6 0 0 1 6 6"></path>',
   link:'<path d="M10 13.5a4 4 0 0 0 5.7.1l2-2a4 4 0 0 0-5.7-5.7l-1.2 1.2"></path><path d="M14 10.5a4 4 0 0 0-5.7-.1l-2 2A4 4 0 0 0 8 18.1l1.2-1.2"></path>',
-  ban:'<circle cx="12" cy="12" r="9"></circle><path d="m7 7 10 10"></path>'
+  ban:'<circle cx="12" cy="12" r="9"></circle><path d="m7 7 10 10"></path>',
+  spark:'<path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8Z"></path><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8Z"></path>',
+  challenge:'<path d="M7 3h10v5c0 3-2 5-5 6-3-1-5-3-5-6Z"></path><path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3M9 18h6M12 14v4M8 21h8"></path>',
+  brain:'<path d="M9 5a3 3 0 0 0-5 2.2A3.2 3.2 0 0 0 5 13a3.5 3.5 0 0 0 4 5v-6"></path><path d="M15 5a3 3 0 0 1 5 2.2A3.2 3.2 0 0 1 19 13a3.5 3.5 0 0 1-4 5v-6"></path><path d="M9 9h6M12 6v12"></path>',
+  news:'<path d="M5 4h14a1 1 0 0 1 1 1v14H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"></path><path d="M7 8h10M7 12h10M7 16h6"></path>',
+  check:'<circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path>',
+  refresh:'<path d="M20 11a8 8 0 0 0-14.7-4L3 10"></path><path d="M3 5v5h5M4 13a8 8 0 0 0 14.7 4L21 14"></path><path d="M21 19v-5h-5"></path>',
+  upload:'<path d="M12 16V4M7 9l5-5 5 5M4 20h16"></path>'
 };
 function icon(name){return `<span class="uiIcon" aria-hidden="true"><svg viewBox="0 0 24 24">${ICONS[name]||ICONS.user}</svg></span>`;}
 function hydrateIcons(root=document){root.querySelectorAll('.uiIcon[data-icon]').forEach(el=>{const n=el.dataset.icon;el.innerHTML=ICONS[n]?`<svg viewBox="0 0 24 24">${ICONS[n]}</svg>`:'';});}
@@ -929,17 +937,10 @@ async function googleAuth(){
   try{
     setAuthStatus("در حال اتصال به Google...");
     const provider=new GoogleAuthProvider();
-    provider.setCustomParameters({prompt:"select_account"});
-
-    // Make sure the auth session is persisted before opening Google.
-    await setPersistence(auth,browserLocalPersistence);
+    const mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    if(mobile){await signInWithRedirect(auth,provider);return;}
     await signInWithPopup(auth,provider);
-    // onAuthStateChanged below is the single place that opens ÀVanta.
-    setAuthStatus("ورود موفق بود؛ در حال ورود به ÀVanta...");
-  }catch(e){
-    setAuthStatus(friendlyError(e));
-    toast(friendlyError(e));
-  }
+  }catch(e){setAuthStatus(friendlyError(e));toast(friendlyError(e));}
 }
 $("googleLogin").onclick=googleAuth;
 
@@ -1010,8 +1011,11 @@ $("verifyOtp").onclick=async()=>{
     if(authMode==="register"&&existing.exists()){
       await signOut(auth);setAuthStatus("این شماره قبلاً ثبت‌نام شده؛ از گزینه ورود استفاده کن.");toast("این حساب قبلاً وجود دارد");return;
     }
-    // Save phone on the existing AVANTA user profile without changing the database structure.
-    if(authMode==="register"){await update(ref(db,"users/"+result.user.uid),{phone:result.user.phoneNumber||""});}
+    // Create the complete AVANTA profile on first phone registration.
+    if(authMode==="register"&&!existing.exists()){
+      await ensureProfile(result.user);
+      await update(ref(db,"users/"+result.user.uid),{phone:result.user.phoneNumber||""});
+    }
   }catch(e){setAuthStatus(friendlyError(e));toast(friendlyError(e));}
   finally{$("verifyOtp").disabled=false;}
 };
@@ -1226,10 +1230,22 @@ onAuthStateChanged(auth,async u=>{
     if(bs.val()===true){ await signOut(auth); toast("این حساب بن شده است"); return; }
   }catch(e){}
 
-  // Google sign-in is handled by Firebase Auth. If the Google account has
-  // never used ÀVanta before, ensureProfile() creates its ÀVanta profile.
-  // This prevents a successful Google login from being immediately signed out
-  // and sent back to the first login/register screen.
+  // Google registration/login enforcement against the existing AVANTA profile.
+  if(!phoneAuthPending){
+    const existing=await get(ref(db,"users/"+u.uid));
+    if(authMode==="login"&&!existing.exists()){
+      await signOut(auth);
+      setAuthStatus("این حساب ثبت‌نام نشده است؛ ابتدا ثبت‌نام کنید.");
+      toast("ابتدا ثبت‌نام کنید");
+      return;
+    }
+    if(authMode==="register"&&existing.exists()){
+      await signOut(auth);
+      setAuthStatus("این حساب قبلاً ثبت‌نام شده؛ از گزینه ورود استفاده کن.");
+      toast("این حساب قبلاً وجود دارد");
+      return;
+    }
+  }
   phoneAuthPending=false;
   $("login").classList.add("hide");
 
@@ -2771,76 +2787,64 @@ $("newBtn").onclick=()=>{
 /* =========================================================
    CREATOR HUB / GEMINI AI
 ========================================================= */
+function creatorIcon(name){return icon(name);}
 function creatorReady(){
-  if(!GEMINI_API_KEY || GEMINI_API_KEY.includes('PASTE_YOUR')){
-    toast('اول API Key جدید Gemini را در GEMINI_API_KEY وارد کن');
+  const key=getGeminiKey();
+  if(!key){
+    setCreatorBody(`<div class="empty">${creatorIcon('spark')}<br><b>کلید Gemini وارد نشده</b><div class="muted small" style="margin-top:8px">از دکمه «تنظیم Gemini» استفاده کن و کلید API خودت را ذخیره کن.</div><button id="openGeminiSettings" class="btn primary" style="margin-top:12px">${creatorIcon('settings')} تنظیم Gemini</button></div>`);
+    const b=$('openGeminiSettings'); if(b)b.onclick=openGeminiSettings;
     return false;
   }
   return true;
 }
-
-async function geminiGenerate(prompt, useSearch=false){
-  if(!creatorReady()) throw new Error('Gemini API Key تنظیم نشده است');
+function openGeminiSettings(){
+  modal('تنظیم Gemini',`<div class="muted small" style="margin-bottom:8px">کلید فقط در مرورگر همین دستگاه ذخیره می‌شود.</div><input id="geminiKeyInput" class="input" dir="ltr" autocomplete="off" placeholder="Gemini API Key"><div class="grid2" style="margin-top:10px"><button id="saveGeminiKey" class="btn primary">${creatorIcon('check')} ذخیره</button><button id="clearGeminiKey" class="btn">${creatorIcon('trash')} پاک کردن</button></div>`);
+  const input=$('geminiKeyInput'); if(input)input.value=getGeminiKey();
+  $('saveGeminiKey').onclick=()=>{const k=input.value.trim();if(!k)return toast('کلید Gemini را وارد کن');localStorage.setItem(GEMINI_API_KEY_KEY,k);closeModal();toast('کلید Gemini ذخیره شد');};
+  $('clearGeminiKey').onclick=()=>{localStorage.removeItem(AQ.Ab8RN6Jvt3NaV8set8F31ZqbON8GRW0tTpJfhcwE0wO3x2EHZw);input.value='';toast('کلید پاک شد');};
+}
+async function geminiGenerate(prompt,useSearch=false){
+  const key=getGeminiKey();
+  if(!key) throw new Error('کلید Gemini وارد نشده است');
   const body={contents:[{parts:[{text:prompt}]}]};
-  if(useSearch) body.tools=[{googleSearch:{}}];
-  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-goog-api-key':AQ.Ab8RN6Jvt3NaV8set8F31ZqbON8GRW0tTpJfhcwE0wO3x2EHZw},
-    body:JSON.stringify(body)
-  });
-  const data=await res.json();
-  if(!res.ok) throw new Error(data?.error?.message||'خطا در ارتباط با Gemini');
+  if(useSearch)body.tools=[{googleSearch:{}}];
+  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok){if(res.status===400||res.status===403)throw new Error('کلید Gemini نامعتبر است یا API برای آن فعال نیست.');throw new Error(data?.error?.message||`خطای Gemini (${res.status})`);}
   return data?.candidates?.[0]?.content?.parts?.map(x=>x.text||'').join('')||'پاسخی دریافت نشد.';
 }
-
-function setCreatorBody(html){$('creatorHubBody').innerHTML=html;}
+function setCreatorBody(html){$('creatorHubBody').innerHTML=html;hydrateIcons($('creatorHubBody'));}
 
 $('achBtn').onclick=async()=>{
-  setCreatorBody(`<div class="title">🎯 ACh Challenge</div><div class="muted small">Gemini یک چالش کوتاه، امن و قابل انجام در استریم می‌سازد.</div><div id="achResult" class="challenge-box"><div class="empty">در حال ساخت چالش...</div></div>`);
+  if(!creatorReady())return;
+  setCreatorBody(`<div class="title">${creatorIcon('challenge')} ACh Challenge</div><div class="muted small">یک چالش کوتاه، امن و قابل انجام در استریم.</div><div id="achResult" class="challenge-box"><div class="empty">در حال ساخت چالش...</div></div>`);
   try{
-    const prompt=`برای یک استریمر فارسی‌زبان یک چالش کوتاه و سرگرم‌کننده برای انجام داخل استریم بساز.\nقوانین: خطرناک، آسیب‌زا، تحقیر شدید، جنسی، غیرقانونی یا پرهزینه نباشد؛ سختی متوسط رو به آسان باشد؛ در 1 تا 5 دقیقه قابل انجام باشد.\nخروجی فقط این قالب را بده:\nعنوان: ...\nچالش: ...\nمدرک لازم: ...\nXP: یک عدد بین 20 تا 100`;
-    const text=await geminiGenerate(prompt);
-    $('achResult').innerHTML=`<div class="ai-output">${esc(text)}</div><div class="grid2" style="margin-top:10px"><button id="acceptChallenge" class="btn primary">🎯 این چالش را می‌پذیرم</button><button id="newChallenge" class="btn">🔄 چالش جدید</button></div>`;
+    const text=await geminiGenerate(`برای یک استریمر فارسی‌زبان یک چالش کوتاه و سرگرم‌کننده برای انجام داخل استریم بساز. خطرناک، آسیب‌زا، تحقیر شدید، جنسی، غیرقانونی یا پرهزینه نباشد و در 1 تا 5 دقیقه قابل انجام باشد. نمونه‌ها می‌توانند خوردن یک لیوان آب سرد یا گذاشتن یک استوری بامزه باشند. خروجی فارسی و کوتاه باشد و فقط شامل عنوان، توضیح چالش و مدرک لازم باشد.`);
+    $('achResult').innerHTML=`<div class="ai-output">${esc(text)}</div><div class="grid2" style="margin-top:10px"><button id="acceptChallenge" class="btn primary">${creatorIcon('check')} قبول چالش</button><button id="newChallenge" class="btn">${creatorIcon('refresh')} چالش جدید</button></div>`;hydrateIcons($('achResult'));
     $('newChallenge').onclick=()=>$('achBtn').click();
     $('acceptChallenge').onclick=async()=>{
-      const challenge={text,uid:user.uid,name:profile?.name||'',username:profile?.username||'',status:'active',createdAt:Date.now()};
-      const id=push(ref(db,'streamerChallenges')).key;
-      await set(ref(db,`streamerChallenges/${id}`),challenge);
-      $('achResult').innerHTML=`<div class="challenge-status">🟡 چالش فعال شد</div><div class="ai-output" style="margin-top:10px">${esc(text)}</div><div class="muted small" style="margin-top:10px">بعد از انجام، مدرک را ارسال کن تا ادمین بررسی کند.</div><button id="doneChallenge" class="btn primary full" style="margin-top:10px">✅ انجام دادم</button>`;
-      $('doneChallenge').onclick=async()=>{
-        const proof=prompt('لینک یا توضیح مدرک انجام چالش را وارد کن:');
-        if(proof===null||!proof.trim())return;
-        await update(ref(db,`streamerChallenges/${id}`),{status:'pending',proof:proof.trim(),submittedAt:Date.now()});
-        toast('برای بررسی ادمین ارسال شد ✓');
-        $('doneChallenge').disabled=true;
-        $('doneChallenge').textContent='🟡 در انتظار بررسی ادمین';
-      };
+      try{const id=push(ref(db,'streamerChallenges')).key;await set(ref(db,`streamerChallenges/${id}`),{text,uid:user.uid,name:profile?.name||'',username:profile?.username||'',status:'active',createdAt:Date.now()});
+        $('achResult').innerHTML=`<div class="challenge-status">${creatorIcon('check')} چالش فعال شد</div><div class="ai-output" style="margin-top:10px">${esc(text)}</div><div class="muted small" style="margin-top:10px">بعد از انجام، مدرک را ارسال کن تا ادمین بررسی کند.</div><button id="doneChallenge" class="btn primary full" style="margin-top:10px">${creatorIcon('upload')} انجام دادم</button>`;hydrateIcons($('achResult'));
+        $('doneChallenge').onclick=async()=>{const proof=prompt('لینک یا توضیح مدرک انجام چالش را وارد کن:');if(proof===null||!proof.trim())return;await update(ref(db,`streamerChallenges/${id}`),{status:'pending',proof:proof.trim(),submittedAt:Date.now()});toast('برای بررسی ادمین ارسال شد');$('doneChallenge').disabled=true;$('doneChallenge').innerHTML=`${creatorIcon('check')} در انتظار بررسی ادمین`;hydrateIcons($('doneChallenge'));};
+      }catch(e){toast(friendlyError(e));}
     };
   }catch(e){$('achResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}
 };
 
 $('streamCoachBtn').onclick=()=>{
-  setCreatorBody(`<div class="title">🧠 AI Stream Coach</div><div class="muted small">لینک استریم را وارد کن و متن پیاده‌شده‌ی صحبت‌ها را برای تحلیل بده.</div><input id="streamUrl" class="input" placeholder="https://youtube.com/... یا لینک استریم"><textarea id="streamTranscript" class="input" rows="8" placeholder="متن صحبت‌های استریم را اینجا وارد کن...\nمثال: [00:12:41] ..."></textarea><div class="creator-hint muted">برای تحلیل دقیق جمله‌ها، متن گفتار باید در دسترس باشد. خودِ لینک کانال همیشه صدای استریم را در اختیار صفحه قرار نمی‌دهد.</div><button id="runCoach" class="btn primary full" style="margin-top:10px">🧠 تحلیل با Gemini</button><div id="coachResult" class="challenge-box" style="display:none"></div>`);
-  $('runCoach').onclick=async()=>{
-    const url=$('streamUrl').value.trim(), transcript=$('streamTranscript').value.trim();
-    if(!url&&!transcript)return toast('لینک یا متن استریم را وارد کن');
-    $('coachResult').style.display='block';$('coachResult').innerHTML='<div class="empty">در حال تحلیل...</div>';
-    try{
-      const prompt=`تو یک مربی حرفه‌ای استریمر فارسی‌زبان هستی. متن زیر را از نظر حفظ مخاطب، لحن، توهین، جمله‌های نامناسب، وضوح، ریتم و تعامل بررسی کن.\nبرای هر مورد زمان را اگر وجود داشت ذکر کن. به جای قضاوت شخص، روی جمله و اثر احتمالی آن تمرکز کن. برای هر جمله مشکل‌دار یک جایگزین طبیعی پیشنهاد بده.\nلینک استریم: ${url||'وارد نشده'}\nمتن:\n${transcript||'متن وارد نشده؛ فقط درباره محدودیت تحلیل لینک توضیح بده.'}`;
-      const text=await geminiGenerate(prompt);
-      $('coachResult').innerHTML=`<div class="ai-output">${esc(text)}</div>`;
-    }catch(e){$('coachResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}
-  };
+  if(!creatorReady())return;
+  setCreatorBody(`<div class="title">${creatorIcon('brain')} AI Stream Coach</div><div class="muted small">متن گفتار استریم را با تایم‌استمپ وارد کن تا Gemini جمله‌ها را بررسی کند.</div><input id="streamUrl" class="input" placeholder="لینک کانال یا استریم" dir="ltr"><textarea id="streamTranscript" class="input" rows="8" placeholder="[00:12:41] متن صحبت...\n[00:18:09] متن صحبت..."></textarea><button id="runCoach" class="btn primary full" style="margin-top:10px">${creatorIcon('brain')} شروع تحلیل</button><div id="coachResult" class="challenge-box" style="display:none"></div>`);hydrateIcons($('creatorHubBody'));
+  $('runCoach').onclick=async()=>{const url=$('streamUrl').value.trim(),transcript=$('streamTranscript').value.trim();if(!url&&!transcript)return toast('لینک یا متن استریم را وارد کن');$('coachResult').style.display='block';$('coachResult').innerHTML='<div class="empty">در حال تحلیل...</div>';try{const text=await geminiGenerate(`تو مربی حرفه‌ای استریمر فارسی‌زبان هستی. متن زیر را از نظر جمله‌های نامناسب، توهین، لحن، وضوح، ریتم و تعامل با مخاطب بررسی کن. برای هر مورد زمان را حفظ کن و یک جایگزین طبیعی پیشنهاد بده. قضاوت را روی جمله و اثر احتمالی آن متمرکز کن.\nلینک: ${url||'ندارد'}\nمتن:\n${transcript||'ندارد'}`);$('coachResult').innerHTML=`<div class="ai-output">${esc(text)}</div>`;}catch(e){$('coachResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}};
 };
 
-$('ytNewsBtn').onclick=async()=>{
-  setCreatorBody(`<div class="title">📰 خبرهای یوتیوب فارسی</div><div class="muted small">Gemini با جستجوی وب، خبرهای تازه را جمع‌آوری و خلاصه می‌کند.</div><div id="newsResult" class="challenge-box"><div class="empty">در حال جستجوی خبرهای جدید...</div></div>`);
-  try{
-    const prompt=`خبرهای مهم و جدید مربوط به YouTube فارسی و یوتیوبرهای فارسی‌زبان را برای امروز پیدا کن. موضوعات می‌توانند شامل تغییر درآمد/قوانین یوتیوب، حواشی بین کریتورهای فارسی، تغییرات مهم کانال‌ها و اتفاقات مهم اکوسیستم یوتیوب فارسی باشند. فقط مواردی را بیاور که منبع قابل بررسی دارند. شایعه را به عنوان شایعه علامت بزن و آن را به عنوان واقعیت قطعی بیان نکن. حداکثر 6 خبر. برای هر خبر: تیتر، خلاصه 2 جمله‌ای، تاریخ، و منبع/لینک را بده.`;
-    const text=await geminiGenerate(prompt,true);
-    $('newsResult').innerHTML=`<div class="ai-output">${esc(text)}</div><div class="muted small" style="margin-top:10px">نتایج خبری باید قبل از انتشار عمومی توسط خودت بررسی شوند.</div>`;
-  }catch(e){$('newsResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}
-};
+$('ytNewsBtn').onclick=async()=>{if(!creatorReady())return;setCreatorBody(`<div class="title">${creatorIcon('news')} خبرهای یوتیوب فارسی</div><div class="muted small">خبرهای تازه با منبع قابل بررسی.</div><div id="newsResult" class="challenge-box"><div class="empty">در حال جستجوی خبرها...</div></div>`);try{const text=await geminiGenerate(`خبرهای مهم و جدید مربوط به YouTube فارسی و یوتیوبرهای فارسی‌زبان را پیدا کن. موضوعات شامل تغییر درآمد یا قوانین یوتیوب، حواشی کریتورهای فارسی و اتفاقات مهم این اکوسیستم باشد. حداکثر 6 خبر. برای هر خبر تیتر، خلاصه کوتاه، تاریخ و منبع را بده. شایعه را صریحاً شایعه اعلام کن.`,true);$('newsResult').innerHTML=`<div class="ai-output">${esc(text)}</div>`;}catch(e){$('newsResult').innerHTML=`<div class="empty">${esc(e.message||'خطا')}</div>`;}};
+
+const geminiSettingsBtn=document.createElement('button');
+geminiSettingsBtn.className='btn';
+geminiSettingsBtn.type='button';
+geminiSettingsBtn.innerHTML=`${creatorIcon('settings')} تنظیم Gemini`;
+geminiSettingsBtn.onclick=openGeminiSettings;
+$('creatorHubPage').querySelector('.card').appendChild(geminiSettingsBtn);hydrateIcons($('creatorHubPage'));
 
 /* =========================================================
    ADMIN PANEL
