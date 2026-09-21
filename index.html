@@ -823,19 +823,12 @@ const esc=s=>String(s??"").replace(
 
 function friendlyError(e){
   const m={
-    "auth/popup-blocked":"پنجره Google توسط مرورگر مسدود شد.",
-    "auth/popup-closed-by-user":"ورود Google لغو شد.",
+    "auth/popup-blocked":"Popup توسط مرورگر مسدود شد.",
+    "auth/popup-closed-by-user":"ورود لغو شد.",
     "auth/network-request-failed":"اتصال اینترنت یا Firebase مشکل دارد.",
-    "auth/unauthorized-domain":"این دامنه در Firebase مجاز نشده است.",
-    "auth/operation-not-allowed":"ورود با Google در Firebase فعال نیست.",
-    "auth/admin-restricted-operation":"این عملیات در Firebase توسط Firebase محدود شده است.",
-    "auth/popup-cancelled-by-user":"ورود Google لغو شد.",
-    "auth/web-storage-unsupported":"مرورگر اجازه استفاده از Web Storage را نمی‌دهد.",
-    "auth/invalid-continue-uri":"آدرس برگشت Google نامعتبر است.",
-    "auth/internal-error":"خطای داخلی Firebase هنگام ورود با Google.",
-    "auth/credential-already-in-use":"این حساب Google قبلاً به حساب دیگری متصل شده است.",
-    "auth/account-exists-with-different-credential":"این ایمیل قبلاً با روش ورود دیگری ثبت شده است.",
-    "auth/invalid-credential":"اعتبار ورود Google نامعتبر یا منقضی شده است.",
+    "auth/unauthorized-domain":"دامنه در Firebase مجاز نشده است.",
+    "auth/operation-not-allowed":"روش ورود در Firebase فعال نیست.",
+    "auth/admin-restricted-operation":"این عملیات در Firebase فعال نیست.",
     "PERMISSION_DENIED":"Firebase Rules اجازه این عملیات را نمی‌دهد.",
     "username/taken":"این Username قبلاً استفاده شده است.",
     "username/invalid":"Username باید حداقل 3 کاراکتر داشته باشد.",
@@ -943,39 +936,29 @@ $("authBack").onclick=()=>{
 
 async function googleAuth(){
   try{
-    setAuthStatus("در حال اتصال به Google...");
+    setAuthStatus("در حال انتقال به Google...");
     const provider=new GoogleAuthProvider();
     provider.setCustomParameters({prompt:"select_account"});
-
-    const mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-
-    if(mobile){
-      await signInWithRedirect(auth,provider);
-      return;
-    }
-
-    await signInWithPopup(auth,provider);
+    await signInWithRedirect(auth,provider);
   }catch(e){
-    console.error("ÀVanta Google sign-in error:",e);
-    setAuthStatus(friendlyError(e));
-    toast(friendlyError(e));
+    console.error("Google redirect start error:",e);
+    const msg=friendlyError(e);
+    setAuthStatus("خطای Google: "+msg);
+    toast("Google: "+msg);
   }
 }
 $("googleLogin").onclick=googleAuth;
 
-/* Google Redirect result — نتیجه برگشت از Google را مدیریت می‌کند */
+/* دریافت نتیجه Redirect بعد از برگشت از Google */
 (async()=>{
   try{
     const result=await getRedirectResult(auth);
-
-    if(result?.user){
-      setAuthStatus("ورود با Google موفق بود...");
-    }
+    if(result?.user) setAuthStatus("ورود با Google موفق بود...");
   }catch(e){
-    console.error("ÀVanta Google redirect error:",e);
-    const message=friendlyError(e);
-    setAuthStatus("خطای ورود با Google: "+message);
-    toast("Google: "+message);
+    console.error("Google redirect result error:",e);
+    const msg=friendlyError(e);
+    setAuthStatus("خطای بازگشت از Google: "+msg);
+    toast("Google: "+msg);
   }
 })();
 
@@ -2835,7 +2818,7 @@ function creatorReady(){
 function openGeminiSettings(){
   modal('تنظیم Gemini',`<div class="muted small" style="margin-bottom:8px">کلید فقط در مرورگر همین دستگاه ذخیره می‌شود.</div><input id="geminiKeyInput" class="input" dir="ltr" autocomplete="off" placeholder="Gemini API Key"><div class="grid2" style="margin-top:10px"><button id="saveGeminiKey" class="btn primary">${creatorIcon('check')} ذخیره</button><button id="clearGeminiKey" class="btn">${creatorIcon('trash')} پاک کردن</button></div>`);
   const input=$('geminiKeyInput'); if(input)input.value=getGeminiKey();
-  $('saveGeminiKey').onclick=()=>{const k=input.value.trim();if(!k)return toast('کلید Gemini را وارد کن');localStorage.setItem(AQ.Ab8RN6Jvt3NaV8set8F31ZqbON8GRW0tTpJfhcwE0wO3x2EHZw);closeModal();toast('کلید Gemini ذخیره شد');};
+  $('saveGeminiKey').onclick=()=>{const k=input.value.trim();if(!k)return toast('کلید Gemini را وارد کن');localStorage.setItem(GEMINI_API_KEY_KEY,k);closeModal();toast('کلید Gemini ذخیره شد');};
   $('clearGeminiKey').onclick=()=>{localStorage.removeItem(AQ.Ab8RN6Jvt3NaV8set8F31ZqbON8GRW0tTpJfhcwE0wO3x2EHZw);input.value='';toast('کلید پاک شد');};
 }
 async function geminiGenerate(prompt,useSearch=false){
