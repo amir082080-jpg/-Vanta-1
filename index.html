@@ -1,33 +1,1892 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07100b"><title>TVANTA — Streamer Control Center</title><style>
-:root{--bg:#050806;--p:rgba(12,22,16,.82);--l:rgba(77,255,137,.17);--g:#38ff88;--g2:#0fc968;--t:#effff4;--m:#8ca697;--d:#ff6378;--r:22px}*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 10% 5%,#0c3020 0,transparent 32%),radial-gradient(circle at 90% 90%,#0b2b1a 0,transparent 30%),var(--bg);color:var(--t);font-family:system-ui,-apple-system,Segoe UI,Tahoma,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.bg{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#54ff8810 1px,transparent 1px),linear-gradient(90deg,#54ff8809 1px,transparent 1px);background-size:44px 44px;opacity:.5}.app{position:relative;z-index:1;min-height:100vh}.side{position:fixed;right:0;top:0;bottom:0;width:255px;padding:20px 14px;background:#050b08e8;backdrop-filter:blur(20px);border-left:1px solid var(--l);z-index:10}.brand{display:flex;gap:10px;align-items:center;padding:8px 8px 25px}.logo{width:43px;height:43px;border:1px solid #38ff8850;border-radius:14px;display:grid;place-items:center;color:var(--g);font-weight:900;box-shadow:0 0 28px #38ff8815}.brand b{letter-spacing:2px;font-size:20px}.brand small{display:block;color:var(--m);font-size:9px}.nav{display:grid;gap:7px}.nav button,.mnav button{border:1px solid transparent;background:transparent;color:#a6b9ad;padding:12px;border-radius:14px;text-align:right;transition:.2s}.nav button:hover,.nav button.active,.mnav button.active{color:#fff;background:#38ff8810;border-color:var(--l);box-shadow:inset -3px 0 var(--g)}.main{margin-right:255px;padding:20px;min-width:0}.top{height:62px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.top h1{font-size:21px;margin:0}.top p{font-size:11px;color:var(--m);margin:3px 0}.actions{display:flex;gap:8px}.btn,.primary,.input{border:1px solid var(--l);background:#0d1b13;color:#eafff0;border-radius:13px;padding:10px 13px}.primary{background:linear-gradient(135deg,var(--g),var(--g2));color:#031009;border:0;font-weight:800}.view{display:none;animation:in .3s ease}.view.active{display:block}@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.hero,.card{background:var(--p);border:1px solid var(--l);border-radius:var(--r);box-shadow:0 20px 60px #0007;backdrop-filter:blur(18px)}.hero{padding:25px;background:linear-gradient(135deg,#193622b8,#09110cc2)}.ey{font-size:10px;color:var(--g);font-weight:800;letter-spacing:2px}.hero h2{font-size:clamp(28px,4vw,45px);margin:8px 0}.hero p{max-width:760px;color:#a9b9ae;line-height:1.8}.hero-row{display:flex;justify-content:space-between;gap:20px;align-items:end}.status{min-width:210px;padding:15px;border:1px solid var(--l);border-radius:17px;background:#0003}.status span{font-size:10px;color:var(--m)}.status strong{display:block;margin:6px 0;font-size:18px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:13px 0}.stat{padding:17px}.label{font-size:10px;color:var(--m)}.value{font-size:27px;font-weight:850;margin-top:7px}.foot{font-size:9px;color:#6d8274;margin-top:3px}.cols{display:grid;grid-template-columns:1.35fr .65fr;gap:13px}.section{padding:18px}.head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.head h3{margin:0;font-size:15px}.head span{font-size:10px;color:var(--m)}.chart{height:210px}.chart svg{width:100%;height:100%}.line{fill:none;stroke:var(--g);stroke-width:3;filter:drop-shadow(0 0 6px #38ff8890);stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s forwards}@keyframes draw{to{stroke-dashoffset:0}}.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quick button{padding:14px;text-align:right;border:1px solid var(--l);border-radius:15px;background:#38ff8808;color:#fff}.quick small{display:block;color:var(--m);font-size:9px;margin-top:4px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:160px}.field label{font-size:10px;color:var(--m)}.input{width:100%;outline:0}.input:focus{border-color:#38ff8866}.soundgrid,.alertgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.sound,.alert{padding:15px;min-height:135px}.sound h4,.alert h4{margin:10px 0 5px}.muted{font-size:10px;color:var(--m)}.badge{font-size:9px;border:1px solid var(--l);border-radius:99px;padding:4px 7px;color:var(--g)}.sound-actions{display:flex;gap:7px;margin-top:18px}.sound-actions button{flex:1}.drop{padding:25px;border:1px dashed #38ff8845;border-radius:17px;text-align:center;color:var(--m);margin-bottom:13px}.drop b{display:block;color:#dfffea;margin-bottom:5px}.preview{height:95px;border:1px solid var(--l);border-radius:15px;display:grid;place-items:center;background:radial-gradient(circle,#38ff8825,transparent 60%);font-weight:900}.flash{animation:flash .7s}@keyframes flash{50%{transform:scale(1.1);box-shadow:0 0 50px #38ff8860}}.analyzer,.settings{display:grid;grid-template-columns:1fr 1fr;gap:13px}.metric{padding:13px;border:1px solid var(--l);border-radius:14px;margin-top:9px}.mt{display:flex;justify-content:space-between;font-size:11px}.bar{height:6px;background:#142119;border-radius:99px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g2),var(--g));transition:1s}.coach{line-height:1.9;color:#d9e8dd}.suggestion{padding:12px;border:1px solid var(--l);border-radius:14px;margin-top:8px;font-size:11px}.toggle{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #fff1}.switch{width:47px;height:27px;border:1px solid var(--l);border-radius:99px;background:#142018;padding:3px}.switch i{display:block;width:19px;height:19px;background:#63766a;border-radius:50%;transition:.2s}.switch.on i{transform:translateX(-20px);background:var(--g);box-shadow:0 0 12px #38ff8890}.login{position:fixed;inset:0;z-index:30;display:none;place-items:center;background:#000b;backdrop-filter:blur(14px);padding:20px}.login.show{display:grid}.loginbox{width:min(430px,100%);padding:25px;background:#08100bed;border:1px solid var(--l);border-radius:25px}.toast{position:fixed;left:16px;bottom:16px;z-index:50;padding:12px 15px;background:#07100cef;border:1px solid var(--l);border-radius:14px;font-size:11px;box-shadow:0 20px 50px #0008}.mnav{display:none}@media(max-width:1000px){.stats{grid-template-columns:1fr 1fr}.cols,.analyzer,.settings{grid-template-columns:1fr}.soundgrid,.alertgrid{grid-template-columns:1fr 1fr}}@media(max-width:760px){.side{display:none}.main{margin:0;padding:13px;padding-bottom:90px}.top{height:55px}.actions .user{display:none}.hero{padding:19px}.hero-row{display:block}.status{margin-top:15px;min-width:0}.stats{gap:8px}.stat{padding:13px}.value{font-size:22px}.section{padding:14px}.soundgrid,.alertgrid{grid-template-columns:1fr 1fr}.mnav{position:fixed;display:flex;z-index:20;bottom:9px;left:9px;right:9px;padding:6px;background:#050c08eb;border:1px solid var(--l);border-radius:20px;backdrop-filter:blur(18px);justify-content:space-around}.mnav button{text-align:center;font-size:9px;padding:9px}.menu{display:block!important}.side.open{display:block;width:255px;box-shadow:-30px 0 80px #0008}}@media(max-width:430px){.soundgrid,.alertgrid{grid-template-columns:1fr}.hero h2{font-size:28px}.toolbar{display:grid}.field{min-width:0}.actions .btn{display:none}}
-</style></head><body><div class="bg"></div><div class="app">
-<aside class="side" id="side"><div class="brand"><div class="logo">T</div><div><b>TVANTA</b><small>STREAMER CONTROL CENTER</small></div></div><nav class="nav" id="nav"><button class="active" data-v="dashboard">▦ داشبورد</button><button data-v="soundboard">◉ Soundboard</button><button data-v="alerts">✦ Animation & Alerts</button><button data-v="analyzer">⌁ Stream Analyzer</button><button data-v="coach">◌ TVANTA Coach</button><button data-v="settings">⚙ تنظیمات</button></nav></aside>
-<main class="main"><header class="top"><div><button class="btn menu" id="menu" style="display:none">☰</button><h1 id="title">داشبورد</h1><p>مرکز کنترل استریم و ابزارهای TVANTA</p></div><div class="actions"><button class="btn" id="cmd">Ctrl + K</button><span class="btn user" id="user">Streamer</span><button class="primary" id="login">ورود / حساب</button></div></header>
-<section class="view active" id="dashboard"><div class="hero"><span class="ey">TVANTA CORE</span><div class="hero-row"><div><h2>استریم رو کنترل کن.</h2><p>یک هسته حرفه‌ای و واکنش‌گرا برای Soundboard، Alert، تحلیل جلسه و Coach. روی موبایل و دسکتاپ اجرا می‌شود.</p></div><div class="status"><span>وضعیت جلسه</span><strong id="live">OFFLINE</strong><button class="primary" id="toggle" style="width:100%">شروع جلسه</button></div></div></div><div class="stats"><div class="card stat"><div class="label">زمان جلسه</div><div class="value" id="time">00:00:00</div><div class="foot">از شروع جلسه</div></div><div class="card stat"><div class="label">بیننده</div><div class="value" id="viewers">0</div><div class="foot">ورودی محلی</div></div><div class="card stat"><div class="label">فالوور جلسه</div><div class="value" id="followers">0</div><div class="foot">قابل اتصال به API</div></div><div class="card stat"><div class="label">امتیاز</div><div class="value" id="score">--</div><div class="foot">تحلیل TVANTA</div></div></div><div class="cols"><div class="card section"><div class="head"><h3>روند بیننده</h3><span>نمونه داخلی</span></div><div class="chart"><svg viewBox="0 0 800 220" preserveAspectRatio="none"><path class="line" d="M0 190 L80 165 L160 176 L240 120 L320 145 L400 90 L480 108 L560 65 L640 85 L720 45 L800 60"/></svg></div></div><div class="card section"><div class="head"><h3>دسترسی سریع</h3><span>Tools</span></div><div class="quick"><button data-g="soundboard"><b>Soundboard</b><small>پخش صدا</small></button><button data-g="alerts"><b>Alert Studio</b><small>افکت تصویری</small></button><button data-g="analyzer"><b>Analyzer</b><small>تحلیل جلسه</small></button><button data-g="coach"><b>Coach</b><small>ایده و تعامل</small></button></div></div></div></section>
-<section class="view" id="soundboard"><div class="card section"><div class="head"><div><h3>Soundboard</h3><span>صداها را از دستگاه اضافه کن</span></div><button class="primary" id="add">+ افزودن صدا</button></div><input id="files" type="file" accept="audio/*" multiple hidden><div class="drop" id="drop"><b>فایل صوتی انتخاب کن</b>فایل در همین مرورگر برای این نشست استفاده می‌شود.</div><div class="field" style="margin-bottom:13px"><label>جستجو</label><input class="input" id="search" placeholder="نام صدا..."></div><div class="soundgrid" id="sounds"></div></div></section>
-<section class="view" id="alerts"><div class="card section"><div class="head"><div><h3>Animation & Alert Studio</h3><span>پیش‌نمایش افکت‌های آماده</span></div><button class="primary" id="newalert">ساخت Alert</button></div><div class="alertgrid"><div class="card alert"><div class="preview" id="p1">NEW FOLLOW</div><h4>New Follow</h4><div class="muted">هشدار فالوور جدید</div><button class="primary test" data-x="p1" style="width:100%;margin-top:10px">Preview</button></div><div class="card alert"><div class="preview" id="p2">NEW SUPPORT</div><h4>New Support</h4><div class="muted">حمایت یا سابسکرایب</div><button class="primary test" data-x="p2" style="width:100%;margin-top:10px">Preview</button></div><div class="card alert"><div class="preview" id="p3">BIG MOMENT</div><h4>Big Moment</h4><div class="muted">افکت ویژه</div><button class="primary test" data-x="p3" style="width:100%;margin-top:10px">Preview</button></div></div><div style="margin-top:15px"><div class="head"><h3>Overlay URL</h3><span>برای Browser Source بعدی</span></div><div style="display:flex;gap:7px"><input class="input" id="overlay" readonly><button class="btn" id="copy">کپی</button></div></div></div></section>
-<section class="view" id="analyzer"><div class="analyzer"><div class="card section"><div class="head"><h3>Session Analyzer</h3><span>تحلیل قابل توضیح</span></div><div class="toolbar"><div class="field"><label>میانگین بیننده</label><input class="input" id="av" type="number" value="25"></div><div class="field"><label>فالوور جدید</label><input class="input" id="nf" type="number" value="4"></div><div class="field"><label>مدت دقیقه</label><input class="input" id="dm" type="number" value="60"></div></div><button class="primary" id="analyze">اجرای تحلیل</button><div id="metrics"></div></div><div class="card section"><div class="head"><h3>گزارش TVANTA</h3><span>بدون پیش‌بینی</span></div><div class="coach" id="report">داده‌ها را وارد کن و تحلیل را اجرا کن.</div><div id="tips"></div></div></div></section>
-<section class="view" id="coach"><div class="card section"><div class="head"><div><h3>TVANTA Coach</h3><span>پیشنهاد محتوایی محلی</span></div><button class="primary" id="gen">تولید پیشنهاد</button></div><div class="toolbar"><div class="field"><label>نوع محتوا</label><select class="input" id="type"><option>گیم</option><option>ری‌اکت</option><option>گفتگو</option><option>تماشای ویدیو</option><option>متنوع</option></select></div><div class="field"><label>هدف</label><select class="input" id="goal"><option>تعامل بیشتر</option><option>نگهداشت مخاطب</option><option>ساخت کلیپ</option><option>آرام و فان</option></select></div></div><div class="coach" id="coachout"><b>Coach آماده است.</b><br>گزینه‌ها را انتخاب کن و تولید پیشنهاد را بزن.</div></div></section>
-<section class="view" id="settings"><div class="settings"><div class="card section"><div class="head"><h3>پروفایل</h3><span>Local</span></div><div class="field"><label>نام نمایشی</label><input class="input" id="name" value="Streamer"></div><div class="field" style="margin-top:10px"><label>لینک KICK</label><input class="input" id="kick" placeholder="https://kick.com/yourname"></div><button class="primary" id="save" style="margin-top:10px">ذخیره</button></div><div class="card section"><div class="head"><h3>رفتار</h3><span>Preferences</span></div><div class="toggle"><div><b>انیمیشن</b><small class="muted">افکت رابط</small></div><button class="switch on" data-s="anim"><i></i></button></div><div class="toggle"><div><b>صدای رابط</b><small class="muted">بازخورد کوتاه</small></div><button class="switch on" data-s="sound"><i></i></button></div><div class="toggle"><div><b>کم‌مصرف</b><small class="muted">افکت کمتر</small></div><button class="switch" data-s="low"><i></i></button></div></div><div class="card section"><div class="head"><h3>Firebase</h3><span>Ready</span></div><p class="muted" style="line-height:1.9">ساختار TVANTA برای Firebase در نظر گرفته شده است. Secretهای سرویس‌ها نباید داخل HTML قرار بگیرند. مسیر داده حساب‌ها: <b style="color:var(--g)">/tavanta/users/$uid</b></p></div><div class="card section"><div class="head"><h3>داده‌ها</h3><span>Local Storage</span></div><button class="btn" id="export" style="width:100%">خروجی JSON</button><button class="btn" id="clear" style="width:100%;margin-top:8px;color:#ff9aa8">پاک کردن داده‌ها</button></div></div></section>
-</main></div><div class="mnav"><button class="active" data-v="dashboard">▦<br>خانه</button><button data-v="soundboard">◉<br>صدا</button><button data-v="alerts">✦<br>Alert</button><button data-v="analyzer">⌁<br>تحلیل</button><button data-v="settings">⚙<br>تنظیمات</button></div><div class="login" id="modal"><div class="loginbox"><h2>ورود به TVANTA</h2><p class="muted">ورود با Google یا حساب مهمان Firebase. اطلاعات خصوصی هر کاربر در مسیر اختصاصی خودش ذخیره می‌شود.</p><div id="authstate" class="badge">وارد نشده</div><div class="field"><label>نام</label><input class="input" id="loginname" value="Amir"></div><div style="display:flex;gap:7px;margin-top:12px"><button class="btn" id="close">بستن</button><button class="primary" id="local">ورود با Google</button><button class="btn" id="guest">ورود مهمان</button></div></div></div><div id="toast" class="toast" style="display:none"></div>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ty VANTA</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#050807;
+  --panel:rgba(13,20,17,.78);
+  --panel2:rgba(18,29,23,.68);
+  --line:rgba(80,255,150,.14);
+  --green:#39ff88;
+  --green2:#16c968;
+  --text:#f1fff6;
+  --muted:#82998b;
+  --danger:#ff5268;
+  --warning:#ffc857;
+  --shadow:0 20px 70px rgba(0,0,0,.45);
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(25,255,120,.09),transparent 30%),
+    radial-gradient(circle at 90% 80%,rgba(0,255,130,.06),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* APP */
+
+#app{
+  min-height:100vh;
+}
+
+.topbar{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  border-bottom:1px solid var(--line);
+  background:rgba(5,8,7,.78);
+  backdrop-filter:blur(22px);
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.brand-mark{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--green),#0b6d39);
+  box-shadow:0 0 35px rgba(57,255,136,.25);
+  display:grid;
+  place-items:center;
+  color:#041008;
+  font-weight:900;
+  font-size:17px;
+}
+
+.brand-name{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.brand-name span{
+  color:var(--green);
+}
+
+.connection{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.status-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#555;
+  box-shadow:0 0 0 transparent;
+}
+
+.status-dot.online{
+  background:var(--green);
+  box-shadow:0 0 15px var(--green);
+}
+
+.status-dot.error{
+  background:var(--danger);
+  box-shadow:0 0 15px var(--danger);
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:245px 1fr;
+  min-height:calc(100vh - 76px);
+}
+
+.sidebar{
+  border-left:1px solid var(--line);
+  padding:22px 15px;
+  background:rgba(6,11,8,.6);
+}
+
+.nav-title{
+  font-size:10px;
+  color:#506358;
+  letter-spacing:2px;
+  margin:13px 13px 9px;
+}
+
+.nav-btn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#8ca194;
+  background:transparent;
+  padding:13px 14px;
+  border-radius:13px;
+  margin-bottom:5px;
+  text-align:right;
+  transition:.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  color:#fff;
+  background:rgba(57,255,136,.08);
+}
+
+.nav-icon{
+  width:19px;
+  height:19px;
+  border:1px solid currentColor;
+  border-radius:5px;
+  opacity:.8;
+}
+
+.main{
+  padding:30px;
+  max-width:1500px;
+  width:100%;
+  margin:auto;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+  animation:pageIn .35s ease;
+}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+.page-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:24px;
+}
+
+.page-title{
+  font-size:29px;
+  font-weight:900;
+}
+
+.page-sub{
+  color:var(--muted);
+  margin-top:7px;
+  font-size:13px;
+}
+
+/* CARDS */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.card{
+  background:linear-gradient(145deg,rgba(18,29,23,.78),rgba(7,12,9,.72));
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:21px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+}
+
+.stat-label{
+  color:#779083;
+  font-size:12px;
+}
+
+.stat-value{
+  font-size:27px;
+  font-weight:900;
+  margin-top:12px;
+}
+
+.stat-accent{
+  color:var(--green);
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+.card-title{
+  font-weight:800;
+  font-size:15px;
+  margin-bottom:17px;
+}
+
+.big-status{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px;
+  border-radius:16px;
+  background:rgba(0,0,0,.2);
+  border:1px solid rgba(255,255,255,.04);
+}
+
+.big-status strong{
+  display:block;
+  font-size:17px;
+}
+
+.big-status small{
+  color:var(--muted);
+  display:block;
+  margin-top:6px;
+}
+
+/* BUTTONS */
+
+.btn{
+  padding:11px 16px;
+  border-radius:12px;
+  color:#dfffea;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.08);
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  border-color:rgba(57,255,136,.3);
+}
+
+.btn.primary{
+  color:#031007;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--green),#20d76e);
+  box-shadow:0 8px 30px rgba(57,255,136,.13);
+}
+
+.btn.danger{
+  color:#fff;
+  background:rgba(255,82,104,.1);
+  border-color:rgba(255,82,104,.2);
+}
+
+.btn.warning{
+  color:#fff;
+  background:rgba(255,200,87,.1);
+  border-color:rgba(255,200,87,.2);
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+/* OBS */
+
+.obs-address{
+  display:flex;
+  gap:9px;
+  margin-bottom:16px;
+}
+
+.input{
+  width:100%;
+  color:#eafff1;
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  padding:12px 14px;
+  outline:none;
+}
+
+.input:focus{
+  border-color:rgba(57,255,136,.5);
+  box-shadow:0 0 0 3px rgba(57,255,136,.06);
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  color:#7e9588;
+  font-size:12px;
+  margin-bottom:7px;
+}
+
+.scene-list{
+  display:grid;
+  gap:8px;
+  max-height:260px;
+  overflow:auto;
+}
+
+.scene{
+  padding:12px 14px;
+  border-radius:11px;
+  background:rgba(255,255,255,.035);
+  border:1px solid transparent;
+  color:#a9b9af;
+  cursor:pointer;
+}
+
+.scene:hover,
+.scene.selected{
+  border-color:rgba(57,255,136,.22);
+  color:#fff;
+  background:rgba(57,255,136,.06);
+}
+
+/* CHALLENGE */
+
+.challenge-builder{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-bottom:16px;
+}
+
+.level{
+  padding:13px;
+  border-radius:13px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.07);
+  color:#84978c;
+  text-align:center;
+  cursor:pointer;
+}
+
+.level.active{
+  color:#06130b;
+  background:var(--green);
+  font-weight:900;
+}
+
+.challenge-preview{
+  min-height:310px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.challenge-preview::before{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:rgba(57,255,136,.08);
+  filter:blur(35px);
+}
+
+.challenge-inner{
+  position:relative;
+  z-index:2;
+}
+
+.challenge-kicker{
+  color:var(--green);
+  font-size:12px;
+  letter-spacing:4px;
+  font-weight:900;
+}
+
+.challenge-text{
+  font-size:27px;
+  line-height:1.6;
+  font-weight:900;
+  margin:14px 0;
+}
+
+.challenge-level{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:100px;
+  background:rgba(57,255,136,.09);
+  color:var(--green);
+  font-size:11px;
+}
+
+/* SETTINGS */
+
+.settings-grid{
+  max-width:760px;
+  display:grid;
+  gap:16px;
+}
+
+.url-box{
+  font-size:11px;
+  direction:ltr;
+  text-align:left;
+  word-break:break-all;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  left:25px;
+  bottom:25px;
+  z-index:200;
+  max-width:360px;
+  padding:14px 17px;
+  border-radius:14px;
+  background:rgba(10,17,13,.94);
+  border:1px solid rgba(57,255,136,.2);
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  transform:translateY(30px);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+#toast.show{
+  opacity:1;
+  transform:none;
+}
+
+/* OVERLAY */
+
+body.overlay-mode{
+  background:transparent!important;
+  overflow:hidden;
+}
+
+#overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.overlay-card{
+  width:min(900px,88vw);
+  padding:34px 45px;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(80px) scale(.86);
+  border-radius:30px;
+  border:1px solid rgba(57,255,136,.42);
+  background:
+    linear-gradient(135deg,rgba(5,16,10,.94),rgba(9,30,18,.86));
+  box-shadow:
+    0 0 80px rgba(57,255,136,.18),
+    inset 0 0 60px rgba(57,255,136,.035);
+}
+
+.overlay-card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:32px;
+  padding:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  opacity:.8;
+  animation:scan 2s linear infinite;
+}
+
+.overlay-content{
+  position:relative;
+  z-index:2;
+}
+
+.overlay-kicker{
+  color:var(--green);
+  font-weight:900;
+  letter-spacing:7px;
+  font-size:15px;
+}
+
+.overlay-title{
+  font-size:clamp(28px,5vw,62px);
+  line-height:1.4;
+  font-weight:900;
+  margin:14px 0;
+  text-shadow:0 0 30px rgba(57,255,136,.3);
+}
+
+.overlay-meta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  color:#8da296;
+}
+
+.overlay-pill{
+  padding:6px 13px;
+  border-radius:100px;
+  border:1px solid rgba(57,255,136,.25);
+  color:var(--green);
+  background:rgba(57,255,136,.07);
+  font-size:12px;
+}
+
+.overlay-card.show{
+  animation:
+    overlayIn .7s cubic-bezier(.16,1,.3,1) forwards,
+    overlayGlow 1.8s ease-in-out .7s infinite alternate;
+}
+
+.overlay-card.hide{
+  animation:overlayOut .65s ease forwards;
+}
+
+@keyframes overlayIn{
+  0%{opacity:0;transform:translateY(100px) scale(.75);filter:blur(15px)}
+  55%{opacity:1;transform:translateY(-8px) scale(1.03);filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@keyframes overlayOut{
+  from{opacity:1;transform:translateY(0) scale(1)}
+  to{opacity:0;transform:translateY(-70px) scale(.9);filter:blur(8px)}
+}
+
+@keyframes overlayGlow{
+  from{box-shadow:0 0 45px rgba(57,255,136,.12)}
+  to{box-shadow:0 0 95px rgba(57,255,136,.27)}
+}
+
+@keyframes scan{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard-grid,
+  .challenge-builder{
+    grid-template-columns:1fr;
+  }
+
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .topbar{
+    padding:0 15px;
+  }
+
+  .main{
+    padding:18px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .page-title{
+    font-size:23px;
+  }
+
+  .levels{
+    grid-template-columns:1fr;
+  }
+
+  .obs-address{
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- DESKTOP APP -->
+
+<div id="app">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">TV</div>
+    <div class="brand-name">Ty <span>VANTA</span></div>
+  </div>
+
+  <div class="connection">
+    <span id="statusDot" class="status-dot"></span>
+    <span id="connectionText">در حال آماده‌سازی...</span>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <div class="nav-title">TY VANTA</div>
+
+  <button class="nav-btn active" data-page="dashboard">
+    <span class="nav-icon"></span>
+    داشبورد
+  </button>
+
+  <button class="nav-btn" data-page="obs">
+    <span class="nav-icon"></span>
+    کنترل OBS
+  </button>
+
+  <button class="nav-btn" data-page="challenge">
+    <span class="nav-icon"></span>
+    Challenge
+  </button>
+
+  <div class="nav-title">SYSTEM</div>
+
+  <button class="nav-btn" data-page="settings">
+    <span class="nav-icon"></span>
+    تنظیمات
+  </button>
+
+</aside>
+
+<main class="main">
+
+<!-- DASHBOARD -->
+
+<section class="page active" id="page-dashboard">
+
+  <div class="page-head">
+    <div>
+      <div class="page-title">داشبورد</div>
+      <div class="page-sub">مرکز کنترل Ty VANTA برای استریم</div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="stat-label">OBS</div>
+      <div class="stat-value" id="dashObs">OFFLINE</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Scene فعلی</div>
+      <div class="stat-value" id="dashScene">—</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Stream</div>
+      <div class="stat-value" id="dashStream">OFF</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Challenge</div>
+      <div class="stat-value stat-accent" id="dashChallenge">READY</div>
+    </div>
+
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="card">
+      <div class="card-title">کنترل سریع</div>
+
+      <div class="big-status">
+        <div>
+          <strong id="quickStatus">OBS متصل نیست</strong>
+          <small>اتصال مستقیم به OBS WebSocket</small>
+        </div>
+        <span class="status-dot" id="quickDot"></span>
+      </div>
+
+      <br>
+
+      <div class="actions">
+        <button class="btn primary" onclick="connectOBS()">اتصال OBS</button>
+        <button class="btn" onclick="startStream()">شروع Stream</button>
+        <button class="btn danger" onclick="stopStream()">توقف Stream</button>
+        <button class="btn" onclick="startRecord()">شروع Record</button>
+        <button class="btn warning" onclick="stopRecord()">توقف Record</button>
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">Challenge سریع</div>
+
+      <div style="color:#82998b;font-size:13px;line-height:1.8;margin-bottom:16px">
+        یک Challenge تصادفی از بانک Ty VANTA انتخاب می‌شود و مستقیماً برای Overlay OBS ارسال می‌شود.
+      </div>
+
+      <button class="btn primary" style="width:100%" onclick="generateChallenge()">
+        اجرای Challenge
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- OBS -->
+
+<section class="page" id="page-obs">
+
+  <div class="page-head">
+    <div>
+      <div class="page-title">کنترل OBS</div>
+      <div class="page-sub">کنترل مستقیم OBS WebSocket</div>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">اتصال</div>
+
+    <div class="obs-address">
+
+      <input
+        id="obsAddress"
+        class="input"
+        dir="ltr"
+        value="ws://127.0.0.1:4455"
+        placeholder="ws://127.0.0.1:4455"
+      >
+
+      <button class="btn primary" onclick="connectOBS()">
+        اتصال
+      </button>
+
+      <button class="btn danger" onclick="disconnectOBS()">
+        قطع
+      </button>
+
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" onclick="startStream()">Start Stream</button>
+      <button class="btn danger" onclick="stopStream()">Stop Stream</button>
+      <button class="btn primary" onclick="startRecord()">Start Recording</button>
+      <button class="btn danger" onclick="stopRecord()">Stop Recording</button>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div class="card">
+
+    <div class="card-title">Scenes</div>
+
+    <div id="sceneList" class="scene-list">
+      <div style="color:#708277;font-size:13px">
+        ابتدا OBS را متصل کن.
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CHALLENGE -->
+
+<section class="page" id="page-challenge">
+
+  <div class="page-head">
+    <div>
+      <div class="page-title">Challenge Engine</div>
+      <div class="page-sub">Challenge را اجرا کن و روی OBS نمایش بده</div>
+    </div>
+  </div>
+
+  <div class="challenge-builder">
+
+    <div class="card">
+
+      <div class="card-title">سطح Challenge</div>
+
+      <div class="levels">
+
+        <div class="level active" data-level="easy">
+          EASY
+        </div>
+
+        <div class="level" data-level="medium">
+          MEDIUM
+        </div>
+
+        <div class="level" data-level="hard">
+          HARD
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label>Challenge سفارشی</label>
+        <input
+          id="customChallenge"
+          class="input"
+          placeholder="مثلاً یک دقیقه مثل گزارشگر فوتبال بازی را توضیح بده"
+        >
+      </div>
+
+      <div class="actions">
+
+        <button class="btn primary" onclick="generateChallenge()">
+          Challenge تصادفی
+        </button>
+
+        <button class="btn" onclick="sendCustomChallenge()">
+          اجرای سفارشی
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="card challenge-preview">
+
+      <div class="challenge-inner">
+
+        <div class="challenge-kicker">
+          CHALLENGE UNLOCKED
+        </div>
+
+        <div id="previewText" class="challenge-text">
+          آماده‌ای؟
+        </div>
+
+        <div id="previewLevel" class="challenge-level">
+          EASY
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SETTINGS -->
+
+<section class="page" id="page-settings">
+
+  <div class="page-head">
+    <div>
+      <div class="page-title">تنظیمات</div>
+      <div class="page-sub">تنظیمات Ty VANTA و Overlay</div>
+    </div>
+  </div>
+
+  <div class="settings-grid">
+
+    <div class="card">
+
+      <div class="card-title">Firebase</div>
+
+      <div class="big-status">
+
+        <div>
+          <strong id="firebaseStatus">در حال اتصال...</strong>
+          <small>Anonymous Authentication</small>
+        </div>
+
+        <span class="status-dot" id="firebaseDot"></span>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">OBS Overlay</div>
+
+      <div style="font-size:13px;color:#84978c;line-height:1.8;margin-bottom:12px">
+        این لینک را در OBS به عنوان Browser Source قرار بده تا Challenge با انیمیشن روی تصویر استریم نمایش داده شود.
+      </div>
+
+      <input id="overlayUrl" class="input url-box" readonly>
+
+      <br><br>
+
+      <button class="btn primary" onclick="copyOverlayUrl()">
+        کپی لینک Overlay
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+</div>
+</div>
+
+<!-- OVERLAY MODE -->
+
+<div id="overlay" class="hidden">
+
+  <div id="overlayCard" class="overlay-card">
+
+    <div class="overlay-content">
+
+      <div class="overlay-kicker">
+        CHALLENGE UNLOCKED
+      </div>
+
+      <div id="overlayText" class="overlay-title">
+        آماده‌ای؟
+      </div>
+
+      <div class="overlay-meta">
+
+        <span id="overlayLevel" class="overlay-pill">
+          EASY
+        </span>
+
+        <span class="overlay-pill">
+          TY VANTA
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInAnonymously, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-const firebaseConfig={apiKey:"AIzaSyBsncHhhlqIi6qpf3hYtb0DOnq8zJb-zpI",authDomain:"avanta-3db7e.firebaseapp.com",databaseURL:"https://avanta-3db7e-default-rtdb.firebaseio.com",projectId:"avanta-3db7e",storageBucket:"avanta-3db7e.firebasestorage.app",messagingSenderId:"879564538420",appId:"1:879564538420:web:a0fc85cc43a9347d92c061",measurementId:"G-P3LP14QTQT"};
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app); const path=()=>ref(db,`tavanta/users/${auth.currentUser.uid}`);
-window.TVANTA_FIREBASE={auth,db,google:new GoogleAuthProvider(),async googleLogin(){return signInWithPopup(auth,this.google)},async guestLogin(){return signInAnonymously(auth)},async logout(){return signOut(auth)}};
-window.tvantaSync=async()=>{if(!auth.currentUser)return; try{await update(path(),{profile:{name:window.TVANTA_STATE?.name||"Streamer",kick:window.TVANTA_STATE?.kick||""},settings:window.TVANTA_STATE?.settings||{},session:window.TVANTA_STATE?.session||{},lastSeen:Date.now()})}catch(e){console.warn("Firebase sync",e)}};
-window.tvantaLoad=async()=>{if(!auth.currentUser)return;try{const x=await get(path());if(x.exists()){window.dispatchEvent(new CustomEvent("tvanta-remote",{detail:x.val()}));}}catch(e){console.warn("Firebase load",e)}};
-onAuthStateChanged(auth,u=>{window.TVANTA_USER=u||null;window.dispatchEvent(new CustomEvent("tvanta-auth",{detail:{user:u}}));if(u)window.tvantaLoad()});
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInAnonymously,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAnYMMl2VBBym-epaGZg2pmWjjHIO7v60",
+  authDomain: "ty-vanta.firebaseapp.com",
+  databaseURL: "https://ty-vanta-default-rtdb.firebaseio.com",
+  projectId: "ty-vanta",
+  storageBucket: "ty-vanta.firebasestorage.app",
+  messagingSenderId: "656258945308",
+  appId: "1:656258945308:web:2f8a19d197916c9a4eaad9",
+  measurementId: "G-49HVK2214C"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+let currentUser = null;
+
+
+/* =========================================================
+   OBS
+========================================================= */
+
+let obs = null;
+let obsConnected = false;
+let currentScene = "—";
+let scenes = [];
+
+async function loadOBS(){
+
+  if(window.OBSWebSocket) return;
+
+  try{
+
+    const module = await import(
+      "https://cdn.jsdelivr.net/npm/obs-websocket-js@5.0.6/+esm"
+    );
+
+    window.OBSWebSocket = module.default;
+
+  }catch(error){
+
+    console.error(error);
+
+    toast("کتابخانه OBS بارگذاری نشد.");
+
+  }
+
+}
+
+async function connectOBS(){
+
+  await loadOBS();
+
+  if(!window.OBSWebSocket){
+
+    toast("OBS WebSocket آماده نیست.");
+    return;
+
+  }
+
+  try{
+
+    if(obsConnected){
+      toast("OBS از قبل متصل است.");
+      return;
+    }
+
+    obs = new window.OBSWebSocket();
+
+    const address =
+      document.getElementById("obsAddress").value.trim();
+
+    await obs.connect(address);
+
+    obsConnected = true;
+
+    setConnection(true);
+
+    toast("OBS با موفقیت متصل شد.");
+
+    await loadScenes();
+    await updateOBSStatus();
+
+  }catch(error){
+
+    console.error(error);
+
+    obsConnected = false;
+
+    setConnection(false);
+
+    toast("اتصال به OBS ناموفق بود.");
+
+  }
+
+}
+
+async function disconnectOBS(){
+
+  try{
+
+    if(obs){
+
+      await obs.disconnect();
+
+    }
+
+  }catch(e){}
+
+  obsConnected = false;
+
+  setConnection(false);
+
+  toast("اتصال OBS قطع شد.");
+
+}
+
+function setConnection(state){
+
+  const dot =
+    document.getElementById("statusDot");
+
+  const quickDot =
+    document.getElementById("quickDot");
+
+  const text =
+    document.getElementById("connectionText");
+
+  const quick =
+    document.getElementById("quickStatus");
+
+  const dash =
+    document.getElementById("dashObs");
+
+  if(state){
+
+    dot.className="status-dot online";
+    quickDot.className="status-dot online";
+
+    text.textContent="OBS ONLINE";
+    quick.textContent="OBS متصل است";
+    dash.textContent="ONLINE";
+
+  }else{
+
+    dot.className="status-dot error";
+    quickDot.className="status-dot error";
+
+    text.textContent="OBS OFFLINE";
+    quick.textContent="OBS متصل نیست";
+    dash.textContent="OFFLINE";
+
+  }
+
+}
+
+async function loadScenes(){
+
+  if(!obsConnected) return;
+
+  try{
+
+    const result =
+      await obs.call("GetSceneList");
+
+    scenes =
+      result.scenes || [];
+
+    currentScene =
+      result.currentProgramSceneName || "—";
+
+    renderScenes();
+
+    document.getElementById("dashScene").textContent =
+      currentScene;
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+function renderScenes(){
+
+  const box =
+    document.getElementById("sceneList");
+
+  if(!scenes.length){
+
+    box.innerHTML =
+      `<div style="color:#708277">Sceneای پیدا نشد.</div>`;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    scenes.map(scene=>{
+
+      const name =
+        escapeHtml(scene.sceneName);
+
+      return `
+        <div
+          class="scene ${scene.sceneName===currentScene?"selected":""}"
+          onclick="changeScene('${encodeURIComponent(scene.sceneName)}')"
+        >
+          ${name}
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+async function changeScene(encoded){
+
+  if(!obsConnected){
+
+    toast("ابتدا OBS را متصل کن.");
+    return;
+
+  }
+
+  const name =
+    decodeURIComponent(encoded);
+
+  try{
+
+    await obs.call("SetCurrentProgramScene",{
+      sceneName:name
+    });
+
+    currentScene = name;
+
+    renderScenes();
+
+    document.getElementById("dashScene").textContent =
+      name;
+
+    toast("Scene تغییر کرد.");
+
+  }catch(error){
+
+    console.error(error);
+
+    toast("تغییر Scene انجام نشد.");
+
+  }
+
+}
+
+async function startStream(){
+
+  if(!obsConnected){
+
+    toast("OBS متصل نیست.");
+    return;
+
+  }
+
+  try{
+
+    await obs.call("StartStream");
+
+    toast("Stream شروع شد.");
+
+    updateOBSStatus();
+
+  }catch(error){
+
+    toast("شروع Stream ناموفق بود.");
+
+  }
+
+}
+
+async function stopStream(){
+
+  if(!obsConnected){
+
+    toast("OBS متصل نیست.");
+    return;
+
+  }
+
+  try{
+
+    await obs.call("StopStream");
+
+    toast("Stream متوقف شد.");
+
+    updateOBSStatus();
+
+  }catch(error){
+
+    toast("توقف Stream ناموفق بود.");
+
+  }
+
+}
+
+async function startRecord(){
+
+  if(!obsConnected){
+
+    toast("OBS متصل نیست.");
+    return;
+
+  }
+
+  try{
+
+    await obs.call("StartRecord");
+
+    toast("Recording شروع شد.");
+
+    updateOBSStatus();
+
+  }catch(error){
+
+    toast("شروع Recording ناموفق بود.");
+
+  }
+
+}
+
+async function stopRecord(){
+
+  if(!obsConnected){
+
+    toast("OBS متصل نیست.");
+    return;
+
+  }
+
+  try{
+
+    await obs.call("StopRecord");
+
+    toast("Recording متوقف شد.");
+
+    updateOBSStatus();
+
+  }catch(error){
+
+    toast("توقف Recording ناموفق بود.");
+
+  }
+
+}
+
+async function updateOBSStatus(){
+
+  if(!obsConnected) return;
+
+  try{
+
+    const stream =
+      await obs.call("GetStreamStatus");
+
+    document.getElementById("dashStream").textContent =
+      stream.outputActive ? "LIVE" : "OFF";
+
+  }catch(error){}
+
+}
+
+
+/* =========================================================
+   CHALLENGES
+========================================================= */
+
+const challenges = {
+
+  easy:[
+    "یک دقیقه مثل گزارشگر فوتبال بازی را توضیح بده.",
+    "چت را انتخاب کن و بین دو استراتژی یکی را انتخاب کن.",
+    "برای یک دقیقه فقط روی هدف اصلی بازی تمرکز کن.",
+    "قبل از هر تصمیم مهم سه ثانیه مکث کن.",
+    "یک دقیقه بازی را با لحن کاملاً جدی گزارش کن.",
+    "یک حرکت یا تکنیک جدید را امتحان کن.",
+    "یک دقیقه هر اتفاق مهم بازی را با صدای بلند تحلیل کن."
+  ],
+
+  medium:[
+    "تا پایان راند بعدی یک استراتژی متفاوت امتحان کن.",
+    "چت یک تصمیم تاکتیکی برایت انتخاب کند.",
+    "یک دقیقه بدون صحبت کردن فقط با واکنش تصویری بازی کن.",
+    "یک راند کامل را با تمرکز روی دقت بازی کن.",
+    "در راند بعدی تصمیم‌های عجولانه را حذف کن.",
+    "یک روش جدید برای حل موقعیت فعلی پیدا کن.",
+    "یک دقیقه نقش مربی خودت را بازی کن و تصمیم‌هایت را تحلیل کن."
+  ],
+
+  hard:[
+    "سه قانون برای راند بعدی تعیین کن و هر سه را رعایت کن.",
+    "در راند بعدی کاملاً برعکس سبک معمولت بازی کن.",
+    "یک راند کامل را با کمترین اشتباه ممکن انجام بده.",
+    "چت یک استراتژی پیشنهاد دهد و همان را منطقی اجرا کن.",
+    "بعد از هر اشتباه، در یک جمله علت آن را تحلیل کن.",
+    "یک راند کامل را با تمرکز روی تصمیم‌گیری و نه سرعت بازی کن.",
+    "یک دقیقه بازی را مثل یک بازیکن حرفه‌ای تحلیل کن."
+  ]
+
+};
+
+let selectedLevel = "easy";
+let lastChallenge = null;
+
+document.querySelectorAll(".level").forEach(el=>{
+
+  el.addEventListener("click",()=>{
+
+    document.querySelectorAll(".level")
+      .forEach(x=>x.classList.remove("active"));
+
+    el.classList.add("active");
+
+    selectedLevel =
+      el.dataset.level;
+
+    document.getElementById("previewLevel")
+      .textContent =
+      selectedLevel.toUpperCase();
+
+  });
+
+});
+
+function pickChallenge(){
+
+  const list =
+    challenges[selectedLevel];
+
+  let available =
+    list.filter(x=>x!==lastChallenge);
+
+  if(!available.length)
+    available=list;
+
+  const challenge =
+    available[
+      Math.floor(Math.random()*available.length)
+    ];
+
+  lastChallenge=challenge;
+
+  return challenge;
+
+}
+
+async function generateChallenge(){
+
+  const text =
+    pickChallenge();
+
+  await launchChallenge(
+    text,
+    selectedLevel
+  );
+
+}
+
+async function sendCustomChallenge(){
+
+  const input =
+    document.getElementById("customChallenge");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+
+    toast("متن Challenge را وارد کن.");
+    return;
+
+  }
+
+  await launchChallenge(
+    text,
+    selectedLevel
+  );
+
+}
+
+async function launchChallenge(text,level){
+
+  document.getElementById("previewText")
+    .textContent=text;
+
+  document.getElementById("previewLevel")
+    .textContent=level.toUpperCase();
+
+  document.getElementById("dashChallenge")
+    .textContent="ACTIVE";
+
+  const challenge = {
+
+    id:
+      Date.now().toString(),
+
+    text,
+
+    level,
+
+    createdAt:
+      Date.now(),
+
+    duration:
+      10000
+
+  };
+
+  if(currentUser){
+
+    try{
+
+      await set(
+        ref(
+          db,
+          `tyVanta/users/${currentUser.uid}/overlay/current`
+        ),
+        challenge
+      );
+
+      await set(
+        ref(
+          db,
+          `tyVanta/users/${currentUser.uid}/history/${challenge.id}`
+        ),
+        challenge
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      toast("ذخیره Challenge در Firebase انجام نشد.");
+
+    }
+
+  }
+
+  if(isOverlayMode){
+
+    showOverlay(challenge);
+
+  }else{
+
+    toast("Challenge روی Overlay ارسال شد.");
+
+  }
+
+}
+
+
+/* =========================================================
+   OVERLAY MODE
+========================================================= */
+
+const params =
+  new URLSearchParams(location.search);
+
+const isOverlayMode =
+  params.get("overlay")==="1";
+
+const overlayUID =
+  params.get("uid");
+
+let firstOverlaySnapshot = true;
+let lastOverlayId = null;
+
+function showOverlay(challenge){
+
+  const card =
+    document.getElementById("overlayCard");
+
+  document.getElementById("overlayText")
+    .textContent =
+    challenge.text;
+
+  document.getElementById("overlayLevel")
+    .textContent =
+    String(challenge.level || "easy").toUpperCase();
+
+  card.classList.remove("hide");
+
+  void card.offsetWidth;
+
+  card.classList.add("show");
+
+  setTimeout(()=>{
+
+    card.classList.remove("show");
+    card.classList.add("hide");
+
+  },challenge.duration || 10000);
+
+}
+
+function startOverlayListener(){
+
+  if(!overlayUID) return;
+
+  const overlayRef =
+    ref(
+      db,
+      `tyVanta/users/${overlayUID}/overlay/current`
+    );
+
+  onValue(
+    overlayRef,
+    snapshot=>{
+
+      const data =
+        snapshot.val();
+
+      if(!data) return;
+
+      if(firstOverlaySnapshot){
+
+        firstOverlaySnapshot=false;
+        lastOverlayId=data.id;
+
+        if(
+          Date.now() -
+          Number(data.createdAt || 0)
+          < 15000
+        ){
+
+          showOverlay(data);
+
+        }
+
+        return;
+
+      }
+
+      if(data.id===lastOverlayId)
+        return;
+
+      lastOverlayId=data.id;
+
+      showOverlay(data);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   FIREBASE AUTH
+========================================================= */
+
+async function initFirebase(){
+
+  try{
+
+    await signInAnonymously(auth);
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById("firebaseStatus")
+      .textContent="خطا";
+
+    toast(
+      "Anonymous Authentication را در Firebase فعال کن."
+    );
+
+  }
+
+  onAuthStateChanged(
+    auth,
+    user=>{
+
+      if(!user) return;
+
+      currentUser=user;
+
+      document.getElementById("firebaseStatus")
+        .textContent="ONLINE";
+
+      document.getElementById("firebaseDot")
+        .className="status-dot online";
+
+      updateOverlayURL();
+
+      if(isOverlayMode){
+
+        startOverlayListener();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document.querySelectorAll(".nav-btn")
+.forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const page =
+      button.dataset.page;
+
+    document.querySelectorAll(".nav-btn")
+      .forEach(x=>x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.querySelectorAll(".page")
+      .forEach(x=>x.classList.remove("active"));
+
+    document.getElementById(
+      `page-${page}`
+    ).classList.add("active");
+
+  });
+
+});
+
+
+/* =========================================================
+   OVERLAY URL
+========================================================= */
+
+function updateOverlayURL(){
+
+  if(!currentUser) return;
+
+  const base =
+    location.href.split("?")[0];
+
+  const url =
+    `${base}?overlay=1&uid=${encodeURIComponent(currentUser.uid)}`;
+
+  document.getElementById("overlayUrl")
+    .value=url;
+
+}
+
+async function copyOverlayUrl(){
+
+  const input =
+    document.getElementById("overlayUrl");
+
+  try{
+
+    await navigator.clipboard.writeText(
+      input.value
+    );
+
+    toast("لینک Overlay کپی شد.");
+
+  }catch(error){
+
+    input.select();
+    document.execCommand("copy");
+
+    toast("لینک Overlay کپی شد.");
+
+  }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function toast(message){
+
+  const box =
+    document.getElementById("toast");
+
+  box.textContent=message;
+  box.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(()=>{
+      box.classList.remove("show");
+    },3000);
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+if(isOverlayMode){
+
+  document.body.classList.add("overlay-mode");
+
+  document.getElementById("app")
+    .classList.add("hidden");
+
+  document.getElementById("toast")
+    .classList.add("hidden");
+
+  document.getElementById("overlay")
+    .classList.remove("hidden");
+
+}else{
+
+  document.getElementById("overlay")
+    .classList.add("hidden");
+
+  initFirebase();
+
+}
+
 </script>
-<script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],KEY='tvanta-main-v1';let S=JSON.parse(localStorage.getItem(KEY)||'null')||{name:'Streamer',kick:'',sounds:[],settings:{anim:true,sound:true,low:false},session:{run:false,start:0,viewers:0,followers:0,score:null}};let urls=new Map(),timer;window.TVANTA_STATE=S;
-function save(){localStorage.setItem(KEY,JSON.stringify(S));window.TVANTA_STATE=S;if(window.TVANTA_USER&&window.tvantaSync)window.tvantaSync()}function toast(t){let x=$('#toast');x.textContent=t;x.style.display='block';clearTimeout(x._t);x._t=setTimeout(()=>x.style.display='none',2800)}function go(v){$$('.view').forEach(x=>x.classList.toggle('active',x.id===v));$$('[data-v]').forEach(x=>x.classList.toggle('active',x.dataset.v===v));let names={dashboard:'داشبورد',soundboard:'Soundboard',alerts:'Animation & Alerts',analyzer:'Stream Analyzer',coach:'TVANTA Coach',settings:'تنظیمات'};$('#title').textContent=names[v];scrollTo({top:0,behavior:'smooth'})}$$('[data-v]').forEach(b=>b.onclick=()=>go(b.dataset.v));$$('[data-g]').forEach(b=>b.onclick=()=>go(b.dataset.g));$('#cmd').onclick=()=>{let v=prompt('TVANTA: dashboard / soundboard / alerts / analyzer / coach / settings');if(['dashboard','soundboard','alerts','analyzer','coach','settings'].includes(v))go(v)};document.onkeydown=e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#cmd').click()}};
-function render(){let n=S.name||'Streamer';$('#user').textContent=n;$('#name').value=n;$('#kick').value=S.kick||'';$('#live').textContent=S.session.run?'LIVE':'OFFLINE';$('#toggle').textContent=S.session.run?'پایان جلسه':'شروع جلسه';$('#viewers').textContent=S.session.viewers;$('#followers').textContent=S.session.followers;$('#score').textContent=S.session.score??'--';$$('.switch').forEach(x=>x.classList.toggle('on',!!S.settings[x.dataset.s]));if(timer)clearInterval(timer);if(S.session.run)timer=setInterval(updateTime,1000);updateTime()}function updateTime(){let sec=S.session.run?Math.floor((Date.now()-S.session.start)/1000):0;$('#time').textContent=[Math.floor(sec/3600),Math.floor(sec/60)%60,sec%60].map(n=>String(n).padStart(2,'0')).join(':')}$('#toggle').onclick=()=>{S.session.run=!S.session.run;if(S.session.run){S.session.start=Date.now();toast('جلسه شروع شد')}else{toast('جلسه ذخیره شد');analyze(true)}save();render()};
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}function renderSounds(){let q=$('#search').value.toLowerCase(),g=$('#sounds');g.innerHTML='';let a=S.sounds.filter(x=>x.name.toLowerCase().includes(q));if(!a.length){g.innerHTML='<div class="muted" style="grid-column:1/-1;text-align:center;padding:25px">هنوز صدایی اضافه نشده.</div>';return}a.forEach(x=>{let d=document.createElement('div');d.className='card sound';d.innerHTML='<span class="badge">'+(x.hotkey||'بدون Hotkey')+'</span><h4>'+esc(x.name)+'</h4><div class="muted">'+esc(x.size)+'</div><div class="sound-actions"><button class="primary play">پخش</button><button class="btn del">حذف</button></div>';d.querySelector('.play').onclick=()=>play(x.id);d.querySelector('.del').onclick=()=>{S.sounds=S.sounds.filter(z=>z.id!==x.id);urls.delete(x.id);save();renderSounds();toast('صدا حذف شد')};g.appendChild(d)})}function play(id){let u=urls.get(id);if(!u){toast('این فایل فقط برای همین نشست در دسترس است؛ برای ذخیره ابری Storage لازم است.');return}new Audio(u).play().catch(()=>toast('پخش صدا توسط مرورگر مسدود شد'))}$('#add').onclick=()=>$('#files').click();$('#drop').onclick=()=>$('#files').click();$('#files').onchange=e=>{[...e.target.files].forEach(f=>{let id=crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random();S.sounds.push({id,name:f.name.replace(/\.[^.]+$/,''),size:Math.round(f.size/1024)+' KB',hotkey:''});urls.set(id,URL.createObjectURL(f))});save();renderSounds();toast('صدا اضافه شد')};$('#search').oninput=renderSounds;renderSounds();
-$$('.test').forEach(b=>b.onclick=()=>{let x=$('#'+b.dataset.x);x.classList.remove('flash');void x.offsetWidth;x.classList.add('flash');toast('Preview اجرا شد')});$('#newalert').onclick=()=>toast('سازنده Alert آماده توسعه است؛ Templateهای بیشتری می‌توانند به همین هسته اضافه شوند.');$('#overlay').value=location.href.split('#')[0]+'#tvanta-overlay';$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#overlay').value);toast('Overlay URL کپی شد')}catch(e){toast('کپی خودکار مسدود شد')}};
-function analyze(silent){let av=Math.max(0,+$('#av').value||0),nf=Math.max(0,+$('#nf').value||0),dm=Math.max(1,+$('#dm').value||1),a=Math.min(100,Math.round(35+Math.min(av,100)*.45)),b=Math.min(100,Math.round(25+nf*8+Math.min(av,50)*.35)),c=Math.min(100,Math.round(Math.min(dm,180)/1.8)),sc=Math.round((a+b+c)/3);S.session.score=sc;save();$('#score').textContent=sc;$('#metrics').innerHTML=[['Retention Signal',a],['Engagement',b],['Consistency',c]].map(x=>'<div class="metric"><div class="mt"><span>'+x[0]+'</span><b>'+x[1]+'%</b></div><div class="bar"><i style="width:'+x[1]+'%"></i></div></div>').join('');let tips=[];if(b<55)tips.push('یک سؤال ساده از چت بپرس و جواب‌ها را دنبال کن.');else tips.push('تعامل خوب است؛ یک بخش کوتاه تعاملی اضافه کن.');if(c<50)tips.push('جلسه را به شروع، بخش اصلی و جمع‌بندی تقسیم کن.');else tips.push('ریتم جلسه مناسب است؛ بخش‌های قوی را برای کلیپ علامت بزن.');if(av<15)tips.push('یک موضوع مشخص را چند دقیقه ادامه بده و سریع موضوع عوض نکن.');$('#report').innerHTML='<b>امتیاز داخلی: '+sc+'/100</b><br>این عدد فقط از ورودی‌های همین صفحه ساخته شده و پیش‌بینی نتیجه آینده نیست.';$('#tips').innerHTML=tips.map(t=>'<div class="suggestion">◆ '+esc(t)+'</div>').join('');if(!silent)toast('تحلیل آماده شد')}$('#analyze').onclick=()=>analyze(false);
-$('#gen').onclick=()=>{let t=$('#type').value,g=$('#goal').value,m={گیم:['یک چالش کوتاه تعریف کن که چت روی نتیجه‌اش اثر بگذارد.','قبل از راند بعدی یک انتخاب دوگزینه‌ای از چت بگیر.'],ری‌اکت:['قبل از هر بخش از چت بخواه حدس بزند چه می‌شود.','بعد از هر واکنش یک نظر کوتاه خودت اضافه کن.'],گفتگو:['یک سؤال باز بپرس که جواب یک‌کلمه‌ای نداشته باشد.','هر چند دقیقه موضوع را با یک داستان کوتاه عوض کن.'],'تماشای ویدیو':['قبل از پخش از چت بخواه روی یک نکته تمرکز کند.','بعد از ویدیو یک جمع‌بندی کوتاه بده.'],متنوع:['بین بخش‌ها یک transition ثابت داشته باش.','سه بخش کوچک بساز تا ریتم قابل دنبال‌کردن باشد.']}[t];$('#coachout').innerHTML='<b>TVANTA Coach — '+esc(t)+' / '+esc(g)+'</b><div>'+m.map(x=>'<div class="suggestion">◆ '+esc(x)+'</div>').join('')+'</div>';toast('پیشنهاد ساخته شد')};
-$('#save').onclick=()=>{S.name=$('#name').value.trim()||'Streamer';S.kick=$('#kick').value.trim();save();render();toast('پروفایل ذخیره شد')};$$('.switch').forEach(x=>x.onclick=()=>{S.settings[x.dataset.s]=!S.settings[x.dataset.s];save();render();toast('تنظیم ذخیره شد')});$('#export').onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.download='tvanta-data.json';a.click()};$('#clear').onclick=()=>{if(confirm('داده‌های محلی TVANTA پاک شود؟')){localStorage.removeItem(KEY);location.reload()}};$('#login').onclick=()=>$('#modal').classList.add('show');$('#close').onclick=()=>$('#modal').classList.remove('show');$('#local').onclick=async()=>{S.name=$('#loginname').value.trim()||'Amir';if(window.TVANTA_FIREBASE){try{await window.TVANTA_FIREBASE.googleLogin();toast('ورود Google انجام شد')}catch(e){toast('ورود Google لغو شد')}}else{save();toast('ورود محلی انجام شد')}$('#modal').classList.remove('show');render()};$('#guest').onclick=async()=>{try{await window.TVANTA_FIREBASE.guestLogin();$('#modal').classList.remove('show');toast('ورود مهمان انجام شد')}catch(e){toast('ورود مهمان ناموفق بود')}};window.addEventListener('tvanta-auth',e=>{let u=e.detail.user;$('#authstate').textContent=u?(u.isAnonymous?'مهمان Firebase':'Google: '+(u.email||u.displayName||'حساب')):'وارد نشده';if(u)window.tvantaLoad()});window.addEventListener('tvanta-remote',e=>{let d=e.detail||{};if(d.profile){S.name=d.profile.name||S.name;S.kick=d.profile.kick||S.kick}if(d.settings)S.settings={...S.settings,...d.settings};if(d.session)S.session={...S.session,...d.session};localStorage.setItem(KEY,JSON.stringify(S));render()});$('#menu').onclick=()=>$('#side').classList.toggle('open');render();
-</script></body></html>
+
+</body>
+</html>
