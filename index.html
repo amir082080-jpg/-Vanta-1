@@ -2,917 +2,2120 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#06100c">
-<title>Ty VANTA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#050806">
+<title>TY VANTA — Creator Hub</title>
 
 <style>
-*{box-sizing:border-box}
-:root{
-  --bg:#030806;
-  --panel:rgba(10,22,17,.72);
-  --panel2:rgba(14,31,23,.82);
-  --line:rgba(91,255,157,.14);
-  --green:#4dff91;
-  --green2:#16d86c;
-  --text:#f0fff6;
-  --muted:#8da99a;
-  --danger:#ff5d73;
-  --yellow:#ffd76a;
-  --shadow:0 20px 70px rgba(0,0,0,.45);
-}
-html,body{
-  margin:0;
-  min-height:100%;
-  background:
-    radial-gradient(circle at 15% 10%,rgba(42,255,130,.10),transparent 28%),
-    radial-gradient(circle at 90% 85%,rgba(0,255,130,.07),transparent 30%),
-    var(--bg);
-  color:var(--text);
-  font-family:Tahoma,Arial,sans-serif;
-}
-body{overflow-x:hidden}
-button,input,select{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.45;cursor:not-allowed}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
 
-.bg{
+:root{
+  --bg:#030604;
+  --bg2:#07100a;
+  --panel:rgba(12,24,16,.72);
+  --panel2:rgba(18,35,23,.55);
+  --green:#51ff9a;
+  --green2:#20d875;
+  --cyan:#5cf3ff;
+  --white:#ecfff4;
+  --muted:#83a391;
+  --line:rgba(81,255,154,.16);
+  --danger:#ff5877;
+  --yellow:#ffe66d;
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+  --radius:24px;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(81,255,154,.10),transparent 28%),
+    radial-gradient(circle at 85% 25%,rgba(92,243,255,.07),transparent 25%),
+    radial-gradient(circle at 50% 90%,rgba(81,255,154,.05),transparent 35%),
+    var(--bg);
+  color:var(--white);
+  font-family:Vazirmatn,sans-serif;
+  overflow-x:hidden;
+  transition:.5s;
+}
+
+body.mono{
+  filter:grayscale(1);
+}
+
+body::before{
+  content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  overflow:hidden;
-  z-index:0;
+  opacity:.14;
+  z-index:9990;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:55px 55px;
 }
-.bg:before,.bg:after{
+
+body::after{
   content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:9989;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(81,255,154,.09),transparent 24%);
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+::selection{
+  background:var(--green);
+  color:#001b0b;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{
+  width:8px;
+}
+::-webkit-scrollbar-track{
+  background:#020402;
+}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(var(--green),var(--cyan));
+  border-radius:20px;
+}
+
+/* TOP LAMP */
+.top-lamp{
+  position:fixed;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:180px;
+  height:90px;
+  z-index:1000;
+  pointer-events:none;
+}
+
+.lamp-body{
   position:absolute;
-  width:420px;
-  height:420px;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  width:42px;
+  height:12px;
+  border-radius:0 0 12px 12px;
+  background:#17261c;
+  border:1px solid rgba(81,255,154,.3);
+  box-shadow:0 0 15px rgba(81,255,154,.25);
+}
+
+.lamp-light{
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:150px;
+  height:110px;
+  clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);
+  background:linear-gradient(to bottom,rgba(81,255,154,.20),transparent);
+  filter:blur(3px);
+  opacity:.15;
+  transition:opacity .15s;
+}
+
+/* WIRES */
+.wires{
+  position:fixed;
+  right:-2px;
+  top:115px;
+  width:85px;
+  height:150px;
+  z-index:999;
+  pointer-events:none;
+}
+
+.wire{
+  position:absolute;
+  width:3px;
+  height:120px;
+  background:linear-gradient(#18251c,#56685b,#101a13);
+  transform-origin:top;
+}
+
+.wire.one{
+  right:30px;
+  transform:rotate(20deg);
+}
+
+.wire.two{
+  right:52px;
+  transform:rotate(-15deg);
+}
+
+.spark{
+  position:absolute;
+  width:20px;
+  height:20px;
   border-radius:50%;
-  filter:blur(100px);
-  opacity:.10;
-  animation:float 12s ease-in-out infinite alternate;
-}
-.bg:before{background:#22ff7b;top:-160px;left:-120px}
-.bg:after{background:#00b85c;right:-150px;bottom:-160px;animation-delay:-4s}
-@keyframes float{to{transform:translate(90px,50px) scale(1.12)}}
-
-.app{
-  position:relative;
-  z-index:1;
-  width:min(1450px,100%);
-  margin:auto;
-  padding:22px;
+  opacity:0;
+  background:var(--green);
+  box-shadow:
+    0 0 8px var(--green),
+    0 0 20px var(--green),
+    0 0 45px var(--green);
+  animation:spark 1.3s infinite;
 }
 
-.topbar{
-  min-height:76px;
-  border:1px solid var(--line);
-  background:rgba(5,14,10,.72);
-  backdrop-filter:blur(25px);
-  border-radius:24px;
-  box-shadow:var(--shadow);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  padding:14px 18px;
+.spark.a{
+  top:102px;
+  right:27px;
+}
+
+.spark.b{
+  top:100px;
+  right:48px;
+  animation-delay:.65s;
+}
+
+@keyframes spark{
+  0%,65%,100%{
+    opacity:0;
+    transform:scale(.2);
+  }
+  68%{
+    opacity:1;
+    transform:scale(1);
+  }
+  74%{
+    opacity:.2;
+    transform:scale(1.7);
+  }
+}
+
+/* HEADER */
+header{
   position:sticky;
   top:12px;
-  z-index:20;
+  z-index:900;
+  width:min(1220px,calc(100% - 24px));
+  margin:12px auto 0;
 }
 
-.brand{
+.nav{
+  min-height:70px;
   display:flex;
   align-items:center;
   gap:12px;
-}
-.brandMark{
-  width:46px;
-  height:46px;
-  border-radius:15px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(145deg,rgba(77,255,145,.2),rgba(77,255,145,.04));
-  border:1px solid rgba(77,255,145,.25);
-  box-shadow:inset 0 0 20px rgba(77,255,145,.08);
-}
-.brandMark svg{width:27px;height:27px}
-.brandTitle{
-  font-size:21px;
-  font-weight:900;
-  letter-spacing:.5px;
-}
-.brandSub{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
+  padding:10px 14px;
+  background:rgba(5,12,8,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  backdrop-filter:blur(22px);
+  box-shadow:var(--shadow);
 }
 
-.status{
+.logo{
   display:flex;
   align-items:center;
-  gap:9px;
-  color:var(--muted);
-  font-size:12px;
+  gap:10px;
+  margin-left:auto;
 }
-.dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#69756e;
-  box-shadow:0 0 0 4px rgba(105,117,110,.08);
-}
-.dot.online{
-  background:var(--green);
-  box-shadow:0 0 16px rgba(77,255,145,.7);
-}
-.dot.error{background:var(--danger);box-shadow:0 0 16px rgba(255,93,115,.55)}
 
-.main{
+.logo-mark{
+  width:42px;
+  height:42px;
   display:grid;
-  grid-template-columns:1.5fr .85fr;
-  gap:18px;
-  margin-top:18px;
+  place-items:center;
+  border:1px solid rgba(81,255,154,.4);
+  border-radius:14px;
+  background:linear-gradient(145deg,rgba(81,255,154,.17),rgba(92,243,255,.04));
+  box-shadow:inset 0 0 20px rgba(81,255,154,.08);
 }
 
-.panel{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:25px;
-  backdrop-filter:blur(25px);
-  box-shadow:var(--shadow);
-  overflow:hidden;
+.logo-mark svg{
+  width:25px;
+  fill:none;
+  stroke:var(--green);
+  stroke-width:2;
 }
-.panelHead{
-  padding:20px 21px 15px;
-  border-bottom:1px solid rgba(255,255,255,.045);
+
+.logo-text{
+  font-family:Orbitron,sans-serif;
+  font-weight:900;
+  letter-spacing:1px;
 }
-.panelHead h2{
-  margin:0;
-  font-size:17px;
-}
-.panelHead p{
-  margin:6px 0 0;
+
+.logo-text small{
+  display:block;
   color:var(--muted);
-  font-size:11px;
-}
-.panelBody{padding:18px}
-
-.hero{
-  min-height:315px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  position:relative;
-  overflow:hidden;
-}
-.hero:before{
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  background:rgba(77,255,145,.06);
-  filter:blur(10px);
-  left:-100px;
-  bottom:-160px;
-}
-.heroContent{position:relative;z-index:2}
-.eyebrow{
-  color:var(--green);
-  font-size:11px;
-  font-weight:bold;
+  font:500 9px Vazirmatn;
   letter-spacing:2px;
 }
-.hero h1{
-  margin:12px 0 8px;
-  font-size:clamp(30px,5vw,55px);
-  line-height:1;
-}
-.hero h1 span{color:var(--green)}
-.hero p{
-  color:var(--muted);
-  max-width:630px;
-  line-height:1.8;
-  font-size:13px;
-}
-.heroActions{
+
+.nav-actions{
   display:flex;
+  align-items:center;
+  gap:8px;
   flex-wrap:wrap;
-  gap:10px;
+}
+
+.icon-btn,
+.auth-btn{
+  height:42px;
+  border-radius:13px;
+  color:var(--white);
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);
+  padding:0 13px;
+  transition:.25s;
+}
+
+.icon-btn:hover,
+.auth-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(81,255,154,.45);
+  box-shadow:0 10px 25px rgba(81,255,154,.08);
+}
+
+.icon-btn svg,
+.auth-btn svg{
+  width:17px;
+  height:17px;
+  vertical-align:middle;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.8;
+}
+
+.auth-btn.primary{
+  color:#00160a;
+  background:var(--green);
+  border-color:var(--green);
+  font-weight:900;
+}
+
+.connection{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 8px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.connection-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#777;
+  box-shadow:0 0 0 4px rgba(255,255,255,.03);
+}
+
+.connection-dot.ok{
+  background:var(--green);
+  box-shadow:0 0 15px var(--green);
+}
+
+/* HERO */
+main{
+  width:min(1220px,calc(100% - 24px));
+  margin:auto;
+}
+
+.hero{
+  min-height:680px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  padding:100px 0 70px;
+}
+
+.hero-grid{
+  width:100%;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:30px;
+  align-items:center;
+}
+
+.hero-copy{
   position:relative;
   z-index:3;
 }
 
-.btn{
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  color:var(--green);
+  font-size:12px;
+  letter-spacing:2px;
   border:1px solid var(--line);
-  color:var(--text);
-  background:rgba(255,255,255,.035);
-  border-radius:13px;
-  padding:11px 15px;
-  transition:.22s ease;
+  padding:8px 13px;
+  border-radius:99px;
+  background:rgba(81,255,154,.04);
+  margin-bottom:20px;
 }
-.btn:hover{
-  transform:translateY(-2px);
-  border-color:rgba(77,255,145,.35);
-  background:rgba(77,255,145,.07);
-}
-.btn.primary{
-  color:#001409;
-  background:linear-gradient(135deg,#68ffa3,#24dc70);
-  border-color:transparent;
-  font-weight:900;
-  box-shadow:0 8px 30px rgba(36,220,112,.16);
-}
-.btn.danger{
-  color:#fff;
-  border-color:rgba(255,93,115,.25);
-  background:rgba(255,93,115,.07);
-}
-.btn.small{padding:8px 11px;font-size:11px}
 
-.grid{
+.eyebrow i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
+}
+
+h1{
+  font-size:clamp(45px,8vw,100px);
+  line-height:.9;
+  font-family:Orbitron,sans-serif;
+  letter-spacing:-4px;
+}
+
+h1 span{
+  color:var(--green);
+  text-shadow:0 0 35px rgba(81,255,154,.18);
+}
+
+.hero-copy p{
+  max-width:650px;
+  color:#9bb1a3;
+  line-height:2;
+  margin:28px 0;
+  font-size:16px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.big-btn{
+  min-height:55px;
+  padding:0 22px;
+  border-radius:17px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-weight:900;
+  transition:.3s;
+}
+
+.big-btn svg{
+  width:21px;
+  height:21px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+}
+
+.big-btn.primary{
+  color:#00170a;
+  background:var(--green);
+  box-shadow:0 0 30px rgba(81,255,154,.14);
+}
+
+.big-btn.primary:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 15px 40px rgba(81,255,154,.22);
+}
+
+.big-btn.secondary{
+  color:var(--white);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+}
+
+/* CORE */
+.hero-core{
+  position:relative;
+  min-height:430px;
+  display:grid;
+  place-items:center;
+}
+
+.core-ring{
+  width:310px;
+  height:310px;
+  border-radius:50%;
+  border:1px solid rgba(81,255,154,.22);
+  position:relative;
+  animation:spin 18s linear infinite;
+  box-shadow:
+    inset 0 0 70px rgba(81,255,154,.04),
+    0 0 80px rgba(81,255,154,.04);
+}
+
+.core-ring::before,
+.core-ring::after{
+  content:"";
+  position:absolute;
+  inset:35px;
+  border-radius:50%;
+  border:1px dashed rgba(92,243,255,.2);
+}
+
+.core-ring::after{
+  inset:78px;
+  border-style:solid;
+  border-color:rgba(81,255,154,.22);
+  animation:spin 8s linear infinite reverse;
+}
+
+.core-center{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+}
+
+.core-box{
+  width:120px;
+  height:120px;
+  border-radius:35px;
+  background:linear-gradient(145deg,rgba(81,255,154,.13),rgba(92,243,255,.04));
+  border:1px solid rgba(81,255,154,.35);
+  backdrop-filter:blur(15px);
+  display:grid;
+  place-items:center;
+  box-shadow:0 0 80px rgba(81,255,154,.1);
+  animation:pulseCore 3s infinite;
+}
+
+.core-box svg{
+  width:65px;
+  height:65px;
+  fill:none;
+  stroke:var(--green);
+  stroke-width:1.1;
+}
+
+.core-dot{
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 20px var(--green);
+}
+
+.dot1{top:12px;left:50%}
+.dot2{right:12px;top:50%}
+.dot3{bottom:12px;left:50%}
+.dot4{left:12px;top:50%}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes pulseCore{
+  0%,100%{transform:scale(1);box-shadow:0 0 50px rgba(81,255,154,.07)}
+  50%{transform:scale(1.05);box-shadow:0 0 100px rgba(81,255,154,.18)}
+}
+
+/* SECTIONS */
+section{
+  padding:80px 0;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:end;
+  margin-bottom:28px;
+}
+
+.section-title{
+  font-size:clamp(27px,4vw,42px);
+  font-weight:900;
+}
+
+.section-title span{
+  color:var(--green);
+}
+
+.section-sub{
+  color:var(--muted);
+  max-width:600px;
+  line-height:1.9;
+  font-size:13px;
+}
+
+/* CARDS */
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.card{
+  position:relative;
+  padding:24px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(13,27,18,.76),rgba(6,14,9,.63));
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(81,255,154,.34);
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  width:130px;
+  height:130px;
+  right:-70px;
+  top:-70px;
+  background:var(--green);
+  opacity:.035;
+  filter:blur(25px);
+  border-radius:50%;
+}
+
+.card-icon{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(81,255,154,.2);
+  background:rgba(81,255,154,.05);
+  margin-bottom:18px;
+}
+
+.card-icon svg{
+  width:25px;
+  height:25px;
+  fill:none;
+  stroke:var(--green);
+  stroke-width:1.5;
+}
+
+.card h3{
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+}
+
+/* CHALLENGE */
+.challenge-layout{
+  display:grid;
+  grid-template-columns:1fr .65fr;
+  gap:18px;
+}
+
+.challenge-main{
+  min-height:430px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.challenge-status{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:12px;
+}
+
+.challenge-display{
+  min-height:150px;
+  border:1px solid rgba(81,255,154,.18);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(81,255,154,.09),transparent 35%),
+    rgba(0,0,0,.15);
+  padding:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.challenge-display .placeholder{
+  color:#617568;
+}
+
+.challenge-text{
+  font-size:clamp(22px,3vw,34px);
+  font-weight:900;
+  line-height:1.5;
+  display:none;
+}
+
+.challenge-level{
+  display:none;
+  position:absolute;
+  top:15px;
+  right:15px;
+  padding:6px 11px;
+  border-radius:99px;
+  font-size:10px;
+  font-weight:900;
+  border:1px solid var(--line);
+}
+
+.challenge-level.easy{
+  color:var(--green);
+  background:rgba(81,255,154,.07);
+}
+
+.challenge-level.medium{
+  color:var(--yellow);
+  background:rgba(255,230,109,.06);
+}
+
+.challenge-level.hard{
+  color:var(--danger);
+  background:rgba(255,88,119,.06);
+}
+
+.challenge-controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+.level-btn{
+  flex:1;
+  min-width:100px;
+  min-height:48px;
+  color:var(--white);
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:15px;
+  transition:.25s;
+}
+
+.level-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(81,255,154,.3);
+}
+
+.random-btn{
+  width:100%;
+  min-height:64px;
+  border-radius:19px;
+  background:linear-gradient(135deg,var(--green),#8cffbd);
+  color:#00170a;
+  font-weight:1000;
+  font-size:17px;
+  margin-top:16px;
+  box-shadow:0 15px 40px rgba(81,255,154,.12);
+  position:relative;
+  overflow:hidden;
+}
+
+.random-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  transform:translateX(-120%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:shine 3.2s infinite;
+}
+
+@keyframes shine{
+  0%,55%{transform:translateX(-120%)}
+  75%,100%{transform:translateX(120%)}
+}
+
+.random-btn:disabled{
+  opacity:.6;
+  cursor:wait;
+}
+
+.roulette{
+  display:none;
+  height:120px;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-family:Orbitron;
+  font-size:24px;
+  color:var(--green);
+}
+
+.roulette.active{
+  display:flex;
+}
+
+.roulette span{
+  animation:roulette .22s infinite alternate;
+}
+
+@keyframes roulette{
+  from{transform:translateY(4px);opacity:.55}
+  to{transform:translateY(-4px);opacity:1}
+}
+
+.side-panel{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.stat{
+  flex:1;
+  min-height:125px;
+  padding:22px;
+  border-radius:22px;
+  border:1px solid var(--line);
+  background:rgba(8,18,11,.68);
+}
+
+.stat small{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.stat strong{
+  display:block;
+  font-family:Orbitron;
+  font-size:28px;
+  color:var(--green);
+  margin-top:12px;
+}
+
+/* EVENT LAB */
+.event-lab{
+  display:grid;
+  grid-template-columns:.7fr 1.3fr;
+  gap:18px;
+}
+
+.event-buttons{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  gap:10px;
 }
-.card{
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.055);
-  border-radius:18px;
-  padding:17px;
+
+.event-btn{
+  min-height:58px;
+  border-radius:16px;
+  color:var(--white);
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);
+  transition:.25s;
 }
-.cardTitle{
-  font-size:12px;
+
+.event-btn:hover{
+  border-color:var(--green);
+  transform:translateY(-2px);
+}
+
+.event-btn.active{
+  background:rgba(81,255,154,.1);
+  border-color:var(--green);
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin-bottom:12px;
+}
+
+.field label{
   color:var(--muted);
-  margin-bottom:13px;
+  font-size:11px;
 }
-.big{
-  font-size:25px;
+
+.field input,
+.field select{
+  height:48px;
+  color:var(--white);
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:13px;
+  padding:0 13px;
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:rgba(81,255,154,.4);
+}
+
+.send-event{
+  width:100%;
+  min-height:50px;
+  border-radius:15px;
+  background:var(--green);
+  color:#00170a;
   font-weight:900;
 }
-.smallText{
-  font-size:10px;
-  color:var(--muted);
-  margin-top:5px;
+
+/* OBS */
+.obs-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
 }
 
-.form{
+.obs-card{
+  padding:25px;
+  border-radius:24px;
+  border:1px solid var(--line);
+  background:rgba(7,17,10,.72);
+}
+
+.obs-url{
   display:flex;
   gap:8px;
+  margin-top:15px;
 }
-.input{
-  width:100%;
-  background:rgba(0,0,0,.22);
-  color:var(--text);
+
+.obs-url input{
+  flex:1;
+  min-width:0;
+  height:47px;
+  border-radius:13px;
   border:1px solid rgba(255,255,255,.08);
-  outline:none;
-  border-radius:12px;
-  padding:11px 12px;
+  background:#020503;
+  color:var(--green);
+  padding:0 12px;
   direction:ltr;
-}
-.input:focus{
-  border-color:rgba(77,255,145,.45);
-  box-shadow:0 0 0 3px rgba(77,255,145,.06);
+  font-family:monospace;
+  font-size:11px;
 }
 
-select.input{direction:rtl}
+.copy-btn{
+  width:48px;
+  border-radius:13px;
+  color:var(--green);
+  background:rgba(81,255,154,.08);
+  border:1px solid var(--line);
+}
 
-.obsState{
+.obs-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.obs-form .full{
+  grid-column:1/-1;
+}
+
+.obs-connect{
+  width:100%;
+  height:50px;
+  border-radius:14px;
+  color:#00170a;
+  background:var(--green);
+  font-weight:900;
+}
+
+.obs-log{
+  margin-top:12px;
+  min-height:70px;
+  max-height:130px;
+  overflow:auto;
+  padding:12px;
+  border-radius:13px;
+  background:#020503;
+  border:1px solid rgba(255,255,255,.06);
+  color:#71917d;
+  direction:ltr;
+  text-align:left;
+  font:11px monospace;
+  white-space:pre-wrap;
+}
+
+/* SOCIAL RAIL */
+.platform-rail{
+  position:relative;
+  height:120px;
+  overflow:hidden;
+  margin-top:35px;
+  border-top:1px solid rgba(81,255,154,.07);
+  border-bottom:1px solid rgba(81,255,154,.07);
+}
+
+.platform{
+  position:absolute;
+  top:37px;
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  border:1px solid rgba(81,255,154,.2);
+  background:rgba(12,25,16,.8);
+  display:grid;
+  place-items:center;
+  color:var(--green);
+  animation:flyby 9s linear infinite;
+}
+
+.platform svg{
+  width:23px;
+  height:23px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+}
+
+.platform:nth-child(1){animation-delay:0s}
+.platform:nth-child(2){animation-delay:1.5s}
+.platform:nth-child(3){animation-delay:3s}
+.platform:nth-child(4){animation-delay:4.5s}
+.platform:nth-child(5){animation-delay:6s}
+.platform:nth-child(6){animation-delay:7.5s}
+
+@keyframes flyby{
+  0%{left:-70px;transform:rotate(-10deg) scale(.7);opacity:0}
+  12%{opacity:1}
+  50%{left:calc(50% - 24px);transform:rotate(0) scale(1.15)}
+  88%{opacity:1}
+  100%{left:calc(100% + 70px);transform:rotate(10deg) scale(.7);opacity:0}
+}
+
+/* PLUG */
+.plug{
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  z-index:1200;
+  width:54px;
+  height:54px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  color:var(--green);
+  background:rgba(6,15,9,.88);
+  border:1px solid rgba(81,255,154,.25);
+  box-shadow:var(--shadow);
+}
+
+.plug svg{
+  width:25px;
+  height:25px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+}
+
+/* PLANE */
+.plane{
+  position:fixed;
+  bottom:13%;
+  left:-100px;
+  width:80px;
+  z-index:600;
+  pointer-events:none;
+  opacity:.5;
+  animation:plane 13s linear infinite;
+}
+
+.plane svg{
+  width:100%;
+  fill:none;
+  stroke:var(--green);
+  stroke-width:1.3;
+}
+
+@keyframes plane{
+  0%{left:-100px;transform:translateY(60px) rotate(8deg)}
+  42%{left:45%;transform:translateY(-80px) rotate(-2deg)}
+  65%{left:65%;transform:translateY(-180px) rotate(-8deg)}
+  100%{left:110%;transform:translateY(-40px) rotate(-10deg)}
+}
+
+/* FOOTER */
+footer{
+  padding:70px 0 35px;
+  text-align:center;
+  color:#557061;
+  font-size:11px;
+}
+
+footer strong{
+  color:var(--green);
+  font-family:Orbitron;
+}
+
+/* TOAST */
+.toast-wrap{
+  position:fixed;
+  left:50%;
+  bottom:30px;
+  transform:translateX(-50%);
+  z-index:5000;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  pointer-events:none;
+}
+
+.toast{
+  min-width:250px;
+  max-width:calc(100vw - 30px);
+  padding:13px 18px;
+  border-radius:15px;
+  border:1px solid var(--line);
+  background:rgba(4,12,7,.94);
+  box-shadow:var(--shadow);
+  animation:toastIn .3s forwards;
+  font-size:12px;
+  text-align:center;
+}
+
+.toast.good{
+  color:var(--green);
+}
+
+.toast.bad{
+  color:var(--danger);
+}
+
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(20px) scale(.95)}
+  to{opacity:1;transform:none}
+}
+
+/* LOGIN */
+.login-overlay{
+  position:fixed;
+  inset:0;
+  z-index:4000;
+  display:none;
+  place-items:center;
+  padding:20px;
+  background:rgba(0,4,2,.82);
+  backdrop-filter:blur(20px);
+}
+
+.login-overlay.show{
+  display:grid;
+}
+
+.login-box{
+  width:min(450px,100%);
+  padding:30px;
+  border-radius:28px;
+  background:rgba(7,17,10,.94);
+  border:1px solid rgba(81,255,154,.22);
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+  text-align:center;
+}
+
+.login-box .logo-mark{
+  margin:0 auto 15px;
+}
+
+.login-box h2{
+  margin-bottom:8px;
+}
+
+.login-box p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+  margin-bottom:20px;
+}
+
+.login-input{
+  width:100%;
+  height:50px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.09);
+  background:#020503;
+  color:white;
+  padding:0 14px;
+  outline:none;
+  margin-bottom:10px;
+}
+
+.login-action{
+  width:100%;
+  height:50px;
+  border-radius:14px;
+  background:var(--green);
+  color:#00170a;
+  font-weight:900;
+  margin-bottom:9px;
+}
+
+.google-action{
+  width:100%;
+  height:50px;
+  border-radius:14px;
+  background:rgba(255,255,255,.05);
+  color:white;
+  border:1px solid rgba(255,255,255,.1);
+  font-weight:800;
+}
+
+.user-pill{
+  display:none;
+  align-items:center;
+  gap:7px;
+  max-width:190px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.user-pill.show{
+  display:flex;
+}
+
+.user-avatar{
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  background:rgba(81,255,154,.08);
+  color:var(--green);
+  border:1px solid var(--line);
+}
+
+/* OVERLAY MODE */
+body.overlay-mode{
+  background:transparent!important;
+  background-color:transparent!important;
+}
+
+body.overlay-mode::before,
+body.overlay-mode::after,
+body.overlay-mode .top-lamp,
+body.overlay-mode .wires,
+body.overlay-mode header,
+body.overlay-mode main,
+body.overlay-mode footer,
+body.overlay-mode .plug,
+body.overlay-mode .plane,
+body.overlay-mode .toast-wrap,
+body.overlay-mode .login-overlay{
+  display:none!important;
+}
+
+#obsOverlay{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-end;
+  padding:35px;
+}
+
+.overlay-card{
+  width:min(560px,calc(100vw - 40px));
+  min-height:145px;
+  padding:22px;
+  border-radius:28px;
+  background:
+    linear-gradient(135deg,rgba(7,20,12,.96),rgba(3,10,6,.95));
+  border:1px solid rgba(81,255,154,.55);
+  box-shadow:
+    0 20px 80px rgba(0,0,0,.55),
+    0 0 50px rgba(81,255,154,.12);
+  position:relative;
+  overflow:hidden;
+  transform:translateX(130%);
+  opacity:0;
+}
+
+.overlay-card.enter{
+  animation:overlayIn .75s cubic-bezier(.15,.9,.25,1) forwards;
+}
+
+.overlay-card.leave{
+  animation:overlayOut .7s cubic-bezier(.7,0,.85,.2) forwards;
+}
+
+@keyframes overlayIn{
+  0%{
+    transform:translate(130%, -30px) rotate(5deg) scale(.8);
+    opacity:0;
+  }
+  45%{
+    transform:translate(-20px,10px) rotate(-2deg) scale(1.04);
+    opacity:1;
+  }
+  70%{
+    transform:translate(5px,-4px) rotate(1deg) scale(.99);
+  }
+  100%{
+    transform:translate(0) rotate(0) scale(1);
+    opacity:1;
+  }
+}
+
+@keyframes overlayOut{
+  0%{
+    transform:translate(0) rotate(0) scale(1);
+    opacity:1;
+  }
+  35%{
+    transform:translate(-15px,5px) rotate(-2deg) scale(1.02);
+  }
+  100%{
+    transform:translate(140%,-35px) rotate(7deg) scale(.78);
+    opacity:0;
+  }
+}
+
+.overlay-scan{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(81,255,154,.09),transparent);
+  transform:translateX(-120%);
+  animation:scan 2s linear infinite;
+}
+
+@keyframes scan{
+  to{transform:translateX(120%)}
+}
+
+.overlay-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
-  padding:12px;
-  background:rgba(0,0,0,.18);
-  border-radius:14px;
   margin-bottom:12px;
 }
-.obsStateText{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:12px;
-}
 
-.controlGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-.controlGrid .btn{font-size:11px}
-
-.sceneList{
-  max-height:210px;
-  overflow:auto;
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-.scene{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  padding:10px 11px;
-  border:1px solid rgba(255,255,255,.055);
-  background:rgba(255,255,255,.018);
-  border-radius:12px;
-  font-size:11px;
-}
-.scene.active{
-  border-color:rgba(77,255,145,.3);
-  background:rgba(77,255,145,.06);
-}
-.scene button{padding:6px 9px;font-size:10px}
-
-.levels{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-.level{
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(255,255,255,.02);
-  color:var(--muted);
-  border-radius:13px;
-  padding:12px 8px;
-  text-align:center;
-  transition:.2s;
-}
-.level strong{display:block;color:var(--text);font-size:12px}
-.level span{font-size:9px;display:block;margin-top:4px}
-.level.active{
-  border-color:rgba(77,255,145,.38);
+.overlay-type{
   color:var(--green);
-  background:rgba(77,255,145,.06);
-  box-shadow:inset 0 0 25px rgba(77,255,145,.04);
+  font:700 11px Orbitron;
+  letter-spacing:1px;
 }
 
-.challenge{
-  min-height:190px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  text-align:center;
-  border:1px solid rgba(77,255,145,.12);
-  background:
-    radial-gradient(circle at center,rgba(77,255,145,.07),transparent 60%),
-    rgba(0,0,0,.15);
-  border-radius:20px;
-  padding:20px;
-  position:relative;
-  overflow:hidden;
-}
-.challenge:after{
-  content:"";
-  position:absolute;
-  width:150px;
-  height:150px;
-  border:1px solid rgba(77,255,145,.12);
-  border-radius:50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  animation:pulseRing 3s infinite;
-}
-@keyframes pulseRing{
-  0%,100%{width:120px;height:120px;opacity:.2}
-  50%{width:270px;height:270px;opacity:.05}
-}
-.challengeLabel{
-  color:var(--green);
+.overlay-level{
   font-size:10px;
-  letter-spacing:3px;
-  position:relative;
-  z-index:2;
+  padding:5px 9px;
+  border-radius:99px;
+  border:1px solid rgba(81,255,154,.3);
+  color:var(--green);
 }
-.challengeText{
-  font-size:18px;
+
+.overlay-title{
+  font-size:24px;
   font-weight:900;
-  line-height:1.7;
-  margin-top:12px;
-  position:relative;
-  z-index:2;
-}
-.challengeMeta{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:10px;
-  position:relative;
-  z-index:2;
+  line-height:1.5;
 }
 
-.history{
-  max-height:260px;
-  overflow:auto;
+.overlay-footer{
   display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-.historyItem{
-  padding:11px 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.05);
-  background:rgba(255,255,255,.018);
-}
-.historyItem .h{
-  font-size:11px;
-  line-height:1.6;
-}
-.historyItem .m{
-  font-size:9px;
-  color:var(--muted);
-  margin-top:5px;
+  justify-content:space-between;
+  color:#71917d;
+  font-size:10px;
+  margin-top:13px;
 }
 
-.linkBox{
-  background:rgba(0,0,0,.18);
-  border:1px dashed rgba(77,255,145,.2);
-  border-radius:13px;
-  padding:11px;
+/* LANGUAGE */
+body.en{
   direction:ltr;
-  font-size:10px;
-  color:#a8eabd;
-  word-break:break-all;
 }
 
-.airplane{
-  position:fixed;
-  left:-90px;
-  bottom:26px;
-  width:70px;
-  height:70px;
-  z-index:50;
-  pointer-events:none;
-  filter:drop-shadow(0 0 16px rgba(77,255,145,.28));
-  animation:fly 11s linear infinite;
-}
-@keyframes fly{
-  0%{transform:translateX(-100px) translateY(0) rotate(-4deg)}
-  48%{transform:translateX(calc(50vw - 35px)) translateY(-35px) rotate(0deg)}
-  100%{transform:translateX(calc(100vw + 100px)) translateY(20px) rotate(7deg)}
+body.en .logo{
+  margin-left:0;
+  margin-right:auto;
 }
 
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:22px;
-  transform:translate(-50%,30px);
-  opacity:0;
-  pointer-events:none;
-  z-index:100;
-  min-width:240px;
-  max-width:calc(100% - 30px);
-  padding:13px 16px;
-  border-radius:14px;
-  border:1px solid rgba(77,255,145,.2);
-  background:rgba(5,16,11,.92);
-  backdrop-filter:blur(18px);
-  box-shadow:var(--shadow);
-  font-size:11px;
-  text-align:center;
-  transition:.3s ease;
-}
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-.toast.error{border-color:rgba(255,93,115,.3)}
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:90;
-  display:none;
-  place-items:center;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(12px);
-  padding:20px;
-}
-.modal.show{display:grid}
-.modalBox{
-  width:min(520px,100%);
-  background:#08140e;
-  border:1px solid var(--line);
-  border-radius:24px;
-  box-shadow:var(--shadow);
-  padding:20px;
-}
-.modalHead{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-}
-.modalHead h3{margin:0;font-size:16px}
-.close{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  font-size:20px;
+body.en .logo-text{
+  direction:ltr;
 }
 
-.overlayMode{
-  min-height:100vh;
-  display:none;
-  place-items:center;
-  padding:30px;
-  background:transparent;
-}
-.overlayMode.active{display:grid}
-.overlayCard{
-  width:min(850px,90vw);
-  border-radius:30px;
-  padding:35px;
-  background:rgba(4,15,9,.90);
-  border:2px solid rgba(77,255,145,.55);
-  box-shadow:0 0 70px rgba(77,255,145,.2);
-  text-align:center;
-  opacity:0;
-  transform:translateY(40px) scale(.92);
-}
-.overlayCard.show{
-  animation:challengeIn .7s cubic-bezier(.16,1,.3,1) forwards;
-}
-@keyframes challengeIn{
-  0%{opacity:0;transform:translateY(60px) scale(.85) rotateX(15deg)}
-  100%{opacity:1;transform:translateY(0) scale(1) rotateX(0)}
-}
-.overlayTop{
-  font-size:14px;
-  letter-spacing:7px;
-  color:var(--green);
-  font-weight:900;
-}
-.overlayTitle{
-  font-size:clamp(28px,5vw,65px);
-  font-weight:1000;
-  margin:15px 0;
-}
-.overlayLevel{
-  display:inline-block;
-  padding:7px 14px;
-  border-radius:999px;
-  border:1px solid rgba(77,255,145,.25);
-  color:var(--muted);
-  font-size:11px;
-}
-.overlayTimer{
-  font-size:25px;
-  color:var(--green);
-  font-weight:900;
-  margin-top:18px;
+body.en .obs-url input{
+  direction:ltr;
 }
 
-.footer{
-  text-align:center;
-  color:#52645a;
-  font-size:9px;
-  padding:25px 0 10px;
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-grid,
+  .challenge-layout,
+  .event-lab,
+  .obs-layout{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    min-height:auto;
+    padding-top:80px;
+  }
+
+  .hero-core{
+    min-height:320px;
+  }
+
+  .core-ring{
+    width:250px;
+    height:250px;
+  }
+
+  .tool-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .side-panel{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+  }
 }
 
-@media(max-width:950px){
-  .main{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .app{padding:10px}
-  .topbar{top:6px;border-radius:18px}
-  .brandSub{display:none}
-  .brandTitle{font-size:17px}
-  .main{gap:12px;margin-top:12px}
-  .hero{min-height:360px}
-  .grid{grid-template-columns:1fr}
-  .levels{grid-template-columns:1fr 1fr 1fr}
-  .heroActions .btn{flex:1}
-  .panelHead,.panelBody{padding:15px}
+@media(max-width:620px){
+  header{
+    top:5px;
+  }
+
+  .nav{
+    min-height:62px;
+  }
+
+  .logo-text small{
+    display:none;
+  }
+
+  .connection{
+    display:none;
+  }
+
+  .nav-actions{
+    gap:5px;
+  }
+
+  .icon-btn,
+  .auth-btn{
+    padding:0 9px;
+    font-size:10px;
+  }
+
+  .tool-grid{
+    grid-template-columns:1fr;
+  }
+
+  .side-panel{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    letter-spacing:-2px;
+  }
+
+  .hero-buttons{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .event-buttons{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .obs-form{
+    grid-template-columns:1fr;
+  }
+
+  .obs-form .full{
+    grid-column:auto;
+  }
+
+  section{
+    padding:55px 0;
+  }
+
+  .platform-rail{
+    height:90px;
+  }
+
+  .platform{
+    top:20px;
+  }
+
+  #obsOverlay{
+    padding:15px;
+  }
+
+  .overlay-card{
+    min-height:130px;
+  }
+
+  .overlay-title{
+    font-size:19px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+<!-- TOP LAMP -->
+<div class="top-lamp">
+  <div class="lamp-body"></div>
+  <div class="lamp-light" id="lampLight"></div>
+</div>
 
-<div id="app" class="app">
+<!-- WIRES -->
+<div class="wires">
+  <div class="wire one"></div>
+  <div class="wire two"></div>
+  <div class="spark a"></div>
+  <div class="spark b"></div>
+</div>
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="brandMark">
-        <svg viewBox="0 0 64 64" fill="none">
-          <path d="M13 20h38M20 20l8 25h8l8-25M25 45h14" stroke="#4dff91" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M32 8v8" stroke="#4dff91" stroke-width="5" stroke-linecap="round"/>
+<!-- HEADER -->
+<header>
+  <nav class="nav">
+
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 40 40">
+          <path d="M8 27V13l8 9 8-9v14"/>
+          <path d="M27 13h5v14h-5"/>
         </svg>
       </div>
-      <div>
-        <div class="brandTitle">Ty VANTA</div>
-        <div class="brandSub">Streamer Control System</div>
+
+      <div class="logo-text">
+        TY VANTA
+        <small>CREATOR CONTROL SYSTEM</small>
+      </div>
+    </a>
+
+    <div class="connection">
+      <span class="connection-dot" id="connectionDot"></span>
+      <span id="connectionText">Firebase</span>
+    </div>
+
+    <div class="user-pill" id="userPill">
+      <span class="user-avatar" id="userAvatar">T</span>
+      <span id="userName">Guest</span>
+    </div>
+
+    <div class="nav-actions">
+
+      <button class="icon-btn" id="langBtn" title="Language">
+        FA / EN
+      </button>
+
+      <button class="icon-btn" id="monoBtn" title="Mono">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+
+      <button class="auth-btn" id="guestBtn">
+        Guest
+      </button>
+
+      <button class="auth-btn primary" id="googleBtn">
+        Google
+      </button>
+
+      <button class="auth-btn" id="logoutBtn" style="display:none">
+        خروج
+      </button>
+
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-grid">
+
+    <div class="hero-copy">
+
+      <div class="eyebrow">
+        <i></i>
+        CREATOR CONTROL ONLINE
+      </div>
+
+      <h1>
+        TY<br>
+        <span>VANTA</span>
+      </h1>
+
+      <p>
+        مرکز کنترل استریمرها، گیمرها و سازنده‌های محتوا.
+        چالش، Alert، کنترل OBS و رویدادهای زنده؛
+        همه در یک سیستم شیشه‌ای که با Firebase بین دستگاه‌ها همگام می‌شود.
+      </p>
+
+      <div class="hero-buttons">
+
+        <button class="big-btn primary" id="heroChallenge">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v18M3 12h18"/>
+            <circle cx="12" cy="12" r="8"/>
+          </svg>
+          چالش رندوم
+        </button>
+
+        <a class="big-btn secondary" href="#obs">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+          اتصال به OBS
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="hero-core">
+
+      <div class="core-ring">
+        <span class="core-dot dot1"></span>
+        <span class="core-dot dot2"></span>
+        <span class="core-dot dot3"></span>
+        <span class="core-dot dot4"></span>
+
+        <div class="core-center">
+          <div class="core-box">
+            <svg viewBox="0 0 80 80">
+              <path d="M15 48V25l12 14 13-20 11 17 14-10v26H15Z"/>
+              <path d="M23 56h34"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- TOOLS -->
+<section>
+
+  <div class="section-head">
+    <div>
+      <div class="section-title">CREATOR <span>TOOLS</span></div>
+      <div class="section-sub">
+        ابزارهایی که برای کنترل یک استریم واقعی به درد می‌خورند.
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-grid">
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v5M5.6 5.6l3.5 3.5M3 12h5M5.6 18.4l3.5-3.5M12 21v-5M18.4 18.4l-3.5-3.5M21 12h-5M18.4 5.6l-3.5 3.5"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <h3>Random Challenge</h3>
+      <p>یک چالش تصادفی با انتخاب واقعی سطح برای Overlay و استریم.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/>
+          <path d="M4 7l8 4 8-4M12 11v10"/>
+        </svg>
+      </div>
+      <h3>Live Events</h3>
+      <p>Donation، Follow، Subscribe، Raid و Challenge از یک سیستم رویداد.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 4h14v16H5z"/>
+          <path d="M8 8h8M8 12h8M8 16h5"/>
+        </svg>
+      </div>
+      <h3>OBS Overlay</h3>
+      <p>Overlay شفاف و بدون پنل ثابت؛ Alert فقط وقتی اتفاقی رخ بده ظاهر می‌شود.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8"/>
+          <path d="M12 8v5l3 2"/>
+        </svg>
+      </div>
+      <h3>Realtime Sync</h3>
+      <p>کنترل از گوشی و نمایش روی کامپیوتر با Firebase Realtime Database.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 20h10M9 17h6M12 3v11"/>
+          <path d="M7 7a5 5 0 0 1 10 0c0 3-2 4-2 6H9c0-2-2-3-2-6Z"/>
+        </svg>
+      </div>
+      <h3>Smart Theme</h3>
+      <p>حالت سبز VANTA یا حالت Mono با یک دکمه پریز مانند.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 16c4-8 12-8 16 0"/>
+          <path d="M7 19h10"/>
+          <circle cx="12" cy="8" r="2"/>
+        </svg>
+      </div>
+      <h3>Creator Hub</h3>
+      <p>یک داشبورد برای کنترل اتفاقات مهم استریم بدون شلوغ‌کاری.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CHALLENGE -->
+<section id="challenge">
+
+  <div class="section-head">
+    <div>
+      <div class="section-title">RANDOM <span>CHALLENGE</span></div>
+      <div class="section-sub">
+        دکمه را بزن؛ سطح بین سه حالت می‌چرخد و سپس چالش واقعی به Firebase و Overlay ارسال می‌شود.
+      </div>
+    </div>
+  </div>
+
+  <div class="challenge-layout">
+
+    <div class="card challenge-main">
+
+      <div class="challenge-status" id="challengeStatus">
+        آماده برای شروع
+      </div>
+
+      <div class="challenge-display">
+
+        <div class="placeholder" id="challengePlaceholder">
+          هنوز چالشی انتخاب نشده
+        </div>
+
+        <div class="roulette" id="roulette">
+          <span id="rouletteText">EASY</span>
+        </div>
+
+        <div class="challenge-level" id="challengeLevel"></div>
+
+        <div class="challenge-text" id="challengeText"></div>
+
+      </div>
+
+      <button class="random-btn" id="randomChallenge">
+        RANDOM CHALLENGE
+      </button>
+
+      <div class="challenge-controls">
+
+        <button class="level-btn" data-level="easy">
+          آسان
+        </button>
+
+        <button class="level-btn" data-level="medium">
+          متوسط
+        </button>
+
+        <button class="level-btn" data-level="hard">
+          سخت
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="side-panel">
+
+      <div class="stat">
+        <small>EVENTS SENT</small>
+        <strong id="eventsCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <small>LAST LEVEL</small>
+        <strong id="lastLevel">—</strong>
+      </div>
+
+      <div class="stat">
+        <small>SYNC</small>
+        <strong id="syncState">OFF</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- EVENT LAB -->
+<section>
+
+  <div class="section-head">
+    <div>
+      <div class="section-title">EVENT <span>LAB</span></div>
+      <div class="section-sub">
+        هر نوع Alert را با همان انیمیشن Overlay ارسال کن.
+      </div>
+    </div>
+  </div>
+
+  <div class="event-lab">
+
+    <div class="card">
+      <div class="event-buttons">
+
+        <button class="event-btn active" data-event="challenge">
+          Challenge
+        </button>
+
+        <button class="event-btn" data-event="donation">
+          Donation
+        </button>
+
+        <button class="event-btn" data-event="follow">
+          Follow
+        </button>
+
+        <button class="event-btn" data-event="subscribe">
+          Subscribe
+        </button>
+
+        <button class="event-btn" data-event="raid">
+          Raid
+        </button>
+
+        <button class="event-btn" data-event="chat">
+          Chat
+        </button>
+
       </div>
     </div>
 
-    <div class="status">
-      <span id="firebaseDot" class="dot"></span>
-      <span id="firebaseStatus">در حال اتصال...</span>
+    <div class="card">
+
+      <div class="field">
+        <label>عنوان Alert</label>
+        <input id="eventTitle" value="TY VANTA ALERT">
+      </div>
+
+      <div class="field">
+        <label>متن</label>
+        <input id="eventText" value="یک رویداد جدید برای استریم ارسال شد.">
+      </div>
+
+      <div class="field">
+        <label>سطح</label>
+        <select id="eventLevel">
+          <option value="easy">آسان</option>
+          <option value="medium">متوسط</option>
+          <option value="hard">سخت</option>
+        </select>
+      </div>
+
+      <button class="send-event" id="sendEvent">
+        ارسال به Overlay
+      </button>
+
     </div>
-  </header>
 
-  <main class="main">
+  </div>
 
-    <section>
+</section>
 
-      <div class="panel hero">
-        <div class="heroContent">
-          <div class="eyebrow">TY VANTA / CONTROL CENTER</div>
-          <h1>استریم خودت را<br><span>کنترل کن.</span></h1>
-          <p>
-            کنترل OBS، مدیریت Sceneها، ساخت Challenge و ارسال مستقیم
-            Challenge به Overlay مخصوص استریم.
-          </p>
-        </div>
+<!-- OBS -->
+<section id="obs">
 
-        <div class="heroActions">
-          <button class="btn primary" id="connectObsBtn">اتصال به OBS</button>
-          <button class="btn" id="overlayBtn">باز کردن Overlay</button>
-          <button class="btn" id="copyOverlayBtn">کپی لینک Overlay</button>
-        </div>
+  <div class="section-head">
+    <div>
+      <div class="section-title">OBS <span>CONTROL</span></div>
+      <div class="section-sub">
+        Overlay را به عنوان Browser Source در OBS اضافه کن. اتصال WebSocket نیز از همین قسمت قابل تست است.
       </div>
+    </div>
+  </div>
 
-      <div style="height:14px"></div>
+  <div class="obs-layout">
 
-      <div class="grid">
+    <div class="obs-card">
 
-        <div class="panel">
-          <div class="panelHead">
-            <h2>وضعیت OBS</h2>
-            <p>کنترل مستقیم OBS WebSocket</p>
-          </div>
-          <div class="panelBody">
+      <h3>Browser Source</h3>
 
-            <div class="obsState">
-              <div class="obsStateText">
-                <span id="obsDot" class="dot"></span>
-                <span id="obsStatus">متصل نیست</span>
-              </div>
-              <button class="btn small danger" id="disconnectObsBtn">قطع اتصال</button>
-            </div>
+      <p style="color:var(--muted);font-size:12px;line-height:1.9;margin-top:8px">
+        این URL را به عنوان Browser Source در OBS قرار بده.
+        Overlay در حالت عادی کاملاً شفاف است.
+      </p>
 
-            <div class="controlGrid">
-              <button class="btn" id="streamStart">شروع استریم</button>
-              <button class="btn" id="streamStop">توقف استریم</button>
-              <button class="btn" id="recordStart">شروع ضبط</button>
-              <button class="btn" id="recordStop">توقف ضبط</button>
-            </div>
+      <div class="obs-url">
 
-          </div>
-        </div>
+        <input id="overlayUrl" readonly>
 
-        <div class="panel">
-          <div class="panelHead">
-            <h2>Sceneها</h2>
-            <p>انتخاب Scene فعال OBS</p>
-          </div>
-          <div class="panelBody">
-            <div id="sceneList" class="sceneList">
-              <div class="smallText">ابتدا OBS را متصل کن.</div>
-            </div>
-          </div>
-        </div>
+        <button class="copy-btn" id="copyOverlay">
+          <svg viewBox="0 0 24 24">
+            <rect x="8" y="8" width="11" height="11" rx="2"/>
+            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>
+          </svg>
+        </button>
 
       </div>
 
-      <div style="height:14px"></div>
+      <p style="color:#597263;font-size:10px;margin-top:12px">
+        Width: 1920 — Height: 1080 — FPS: 60
+      </p>
 
-      <div class="panel">
-        <div class="panelHead">
-          <h2>Challenge Engine</h2>
-          <p>یک Challenge انتخاب کن و آن را روی Overlay استریم نمایش بده</p>
+    </div>
+
+    <div class="obs-card">
+
+      <h3>OBS WebSocket</h3>
+
+      <div class="obs-form">
+
+        <div class="field">
+          <label>Host</label>
+          <input id="obsHost" value="127.0.0.1">
         </div>
 
-        <div class="panelBody">
-
-          <div class="levels">
-            <button class="level active" data-level="easy">
-              <strong>Easy</strong>
-              <span>آسان</span>
-            </button>
-            <button class="level" data-level="medium">
-              <strong>Medium</strong>
-              <span>متوسط</span>
-            </button>
-            <button class="level" data-level="hard">
-              <strong>Hard</strong>
-              <span>سخت</span>
-            </button>
-          </div>
-
-          <div style="height:12px"></div>
-
-          <div class="challenge">
-            <div class="challengeLabel">CHALLENGE UNLOCKED</div>
-            <div id="challengeText" class="challengeText">
-              هنوز Challenge انتخاب نشده
-            </div>
-            <div id="challengeMeta" class="challengeMeta">
-              سطح را انتخاب کن و دکمه را بزن
-            </div>
-          </div>
-
-          <div style="height:12px"></div>
-
-          <div class="heroActions">
-            <button class="btn primary" id="randomChallenge">
-              انتخاب Challenge
-            </button>
-            <button class="btn" id="customChallengeBtn">
-              Challenge سفارشی
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-
-    <aside>
-
-      <div class="panel">
-        <div class="panelHead">
-          <h2>اطلاعات حساب</h2>
-          <p>شناسه ناشناس Ty VANTA</p>
+        <div class="field">
+          <label>Port</label>
+          <input id="obsPort" value="4455">
         </div>
 
-        <div class="panelBody">
-          <div class="card">
-            <div class="cardTitle">USER ID</div>
-            <div id="userId" class="smallText" style="direction:ltr;word-break:break-all">
-              در حال دریافت...
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="height:14px"></div>
-
-      <div class="panel">
-        <div class="panelHead">
-          <h2>لینک Overlay</h2>
-          <p>این لینک را داخل OBS Browser Source قرار بده</p>
+        <div class="field full">
+          <label>Password</label>
+          <input id="obsPassword" type="password" placeholder="OBS WebSocket Password">
         </div>
 
-        <div class="panelBody">
-          <div id="overlayUrl" class="linkBox">در حال ساخت...</div>
-          <div style="height:9px"></div>
-          <button class="btn small" id="openOverlay2">نمایش Overlay</button>
-        </div>
-      </div>
-
-      <div style="height:14px"></div>
-
-      <div class="panel">
-        <div class="panelHead">
-          <h2>آخرین Challengeها</h2>
-          <p>ذخیره‌شده در Firebase</p>
-        </div>
-
-        <div class="panelBody">
-          <div id="history" class="history">
-            <div class="smallText">هنوز چیزی ثبت نشده.</div>
-          </div>
-        </div>
-      </div>
-
-      <div style="height:14px"></div>
-
-      <div class="panel">
-        <div class="panelHead">
-          <h2>تنظیمات Overlay</h2>
-          <p>زمان نمایش Challenge روی استریم</p>
-        </div>
-
-        <div class="panelBody">
-
-          <div class="card">
-            <div class="cardTitle">مدت نمایش</div>
-
-            <select id="duration" class="input">
-              <option value="10">10 ثانیه</option>
-              <option value="15" selected>15 ثانیه</option>
-              <option value="20">20 ثانیه</option>
-              <option value="30">30 ثانیه</option>
-              <option value="45">45 ثانیه</option>
-              <option value="60">60 ثانیه</option>
-            </select>
-          </div>
-
-          <div style="height:10px"></div>
-
-          <button class="btn primary" id="saveSettings" style="width:100%">
-            ذخیره تنظیمات
+        <div class="field full">
+          <button class="obs-connect" id="obsConnect">
+            اتصال به OBS
           </button>
-
         </div>
+
       </div>
 
-    </aside>
+      <div class="obs-log" id="obsLog">OBS: disconnected</div>
 
-  </main>
-
-  <div class="footer">
-    TY VANTA · Streamer Control System
-  </div>
-
-</div>
-
-<div id="overlayMode" class="overlayMode">
-
-  <div id="overlayCard" class="overlayCard">
-    <div class="overlayTop">CHALLENGE UNLOCKED</div>
-    <div id="overlayText" class="overlayTitle">...</div>
-    <div id="overlayLevel" class="overlayLevel">TY VANTA</div>
-    <div id="overlayTimer" class="overlayTimer"></div>
-  </div>
-
-</div>
-
-<div id="customModal" class="modal">
-  <div class="modalBox">
-    <div class="modalHead">
-      <h3>Challenge سفارشی</h3>
-      <button class="close" id="closeModal">×</button>
     </div>
 
-    <input
-      id="customInput"
-      class="input"
-      style="direction:rtl"
-      maxlength="180"
-      placeholder="متن Challenge را وارد کن..."
-    >
-
-    <div style="height:12px"></div>
-
-    <button class="btn primary" id="sendCustom" style="width:100%">
-      ارسال به Overlay
-    </button>
   </div>
+
+</section>
+
+<!-- PLATFORM RAIL -->
+<div class="platform-rail">
+
+  <div class="platform">
+    <svg viewBox="0 0 24 24">
+      <path d="M5 5h14v14H5z"/>
+      <path d="M8 8h8v8H8z"/>
+    </svg>
+  </div>
+
+  <div class="platform">
+    <svg viewBox="0 0 24 24">
+      <path d="M5 5h14v14H5z"/>
+      <path d="m10 8 6 4-6 4V8Z"/>
+    </svg>
+  </div>
+
+  <div class="platform">
+    <svg viewBox="0 0 24 24">
+      <path d="M5 5h14v14H5z"/>
+      <path d="M8 9h8M8 13h5"/>
+    </svg>
+  </div>
+
+  <div class="platform">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 6h16v12H4z"/>
+      <path d="m9 10 6 2-6 2v-4Z"/>
+    </svg>
+  </div>
+
+  <div class="platform">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 5h16v14H4z"/>
+      <path d="M7 9h10M7 13h6"/>
+    </svg>
+  </div>
+
+  <div class="platform">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 6h16v12H4z"/>
+      <path d="M8 10h8M8 14h5"/>
+    </svg>
+  </div>
+
 </div>
 
-<div id="toast" class="toast"></div>
+<footer>
+  <strong>TY VANTA</strong>
+  <br><br>
+  Creator Control System · Firebase Realtime
+</footer>
 
-<div class="airplane">
-  <svg viewBox="0 0 100 100" fill="none">
-    <path
-      d="M11 50L86 15L68 86L49 58L11 50Z"
-      stroke="#4dff91"
-      stroke-width="5"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M49 58L86 15"
-      stroke="#4dff91"
-      stroke-width="5"
-      stroke-linecap="round"
-    />
-    <path
-      d="M49 58L42 76"
-      stroke="#4dff91"
-      stroke-width="5"
-      stroke-linecap="round"
-    />
+</main>
+
+<!-- PLUG -->
+<button class="plug" id="plugBtn" title="Mono">
+  <svg viewBox="0 0 24 24">
+    <path d="M8 3v6M16 3v6M6 9h12v3a6 6 0 0 1-12 0V9ZM12 18v3"/>
+  </svg>
+</button>
+
+<!-- PLANE -->
+<div class="plane">
+  <svg viewBox="0 0 100 50">
+    <path d="M4 28 94 5 64 32 43 35 34 47l-5-2 5-12-30-5Z"/>
+    <path d="m43 35 21-3"/>
   </svg>
 </div>
 
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- LOGIN -->
+<div class="login-overlay" id="loginOverlay">
+
+  <div class="login-box">
+
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40">
+        <path d="M8 27V13l8 9 8-9v14"/>
+        <path d="M27 13h5v14h-5"/>
+      </svg>
+    </div>
+
+    <h2>ورود به TY VANTA</h2>
+
+    <p>
+      برای همگام‌سازی Challenge و Eventها وارد شو.
+      می‌توانی بدون حساب هم به صورت مهمان وارد شوی.
+    </p>
+
+    <input
+      class="login-input"
+      id="guestName"
+      placeholder="نام نمایشی"
+      maxlength="24"
+    >
+
+    <button class="login-action" id="modalGuest">
+      ورود مهمان
+    </button>
+
+    <button class="google-action" id="modalGoogle">
+      ورود با Google
+    </button>
+
+  </div>
+
+</div>
+
+<!-- OBS OVERLAY -->
+<div id="obsOverlay">
+  <div class="overlay-card" id="overlayCard">
+
+    <div class="overlay-scan"></div>
+
+    <div class="overlay-top">
+      <div class="overlay-type" id="overlayType">
+        TY VANTA
+      </div>
+
+      <div class="overlay-level" id="overlayLevel">
+        LIVE
+      </div>
+    </div>
+
+    <div class="overlay-title" id="overlayTitle">
+      آماده
+    </div>
+
+    <div class="overlay-footer">
+      <span id="overlayUser">TY VANTA</span>
+      <span id="overlayTime">00:00</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- FIREBASE -->
 <script type="module">
 
 import {
   initializeApp
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
   getAuth,
+  onAuthStateChanged,
   signInAnonymously,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  GoogleAuthProvider,
+  signInWithPopup,
+  linkWithPopup,
+  signOut,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
   getDatabase,
   ref,
-  set,
-  update,
-  onValue,
   push,
+  set,
   query,
-  limitToLast
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  orderByChild,
+  limitToLast,
+  onValue,
+  onDisconnect,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
 
 /* =========================================================
-   FIREBASE
+   FIREBASE CONFIG
 ========================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnYMMl2VBkBym-epaGZg2pmWjjHIO7v60",
+  apiKey: "AIzaSyAnYMMl2VBBym-epaGZg2pmWjjHIO7v60",
   authDomain: "ty-vanta.firebaseapp.com",
   databaseURL: "https://ty-vanta-default-rtdb.firebaseio.com",
   projectId: "ty-vanta",
@@ -922,162 +2125,72 @@ const firebaseConfig = {
   measurementId: "G-49HVK2214C"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getDatabase(firebaseApp);
-
-let currentUser = null;
-let currentLevel = "easy";
-let currentChallenge = null;
-let obs = null;
-let obsConnected = false;
-let currentScenes = [];
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 
 /* =========================================================
-   ELEMENTS
+   DOM
 ========================================================= */
 
 const $ = id => document.getElementById(id);
 
-const firebaseDot = $("firebaseDot");
-const firebaseStatus = $("firebaseStatus");
-const obsDot = $("obsDot");
-const obsStatus = $("obsStatus");
-const sceneList = $("sceneList");
+const connectionDot = $("connectionDot");
+const connectionText = $("connectionText");
+const userPill = $("userPill");
+const userAvatar = $("userAvatar");
+const userName = $("userName");
+
+const guestBtn = $("guestBtn");
+const googleBtn = $("googleBtn");
+const logoutBtn = $("logoutBtn");
+
+const loginOverlay = $("loginOverlay");
+const guestNameInput = $("guestName");
+
+const randomChallenge = $("randomChallenge");
+const heroChallenge = $("heroChallenge");
+
+const challengeStatus = $("challengeStatus");
+const challengePlaceholder = $("challengePlaceholder");
 const challengeText = $("challengeText");
-const challengeMeta = $("challengeMeta");
-const historyBox = $("history");
-const userIdBox = $("userId");
-const overlayUrlBox = $("overlayUrl");
-const durationSelect = $("duration");
-const toastBox = $("toast");
+const challengeLevel = $("challengeLevel");
+const roulette = $("roulette");
+const rouletteText = $("rouletteText");
+
+const eventsCount = $("eventsCount");
+const lastLevel = $("lastLevel");
+const syncState = $("syncState");
+
+const toastWrap = $("toastWrap");
+
+const overlayCard = $("overlayCard");
+const overlayType = $("overlayType");
+const overlayLevel = $("overlayLevel");
+const overlayTitle = $("overlayTitle");
+const overlayUser = $("overlayUser");
+const overlayTime = $("overlayTime");
+
+const overlayUrl = $("overlayUrl");
+
+const obsLog = $("obsLog");
+const obsConnect = $("obsConnect");
 
 
 /* =========================================================
-   TOAST
+   STATE
 ========================================================= */
 
-let toastTimer;
+let currentUser = null;
+let eventCounter = Number(localStorage.getItem("tv_events") || 0);
+let lastEventKey = null;
+let selectedEventType = "challenge";
+let overlayTimer = null;
+let obsSocket = null;
+let obsConnected = false;
 
-function toast(message, error = false){
-  clearTimeout(toastTimer);
-
-  toastBox.textContent = message;
-  toastBox.className = "toast show" + (error ? " error" : "");
-
-  toastTimer = setTimeout(() => {
-    toastBox.className = "toast";
-  }, 3200);
-}
-
-
-/* =========================================================
-   FIREBASE AUTH
-========================================================= */
-
-onAuthStateChanged(auth, async user => {
-
-  if(!user){
-    try{
-      await signInAnonymously(auth);
-    }catch(error){
-      console.error(error);
-
-      firebaseDot.className = "dot error";
-      firebaseStatus.textContent = "خطای Firebase";
-
-      toast(
-        "Firebase خطا داد: " + (error.code || error.message),
-        true
-      );
-    }
-
-    return;
-  }
-
-  currentUser = user;
-
-  firebaseDot.className = "dot online";
-  firebaseStatus.textContent = "Firebase متصل";
-
-  userIdBox.textContent = user.uid;
-
-  const overlayUrl =
-    location.origin +
-    location.pathname +
-    "?overlay=1&uid=" +
-    encodeURIComponent(user.uid);
-
-  overlayUrlBox.textContent = overlayUrl;
-
-  loadUserData();
-  loadHistory();
-
-});
-
-
-/* =========================================================
-   USER DATA
-========================================================= */
-
-function userRef(path = ""){
-  return ref(db, "tyVanta/users/" + currentUser.uid + (path ? "/" + path : ""));
-}
-
-function loadUserData(){
-
-  if(!currentUser) return;
-
-  onValue(userRef("settings"), snap => {
-
-    const data = snap.val();
-
-    if(!data) return;
-
-    if(data.duration){
-      durationSelect.value = String(data.duration);
-    }
-
-  }, error => {
-    console.error(error);
-  });
-
-}
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-$("saveSettings").addEventListener("click", async () => {
-
-  if(!currentUser){
-    toast("هنوز Firebase آماده نیست.", true);
-    return;
-  }
-
-  try{
-
-    await update(userRef("settings"), {
-      duration: Number(durationSelect.value),
-      updatedAt: Date.now()
-    });
-
-    toast("تنظیمات ذخیره شد.");
-
-  }catch(error){
-
-    console.error(error);
-    toast(
-      "خطای ذخیره تنظیمات: " +
-      (error.code || error.message),
-      true
-    );
-
-  }
-
-});
+eventsCount.textContent = eventCounter;
 
 
 /* =========================================================
@@ -1087,247 +2200,876 @@ $("saveSettings").addEventListener("click", async () => {
 const challenges = {
 
   easy: [
-    "در ۳۰ ثانیه یک داستان خنده‌دار تعریف کن.",
-    "اسم سه بازی را خیلی سریع بگو.",
-    "چت را با یک جمله عجیب غافلگیر کن.",
-    "۳۰ ثانیه فقط با دست مخالف بازی کن.",
     "یک جمله را با صدای رباتی بگو.",
-    "یک حرکت خنده‌دار برای دوربین انجام بده.",
-    "یک کلمه انتخاب کن و تا یک دقیقه زیاد از آن استفاده کن.",
-    "یک خاطره کوتاه و بامزه تعریف کن.",
-    "۱۰ ثانیه کاملاً جدی به دوربین نگاه کن.",
-    "یک اسم عجیب برای استریم امروز انتخاب کن."
+    "۳۰ ثانیه با یک اسلحه عجیب بازی کن.",
+    "اسم کاراکترت را عوض کن و یک اسم خنده‌دار بگذار.",
+    "یک حرکت نمایشی کوچک جلوی دوربین انجام بده.",
+    "چت برای ۳۰ ثانیه انتخاب کند چه چیزی بگویی.",
+    "یک جمله کاملاً جدی را با لحن خنده‌دار بگو.",
+    "برای یک دقیقه فقط با یک دست بازی کن."
   ],
 
   medium: [
-    "یک دقیقه بدون گفتن کلمه «خب» صحبت کن.",
-    "برای بازی فعلی یک تبلیغ ۳۰ ثانیه‌ای بساز.",
-    "یک شخصیت خیالی بساز و ۴۵ ثانیه نقش آن را بازی کن.",
-    "چت برای ۳۰ ثانیه موضوع صحبت را انتخاب کند.",
-    "یک حرکت سخت داخل بازی را با تمرکز کامل امتحان کن.",
-    "در ۶۰ ثانیه سه دلیل برای ادامه استریم بگو.",
-    "یک داستان کوتاه را با سه کلمه تصادفی بساز.",
-    "برای آخرین اتفاق بازی یک گزارش خبری اجرا کن.",
-    "۳۰ ثانیه با لحن مجری مسابقات صحبت کن.",
-    "یک شعار مخصوص Ty VANTA بساز."
+    "یک راند را با یک محدودیت کوچک که چت انتخاب می‌کند بازی کن.",
+    "تا پایان راند بعدی حق استفاده از یکی از امکانات معمولت را نداری.",
+    "یک تصمیم داخل بازی را کاملاً بر اساس رأی چت انجام بده.",
+    "یک دقیقه نقش یک گزارشگر حرفه‌ای مسابقه را بازی کن.",
+    "یک حرکت سخت داخل بازی را امتحان کن.",
+    "چت یک قانون برای راند بعدی تعیین کند."
   ],
 
   hard: [
-    "در یک دقیقه یک داستان کامل با شروع، وسط و پایان تعریف کن.",
-    "برای بازی فعلی یک نقد کاملاً جدی و خنده‌دار اجرا کن.",
-    "در ۶۰ ثانیه سه موضوع کاملاً متفاوت را به هم وصل کن.",
-    "یک گزارش خبری خیالی درباره اتفاقات بازی اجرا کن.",
-    "چالش مکث: ۴۵ ثانیه بدون مکث طولانی صحبت کن.",
-    "یک تبلیغ حرفه‌ای برای کانال خودت در ۶۰ ثانیه بساز.",
-    "یک شخصیت جدید بساز و یک دقیقه با همان شخصیت صحبت کن.",
-    "در یک دقیقه یک داستان با پنج کلمه انتخابی چت بساز.",
-    "یک معرفی سینمایی برای استریم امروز اجرا کن.",
-    "یک لحظه معمولی بازی را مثل فینال مسابقات بزرگ گزارش کن."
+    "راند بعدی را با یک محدودیت سخت اما امن بازی کن.",
+    "چت یک استراتژی متفاوت برای راند بعدی انتخاب کند.",
+    "تا پایان راند بعدی فقط از یک سبک بازی استفاده کن.",
+    "یک راند را با تنظیمات متفاوت و قابل برگشت امتحان کن.",
+    "در راند بعدی باید یک هدف مشخص را قبل از بازی اعلام کنی.",
+    "چت تصمیم بگیرد در راند بعدی چه تاکتیکی داشته باشی."
   ]
 
 };
 
-function pickChallenge(level){
 
-  const list = challenges[level] || challenges.easy;
+/* =========================================================
+   UTILS
+========================================================= */
 
-  return list[
-    Math.floor(Math.random() * list.length)
-  ];
+function randomItem(arr){
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
+function randomLevel(){
+  const levels = ["easy","medium","hard"];
+  return randomItem(levels);
+}
+
+function levelFa(level){
+  return {
+    easy:"آسان",
+    medium:"متوسط",
+    hard:"سخت"
+  }[level] || level;
+}
+
+function eventFa(type){
+  return {
+    challenge:"CHALLENGE",
+    donation:"DONATION",
+    follow:"FOLLOW",
+    subscribe:"SUBSCRIBE",
+    raid:"RAID",
+    chat:"CHAT"
+  }[type] || "EVENT";
+}
+
+function showToast(message,type="good"){
+
+  const el = document.createElement("div");
+
+  el.className = "toast " + type;
+  el.textContent = message;
+
+  toastWrap.appendChild(el);
+
+  setTimeout(()=>{
+    el.style.opacity="0";
+    el.style.transform="translateY(10px)";
+    el.style.transition=".3s";
+
+    setTimeout(()=>el.remove(),300);
+
+  },2600);
 }
 
 
 /* =========================================================
-   LEVEL BUTTONS
+   FIREBASE CONNECTION
 ========================================================= */
 
-document.querySelectorAll(".level").forEach(button => {
+function setConnected(ok){
 
-  button.addEventListener("click", () => {
+  connectionDot.classList.toggle("ok",ok);
 
-    document.querySelectorAll(".level")
-      .forEach(x => x.classList.remove("active"));
+  connectionText.textContent = ok
+    ? "Firebase Online"
+    : "Firebase Offline";
 
-    button.classList.add("active");
+  syncState.textContent = ok
+    ? "LIVE"
+    : "OFF";
+}
 
-    currentLevel = button.dataset.level;
 
-    challengeMeta.textContent =
-      "سطح انتخاب‌شده: " +
-      currentLevel.toUpperCase();
+/* =========================================================
+   AUTH
+========================================================= */
 
-  });
+onAuthStateChanged(auth, async user => {
+
+  currentUser = user;
+
+  if(user){
+
+    loginOverlay.classList.remove("show");
+
+    userPill.classList.add("show");
+
+    const name =
+      user.displayName ||
+      localStorage.getItem("tv_guest_name") ||
+      "Guest";
+
+    userName.textContent = name;
+
+    userAvatar.textContent =
+      name.charAt(0).toUpperCase();
+
+    guestBtn.style.display = "none";
+    googleBtn.style.display = "none";
+    logoutBtn.style.display = "block";
+
+    setConnected(true);
+
+    try{
+
+      const presenceRef =
+        ref(db,"tyVanta/presence/" + user.uid);
+
+      await set(presenceRef,{
+        uid:user.uid,
+        name:name,
+        online:true,
+        updatedAt:serverTimestamp()
+      });
+
+      onDisconnect(presenceRef).set({
+        uid:user.uid,
+        name:name,
+        online:false,
+        updatedAt:serverTimestamp()
+      });
+
+    }catch(err){
+      console.warn("presence:",err);
+    }
+
+  }else{
+
+    userPill.classList.remove("show");
+
+    guestBtn.style.display = "block";
+    googleBtn.style.display = "block";
+    logoutBtn.style.display = "none";
+
+    setConnected(false);
+  }
 
 });
 
 
 /* =========================================================
-   SEND CHALLENGE
+   GUEST LOGIN
 ========================================================= */
 
-async function sendChallenge(text, level = currentLevel){
-
-  if(!currentUser){
-    toast("Firebase هنوز آماده نیست.", true);
-    return;
-  }
-
-  currentChallenge = {
-    text,
-    level,
-    createdAt: Date.now()
-  };
-
-  challengeText.textContent = text;
-
-  challengeMeta.textContent =
-    "سطح " +
-    level.toUpperCase() +
-    " · ارسال‌شده به Overlay";
+async function guestLogin(){
 
   try{
 
-    const duration = Number(durationSelect.value);
+    let name =
+      guestNameInput.value.trim() ||
+      localStorage.getItem("tv_guest_name") ||
+      "Guest";
 
-    await set(userRef("overlay/current"), {
-      text,
-      level,
-      createdAt: Date.now(),
-      duration,
-      active: true
-    });
+    name = name.substring(0,24);
 
-    const historyRef = push(userRef("history"));
+    localStorage.setItem("tv_guest_name",name);
 
-    await set(historyRef, {
-      text,
-      level,
-      createdAt: Date.now()
-    });
+    const result =
+      await signInAnonymously(auth);
 
-    toast("Challenge روی Overlay ارسال شد.");
+    if(result.user){
 
-  }catch(error){
+      try{
+        await updateProfile(result.user,{
+          displayName:name
+        });
+      }catch(e){
+        console.warn(e);
+      }
 
-    console.error(error);
+    }
 
-    toast(
-      "خطای Firebase: " +
-      (error.code || error.message),
-      true
+    showToast("ورود مهمان انجام شد.");
+
+  }catch(err){
+
+    console.error(err);
+
+    showToast(
+      "ورود مهمان انجام نشد: " + authError(err),
+      "bad"
     );
 
   }
 
 }
 
-$("randomChallenge").addEventListener("click", () => {
-
-  const text = pickChallenge(currentLevel);
-
-  sendChallenge(text, currentLevel);
-
-});
-
 
 /* =========================================================
-   CUSTOM CHALLENGE
+   GOOGLE LOGIN
 ========================================================= */
 
-$("customChallengeBtn").addEventListener("click", () => {
-  $("customModal").classList.add("show");
-  $("customInput").focus();
-});
+async function googleLogin(){
 
-$("closeModal").addEventListener("click", () => {
-  $("customModal").classList.remove("show");
-});
+  try{
 
-$("customModal").addEventListener("click", event => {
+    const provider = new GoogleAuthProvider();
 
-  if(event.target === $("customModal")){
-    $("customModal").classList.remove("show");
-  }
-
-});
-
-$("sendCustom").addEventListener("click", () => {
-
-  const value = $("customInput").value.trim();
-
-  if(!value){
-    toast("متن Challenge را وارد کن.", true);
-    return;
-  }
-
-  sendChallenge(value, currentLevel);
-
-  $("customInput").value = "";
-  $("customModal").classList.remove("show");
-
-});
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function loadHistory(){
-
-  if(!currentUser) return;
-
-  const historyQuery =
-    query(
-      userRef("history"),
-      limitToLast(30)
-    );
-
-  onValue(historyQuery, snap => {
-
-    const data = snap.val();
-
-    if(!data){
-      historyBox.innerHTML =
-        '<div class="smallText">هنوز چیزی ثبت نشده.</div>';
-      return;
-    }
-
-    const items = Object.values(data)
-      .sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-    historyBox.innerHTML = "";
-
-    items.forEach(item => {
-
-      const div = document.createElement("div");
-
-      div.className = "historyItem";
-
-      const date = item.createdAt
-        ? new Date(item.createdAt).toLocaleString("fa-IR")
-        : "";
-
-      div.innerHTML = `
-        <div class="h"></div>
-        <div class="m"></div>
-      `;
-
-      div.querySelector(".h").textContent = item.text || "";
-      div.querySelector(".m").textContent =
-        String(item.level || "").toUpperCase() +
-        " · " +
-        date;
-
-      historyBox.appendChild(div);
-
+    provider.setCustomParameters({
+      prompt:"select_account"
     });
 
-  }, error => {
+    /*
+      اگر کاربر Anonymous باشد،
+      اول حساب مهمان را به Google لینک می‌کنیم.
+      این کار UID و داده‌های قبلی را حفظ می‌کند.
+    */
+
+    if(auth.currentUser?.isAnonymous){
+
+      try{
+
+        await linkWithPopup(
+          auth.currentUser,
+          provider
+        );
+
+      }catch(err){
+
+        if(
+          err.code ===
+          "auth/credential-already-in-use"
+        ){
+
+          await signInWithPopup(
+            auth,
+            provider
+          );
+
+        }else{
+          throw err;
+        }
+
+      }
+
+    }else{
+
+      await signInWithPopup(
+        auth,
+        provider
+      );
+
+    }
+
+    showToast("ورود Google انجام شد.");
+
+  }catch(err){
+
+    console.error(err);
+
+    showToast(
+      "Google Login: " + authError(err),
+      "bad"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   AUTH ERROR
+========================================================= */
+
+function authError(err){
+
+  const code = err?.code || "";
+
+  if(code === "auth/operation-not-allowed"){
+    return "Google یا Anonymous در Firebase فعال نیست.";
+  }
+
+  if(code === "auth/popup-blocked"){
+    return "Popup توسط مرورگر مسدود شد.";
+  }
+
+  if(code === "auth/popup-closed-by-user"){
+    return "پنجره ورود بسته شد.";
+  }
+
+  if(code === "auth/network-request-failed"){
+    return "اتصال اینترنت مشکل دارد.";
+  }
+
+  return code || "خطای ناشناخته";
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+logoutBtn.addEventListener("click",async()=>{
+
+  try{
+
+    await signOut(auth);
+
+    showToast("از حساب خارج شدی.");
+
+  }catch(err){
+
+    showToast(
+      "خروج انجام نشد.",
+      "bad"
+    );
+
+  }
+
+});
+
+
+/* =========================================================
+   AUTH BUTTONS
+========================================================= */
+
+guestBtn.addEventListener("click",()=>{
+  loginOverlay.classList.add("show");
+});
+
+googleBtn.addEventListener("click",googleLogin);
+
+$("modalGuest").addEventListener(
+  "click",
+  guestLogin
+);
+
+$("modalGoogle").addEventListener(
+  "click",
+  googleLogin
+);
+
+
+/* =========================================================
+   CREATE EVENT
+========================================================= */
+
+async function createEvent({
+
+  type="challenge",
+  title="TY VANTA ALERT",
+  text="",
+  level="easy",
+  duration=5500
+
+}){
+
+  if(!auth.currentUser){
+
+    loginOverlay.classList.add("show");
+
+    showToast(
+      "اول وارد TY VANTA شو.",
+      "bad"
+    );
+
+    return false;
+  }
+
+  const eventRef =
+    push(ref(db,"tyVanta/events"));
+
+  const payload = {
+
+    type,
+    title,
+    text,
+    level,
+    duration,
+    uid:auth.currentUser.uid,
+
+    user:
+      auth.currentUser.displayName ||
+      localStorage.getItem("tv_guest_name") ||
+      "Guest",
+
+    createdAt:serverTimestamp()
+
+  };
+
+  try{
+
+    await set(eventRef,payload);
+
+    eventCounter++;
+
+    localStorage.setItem(
+      "tv_events",
+      eventCounter
+    );
+
+    eventsCount.textContent =
+      eventCounter;
+
+    lastLevel.textContent =
+      levelFa(level);
+
+    return true;
+
+  }catch(err){
+
+    console.error(err);
+
+    showToast(
+      "Firebase اجازه ثبت Event را نداد.",
+      "bad"
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   RANDOM CHALLENGE
+========================================================= */
+
+async function randomChallengeFire(){
+
+  if(randomChallenge.disabled)
+    return;
+
+  randomChallenge.disabled = true;
+
+  challengePlaceholder.style.display =
+    "none";
+
+  challengeText.style.display =
+    "none";
+
+  challengeLevel.style.display =
+    "none";
+
+  roulette.classList.add("active");
+
+  challengeStatus.textContent =
+    "در حال انتخاب سطح...";
+
+  const sequence = [
+    "EASY",
+    "MEDIUM",
+    "HARD",
+    "EASY",
+    "HARD",
+    "MEDIUM",
+    "EASY",
+    "HARD"
+  ];
+
+  for(let i=0;i<sequence.length;i++){
+
+    rouletteText.textContent =
+      sequence[i];
+
+    await new Promise(
+      resolve=>setTimeout(resolve,120)
+    );
+
+  }
+
+  const level = randomLevel();
+
+  const text =
+    randomItem(challenges[level]);
+
+  roulette.classList.remove("active");
+
+  challengeText.textContent =
+    text;
+
+  challengeText.style.display =
+    "block";
+
+  challengeLevel.textContent =
+    levelFa(level);
+
+  challengeLevel.className =
+    "challenge-level " + level;
+
+  challengeLevel.style.display =
+    "block";
+
+  challengeStatus.textContent =
+    "چالش انتخاب شد";
+
+  lastLevel.textContent =
+    levelFa(level);
+
+  const success =
+    await createEvent({
+      type:"challenge",
+      title:"RANDOM CHALLENGE",
+      text,
+      level,
+      duration:6000
+    });
+
+  if(success){
+
+    showToast(
+      "چالش به Firebase و Overlay ارسال شد."
+    );
+
+  }
+
+  setTimeout(()=>{
+    randomChallenge.disabled = false;
+  },500);
+
+}
+
+
+/* =========================================================
+   MANUAL LEVEL
+========================================================= */
+
+async function manualChallenge(level){
+
+  if(randomChallenge.disabled)
+    return;
+
+  randomChallenge.disabled = true;
+
+  const text =
+    randomItem(challenges[level]);
+
+  challengePlaceholder.style.display =
+    "none";
+
+  challengeText.textContent =
+    text;
+
+  challengeText.style.display =
+    "block";
+
+  challengeLevel.textContent =
+    levelFa(level);
+
+  challengeLevel.className =
+    "challenge-level " + level;
+
+  challengeLevel.style.display =
+    "block";
+
+  challengeStatus.textContent =
+    "چالش دستی";
+
+  lastLevel.textContent =
+    levelFa(level);
+
+  const success =
+    await createEvent({
+      type:"challenge",
+      title:"MANUAL CHALLENGE",
+      text,
+      level,
+      duration:6000
+    });
+
+  if(success)
+    showToast("چالش ارسال شد.");
+
+  randomChallenge.disabled = false;
+
+}
+
+
+randomChallenge.addEventListener(
+  "click",
+  randomChallengeFire
+);
+
+heroChallenge.addEventListener(
+  "click",
+  ()=>{
+    document
+      .getElementById("challenge")
+      .scrollIntoView({
+        behavior:"smooth"
+      });
+
+    setTimeout(
+      randomChallengeFire,
+      500
+    );
+  }
+);
+
+document
+.querySelectorAll(".level-btn")
+.forEach(btn=>{
+
+  btn.addEventListener(
+    "click",
+    ()=>{
+      manualChallenge(
+        btn.dataset.level
+      );
+    }
+  );
+
+});
+
+
+/* =========================================================
+   EVENT LAB
+========================================================= */
+
+document
+.querySelectorAll(".event-btn")
+.forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    document
+    .querySelectorAll(".event-btn")
+    .forEach(x=>
+      x.classList.remove("active")
+    );
+
+    btn.classList.add("active");
+
+    selectedEventType =
+      btn.dataset.event;
+
+    const defaults = {
+
+      challenge:{
+        title:"TY VANTA CHALLENGE",
+        text:"یک چالش جدید برای استریم.",
+        level:"easy"
+      },
+
+      donation:{
+        title:"DONATION ALERT",
+        text:"یک حمایت جدید دریافت شد.",
+        level:"medium"
+      },
+
+      follow:{
+        title:"NEW FOLLOW",
+        text:"یک نفر به فالوئرهای کانال اضافه شد.",
+        level:"easy"
+      },
+
+      subscribe:{
+        title:"NEW SUBSCRIBE",
+        text:"یک Subscribe جدید!",
+        level:"medium"
+      },
+
+      raid:{
+        title:"RAID INCOMING",
+        text:"یک Raid جدید وارد شد.",
+        level:"hard"
+      },
+
+      chat:{
+        title:"CHAT EVENT",
+        text:"یک پیام ویژه از Chat.",
+        level:"easy"
+      }
+
+    };
+
+    const d =
+      defaults[selectedEventType];
+
+    $("eventTitle").value =
+      d.title;
+
+    $("eventText").value =
+      d.text;
+
+    $("eventLevel").value =
+      d.level;
+
+  });
+
+});
+
+
+$("sendEvent").addEventListener(
+  "click",
+  async()=>{
+
+    const title =
+      $("eventTitle").value.trim() ||
+      "TY VANTA ALERT";
+
+    const text =
+      $("eventText").value.trim() ||
+      "New event";
+
+    const level =
+      $("eventLevel").value;
+
+    const ok =
+      await createEvent({
+        type:selectedEventType,
+        title,
+        text,
+        level,
+        duration:6000
+      });
+
+    if(ok)
+      showToast(
+        eventFa(selectedEventType) +
+        " ارسال شد."
+      );
+
+  }
+);
+
+
+/* =========================================================
+   REALTIME EVENT LISTENER
+========================================================= */
+
+const eventsQuery =
+  query(
+    ref(db,"tyVanta/events"),
+    orderByChild("createdAt"),
+    limitToLast(1)
+  );
+
+onValue(
+  eventsQuery,
+  snapshot=>{
+
+    setConnected(true);
+
+    let latest = null;
+
+    snapshot.forEach(child=>{
+      latest = {
+        key:child.key,
+        data:child.val()
+      };
+    });
+
+    if(!latest)
+      return;
+
+    if(latest.key === lastEventKey)
+      return;
+
+    lastEventKey =
+      latest.key;
+
+    /*
+      در همان صفحه‌ای که Event را ارسال کرده‌ایم،
+      Listener نیز آن را می‌بیند.
+    */
+
+    if(latest.data){
+
+      showOverlayEvent(
+        latest.data
+      );
+
+    }
+
+  },
+  error=>{
 
     console.error(error);
 
-  });
+    setConnected(false);
+
+    showToast(
+      "دسترسی Firebase به Eventها مشکل دارد.",
+      "bad"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+function showOverlayEvent(data){
+
+  if(!data)
+    return;
+
+  overlayType.textContent =
+    eventFa(data.type);
+
+  overlayLevel.textContent =
+    levelFa(data.level);
+
+  overlayTitle.textContent =
+    data.title
+      ? data.title + " — " + (data.text || "")
+      : (data.text || "");
+
+  overlayUser.textContent =
+    data.user || "TY VANTA";
+
+  overlayTime.textContent =
+    new Date().toLocaleTimeString(
+      "fa-IR",
+      {
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
+  clearTimeout(overlayTimer);
+
+  overlayCard.classList.remove(
+    "enter",
+    "leave"
+  );
+
+  /*
+    reflow برای اجرای دوباره animation
+  */
+
+  void overlayCard.offsetWidth;
+
+  overlayCard.classList.add(
+    "enter"
+  );
+
+  overlayTimer =
+    setTimeout(()=>{
+
+      overlayCard.classList.remove(
+        "enter"
+      );
+
+      overlayCard.classList.add(
+        "leave"
+      );
+
+    }, Number(data.duration) || 6000);
 
 }
 
@@ -1336,338 +3078,461 @@ function loadHistory(){
    OVERLAY URL
 ========================================================= */
 
-function getOverlayUrl(){
+const baseUrl =
+  window.location.href.split("?")[0];
 
-  if(!currentUser) return "";
+overlayUrl.value =
+  baseUrl + "?overlay=1";
 
-  return (
-    location.origin +
-    location.pathname +
-    "?overlay=1&uid=" +
-    encodeURIComponent(currentUser.uid)
+
+$("copyOverlay").addEventListener(
+  "click",
+  async()=>{
+
+    try{
+
+      await navigator.clipboard.writeText(
+        overlayUrl.value
+      );
+
+      showToast(
+        "URL Overlay کپی شد."
+      );
+
+    }catch{
+
+      overlayUrl.select();
+
+      document.execCommand(
+        "copy"
+      );
+
+      showToast(
+        "URL Overlay کپی شد."
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   MONO MODE
+========================================================= */
+
+function toggleMono(){
+
+  document.body.classList.toggle(
+    "mono"
+  );
+
+  localStorage.setItem(
+    "tv_mono",
+    document.body.classList.contains("mono")
+      ? "1"
+      : "0"
   );
 
 }
 
-$("copyOverlayBtn").addEventListener("click", async () => {
-
-  const url = getOverlayUrl();
-
-  if(!url){
-    toast("Firebase هنوز آماده نیست.", true);
-    return;
-  }
-
-  try{
-
-    await navigator.clipboard.writeText(url);
-
-    toast("لینک Overlay کپی شد.");
-
-  }catch{
-
-    toast("کپی خودکار انجام نشد.", true);
-
-  }
-
-});
-
-function openOverlay(){
-
-  const url = getOverlayUrl();
-
-  if(!url){
-    toast("Firebase هنوز آماده نیست.", true);
-    return;
-  }
-
-  window.open(url, "_blank");
-
+if(
+  localStorage.getItem("tv_mono") === "1"
+){
+  document.body.classList.add("mono");
 }
 
-$("overlayBtn").addEventListener("click", openOverlay);
-$("openOverlay2").addEventListener("click", openOverlay);
+$("monoBtn").addEventListener(
+  "click",
+  toggleMono
+);
+
+$("plugBtn").addEventListener(
+  "click",
+  toggleMono
+);
 
 
 /* =========================================================
-   OBS
+   LANGUAGE
 ========================================================= */
 
-async function loadOBS(){
+$("langBtn").addEventListener(
+  "click",
+  ()=>{
 
-  if(obs) return obs;
-
-  try{
-
-    const module =
-      await import(
-        "https://cdn.jsdelivr.net/npm/obs-websocket-js@5.0.6/+esm"
-      );
-
-    const OBSWebSocket =
-      module.default || module.OBSWebSocket;
-
-    obs = new OBSWebSocket();
-
-    return obs;
-
-  }catch(error){
-
-    console.error(error);
-
-    toast(
-      "کتابخانه OBS بارگذاری نشد.",
-      true
+    document.body.classList.toggle(
+      "en"
     );
 
-    throw error;
+    const isEn =
+      document.body.classList.contains("en");
+
+    document.documentElement.lang =
+      isEn ? "en" : "fa";
+
+    document.documentElement.dir =
+      isEn ? "ltr" : "rtl";
+
+    showToast(
+      isEn
+        ? "English interface mode"
+        : "حالت فارسی"
+    );
 
   }
+);
+
+
+/* =========================================================
+   MOUSE LIGHT
+========================================================= */
+
+document.addEventListener(
+  "pointermove",
+  e=>{
+
+    document.body.style.setProperty(
+      "--mx",
+      e.clientX + "px"
+    );
+
+    document.body.style.setProperty(
+      "--my",
+      e.clientY + "px"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SCROLL LAMP
+========================================================= */
+
+function updateLamp(){
+
+  const max =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const progress =
+    max > 0
+      ? window.scrollY / max
+      : 0;
+
+  const light =
+    Math.max(
+      .04,
+      .25 - progress * .18
+    );
+
+  $("lampLight").style.opacity =
+    light;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateLamp,
+  {passive:true}
+);
+
+updateLamp();
+
+
+/* =========================================================
+   OBS WEBSOCKET V5
+========================================================= */
+
+function obsLog(message){
+
+  const time =
+    new Date().toLocaleTimeString();
+
+  obsLogEl(
+    "[" + time + "] " + message
+  );
+
+}
+
+function obsLogEl(message){
+
+  obsLog.textContent +=
+    "\n" + message;
+
+  obsLog.scrollTop =
+    obsLog.scrollHeight;
 
 }
 
 
-function setOBSStatus(connected, message){
+/* SHA-256 */
 
-  obsConnected = connected;
+async function sha256Bytes(text){
 
-  if(connected){
+  const data =
+    new TextEncoder().encode(text);
 
-    obsDot.className = "dot online";
-    obsStatus.textContent = message || "متصل به OBS";
+  const hash =
+    await crypto.subtle.digest(
+      "SHA-256",
+      data
+    );
 
-    $("connectObsBtn").textContent = "OBS متصل است";
-
-  }else{
-
-    obsDot.className = "dot";
-    obsStatus.textContent = message || "متصل نیست";
-
-    $("connectObsBtn").textContent = "اتصال به OBS";
-
-  }
+  return new Uint8Array(hash);
 
 }
 
+
+/* BASE64 */
+
+function base64(bytes){
+
+  let binary = "";
+
+  bytes.forEach(
+    b => binary +=
+      String.fromCharCode(b)
+  );
+
+  return btoa(binary);
+
+}
+
+
+/* OBS AUTH */
+
+async function makeOBSAuth(
+  password,
+  salt,
+  challenge
+){
+
+  const secretBytes =
+    await sha256Bytes(
+      password + salt
+    );
+
+  const secret =
+    base64(secretBytes);
+
+  const authBytes =
+    await sha256Bytes(
+      secret + challenge
+    );
+
+  return base64(authBytes);
+
+}
+
+
+/* CONNECT */
 
 async function connectOBS(){
 
+  if(obsSocket){
+
+    try{
+      obsSocket.close();
+    }catch(e){}
+
+    obsSocket = null;
+  }
+
+  const host =
+    $("obsHost").value.trim() ||
+    "127.0.0.1";
+
+  const port =
+    $("obsPort").value.trim() ||
+    "4455";
+
+  const password =
+    $("obsPassword").value;
+
+  obsLog.textContent =
+    "OBS: connecting...";
+
   try{
 
-    const client = await loadOBS();
+    obsSocket =
+      new WebSocket(
+        "ws://" +
+        host +
+        ":" +
+        port
+      );
 
-    if(obsConnected){
-      toast("OBS از قبل متصل است.");
-      return;
-    }
+  }catch(err){
 
-    await client.connect(
-      "ws://127.0.0.1:4455",
-      undefined,
-      {
-        rpcVersion: 1
-      }
+    obsLog(
+      "WebSocket creation failed."
     );
 
-    setOBSStatus(true, "OBS متصل است");
-
-    toast("اتصال به OBS برقرار شد.");
-
-    await refreshScenes();
-
-  }catch(error){
-
-    console.error(error);
-
-    setOBSStatus(false, "اتصال ناموفق");
-
-    toast(
-      "اتصال به OBS انجام نشد. مطمئن شو OBS WebSocket فعال است.",
-      true
-    );
+    return;
 
   }
 
-}
+
+  obsSocket.onopen = ()=>{
+
+    obsLogEl(
+      "Socket connected. Waiting for OBS Hello..."
+    );
+
+  };
 
 
-async function disconnectOBS(){
+  obsSocket.onmessage =
+    async message=>{
 
-  if(!obs) return;
+      try{
 
-  try{
-    await obs.disconnect();
-  }catch{}
-
-  setOBSStatus(false, "متصل نیست");
-
-  sceneList.innerHTML =
-    '<div class="smallText">OBS قطع است.</div>';
-
-}
-
-
-$("connectObsBtn").addEventListener("click", connectOBS);
-$("disconnectObsBtn").addEventListener("click", disconnectOBS);
-
-
-/* =========================================================
-   OBS EVENTS
-========================================================= */
-
-async function refreshScenes(){
-
-  if(!obs || !obsConnected) return;
-
-  try{
-
-    const response =
-      await obs.call("GetSceneList");
-
-    currentScenes = response.scenes || [];
-
-    const active =
-      response.currentProgramSceneName;
-
-    sceneList.innerHTML = "";
-
-    if(!currentScenes.length){
-
-      sceneList.innerHTML =
-        '<div class="smallText">Sceneای پیدا نشد.</div>';
-
-      return;
-
-    }
-
-    currentScenes
-      .slice()
-      .reverse()
-      .forEach(scene => {
-
-        const item = document.createElement("div");
-
-        item.className =
-          "scene" +
-          (
-            scene.name === active
-              ? " active"
-              : ""
+        const packet =
+          JSON.parse(
+            message.data
           );
 
-        const name = document.createElement("span");
+        /*
+          OBS WebSocket v5:
+          op 0 = Hello
+          op 2 = Identified
+        */
 
-        name.textContent = scene.name;
+        if(packet.op === 0){
 
-        const button =
-          document.createElement("button");
+          const hello =
+            packet.d || {};
 
-        button.className = "btn small";
-        button.textContent = "فعال";
+          const identify = {
+            op:1,
+            d:{
+              rpcVersion:1
+            }
+          };
 
-        button.addEventListener("click", () => {
-          switchScene(scene.name);
-        });
+          if(
+            hello.authentication &&
+            password
+          ){
 
-        item.appendChild(name);
-        item.appendChild(button);
+            const auth =
+              await makeOBSAuth(
+                password,
+                hello.authentication.salt,
+                hello.authentication.challenge
+              );
 
-        sceneList.appendChild(item);
+            identify.d.authentication =
+              auth;
 
-      });
+          }
 
-  }catch(error){
+          obsSocket.send(
+            JSON.stringify(identify)
+          );
 
-    console.error(error);
+          obsLogEl(
+            "Identify sent."
+          );
 
-  }
+        }
 
-}
+        else if(packet.op === 2){
 
+          obsConnected = true;
 
-async function switchScene(sceneName){
+          obsConnect.textContent =
+            "OBS متصل است";
 
-  if(!obs || !obsConnected){
+          obsConnect.style.background =
+            "var(--cyan)";
 
-    toast("ابتدا OBS را متصل کن.", true);
-    return;
+          obsLogEl(
+            "OBS WebSocket authenticated."
+          );
 
-  }
+          showToast(
+            "OBS WebSocket متصل شد."
+          );
 
-  try{
+        }
 
-    await obs.call(
-      "SetCurrentProgramScene",
-      {
-        sceneName
+        else if(packet.op === 7){
+
+          obsLogEl(
+            "Request response: " +
+            JSON.stringify(packet.d)
+          );
+
+        }
+
+        else if(packet.op === 5){
+
+          /*
+            Event message.
+            فقط برای نمایش لاگ.
+          */
+
+          obsLogEl(
+            "OBS Event: " +
+            (packet.d?.eventType || "unknown")
+          );
+
+        }
+
+      }catch(err){
+
+        obsLogEl(
+          "Packet parse error."
+        );
+
       }
+
+    };
+
+
+  obsSocket.onerror = ()=>{
+
+    obsConnected = false;
+
+    obsConnect.textContent =
+      "اتصال به OBS";
+
+    obsConnect.style.background =
+      "var(--green)";
+
+    obsLogEl(
+      "OBS socket error."
     );
 
-    toast("Scene تغییر کرد: " + sceneName);
+  };
 
-    await refreshScenes();
 
-  }catch(error){
+  obsSocket.onclose = event=>{
 
-    console.error(error);
+    obsConnected = false;
 
-    toast("تغییر Scene انجام نشد.", true);
+    obsConnect.textContent =
+      "اتصال به OBS";
 
-  }
+    obsConnect.style.background =
+      "var(--green)";
+
+    obsLogEl(
+      "OBS disconnected. Code: " +
+      event.code
+    );
+
+  };
 
 }
 
 
-/* =========================================================
-   STREAM / RECORD
-========================================================= */
-
-async function obsCall(request){
-
-  if(!obs || !obsConnected){
-
-    toast("ابتدا OBS را متصل کن.", true);
-    return;
-
-  }
-
-  try{
-
-    await obs.call(request);
-
-    toast("دستور اجرا شد.");
-
-  }catch(error){
-
-    console.error(error);
-
-    toast(
-      "اجرای دستور OBS ناموفق بود.",
-      true
-    );
-
-  }
-
-}
-
-$("streamStart").addEventListener(
+obsConnect.addEventListener(
   "click",
-  () => obsCall("StartStream")
-);
-
-$("streamStop").addEventListener(
-  "click",
-  () => obsCall("StopStream")
-);
-
-$("recordStart").addEventListener(
-  "click",
-  () => obsCall("StartRecord")
-);
-
-$("recordStop").addEventListener(
-  "click",
-  () => obsCall("StopRecord")
+  connectOBS
 );
 
 
@@ -1675,161 +3540,41 @@ $("recordStop").addEventListener(
    OVERLAY MODE
 ========================================================= */
 
-const params = new URLSearchParams(location.search);
-const isOverlay = params.get("overlay") === "1";
-const overlayUid = params.get("uid");
-
-if(isOverlay){
-
-  $("app").style.display = "none";
-  $("overlayMode").classList.add("active");
-
-  startOverlay();
-
-}
-
-
-async function startOverlay(){
-
-  if(!overlayUid){
-
-    $("overlayText").textContent =
-      "OVERLAY ERROR";
-
-    $("overlayLevel").textContent =
-      "UID missing";
-
-    return;
-
-  }
-
-  const overlayRef =
-    ref(
-      db,
-      "tyVanta/users/" +
-      overlayUid +
-      "/overlay/current"
-    );
-
-  onValue(
-    overlayRef,
-    snap => {
-
-      const data = snap.val();
-
-      if(!data || !data.active || !data.text){
-        return;
-      }
-
-      showOverlayChallenge(data);
-
-    },
-    error => {
-
-      console.error(error);
-
-      $("overlayText").textContent =
-        "Firebase Error";
-
-    }
+const params =
+  new URLSearchParams(
+    window.location.search
   );
 
-}
+if(
+  params.get("overlay") === "1"
+){
 
+  document.body.classList.add(
+    "overlay-mode"
+  );
 
-let overlayTimerInterval = null;
-
-function showOverlayChallenge(data){
-
-  const card = $("overlayCard");
-
-  $("overlayText").textContent =
-    data.text;
-
-  $("overlayLevel").textContent =
-    "LEVEL " +
-    String(data.level || "easy").toUpperCase();
-
-  clearInterval(overlayTimerInterval);
-
-  let seconds =
-    Number(data.duration || 15);
-
-  $("overlayTimer").textContent =
-    seconds + "s";
-
-  card.classList.remove("show");
-
-  void card.offsetWidth;
-
-  card.classList.add("show");
-
-  overlayTimerInterval =
-    setInterval(() => {
-
-      seconds--;
-
-      $("overlayTimer").textContent =
-        Math.max(seconds, 0) + "s";
-
-      if(seconds <= 0){
-
-        clearInterval(overlayTimerInterval);
-
-        card.classList.remove("show");
-
-      }
-
-    },1000);
+  /*
+    در Overlay نیاز به Login UI نداریم.
+    برای خواندن Eventها Firebase Rules
+    باید اجازه read به authenticated user بدهد.
+  */
 
 }
 
 
 /* =========================================================
-   KEYBOARD SHORTCUTS
+   START
 ========================================================= */
 
-document.addEventListener("keydown", event => {
+console.log(
+  "%cTY VANTA ONLINE",
+  "color:#51ff9a;font-size:20px;font-weight:bold"
+);
 
-  if(event.key === "Escape"){
-
-    $("customModal").classList.remove("show");
-
-  }
-
-});
-
-
-/* =========================================================
-   CLEANUP
-========================================================= */
-
-window.addEventListener("beforeunload", async () => {
-
-  try{
-
-    if(obs && obsConnected){
-      await obs.disconnect();
-    }
-
-  }catch{}
-
-});
-
-
-/* =========================================================
-   INITIAL
-========================================================= */
-
-if(isOverlay){
-
-  document.title = "Ty VANTA Overlay";
-
-}else{
-
-  document.title = "Ty VANTA";
-
-}
+console.log(
+  "Overlay:",
+  overlayUrl.value
+);
 
 </script>
 
