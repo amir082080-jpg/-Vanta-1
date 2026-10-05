@@ -2,38 +2,34 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#050907">
-<meta name="description" content="TY VANTA — Creator Hub for Streamers, YouTubers & Gamers">
-<title>TY VANTA — Creator Hub</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#050b09">
+<title>TY VANTA — VANTER</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#030605;
-  --bg2:#07100b;
-  --panel:rgba(9,20,14,.72);
-  --panel2:rgba(13,29,20,.78);
-  --line:rgba(81,255,154,.18);
-  --line2:rgba(92,243,255,.18);
+  --bg:#030706;
+  --panel:rgba(10,22,17,.72);
+  --panel2:rgba(14,31,24,.78);
+  --line:rgba(81,255,154,.16);
   --green:#51ff9a;
-  --green2:#19d86c;
+  --green2:#19d875;
   --cyan:#5cf3ff;
-  --white:#effff6;
-  --muted:#86a494;
-  --danger:#ff557d;
-  --yellow:#ffe76a;
-  --shadow:0 25px 80px rgba(0,0,0,.5);
-  --radius:24px;
-  --mono:0;
+  --red:#ff5470;
+  --yellow:#ffd75c;
+  --text:#ecfff4;
+  --muted:#86a596;
+  --shadow:0 25px 80px rgba(0,0,0,.45);
 }
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
 }
 
 html{
@@ -41,23 +37,40 @@ html{
 }
 
 body{
-  margin:0;
   min-height:100vh;
-  color:var(--white);
+  color:var(--text);
   background:
-    radial-gradient(circle at 20% 10%,rgba(81,255,154,.09),transparent 25%),
-    radial-gradient(circle at 80% 20%,rgba(92,243,255,.06),transparent 25%),
-    linear-gradient(180deg,#020403,#061009 45%,#020403);
+    radial-gradient(circle at 20% 10%,rgba(81,255,154,.09),transparent 28%),
+    radial-gradient(circle at 85% 20%,rgba(92,243,255,.06),transparent 24%),
+    linear-gradient(135deg,#020504,#07110c 50%,#020504);
   font-family:"Vazirmatn",sans-serif;
   overflow-x:hidden;
 }
 
-body.mono{
-  filter:grayscale(1);
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.13;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:linear-gradient(to bottom,#000,transparent);
+  z-index:-3;
 }
 
-button,
-input{
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(81,255,154,.09),transparent 22%);
+  z-index:-2;
+}
+
+button,input{
   font:inherit;
 }
 
@@ -65,289 +78,212 @@ button{
   cursor:pointer;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
+.hidden{
+  display:none!important;
 }
 
-/* ---------- BACKGROUND ---------- */
+/* LOADER */
 
-#stars{
+#loader{
   position:fixed;
   inset:0;
-  pointer-events:none;
-  opacity:.45;
-  z-index:-4;
+  background:#020504;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  transition:.7s ease;
 }
 
-.noise{
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  pointer-events:none;
-  opacity:.035;
-  background-image:
-    repeating-radial-gradient(circle at 0 0,#fff 0 1px,transparent 1px 4px);
-  mix-blend-mode:screen;
+.loaderBox{
+  text-align:center;
 }
 
-.grid-bg{
-  position:fixed;
-  inset:0;
-  z-index:-5;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(81,255,154,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(81,255,154,.025) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:linear-gradient(to bottom,black,transparent 80%);
+.loaderLogo{
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(42px,12vw,90px);
+  font-weight:900;
+  letter-spacing:8px;
+  color:var(--green);
+  text-shadow:0 0 35px rgba(81,255,154,.45);
+  animation:logoPulse 1.3s infinite alternate;
 }
 
-/* ---------- LAMP ---------- */
-
-.lamp{
-  position:fixed;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:170px;
-  height:58px;
-  z-index:50;
-  pointer-events:none;
+.loaderSub{
+  color:#789485;
+  margin-top:12px;
+  font-size:12px;
+  letter-spacing:5px;
 }
 
-.lamp-wire{
-  position:absolute;
-  top:-20px;
-  width:2px;
-  height:45px;
-  background:#17251d;
+.loaderBar{
+  width:190px;
+  height:3px;
+  margin:28px auto 0;
+  background:#102219;
+  overflow:hidden;
+  border-radius:20px;
 }
 
-.lamp-wire.a{left:52px}
-.lamp-wire.b{right:52px}
-
-.lamp-body{
-  position:absolute;
-  left:50%;
-  top:17px;
-  transform:translateX(-50%);
-  width:92px;
-  height:27px;
-  border-radius:0 0 50px 50px;
-  background:linear-gradient(180deg,#1b3324,#08100b);
-  border:1px solid rgba(81,255,154,.2);
-  box-shadow:0 0 25px rgba(81,255,154,.05);
-}
-
-.lamp-light{
-  position:absolute;
-  top:40px;
-  left:50%;
-  transform:translateX(-50%);
-  width:140px;
-  height:140px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(81,255,154,.16),transparent 68%);
-  filter:blur(5px);
-  opacity:.5;
-  transition:opacity .15s ease,transform .15s ease;
-}
-
-/* ---------- WIRES ---------- */
-
-.wires{
-  position:fixed;
-  left:10px;
-  bottom:20px;
-  width:110px;
-  height:100px;
-  z-index:30;
-  pointer-events:none;
-}
-
-.wire{
-  position:absolute;
-  width:90px;
-  height:2px;
-  background:#25362c;
-  transform-origin:left center;
-}
-
-.wire.one{
-  left:0;
-  top:30px;
-  transform:rotate(-18deg);
-}
-
-.wire.two{
-  left:5px;
-  top:53px;
-  transform:rotate(12deg);
-}
-
-.spark{
-  position:absolute;
-  width:5px;
-  height:5px;
-  border-radius:50%;
+.loaderBar i{
+  display:block;
+  height:100%;
+  width:45%;
   background:var(--green);
-  box-shadow:0 0 12px var(--green),0 0 25px var(--green);
-  animation:spark 1.1s infinite;
+  box-shadow:0 0 18px var(--green);
+  animation:load 1.1s infinite;
 }
 
-.spark.s1{left:73px;top:18px}
-.spark.s2{left:67px;top:57px;animation-delay:.5s}
-
-@keyframes spark{
-  0%,70%,100%{opacity:0;transform:scale(.2)}
-  73%{opacity:1;transform:scale(1.5)}
-  76%{opacity:.1;transform:scale(.4)}
+@keyframes load{
+  0%{transform:translateX(-220%)}
+  100%{transform:translateX(440%)}
 }
 
-/* ---------- TOPBAR ---------- */
+@keyframes logoPulse{
+  from{opacity:.65;transform:scale(.97)}
+  to{opacity:1;transform:scale(1.03)}
+}
 
-.topbar{
+/* HEADER */
+
+header{
   position:sticky;
   top:0;
-  z-index:40;
-  padding:14px 18px;
+  z-index:500;
   backdrop-filter:blur(20px);
-  background:rgba(3,8,5,.66);
-  border-bottom:1px solid rgba(81,255,154,.08);
+  background:rgba(3,8,6,.7);
+  border-bottom:1px solid rgba(81,255,154,.1);
 }
 
-.topbar-inner{
-  max-width:1250px;
+.nav{
+  width:min(1200px,calc(100% - 28px));
+  min-height:72px;
   margin:auto;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:14px;
+  gap:15px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:12px;
-  min-width:0;
+  gap:11px;
 }
 
-.brand-mark{
-  width:42px;
-  height:42px;
+.brandMark{
+  width:40px;
+  height:40px;
+  border:1px solid rgba(81,255,154,.4);
   border-radius:13px;
   display:grid;
   place-items:center;
   color:var(--green);
-  border:1px solid var(--line);
   background:rgba(81,255,154,.06);
   box-shadow:0 0 25px rgba(81,255,154,.08);
-  font-family:Orbitron,sans-serif;
-  font-size:15px;
-  font-weight:800;
+  font-family:Orbitron;
+  font-weight:900;
 }
 
-.brand-text{
-  font-family:Orbitron,sans-serif;
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:1px;
+.brandText strong{
+  display:block;
+  font-family:Orbitron;
+  letter-spacing:2px;
+  font-size:17px;
 }
 
-.brand-sub{
-  color:var(--muted);
+.brandText span{
+  color:#587464;
   font-size:10px;
-  margin-top:2px;
+  letter-spacing:2px;
 }
 
-.top-actions{
+.navRight{
   display:flex;
-  gap:8px;
   align-items:center;
+  gap:9px;
 }
 
-.icon-btn{
-  width:42px;
-  height:42px;
-  border:1px solid var(--line);
-  background:rgba(8,18,12,.75);
-  color:var(--white);
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  transition:.25s;
-}
-
-.icon-btn:hover{
-  transform:translateY(-2px);
-  border-color:rgba(81,255,154,.45);
-  box-shadow:0 10px 30px rgba(81,255,154,.1);
-}
-
-.icon-btn svg{
-  width:20px;
-  height:20px;
-}
-
-/* ---------- STATUS ---------- */
-
-.status-pill{
+.connection{
   display:flex;
   align-items:center;
   gap:7px;
   padding:8px 11px;
   border:1px solid var(--line);
-  border-radius:999px;
-  color:var(--muted);
+  border-radius:12px;
+  color:#88a596;
   font-size:11px;
-  background:rgba(8,18,12,.55);
+  background:rgba(255,255,255,.025);
 }
 
-.status-dot{
+.dot{
   width:7px;
   height:7px;
   border-radius:50%;
   background:#777;
 }
 
-.status-dot.ok{
+.dot.ok{
   background:var(--green);
   box-shadow:0 0 12px var(--green);
 }
 
-.status-dot.bad{
-  background:var(--danger);
-  box-shadow:0 0 12px var(--danger);
+.dot.bad{
+  background:var(--red);
 }
 
-/* ---------- HERO ---------- */
+.userMini{
+  padding:8px 12px;
+  border:1px solid rgba(92,243,255,.14);
+  border-radius:12px;
+  color:var(--cyan);
+  font-size:11px;
+  background:rgba(92,243,255,.03);
+}
+
+/* MAIN */
+
+main{
+  width:min(1200px,calc(100% - 28px));
+  margin:auto;
+}
 
 .hero{
-  max-width:1250px;
-  margin:0 auto;
-  padding:80px 20px 40px;
-  min-height:720px;
+  min-height:650px;
   display:grid;
   grid-template-columns:1.1fr .9fr;
-  gap:30px;
   align-items:center;
+  gap:35px;
+  position:relative;
 }
 
-.hero-kicker{
+.heroGlow{
+  position:absolute;
+  width:420px;
+  height:420px;
+  right:5%;
+  top:15%;
+  background:rgba(81,255,154,.08);
+  filter:blur(90px);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.kicker{
   display:inline-flex;
-  gap:9px;
   align-items:center;
+  gap:8px;
   padding:8px 12px;
-  border:1px solid var(--line);
+  border:1px solid rgba(81,255,154,.15);
   border-radius:999px;
   color:var(--green);
-  background:rgba(81,255,154,.045);
+  background:rgba(81,255,154,.035);
   font-size:11px;
-  letter-spacing:.5px;
+  letter-spacing:1px;
+  margin-bottom:20px;
 }
 
-.kicker-dot{
+.kicker b{
   width:6px;
   height:6px;
   background:var(--green);
@@ -357,888 +293,742 @@ a{
 
 .hero h1{
   font-family:Orbitron,sans-serif;
-  font-size:clamp(42px,7vw,88px);
-  line-height:.95;
-  margin:24px 0;
-  letter-spacing:-3px;
+  font-size:clamp(52px,8vw,110px);
+  line-height:.9;
+  letter-spacing:-4px;
+  margin-bottom:25px;
 }
 
 .hero h1 span{
   color:var(--green);
-  text-shadow:0 0 35px rgba(81,255,154,.18);
+  text-shadow:0 0 35px rgba(81,255,154,.25);
 }
 
 .hero p{
-  color:var(--muted);
-  max-width:680px;
+  color:#91aa9d;
+  max-width:600px;
   line-height:2;
   font-size:15px;
 }
 
-.hero-buttons{
+.heroButtons{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  margin-top:25px;
+  margin-top:28px;
 }
 
 .btn{
-  border:1px solid var(--line);
-  color:var(--white);
-  background:rgba(10,23,15,.75);
-  min-height:48px;
-  padding:0 17px;
-  border-radius:15px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
+  border:1px solid rgba(81,255,154,.2);
+  border-radius:14px;
+  padding:12px 18px;
+  background:rgba(81,255,154,.05);
+  color:var(--text);
   transition:.25s;
-}
-
-.btn svg{
-  width:18px;
-  height:18px;
-  flex:none;
 }
 
 .btn:hover{
   transform:translateY(-3px);
-  border-color:rgba(81,255,154,.48);
-  box-shadow:0 12px 35px rgba(81,255,154,.1);
+  border-color:rgba(81,255,154,.5);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
 .btn.primary{
-  color:#031007;
   background:var(--green);
+  color:#021007;
   border-color:var(--green);
   font-weight:900;
-}
-
-.btn.cyan{
-  color:#021013;
-  background:var(--cyan);
-  border-color:var(--cyan);
-  font-weight:900;
+  box-shadow:0 0 30px rgba(81,255,154,.15);
 }
 
 .btn.danger{
   color:#fff;
-  border-color:rgba(255,85,125,.3);
-  background:rgba(255,85,125,.08);
+  background:rgba(255,84,112,.08);
+  border-color:rgba(255,84,112,.2);
 }
 
-.btn.small{
-  min-height:38px;
-  padding:0 12px;
-  border-radius:12px;
-  font-size:12px;
-}
+/* CORE */
 
-/* ---------- CORE ---------- */
-
-.core{
+.heroCore{
+  min-height:430px;
   position:relative;
-  min-height:480px;
   display:grid;
   place-items:center;
 }
 
-.core-ring{
-  width:min(420px,85vw);
+.core{
+  width:min(370px,78vw);
   aspect-ratio:1;
-  border:1px solid rgba(81,255,154,.15);
   border-radius:50%;
   position:relative;
-  animation:spin 25s linear infinite;
+  border:1px solid rgba(81,255,154,.22);
+  background:
+    radial-gradient(circle,rgba(81,255,154,.1),transparent 55%),
+    rgba(7,18,13,.75);
+  box-shadow:
+    0 0 100px rgba(81,255,154,.08),
+    inset 0 0 80px rgba(81,255,154,.04);
 }
 
-.core-ring::before,
-.core-ring::after{
+.core:before,
+.core:after{
   content:"";
   position:absolute;
-  inset:11%;
-  border:1px dashed rgba(92,243,255,.15);
+  inset:12%;
+  border:1px dashed rgba(81,255,154,.17);
   border-radius:50%;
+  animation:spin 16s linear infinite;
 }
 
-.core-ring::after{
+.core:after{
   inset:25%;
-  border-color:rgba(81,255,154,.18);
-  animation:spin 13s linear infinite reverse;
+  border-color:rgba(92,243,255,.2);
+  animation-direction:reverse;
+  animation-duration:10s;
+}
+
+.coreCenter{
+  position:absolute;
+  inset:34%;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(81,255,154,.06);
+  border:1px solid rgba(81,255,154,.4);
+  box-shadow:0 0 50px rgba(81,255,154,.14);
+}
+
+.coreCenter strong{
+  font-family:Orbitron;
+  color:var(--green);
+  font-size:28px;
+}
+
+.coreLine{
+  position:absolute;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  height:1px;
+  width:70%;
+  left:15%;
+  top:50%;
+  opacity:.35;
 }
 
 @keyframes spin{
   to{transform:rotate(360deg)}
 }
 
-.core-box{
-  position:absolute;
-  width:230px;
-  height:230px;
-  border-radius:38px;
-  background:linear-gradient(145deg,rgba(14,33,22,.92),rgba(5,12,8,.94));
-  border:1px solid rgba(81,255,154,.3);
-  box-shadow:
-    0 0 80px rgba(81,255,154,.08),
-    inset 0 0 50px rgba(81,255,154,.04);
-  display:grid;
-  place-items:center;
-  transform:rotate(-8deg);
-}
+/* PLATFORM RAIL */
 
-.core-logo{
-  transform:rotate(8deg);
-  text-align:center;
-}
-
-.core-logo strong{
-  display:block;
-  font-family:Orbitron,sans-serif;
-  color:var(--green);
-  font-size:30px;
-}
-
-.core-logo small{
-  color:var(--muted);
-  font-size:10px;
-  letter-spacing:3px;
-}
-
-/* ---------- SECTIONS ---------- */
-
-.section{
-  max-width:1250px;
-  margin:auto;
-  padding:55px 20px;
-}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:20px;
-  margin-bottom:22px;
-}
-
-.section-title{
-  font-family:Orbitron,sans-serif;
-  font-size:25px;
-  margin:0;
-}
-
-.section-desc{
-  color:var(--muted);
-  font-size:12px;
-  margin:7px 0 0;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.card{
+.platformRail{
   position:relative;
-  padding:22px;
-  min-height:180px;
-  border:1px solid var(--line);
-  background:linear-gradient(145deg,rgba(10,24,15,.72),rgba(4,10,7,.75));
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  transition:.3s;
-}
-
-.card::after{
-  content:"";
-  position:absolute;
-  width:130px;
-  height:130px;
-  right:-60px;
-  top:-60px;
-  border-radius:50%;
-  background:rgba(81,255,154,.06);
-  filter:blur(25px);
-}
-
-.card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(81,255,154,.35);
-}
-
-.card-icon{
-  width:45px;
-  height:45px;
-  display:grid;
-  place-items:center;
-  border-radius:14px;
-  color:var(--green);
-  border:1px solid var(--line);
-  background:rgba(81,255,154,.05);
-}
-
-.card-icon svg{
-  width:22px;
-}
-
-.card h3{
-  margin:17px 0 7px;
-}
-
-.card p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.8;
-  font-size:12px;
-}
-
-/* ---------- CHALLENGE ---------- */
-
-.challenge-panel{
-  display:grid;
-  grid-template-columns:1fr .55fr;
-  gap:15px;
-}
-
-.challenge-main,
-.level-panel,
-.event-panel,
-.obs-panel{
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  background:rgba(8,19,13,.76);
-  box-shadow:var(--shadow);
-}
-
-.challenge-main{
-  padding:28px;
-  min-height:360px;
+  min-height:170px;
+  margin:30px 0 70px;
   display:flex;
-  flex-direction:column;
+  align-items:center;
   justify-content:center;
+  overflow:visible;
 }
 
-.challenge-badge{
-  display:inline-flex;
-  width:max-content;
-  padding:7px 10px;
-  border-radius:999px;
-  border:1px solid rgba(81,255,154,.2);
-  color:var(--green);
-  font-size:10px;
-}
-
-.challenge-text{
-  font-size:clamp(22px,3vw,37px);
-  line-height:1.5;
-  margin:25px 0;
-  font-weight:800;
-}
-
-.level{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.level-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--green);
-}
-
-.challenge-actions{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
-}
-
-.level-panel{
-  padding:22px;
-}
-
-.level-panel h3{
-  margin-top:0;
-}
-
-.level-list{
-  display:grid;
-  gap:10px;
-  margin-top:20px;
-}
-
-.level-item{
-  padding:14px;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:14px;
-  background:rgba(255,255,255,.018);
-}
-
-.level-item b{
-  display:block;
-  margin-bottom:4px;
-}
-
-.level-item span{
-  color:var(--muted);
-  font-size:11px;
-}
-
-/* ---------- EVENT LAB ---------- */
-
-.event-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-
-.event-panel{
-  padding:24px;
-}
-
-.event-panel h3{
-  margin-top:0;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.field input,
-.field select{
+.rail{
   width:100%;
-  min-height:44px;
-  border:1px solid rgba(81,255,154,.14);
-  background:rgba(0,0,0,.22);
-  color:var(--white);
-  border-radius:13px;
-  padding:0 13px;
-  outline:none;
-}
-
-.field input:focus,
-.field select:focus{
-  border-color:rgba(81,255,154,.5);
-  box-shadow:0 0 0 3px rgba(81,255,154,.05);
-}
-
-.field option{
-  background:#07100b;
-}
-
-.event-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:14px;
-}
-
-/* ---------- OBS ---------- */
-
-.obs-panel{
-  padding:24px;
-}
-
-.obs-url{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  margin:15px 0;
-}
-
-.obs-url input{
-  flex:1;
-  min-height:45px;
-  color:var(--green);
-  background:#020504;
-  border:1px solid var(--line);
-  border-radius:13px;
-  padding:0 13px;
-}
-
-.obs-status{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.8;
-}
-
-/* ---------- PLATFORM RAIL ---------- */
-
-.platform-zone{
-  position:relative;
-  height:230px;
-  overflow:hidden;
-  border-top:1px solid rgba(81,255,154,.08);
-  border-bottom:1px solid rgba(81,255,154,.08);
-  background:rgba(0,0,0,.15);
-}
-
-.platform-title{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(81,255,154,.3),transparent);
   position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  font-family:Orbitron,sans-serif;
-  font-size:11px;
-  letter-spacing:3px;
-  color:rgba(239,255,246,.35);
 }
 
 .platform{
+  width:80px;
+  height:80px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(10,20,16,.7);
+  border-radius:23px;
   position:absolute;
-  top:50%;
-  width:62px;
-  height:62px;
-  margin-top:-31px;
-  border-radius:20px;
-  border:1px solid var(--line);
-  background:rgba(7,17,11,.9);
   display:grid;
   place-items:center;
-  animation:flyAcross 7s linear infinite;
-  box-shadow:0 0 25px rgba(81,255,154,.06);
+  font-family:Orbitron;
+  font-size:11px;
+  color:#b3c7bc;
+  box-shadow:0 10px 35px rgba(0,0,0,.3);
+  transition:.3s;
 }
 
-.platform svg{
-  width:28px;
-  height:28px;
+.platform:hover{
+  transform:scale(1.12) rotate(-4deg);
+  border-color:rgba(81,255,154,.4);
+  color:var(--green);
 }
 
-.platform:nth-child(2){animation-delay:0s}
-.platform:nth-child(3){animation-delay:1.2s}
-.platform:nth-child(4){animation-delay:2.4s}
-.platform:nth-child(5){animation-delay:3.6s}
-.platform:nth-child(6){animation-delay:4.8s}
-.platform:nth-child(7){animation-delay:6s}
+.p1{right:4%}
+.p2{right:20%}
+.p3{right:36%}
+.p4{left:36%}
+.p5{left:20%}
+.p6{left:4%}
 
-@keyframes flyAcross{
-  0%{
-    transform:translateX(115vw) rotate(12deg);
-    opacity:0;
-  }
-  12%{opacity:1}
-  50%{
-    transform:translateX(0) rotate(0);
-    opacity:1;
-  }
-  88%{opacity:1}
-  100%{
-    transform:translateX(-115vw) rotate(-12deg);
-    opacity:0;
-  }
+.platform small{
+  display:block;
+  font-family:Vazirmatn;
+  font-size:9px;
+  color:#597064;
+  margin-top:4px;
 }
 
-/* ---------- AIRPLANE ---------- */
+/* SECTIONS */
 
-.plane{
-  position:fixed;
-  z-index:10;
-  pointer-events:none;
-  left:-100px;
-  top:65%;
-  opacity:.7;
-  transition:transform 1s cubic-bezier(.2,.8,.2,1);
+.section{
+  margin:100px 0;
 }
 
-.plane svg{
-  width:75px;
-  height:75px;
-  fill:none;
-  stroke:var(--green);
-  stroke-width:1.4;
-  filter:drop-shadow(0 0 10px rgba(81,255,154,.3));
+.sectionHead{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:24px;
 }
 
-/* ---------- MODAL ---------- */
+.sectionHead h2{
+  font-size:27px;
+}
 
-.modal{
+.sectionHead p{
+  color:#60786a;
+  font-size:12px;
+  margin-top:7px;
+}
+
+.glass{
+  border:1px solid rgba(81,255,154,.12);
+  background:linear-gradient(145deg,rgba(13,29,21,.78),rgba(5,13,10,.72));
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+  border-radius:25px;
+}
+
+/* LOGIN */
+
+#loginScreen{
   position:fixed;
   inset:0;
-  z-index:100;
-  display:none;
-  align-items:center;
-  justify-content:center;
+  z-index:9000;
+  display:grid;
+  place-items:center;
   padding:20px;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(12px);
+  background:rgba(1,4,3,.84);
+  backdrop-filter:blur(25px);
 }
 
-.modal.show{
-  display:flex;
+.loginBox{
+  width:min(470px,100%);
+  padding:32px;
+  text-align:center;
 }
 
-.modal-box{
-  width:min(520px,100%);
-  border:1px solid rgba(81,255,154,.24);
-  border-radius:26px;
-  background:linear-gradient(145deg,#0a1710,#030805);
-  box-shadow:0 40px 120px rgba(0,0,0,.7);
+.loginLogo{
+  font-family:Orbitron;
+  font-size:42px;
+  font-weight:900;
+  color:var(--green);
+  letter-spacing:4px;
+}
+
+.loginBox h2{
+  margin:12px 0 8px;
+}
+
+.loginBox p{
+  color:#718a7b;
+  font-size:12px;
+  line-height:1.9;
+  margin-bottom:22px;
+}
+
+.input{
+  width:100%;
+  border:1px solid rgba(81,255,154,.14);
+  outline:none;
+  background:rgba(0,0,0,.2);
+  color:#fff;
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  transition:.25s;
+}
+
+.input:focus{
+  border-color:rgba(81,255,154,.55);
+  box-shadow:0 0 25px rgba(81,255,154,.08);
+}
+
+.loginActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:10px;
+}
+
+.googleBtn{
+  width:100%;
+  margin-top:10px;
+}
+
+.loginNote{
+  margin-top:15px!important;
+  font-size:10px!important;
+}
+
+/* QUESTIONS */
+
+.gameLayout{
+  display:grid;
+  grid-template-columns:1.6fr .8fr;
+  gap:20px;
+}
+
+.gameCard{
   padding:25px;
-  animation:modalIn .3s ease;
 }
 
-@keyframes modalIn{
-  from{opacity:0;transform:translateY(20px) scale(.97)}
-  to{opacity:1;transform:none}
-}
-
-.modal-head{
+.questionTop{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
+  margin-bottom:20px;
 }
 
-.modal-head h3{
-  margin:0;
+.badge{
+  border:1px solid rgba(81,255,154,.16);
+  border-radius:10px;
+  padding:7px 10px;
+  color:var(--green);
+  font-size:10px;
 }
 
-.close{
-  width:36px;
-  height:36px;
-  border-radius:11px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
-  color:var(--white);
+.timer{
+  font-family:Orbitron;
+  color:var(--cyan);
+  font-size:20px;
 }
 
-/* ---------- TOAST ---------- */
-
-.toast-stack{
-  position:fixed;
-  z-index:200;
-  left:18px;
-  bottom:18px;
-  width:min(390px,calc(100vw - 36px));
+.question{
+  min-height:150px;
   display:grid;
-  gap:9px;
+  place-items:center;
+  text-align:center;
+  font-size:clamp(20px,3vw,31px);
+  font-weight:800;
+  line-height:1.7;
+  padding:20px;
 }
 
-.toast{
-  border:1px solid var(--line);
-  background:rgba(4,12,8,.94);
-  border-radius:15px;
-  padding:13px 15px;
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
-  font-size:12px;
-  animation:toastIn .25s ease;
-}
-
-.toast.error{
-  border-color:rgba(255,85,125,.35);
-}
-
-.toast.ok{
-  border-color:rgba(81,255,154,.35);
-}
-
-@keyframes toastIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
-}
-
-/* ---------- DEBUG ---------- */
-
-.debug{
-  display:none;
-  margin-top:15px;
-  padding:12px;
-  border:1px solid rgba(255,85,125,.2);
-  border-radius:14px;
-  background:rgba(255,85,125,.04);
-  color:#ffb2c4;
-  font-family:monospace;
-  font-size:10px;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-
-.debug.show{
-  display:block;
-}
-
-/* ---------- OVERLAY ---------- */
-
-body.overlay-mode{
-  background:transparent!important;
-  background-color:transparent!important;
-}
-
-body.overlay-mode > *:not(#overlayRoot){
-  display:none!important;
-}
-
-#overlayRoot{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
+.timerTrack{
+  height:5px;
+  background:#102219;
+  border-radius:99px;
   overflow:hidden;
-  background:transparent;
+  margin:10px 0 22px;
 }
 
-.overlay-card{
-  position:absolute;
-  right:-650px;
-  top:50%;
-  transform:translateY(-50%) rotate(4deg) scale(.9);
-  width:min(560px,88vw);
-  min-height:170px;
-  border-radius:28px;
-  border:1px solid rgba(81,255,154,.5);
-  background:
-    linear-gradient(135deg,rgba(8,23,14,.96),rgba(2,7,4,.96));
-  box-shadow:
-    0 0 70px rgba(81,255,154,.15),
-    0 30px 100px rgba(0,0,0,.55);
-  opacity:0;
-  transition:none;
+#timerBar{
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,var(--green),var(--cyan));
+  box-shadow:0 0 15px rgba(81,255,154,.3);
+  transition:width 1s linear;
 }
 
-.overlay-card.show{
-  animation:overlayInOut 5.8s cubic-bezier(.15,.8,.2,1) forwards;
+.answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-.overlay-card::before{
-  content:"";
-  position:absolute;
-  left:-80px;
-  top:50%;
-  width:120px;
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--green));
-  box-shadow:0 0 20px var(--green);
+.answer{
+  min-height:65px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  background:rgba(255,255,255,.025);
+  color:#d7e9df;
+  padding:12px;
+  transition:.25s;
 }
 
-.overlay-inner{
-  padding:25px;
+.answer:hover:not(:disabled){
+  border-color:rgba(81,255,154,.4);
+  transform:translateY(-2px);
 }
 
-.overlay-type{
-  color:var(--green);
-  font-family:Orbitron,sans-serif;
-  font-size:10px;
-  letter-spacing:2px;
+.answer.selected{
+  border-color:var(--green);
+  background:rgba(81,255,154,.08);
 }
 
-.overlay-title{
-  margin-top:14px;
-  font-size:27px;
-  font-weight:900;
+.answer:disabled{
+  cursor:not-allowed;
+  opacity:.65;
 }
 
-.overlay-text{
-  margin-top:9px;
-  color:#a8c7b4;
+.votePanel{
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+}
+
+.votePanel h3{
+  margin-bottom:5px;
+}
+
+.votePanel p{
+  color:#668072;
+  font-size:11px;
   line-height:1.8;
-  font-size:14px;
 }
 
-.overlay-level{
-  display:inline-block;
-  margin-top:15px;
-  padding:6px 9px;
-  border-radius:999px;
-  border:1px solid rgba(81,255,154,.2);
+.voteButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:18px;
+}
+
+.vote{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.025);
+  color:#fff;
+  border-radius:14px;
+  padding:13px;
+}
+
+.vote.good:hover{
+  border-color:rgba(81,255,154,.5);
   color:var(--green);
-  font-size:10px;
 }
 
-@keyframes overlayInOut{
-  0%{
-    right:-650px;
-    opacity:0;
-    transform:translateY(-50%) rotate(8deg) scale(.8);
-  }
-  13%{
-    right:6vw;
-    opacity:1;
-    transform:translateY(-50%) rotate(0) scale(1);
-  }
-  72%{
-    right:6vw;
-    opacity:1;
-    transform:translateY(-50%) rotate(0) scale(1);
-  }
-  100%{
-    right:110vw;
-    opacity:0;
-    transform:translateY(-50%) rotate(-8deg) scale(.85);
-  }
+.vote.bad:hover{
+  border-color:rgba(255,84,112,.5);
+  color:var(--red);
 }
 
-.overlay-debug{
-  position:fixed;
-  left:10px;
-  bottom:10px;
-  color:rgba(255,255,255,.15);
-  font:9px monospace;
-}
-
-/* ---------- AUTH ---------- */
-
-.auth-user{
-  display:none;
-  align-items:center;
+.voteResults{
+  margin-top:18px;
+  display:grid;
   gap:8px;
 }
 
-.auth-user.show{
+.resultLine{
   display:flex;
+  justify-content:space-between;
+  padding:10px;
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:#7f9689;
+  font-size:11px;
 }
 
-.user-name{
+/* LEADERBOARD */
+
+.leader{
+  padding:20px;
+}
+
+.rank{
+  display:grid;
+  grid-template-columns:42px 1fr auto;
+  align-items:center;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.rank:last-child{
+  border-bottom:0;
+}
+
+.rankNumber{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:rgba(81,255,154,.06);
+  color:var(--green);
+  font-family:Orbitron;
+  font-size:11px;
+}
+
+.rankName{
+  font-weight:700;
+}
+
+.rankUid{
+  color:#52695d;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.points{
+  font-family:Orbitron;
+  color:var(--cyan);
+  font-size:12px;
+}
+
+/* CHAT */
+
+.chat{
+  padding:20px;
+}
+
+.chatMessages{
+  height:310px;
+  overflow-y:auto;
+  padding:4px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.chatMsg{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.05);
+  padding:9px 11px;
+  border-radius:12px;
+}
+
+.chatMsg strong{
   color:var(--green);
   font-size:11px;
-  max-width:100px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
 }
 
-/* ---------- FOOTER ---------- */
+.chatMsg p{
+  color:#c0d2c8;
+  font-size:12px;
+  margin-top:3px;
+  word-break:break-word;
+}
+
+.chatInput{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.chatInput .input{
+  text-align:right;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.stat{
+  padding:20px;
+}
+
+.stat span{
+  color:#5e7568;
+  font-size:11px;
+}
+
+.stat strong{
+  display:block;
+  font-family:Orbitron;
+  font-size:25px;
+  color:var(--green);
+  margin-top:8px;
+}
+
+/* FLYING */
+
+.fly{
+  position:fixed;
+  z-index:300;
+  width:64px;
+  height:64px;
+  border:1px solid rgba(81,255,154,.25);
+  border-radius:18px;
+  background:rgba(5,15,10,.9);
+  display:grid;
+  place-items:center;
+  font-family:Orbitron;
+  font-size:9px;
+  color:var(--green);
+  pointer-events:none;
+  opacity:0;
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.fly.active{
+  animation:flyAcross 1.6s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes flyAcross{
+  0%{
+    opacity:0;
+    transform:translateX(var(--startX)) translateY(30px) rotate(-20deg) scale(.5);
+  }
+  20%{opacity:1}
+  100%{
+    opacity:0;
+    transform:translateX(var(--endX)) translateY(-20px) rotate(20deg) scale(1.1);
+  }
+}
+
+/* FOOTER */
 
 footer{
-  padding:50px 20px 90px;
+  padding:50px 0 80px;
   text-align:center;
-  color:#466252;
-  font-size:11px;
+  color:#42594d;
+  font-size:10px;
+  letter-spacing:1px;
 }
 
-footer strong{
+footer b{
   color:var(--green);
-  font-family:Orbitron,sans-serif;
+  font-family:Orbitron;
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* TOAST */
 
-@media(max-width:900px){
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,30px);
+  background:rgba(7,17,12,.95);
+  border:1px solid rgba(81,255,154,.25);
+  border-radius:14px;
+  padding:12px 18px;
+  color:#dff9e9;
+  font-size:12px;
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  box-shadow:0 15px 45px rgba(0,0,0,.35);
+}
+
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
   .hero{
     grid-template-columns:1fr;
+    padding-top:65px;
     min-height:auto;
-    padding-top:55px;
   }
 
-  .core{
-    min-height:400px;
+  .heroCore{
+    min-height:370px;
+    order:-1;
   }
 
-  .cards{
+  .gameLayout{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
     grid-template-columns:1fr 1fr;
   }
 
-  .challenge-panel,
-  .event-grid{
-    grid-template-columns:1fr;
+  .p1{right:1%}
+  .p2{right:18%}
+  .p3{right:35%}
+  .p4{left:35%}
+  .p5{left:18%}
+  .p6{left:1%}
+
+  .platform{
+    width:62px;
+    height:62px;
+    font-size:8px;
   }
 }
 
-@media(max-width:620px){
-  .topbar{
-    padding:10px 10px;
+@media(max-width:560px){
+  main{
+    width:min(100% - 18px,1200px);
   }
 
-  .brand-sub,
-  .status-pill span{
+  .nav{
+    width:calc(100% - 18px);
+  }
+
+  .brandText{
     display:none;
   }
 
-  .brand-mark{
-    width:38px;
-    height:38px;
-  }
-
-  .icon-btn{
-    width:38px;
-    height:38px;
-  }
-
-  .hero{
-    padding:48px 14px 20px;
+  .connection{
+    font-size:9px;
   }
 
   .hero h1{
-    font-size:48px;
+    font-size:55px;
+    letter-spacing:-3px;
   }
 
   .hero p{
     font-size:13px;
   }
 
+  .answers{
+    grid-template-columns:1fr;
+  }
+
+  .question{
+    min-height:170px;
+    font-size:20px;
+  }
+
   .section{
-    padding:38px 14px;
+    margin:70px 0;
   }
 
-  .cards{
-    grid-template-columns:1fr;
+  .sectionHead{
+    display:block;
   }
 
-  .challenge-main{
-    padding:20px;
+  .stats{
+    gap:8px;
   }
 
-  .form-grid{
-    grid-template-columns:1fr;
+  .stat{
+    padding:15px;
   }
 
-  .field.full{
-    grid-column:auto;
+  .stat strong{
+    font-size:20px;
   }
 
-  .platform-zone{
-    height:190px;
+  .platformRail{
+    min-height:120px;
   }
 
-  .core-box{
-    width:190px;
-    height:190px;
+  .platform{
+    width:50px;
+    height:50px;
+    border-radius:14px;
   }
 
-  .core-logo strong{
-    font-size:25px;
-  }
+  .p1{right:0}
+  .p2{right:19%}
+  .p3{right:38%}
+  .p4{left:38%}
+  .p5{left:19%}
+  .p6{left:0}
 
-  .lamp{
-    transform:translateX(-50%) scale(.8);
-  }
-
-  .wires{
-    transform:scale(.75);
-    transform-origin:left bottom;
-  }
-
-  .overlay-card{
-    width:88vw;
-    min-height:150px;
-  }
-
-  .overlay-title{
-    font-size:21px;
-  }
-
-  .overlay-text{
-    font-size:12px;
+  .loginBox{
+    padding:24px 18px;
   }
 }
 </style>
@@ -1246,555 +1036,346 @@ footer strong{
 
 <body>
 
-<div id="stars"></div>
-<div class="grid-bg"></div>
-<div class="noise"></div>
-
-<!-- LAMP -->
-<div class="lamp" id="lamp">
-  <div class="lamp-wire a"></div>
-  <div class="lamp-wire b"></div>
-  <div class="lamp-body"></div>
-  <div class="lamp-light" id="lampLight"></div>
+<div id="loader">
+  <div class="loaderBox">
+    <div class="loaderLogo">VANTER</div>
+    <div class="loaderSub">TY VANTA SYSTEM</div>
+    <div class="loaderBar"><i></i></div>
+  </div>
 </div>
 
-<!-- WIRES -->
-<div class="wires">
-  <div class="wire one"></div>
-  <div class="wire two"></div>
-  <div class="spark s1"></div>
-  <div class="spark s2"></div>
-</div>
-
-<!-- PLANE -->
-<div class="plane" id="plane">
-  <svg viewBox="0 0 100 100">
-    <path d="M8 48L91 9L67 54L91 91L8 52L43 51Z"/>
-    <path d="M43 51L67 54"/>
-  </svg>
-</div>
-
-<!-- TOP -->
-<header class="topbar">
-  <div class="topbar-inner">
-
+<header>
+  <div class="nav">
     <div class="brand">
-      <div class="brand-mark">TY</div>
-      <div>
-        <div class="brand-text">TY VANTA</div>
-        <div class="brand-sub">CREATOR CONTROL HUB</div>
+      <div class="brandMark">TV</div>
+      <div class="brandText">
+        <strong>TY VANTA</strong>
+        <span>VANTER SYSTEM</span>
       </div>
     </div>
 
-    <div class="top-actions">
-
-      <div class="status-pill">
-        <div class="status-dot" id="firebaseDot"></div>
-        <span id="firebaseStatus">Firebase...</span>
+    <div class="navRight">
+      <div class="connection">
+        <i id="connectionDot" class="dot"></i>
+        <span id="connectionText">در حال اتصال...</span>
       </div>
-
-      <div class="auth-user" id="authUser">
-        <span class="user-name" id="userName"></span>
-      </div>
-
-      <button class="icon-btn" id="authBtn" type="button" title="Login">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/>
-          <path d="M4 21a8 8 0 0 1 16 0"/>
-        </svg>
-      </button>
-
-      <button class="icon-btn" id="langBtn" type="button" title="Language">
-        <span id="langLabel">EN</span>
-      </button>
-
-      <button class="icon-btn" id="monoBtn" type="button" title="Mono">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <circle cx="12" cy="12" r="8"/>
-          <path d="M12 4v16"/>
-        </svg>
-      </button>
-
-      <button class="icon-btn" id="overlayBtn" type="button" title="OBS Overlay">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <path d="M8 21h8M12 19v2"/>
-        </svg>
-      </button>
-
+      <div id="userMini" class="userMini">Guest</div>
     </div>
   </div>
 </header>
 
 <main>
 
-<!-- HERO -->
 <section class="hero">
+  <div class="heroGlow"></div>
 
   <div>
-    <div class="hero-kicker">
-      <span class="kicker-dot"></span>
-      CREATOR CONTROL SYSTEM
+    <div class="kicker">
+      <b></b>
+      LIVE STREAMER GAME
     </div>
 
-    <h1>
-      PLAY.<br>
-      CREATE.<br>
-      <span>VANTA.</span>
-    </h1>
+    <h1>TY<br><span>VANTA</span></h1>
 
     <p>
-      یک مرکز کنترل برای استریمرها، یوتیوبرها و گیمرها؛
-      چالش، Event، Overlay و کنترل استریم، همه در یک محیط سریع و شیشه‌ای.
+      وارد VANTER شو، جواب بده، رأی بگیر و خودت رو وارد جدول امتیازات کن.
+      اینجا هر جواب می‌تونه رتبه‌ات رو عوض کنه.
     </p>
 
-    <div class="hero-buttons">
-
-      <button class="btn primary" id="randomChallengeBtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M4 7h4l8 10h4"/>
-          <path d="M16 7h4M20 7l-3-3M20 7l-3 3"/>
-          <path d="M4 17h4"/>
-        </svg>
-        Random Challenge
+    <div class="heroButtons">
+      <button class="btn primary" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})">
+        شروع VANTER
       </button>
 
-      <button class="btn" id="eventLabBtn" type="button">
-        Event Lab
+      <button class="btn" onclick="document.getElementById('leaderboard').scrollIntoView({behavior:'smooth'})">
+        لیدربورد
       </button>
-
-      <button class="btn" id="obsBtn" type="button">
-        OBS Overlay
-      </button>
-
-    </div>
-
-    <div id="debugBox" class="debug"></div>
-  </div>
-
-  <div class="core">
-    <div class="core-ring"></div>
-    <div class="core-box">
-      <div class="core-logo">
-        <strong>TY</strong>
-        <small>VANTA</small>
-      </div>
     </div>
   </div>
 
-</section>
-
-<!-- TOOLS -->
-<section class="section" id="tools">
-
-  <div class="section-head">
-    <div>
-      <h2 class="section-title">Creator Tools</h2>
-      <p class="section-desc">ابزارهایی که واقعاً موقع ساخت محتوا به درد می‌خورند.</p>
-    </div>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M12 3v18M3 12h18"/>
-          <circle cx="12" cy="12" r="7"/>
-        </svg>
+  <div class="heroCore">
+    <div class="core">
+      <div class="coreLine"></div>
+      <div class="coreCenter">
+        <strong>V</strong>
       </div>
-      <h3>Random Challenge</h3>
-      <p>چالش تصادفی با انتخاب سطح Easy، Medium یا Hard و ارسال مستقیم به Overlay.</p>
-      <br>
-      <button class="btn small primary" type="button" data-action="challenge">
-        اجرا
-      </button>
     </div>
-
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M4 5h16v11H4z"/>
-          <path d="M8 20h8M12 16v4"/>
-        </svg>
-      </div>
-      <h3>OBS Overlay</h3>
-      <p>Overlay در حالت Idle کاملاً شفاف است و فقط هنگام Event روی تصویر ظاهر می‌شود.</p>
-      <br>
-      <button class="btn small" type="button" data-action="overlay">
-        باز کردن
-      </button>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M5 4h14v16H5z"/>
-          <path d="M8 8h8M8 12h8M8 16h5"/>
-        </svg>
-      </div>
-      <h3>Event Lab</h3>
-      <p>Donation، Follow، Subscribe، Raid، Chat و Challenge را برای تست Overlay اجرا کن.</p>
-      <br>
-      <button class="btn small" type="button" data-action="event">
-        ساخت Event
-      </button>
-    </div>
-
   </div>
 </section>
 
-<!-- CHALLENGE -->
-<section class="section" id="challenge">
+<section class="platformRail">
+  <div class="rail"></div>
 
-  <div class="section-head">
-    <div>
-      <h2 class="section-title">Challenge Engine</h2>
-      <p class="section-desc">سیستم چالش واقعی با سه سطح و ارسال به Firebase.</p>
-    </div>
+  <div class="platform p1">
+    KICK
+    <small>STREAM</small>
   </div>
 
-  <div class="challenge-panel">
+  <div class="platform p2">
+    YT
+    <small>VIDEO</small>
+  </div>
 
-    <div class="challenge-main">
+  <div class="platform p3">
+    TW
+    <small>LIVE</small>
+  </div>
 
-      <span class="challenge-badge" id="challengeBadge">
-        READY
-      </span>
+  <div class="platform p4">
+    AP
+    <small>IRAN</small>
+  </div>
 
-      <div class="challenge-text" id="challengeText">
-        برای شروع یک Random Challenge اجرا کن.
-      </div>
+  <div class="platform p5">
+    DC
+    <small>CHAT</small>
+  </div>
 
-      <div class="level">
-        <span class="level-dot" id="levelDot"></span>
-        <span id="levelText">Waiting...</span>
-      </div>
-
-      <div class="challenge-actions">
-        <button class="btn primary" id="challengeRun2" type="button">
-          Randomize
-        </button>
-        <button class="btn" id="challengeClear" type="button">
-          Clear
-        </button>
-      </div>
-
-    </div>
-
-    <div class="level-panel">
-      <h3>Difficulty</h3>
-
-      <div class="level-list">
-        <div class="level-item">
-          <b style="color:var(--green)">EASY</b>
-          <span>چالش‌های کوتاه و ساده</span>
-        </div>
-
-        <div class="level-item">
-          <b style="color:var(--cyan)">MEDIUM</b>
-          <span>چالش‌هایی با تعامل بیشتر</span>
-        </div>
-
-        <div class="level-item">
-          <b style="color:var(--yellow)">HARD</b>
-          <span>چالش سخت‌تر ولی امن و قابل اجرا</span>
-        </div>
-      </div>
-    </div>
-
+  <div class="platform p6">
+    TG
+    <small>COMM</small>
   </div>
 </section>
 
-<!-- EVENT LAB -->
-<section class="section" id="events">
+<section class="section" id="game">
 
-  <div class="section-head">
+  <div class="sectionHead">
     <div>
-      <h2 class="section-title">Event Lab</h2>
-      <p class="section-desc">برای تست واقعی سیستم Event و Overlay.</p>
+      <h2>VANTER GAME</h2>
+      <p>چهار سؤال، چند ثانیه، یک شانس.</p>
     </div>
+    <div class="badge" id="questionCounter">سؤال ۱ از ۴</div>
   </div>
 
-  <div class="event-grid">
+  <div class="gameLayout">
 
-    <div class="event-panel">
+    <div class="gameCard glass">
 
-      <h3>Send Event</h3>
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>نوع Event</label>
-          <select id="eventType">
-            <option value="challenge">Challenge</option>
-            <option value="donation">Donation</option>
-            <option value="follow">Follow</option>
-            <option value="subscribe">Subscribe</option>
-            <option value="raid">Raid</option>
-            <option value="chat">Chat</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>نام</label>
-          <input id="eventUser" maxlength="30" placeholder="Username">
-        </div>
-
-        <div class="field full">
-          <label>عنوان</label>
-          <input id="eventTitle" maxlength="80" placeholder="Event title">
-        </div>
-
-        <div class="field full">
-          <label>متن</label>
-          <input id="eventText" maxlength="180" placeholder="Event message">
-        </div>
-
-        <div class="field">
-          <label>Level</label>
-          <select id="eventLevel">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>مدت Overlay</label>
-          <select id="eventDuration">
-            <option value="5000">5 ثانیه</option>
-            <option value="7000">7 ثانیه</option>
-            <option value="9000">9 ثانیه</option>
-          </select>
-        </div>
-
+      <div class="questionTop">
+        <div class="badge" id="difficulty">CONTROVERSIAL</div>
+        <div class="timer"><span id="timer">5</span>S</div>
       </div>
 
-      <div class="event-buttons">
-        <button class="btn primary" id="sendEventBtn" type="button">
-          Send Event
-        </button>
+      <div class="timerTrack">
+        <div id="timerBar"></div>
+      </div>
 
-        <button class="btn" id="fillEventBtn" type="button">
-          Auto Fill
+      <div class="question" id="question">
+        برای شروع بازی وارد شو.
+      </div>
+
+      <div class="answers" id="answers"></div>
+
+      <div style="margin-top:15px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <span id="answerStatus" style="color:#688071;font-size:11px"></span>
+
+        <button class="btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
+          سؤال بعدی
         </button>
       </div>
 
     </div>
 
-    <div class="event-panel">
+    <aside class="votePanel glass">
 
-      <h3>Quick Events</h3>
-
-      <p class="section-desc">
-        یک Event آماده را با یک کلیک به Firebase بفرست.
+      <h3>رأی VANTERها</h3>
+      <p>
+        بعد از جواب دادن، بقیه بازیکن‌ها می‌تونن درباره درست یا غلط بودن جوابت رأی بدن.
       </p>
 
-      <div class="event-buttons">
-
-        <button class="btn small" type="button" data-quick="follow">
-          Follow
+      <div class="voteButtons">
+        <button class="vote good" onclick="castVote('correct')">
+          درست بود
         </button>
 
-        <button class="btn small" type="button" data-quick="subscribe">
-          Subscribe
+        <button class="vote bad" onclick="castVote('wrong')">
+          غلط بود
         </button>
-
-        <button class="btn small" type="button" data-quick="donation">
-          Donation
-        </button>
-
-        <button class="btn small" type="button" data-quick="raid">
-          Raid
-        </button>
-
-        <button class="btn small" type="button" data-quick="chat">
-          Chat
-        </button>
-
-        <button class="btn small primary" type="button" data-quick="challenge">
-          Challenge
-        </button>
-
       </div>
 
-    </div>
+      <div class="voteResults">
+        <div class="resultLine">
+          <span>رأی درست</span>
+          <b id="correctVotes">0</b>
+        </div>
+
+        <div class="resultLine">
+          <span>رأی غلط</span>
+          <b id="wrongVotes">0</b>
+        </div>
+      </div>
+
+    </aside>
 
   </div>
 </section>
 
-<!-- OBS -->
-<section class="section" id="obs">
+<section class="section" id="leaderboard">
 
-  <div class="section-head">
+  <div class="sectionHead">
     <div>
-      <h2 class="section-title">OBS Control</h2>
-      <p class="section-desc">Browser Source مستقل؛ OBS WebSocket فقط برای کنترل اختیاری.</p>
+      <h2>LEADERBOARD</h2>
+      <p>بازیکن‌هایی که بیشترین امتیاز را گرفته‌اند.</p>
     </div>
   </div>
 
-  <div class="obs-panel">
-
-    <h3>Overlay URL</h3>
-
-    <div class="obs-url">
-      <input id="overlayUrl" readonly>
-      <button class="btn small" id="copyOverlayBtn" type="button">
-        Copy
-      </button>
+  <div class="leader glass" id="leaderList">
+    <div style="text-align:center;color:#587064;padding:30px">
+      در حال دریافت لیدربورد...
     </div>
-
-    <div class="obs-status" id="obsStatus">
-      برای OBS، همین URL را به عنوان Browser Source قرار بده.
-      Overlay هنگام Idle کاملاً شفاف است.
-    </div>
-
-    <div class="event-buttons">
-      <button class="btn primary" id="testOverlayBtn" type="button">
-        Test Overlay
-      </button>
-
-      <button class="btn" id="openOverlayBtn" type="button">
-        Open Overlay
-      </button>
-    </div>
-
   </div>
+
 </section>
 
-<!-- PLATFORMS -->
-<div class="platform-zone">
+<section class="section">
 
-  <div class="platform-title">
-    YOUR CONTENT. YOUR CONTROL.
+  <div class="sectionHead">
+    <div>
+      <h2>LIVE CHAT</h2>
+      <p>چت زنده VANTERها با Firebase.</p>
+    </div>
   </div>
 
-  <div class="platform">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M4 4h16v12H4z"/>
-      <path d="M8 20h8M12 16v4"/>
-    </svg>
+  <div class="chat glass">
+
+    <div class="chatMessages" id="chatMessages">
+      <div style="color:#52695d;text-align:center;padding:30px;font-size:11px">
+        در حال اتصال به چت...
+      </div>
+    </div>
+
+    <div class="chatInput">
+      <input
+        class="input"
+        id="chatInput"
+        maxlength="180"
+        placeholder="پیامت رو بنویس..."
+        onkeydown="if(event.key==='Enter')sendChat()"
+      >
+
+      <button class="btn primary" onclick="sendChat()">
+        ارسال
+      </button>
+    </div>
+
   </div>
 
-  <div class="platform">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M5 4h14v12H5z"/>
-      <path d="M9 9l5 3-5 3z"/>
-    </svg>
+</section>
+
+<section class="section">
+
+  <div class="stats">
+
+    <div class="stat glass">
+      <span>PLAYER</span>
+      <strong id="statPlayer">—</strong>
+    </div>
+
+    <div class="stat glass">
+      <span>SCORE</span>
+      <strong id="statScore">0</strong>
+    </div>
+
+    <div class="stat glass">
+      <span>QUESTION</span>
+      <strong id="statQuestion">1/4</strong>
+    </div>
+
+    <div class="stat glass">
+      <span>STATUS</span>
+      <strong id="statStatus">READY</strong>
+    </div>
+
   </div>
 
-  <div class="platform">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M5 5h14v14H5z"/>
-      <path d="M9 9h2v6H9zM13 9h2v6h-2z"/>
-    </svg>
-  </div>
-
-  <div class="platform">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M4 5h16v12H4z"/>
-      <path d="M8 9h8M8 12h5"/>
-    </svg>
-  </div>
-
-  <div class="platform">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M6 5h12v14H6z"/>
-      <path d="M9 8h6M9 12h6M9 16h3"/>
-    </svg>
-  </div>
-
-  <div class="platform">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="12" cy="12" r="8"/>
-      <path d="M8 12h8M12 8v8"/>
-    </svg>
-  </div>
-
-</div>
-
-<footer>
-  <strong>TY VANTA</strong><br>
-  Creator Control System
-</footer>
+</section>
 
 </main>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
+<footer>
+  BUILT FOR <b>TY VANTA</b> — VANTER SYSTEM
+</footer>
 
-  <div class="modal-box">
+<div id="toast"></div>
 
-    <div class="modal-head">
-      <h3 id="modalTitle">TY VANTA</h3>
+<div id="loginScreen">
 
-      <button class="close" id="modalClose" type="button">×</button>
+  <div class="loginBox glass">
+
+    <div class="loginLogo">VANTER</div>
+
+    <h2>ورود به بازی</h2>
+
+    <p>
+      یک اسم برای ورود انتخاب کن.
+      می‌تونی به صورت مهمان وارد بشی یا حساب Google خودت رو وصل کنی.
+    </p>
+
+    <input
+      id="nameInput"
+      class="input"
+      maxlength="20"
+      placeholder="نام VANTER"
+      autocomplete="off"
+    >
+
+    <div class="loginActions">
+      <button class="btn primary" onclick="guestLogin()">
+        ورود مهمان
+      </button>
+
+      <button class="btn" onclick="googleLogin()">
+        ورود Google
+      </button>
     </div>
 
-    <div id="modalContent" style="margin-top:20px"></div>
+    <button
+      class="btn googleBtn hidden"
+      id="retryGoogle"
+      onclick="googleLogin()">
+      تلاش دوباره Google
+    </button>
+
+    <p class="loginNote">
+      با ورود مهمان نیازی به ساخت حساب نداری.
+    </p>
 
   </div>
 
 </div>
-
-<div class="toast-stack" id="toastStack"></div>
-
-<!-- OVERLAY -->
-<div id="overlayRoot">
-  <div class="overlay-card" id="overlayCard">
-    <div class="overlay-inner">
-      <div class="overlay-type" id="overlayType">TY VANTA EVENT</div>
-      <div class="overlay-title" id="overlayTitle"></div>
-      <div class="overlay-text" id="overlayText"></div>
-      <div class="overlay-level" id="overlayLevel"></div>
-    </div>
-  </div>
-
-  <div class="overlay-debug" id="overlayDebug"></div>
-</div>
-
 
 <script type="module">
 
-/* =========================================================
-   TY VANTA
-   Firebase configuration — KEEP EXACTLY AS PROVIDED
-========================================================= */
-
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
 import {
   getAuth,
-  onAuthStateChanged,
   signInAnonymously,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
-  signOut,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 import {
   getDatabase,
   ref,
-  push,
   set,
+  push,
+  update,
   onValue,
-  onDisconnect,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+  get
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 
-/* =========================================================
+/* ================================
    FIREBASE
-========================================================= */
+================================ */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnYMMl2VBBym-epaGZg2pmWjjHIO7v60",
+  apiKey: "AIzaSyAnYMMl2VBkBym-epaGZg2pmWjjHIO7v60",
   authDomain: "ty-vanta.firebaseapp.com",
   databaseURL: "https://ty-vanta-default-rtdb.firebaseio.com",
   projectId: "ty-vanta",
@@ -1805,1602 +1386,991 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
 const db = getDatabase(app);
 
 
-/* =========================================================
+/* ================================
    STATE
-========================================================= */
+================================ */
 
-const state = {
-  user:null,
-  realtimeStarted:false,
-  realtimeStop:null,
-  activeEventLoaded:false,
-  lastEventId:null,
-  authReady:false,
-  overlayMode:new URLSearchParams(location.search).get("overlay") === "1",
-  language:"fa",
-  mono:false
-};
+let currentUser = null;
+let playerName = "";
+let score = 0;
+let questionIndex = 0;
+let selectedAnswer = null;
+let answerLocked = false;
+let timerInterval = null;
+let currentQuestion = null;
+let hasVoted = false;
 
 
-/* =========================================================
-   DOM
-========================================================= */
+/* ================================
+   QUESTIONS
+================================ */
+
+const questions = [
+
+  {
+    text:"اگه یک استریمر وسط لایو اشتباه بزرگی کنه، بهترین کار چیه؟",
+    options:[
+      "نادیده گرفتن و ادامه دادن",
+      "همون لحظه توضیح دادن",
+      "پاک کردن لایو",
+      "تقصیر رو گردن چت انداختن"
+    ],
+    correct:1
+  },
+
+  {
+    text:"کدوم مورد بیشتر باعث میشه یک استریم کسل‌کننده بشه؟",
+    options:[
+      "تعامل کم با چت",
+      "گرافیک زیاد",
+      "موسیقی زیاد",
+      "وبکم روشن"
+    ],
+    correct:0
+  },
+
+  {
+    text:"اگه چت درباره یک موضوع جنجالی دو دسته بشه، استریمر بهتره چی کار کنه؟",
+    options:[
+      "بحث رو بیشتر شعله‌ور کنه",
+      "همه رو بن کنه",
+      "آروم مدیریت کنه",
+      "لایو رو ببنده"
+    ],
+    correct:2
+  },
+
+  {
+    text:"کدوم ویژگی برای یک استریمر تازه‌کار مهم‌تره؟",
+    options:[
+      "تجهیزات خیلی گران",
+      "ثبات و ادامه دادن",
+      "دوربین خیلی گران",
+      "تعداد فالوور بالا"
+    ],
+    correct:1
+  }
+
+];
+
+
+/* ================================
+   UI
+================================ */
 
 const $ = id => document.getElementById(id);
 
-const firebaseDot = $("firebaseDot");
-const firebaseStatus = $("firebaseStatus");
-const authBtn = $("authBtn");
-const authUser = $("authUser");
-const userName = $("userName");
+function toast(message){
 
-const modal = $("modal");
-const modalTitle = $("modalTitle");
-const modalContent = $("modalContent");
+  const t = $("toast");
 
-const toastStack = $("toastStack");
-const debugBox = $("debugBox");
+  t.textContent = message;
+  t.classList.add("show");
 
-const challengeText = $("challengeText");
-const challengeBadge = $("challengeBadge");
-const levelText = $("levelText");
-const levelDot = $("levelDot");
-
-const overlayCard = $("overlayCard");
-const overlayType = $("overlayType");
-const overlayTitle = $("overlayTitle");
-const overlayText = $("overlayText");
-const overlayLevel = $("overlayLevel");
-const overlayDebug = $("overlayDebug");
-
-
-/* =========================================================
-   BASIC HELPERS
-========================================================= */
-
-function escapeHTML(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function random(arr){
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function sleep(ms){
-  return new Promise(resolve => setTimeout(resolve,ms));
-}
-
-function isSecurePage(){
-  return location.protocol === "https:" || location.hostname === "localhost";
-}
-
-function toast(message,type=""){
-  const item = document.createElement("div");
-  item.className = `toast ${type}`;
-  item.textContent = message;
-
-  toastStack.appendChild(item);
-
-  setTimeout(() => {
-    item.style.opacity = "0";
-    item.style.transform = "translateY(8px)";
-    setTimeout(() => item.remove(),250);
-  },4000);
-}
-
-function showError(error,where=""){
-  console.error("[TY VANTA]",where,error);
-
-  const code = error?.code || "unknown";
-  const message = error?.message || String(error);
-
-  debugBox.textContent =
-    `[${where || "ERROR"}]\n${code}\n${message}`;
-
-  debugBox.classList.add("show");
-
-  toast(`${where ? where + ": " : ""}${code}`, "error");
-}
-
-function setFirebaseStatus(ok,text){
-  firebaseDot.className = "status-dot " + (ok ? "ok" : "bad");
-  firebaseStatus.textContent = text;
+  setTimeout(()=>{
+    t.classList.remove("show");
+  },2600);
 }
 
 
-/* =========================================================
-   SAFE LOCAL STORAGE
-========================================================= */
+/* ================================
+   CONNECTION
+================================ */
 
-const storage = {
-  get(key,fallback=null){
-    try{
-      const value = localStorage.getItem(key);
-      return value === null ? fallback : value;
-    }catch{
-      return fallback;
-    }
-  },
+const connectedRef = ref(db,".info/connected");
 
-  set(key,value){
-    try{
-      localStorage.setItem(key,value);
-    }catch{}
-  }
-};
+onValue(connectedRef,snapshot=>{
+
+  const connected = snapshot.val() === true;
+
+  $("connectionDot").className =
+    connected ? "dot ok" : "dot bad";
+
+  $("connectionText").textContent =
+    connected ? "Firebase متصل" : "قطع اتصال";
+
+});
 
 
-/* =========================================================
-   CHALLENGES
-========================================================= */
+/* ================================
+   AUTH
+================================ */
 
-const challenges = {
+onAuthStateChanged(auth,user=>{
 
-  easy:[
-    "یک جمله را با صدای رباتی بگو.",
-    "۳۰ ثانیه فقط با یک دست بازی کن.",
-    "یک اسم خنده‌دار برای کاراکترت انتخاب کن.",
-    "چت برای ۳۰ ثانیه انتخاب کند چه چیزی بگویی.",
-    "یک جمله کاملاً جدی را با لحن خنده‌دار بگو.",
-    "یک حرکت نمایشی کوچک جلوی دوربین انجام بده."
-  ],
+  currentUser = user;
 
-  medium:[
-    "چت یک محدودیت کوچک برای راند بعدی انتخاب کند.",
-    "یک تصمیم داخل بازی را کاملاً بر اساس رأی چت بگیر.",
-    "یک دقیقه نقش گزارشگر حرفه‌ای مسابقه را بازی کن.",
-    "یک تاکتیک متفاوت را در راند بعد امتحان کن.",
-    "یک هدف مشخص برای راند بعد اعلام کن."
-  ],
+  if(user){
 
-  hard:[
-    "راند بعدی را با یک محدودیت سخت اما امن بازی کن.",
-    "چت یک استراتژی متفاوت برای راند بعد انتخاب کند.",
-    "تا پایان راند بعدی فقط از یک سبک بازی استفاده کن.",
-    "یک تنظیم قابل برگشت بازی را برای یک راند تغییر بده.",
-    "چت تصمیم بگیرد در راند بعد چه تاکتیکی داشته باشی."
-  ]
+    $("userMini").textContent =
+      user.isAnonymous ? "Guest" : "Google";
 
-};
+    loadPlayer(user.uid);
 
-
-/* =========================================================
-   AUTH UI
-========================================================= */
-
-function currentDisplayName(){
-
-  if(!state.user) return "Guest";
-
-  if(state.user.displayName){
-    return state.user.displayName;
   }
 
-  if(state.user.isAnonymous){
-    return "Guest";
-  }
-
-  return state.user.email?.split("@")[0] || "Creator";
-}
+});
 
 
-function updateAuthUI(){
+window.guestLogin = async function(){
 
-  if(!state.user){
-    userName.textContent = "";
-    authUser.classList.remove("show");
-    authBtn.title = "Login";
+  const name = $("nameInput").value.trim();
+
+  if(!name){
+    toast("اول یک اسم وارد کن.");
     return;
   }
 
-  userName.textContent = currentDisplayName();
-  authUser.classList.add("show");
-
-  authBtn.title =
-    state.user.isAnonymous
-      ? "Login with Google"
-      : "Logout";
-}
-
-
-/* =========================================================
-   AUTH MODAL
-========================================================= */
-
-function openAuthModal(){
-
-  if(state.user && !state.user.isAnonymous){
-
-    modalTitle.textContent = "Account";
-
-    modalContent.innerHTML = `
-      <p style="color:var(--muted);line-height:1.9">
-        وارد شده با:
-        <br>
-        <strong style="color:var(--green)">
-          ${escapeHTML(currentDisplayName())}
-        </strong>
-      </p>
-
-      <button class="btn danger" id="logoutBtn" type="button">
-        Logout
-      </button>
-    `;
-
-    $("logoutBtn").onclick = async () => {
-
-      try{
-        await signOut(auth);
-        closeModal();
-        toast("از حساب خارج شدی","ok");
-      }catch(error){
-        showError(error,"Logout");
-      }
-
-    };
-
-    openModal();
+  if(name.length < 2){
+    toast("اسم باید حداقل ۲ حرف داشته باشه.");
     return;
-  }
-
-
-  modalTitle.textContent = "TY VANTA Login";
-
-  modalContent.innerHTML = `
-    <p style="color:var(--muted);line-height:1.9">
-      برای استفاده از Firebase می‌توانی به‌صورت Guest وارد شوی
-      یا حساب Google را متصل کنی.
-    </p>
-
-    <div style="display:grid;gap:10px">
-
-      <button class="btn primary" id="guestLoginBtn" type="button">
-        Continue as Guest
-      </button>
-
-      <button class="btn" id="googleLoginBtn" type="button">
-        Continue with Google
-      </button>
-
-    </div>
-
-    <p style="margin-top:15px;color:#52695a;font-size:10px;line-height:1.8">
-      Guest بدون ثبت‌نام وارد می‌شود. برای Google باید
-      Google Provider در Firebase Authentication فعال باشد.
-    </p>
-  `;
-
-  $("guestLoginBtn").onclick = async () => {
-    closeModal();
-    await ensureGuest();
-  };
-
-  $("googleLoginBtn").onclick = async () => {
-    closeModal();
-    await loginGoogle();
-  };
-
-  openModal();
-}
-
-
-function openModal(){
-  modal.classList.add("show");
-}
-
-function closeModal(){
-  modal.classList.remove("show");
-}
-
-
-/* =========================================================
-   GUEST AUTH
-========================================================= */
-
-async function ensureGuest(){
-
-  if(auth.currentUser){
-    state.user = auth.currentUser;
-    updateAuthUI();
-    return auth.currentUser;
   }
 
   try{
 
-    setFirebaseStatus(true,"Connecting...");
+    $("statStatus").textContent="CONNECTING";
 
     const result = await signInAnonymously(auth);
 
-    state.user = result.user;
+    playerName = name;
 
-    updateAuthUI();
+    await createPlayer(result.user.uid,name);
 
-    toast("Guest Login فعال شد","ok");
+    $("loginScreen").classList.add("hidden");
 
-    return result.user;
+    $("statPlayer").textContent = name;
 
-  }catch(error){
+    toast("خوش اومدی "+name+"!");
 
-    setFirebaseStatus(false,"Auth Error");
-
-    showError(error,"Guest Login");
-
-    return null;
-  }
-}
-
-
-/* =========================================================
-   GOOGLE LOGIN
-========================================================= */
-
-async function loginGoogle(){
-
-  const provider = new GoogleAuthProvider();
-
-  provider.setCustomParameters({
-    prompt:"select_account"
-  });
-
-  try{
-
-    if(!auth.currentUser){
-
-      const result = await signInWithPopup(auth,provider);
-
-      state.user = result.user;
-
-      toast("Google Login موفق بود","ok");
-
-      return;
-    }
-
-
-    /*
-      Anonymous -> Google upgrade isn't done through
-      a separate anonymous account anymore.
-      Instead, Google login is performed directly.
-    */
-
-    const result = await signInWithPopup(auth,provider);
-
-    state.user = result.user;
-
-    toast("Google Login موفق بود","ok");
+    startGame();
 
   }catch(error){
 
     console.error(error);
 
-    if(
-      error.code === "auth/popup-blocked" ||
-      error.code === "auth/popup-closed-by-user"
-    ){
+    toast("ورود مهمان انجام نشد.");
 
-      try{
-
-        toast("Popup مسدود شد؛ Google Redirect در حال اجراست");
-
-        await signInWithRedirect(auth,provider);
-
-      }catch(redirectError){
-
-        showError(redirectError,"Google Redirect");
-      }
-
-      return;
-    }
-
-    if(error.code === "auth/operation-not-allowed"){
-
-      showError(
-        new Error(
-          "Google Provider در Firebase Authentication فعال نیست."
-        ),
-        "Google Login"
-      );
-
-      return;
-    }
-
-    showError(error,"Google Login");
   }
-}
+
+};
 
 
-/* =========================================================
-   REDIRECT RESULT
-========================================================= */
+window.googleLogin = async function(){
 
-async function checkGoogleRedirect(){
+  const name = $("nameInput").value.trim();
+
+  if(!name){
+
+    toast("اول اسمت رو وارد کن.");
+
+    return;
+
+  }
 
   try{
 
-    const result = await getRedirectResult(auth);
+    const provider = new GoogleAuthProvider();
 
-    if(result?.user){
+    const result =
+      await signInWithPopup(auth,provider);
 
-      state.user = result.user;
+    currentUser=result.user;
 
-      toast("Google Login موفق بود","ok");
-    }
+    playerName=name;
+
+    await createPlayer(
+      currentUser.uid,
+      name
+    );
+
+    $("loginScreen").classList.add("hidden");
+
+    $("userMini").textContent="Google";
+
+    $("statPlayer").textContent=name;
+
+    toast("با Google وارد شدی.");
+
+    startGame();
 
   }catch(error){
 
-    showError(error,"Google Redirect Result");
-  }
-}
+    console.error(error);
 
+    $("retryGoogle").classList.remove("hidden");
 
-/* =========================================================
-   REALTIME
-========================================================= */
+    toast("ورود Google انجام نشد.");
 
-function stopRealtime(){
-
-  if(state.realtimeStop){
-
-    try{
-      state.realtimeStop();
-    }catch{}
-
-    state.realtimeStop = null;
   }
 
-  state.realtimeStarted = false;
-  state.activeEventLoaded = false;
-  state.lastEventId = null;
-}
+};
 
 
-function startRealtime(){
+/* ================================
+   PLAYER
+================================ */
 
-  if(!state.user) return;
+async function createPlayer(uid,name){
 
-  if(state.realtimeStarted) return;
+  const playerRef =
+    ref(db,"tyVanta/users/"+uid);
 
-  state.realtimeStarted = true;
-  state.activeEventLoaded = false;
-  state.lastEventId = null;
+  const snapshot = await get(playerRef);
 
+  if(snapshot.exists()){
 
-  const activeRef = ref(db,"tyVanta/activeEvent");
+    const old = snapshot.val();
 
-  state.realtimeStop = onValue(
-    activeRef,
+    score = Number(old.score || 0);
 
-    snapshot => {
-
-      const data = snapshot.val();
-
-      /*
-        First callback only establishes the current state.
-        This prevents an old Event from firing again.
-      */
-
-      if(!state.activeEventLoaded){
-
-        state.activeEventLoaded = true;
-
-        if(data?.id){
-          state.lastEventId = data.id;
-        }
-
-        return;
-      }
-
-      if(!data?.id) return;
-
-      if(data.id === state.lastEventId) return;
-
-      state.lastEventId = data.id;
-
-      showOverlayEvent(data);
-    },
-
-    error => {
-
-      state.realtimeStarted = false;
-
-      setFirebaseStatus(false,"RTDB Error");
-
-      showError(error,"Realtime Database");
-
-    }
-  );
-
-
-  setFirebaseStatus(true,"Firebase Live");
-}
-
-
-/* =========================================================
-   PRESENCE
-========================================================= */
-
-function setupPresence(){
-
-  if(!state.user) return;
-
-  try{
-
-    const presenceRef =
-      ref(db,`tyVanta/presence/${state.user.uid}`);
-
-    set(presenceRef,{
-      online:true,
-      name:currentDisplayName(),
-      at:serverTimestamp()
+    await update(playerRef,{
+      name:name,
+      lastSeen:Date.now()
     });
-
-    onDisconnect(presenceRef)
-      .set({
-        online:false,
-        name:currentDisplayName(),
-        at:serverTimestamp()
-      });
-
-  }catch(error){
-
-    console.warn("Presence failed:",error);
-  }
-}
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
-onAuthStateChanged(auth,async user => {
-
-  state.authReady = true;
-  state.user = user || null;
-
-  updateAuthUI();
-
-  if(user){
-
-    setFirebaseStatus(true,"Firebase Live");
-
-    /*
-      This is the important fix:
-      RTDB listeners are created AFTER authentication.
-    */
-
-    startRealtime();
-
-    setupPresence();
 
   }else{
 
-    stopRealtime();
+    score=0;
 
-    setFirebaseStatus(false,"Guest Login required");
+    await set(playerRef,{
+      name:name,
+      score:0,
+      questions:0,
+      correct:0,
+      createdAt:Date.now(),
+      lastSeen:Date.now()
+    });
+
   }
 
-});
-
-
-/* =========================================================
-   CREATE EVENT
-========================================================= */
-
-async function createEvent(data){
-
-  if(!state.user){
-
-    const user = await ensureGuest();
-
-    if(!user){
-
-      throw new Error("Firebase authentication failed.");
-    }
-  }
-
-  const user = state.user || auth.currentUser;
-
-  if(!user){
-
-    throw new Error("No authenticated Firebase user.");
-  }
-
-
-  const eventRef =
-    push(ref(db,"tyVanta/events"));
-
-  const payload = {
-
-    ...data,
-
-    id:eventRef.key,
-
-    uid:user.uid,
-
-    user:data.user || currentDisplayName(),
-
-    createdAt:serverTimestamp()
-
-  };
-
-
-  /*
-    History
-  */
-
-  await set(
-    eventRef,
-    payload
-  );
-
-
-  /*
-    Current active event
-  */
-
-  await set(
-    ref(db,"tyVanta/activeEvent"),
-    payload
-  );
-
-
-  /*
-    Local display for creator page.
-    The Firebase listener intentionally ignores
-    the first/current state to prevent double animation.
-  */
-
-  if(state.overlayMode){
-
-    showOverlayEvent(payload);
-  }
-
-
-  return payload;
 }
 
 
-/* =========================================================
-   RANDOM CHALLENGE
-========================================================= */
-
-async function runRandomChallenge(){
-
-  if(!state.user){
-
-    const user = await ensureGuest();
-
-    if(!user) return;
-  }
-
-
-  challengeBadge.textContent = "ROLLING";
-  challengeText.textContent = "انتخاب سطح...";
-  levelText.textContent = "Rolling...";
-  levelDot.style.background = "var(--cyan)";
-
-
-  const levels = ["easy","medium","hard"];
-
-
-  /*
-    Animated roulette
-  */
-
-  for(let i=0;i<8;i++){
-
-    const fake = random(levels);
-
-    levelText.textContent =
-      fake.toUpperCase();
-
-    await sleep(100 + i * 25);
-  }
-
-
-  const level = random(levels);
-  const text = random(challenges[level]);
-
-
-  challengeBadge.textContent = "ACTIVE";
-  challengeText.textContent = text;
-  levelText.textContent = level.toUpperCase();
-
-
-  if(level === "easy"){
-    levelDot.style.background = "var(--green)";
-  }
-
-  if(level === "medium"){
-    levelDot.style.background = "var(--cyan)";
-  }
-
-  if(level === "hard"){
-    levelDot.style.background = "var(--yellow)";
-  }
-
+async function loadPlayer(uid){
 
   try{
 
-    await createEvent({
+    const snapshot =
+      await get(ref(db,"tyVanta/users/"+uid));
 
-      type:"challenge",
+    if(snapshot.exists()){
 
-      title:"RANDOM CHALLENGE",
+      const data=snapshot.val();
 
-      text,
+      playerName=data.name || "";
 
-      level,
+      score=Number(data.score || 0);
 
-      duration:6000
+      $("statPlayer").textContent =
+        playerName || "Guest";
 
-    });
+      $("statScore").textContent=score;
 
-    toast(
-      `${level.toUpperCase()} Challenge ارسال شد`,
-      "ok"
-    );
+    }
 
   }catch(error){
 
-    showError(error,"Random Challenge");
-  }
-}
+    console.error(error);
 
-
-/* =========================================================
-   CLEAR CHALLENGE
-========================================================= */
-
-$("challengeClear").addEventListener("click",() => {
-
-  challengeBadge.textContent = "READY";
-
-  challengeText.textContent =
-    "برای شروع یک Random Challenge اجرا کن.";
-
-  levelText.textContent = "Waiting...";
-
-  levelDot.style.background =
-    "var(--green)";
-});
-
-
-/* =========================================================
-   EVENT LAB
-========================================================= */
-
-async function sendCustomEvent(typeOverride=null){
-
-  try{
-
-    if(!state.user){
-
-      const user = await ensureGuest();
-
-      if(!user) return;
-    }
-
-
-    const type =
-      typeOverride ||
-      $("eventType").value;
-
-    const username =
-      $("eventUser").value.trim() ||
-      currentDisplayName();
-
-    let title =
-      $("eventTitle").value.trim();
-
-    let text =
-      $("eventText").value.trim();
-
-    const level =
-      $("eventLevel").value;
-
-    const duration =
-      Number($("eventDuration").value);
-
-
-    if(!title){
-
-      const defaults = {
-
-        challenge:"RANDOM CHALLENGE",
-
-        donation:"NEW DONATION",
-
-        follow:"NEW FOLLOWER",
-
-        subscribe:"NEW SUBSCRIBER",
-
-        raid:"INCOMING RAID",
-
-        chat:"CHAT MESSAGE"
-
-      };
-
-      title = defaults[type] || "TY VANTA EVENT";
-    }
-
-
-    if(!text){
-
-      const defaults = {
-
-        challenge:random(challenges[level]),
-
-        donation:`${username} یک Donation فرستاد.`,
-
-        follow:`${username} فالو کرد.`,
-
-        subscribe:`${username} سابسکرایب کرد.`,
-
-        raid:`${username} یک Raid فرستاد.`,
-
-        chat:`${username}: سلام TY VANTA!`
-
-      };
-
-      text =
-        defaults[type] ||
-        `${username} یک Event جدید ایجاد کرد.`;
-    }
-
-
-    const payload = await createEvent({
-
-      type,
-
-      title,
-
-      text,
-
-      level,
-
-      duration,
-
-      user:username
-
-    });
-
-
-    toast(
-      `${type.toUpperCase()} Event ارسال شد`,
-      "ok"
-    );
-
-
-    return payload;
-
-  }catch(error){
-
-    showError(error,"Send Event");
-  }
-}
-
-
-/* =========================================================
-   AUTO FILL
-========================================================= */
-
-$("fillEventBtn").addEventListener("click",() => {
-
-  const type = $("eventType").value;
-
-  const names = [
-    "VANTA_FAN",
-    "NightPlayer",
-    "GreenGhost",
-    "Ava",
-    "Shadow",
-    "VANTER"
-  ];
-
-  const titleMap = {
-
-    challenge:"RANDOM CHALLENGE",
-    donation:"NEW DONATION",
-    follow:"NEW FOLLOWER",
-    subscribe:"NEW SUBSCRIBER",
-    raid:"INCOMING RAID",
-    chat:"CHAT MESSAGE"
-
-  };
-
-  const textMap = {
-
-    challenge:"یک چالش جدید برای استریمر!",
-    donation:"یک حمایت جدید دریافت شد.",
-    follow:"یک نفر به کامیونیتی اضافه شد.",
-    subscribe:"یک Subscribe جدید!",
-    raid:"Raid incoming!",
-    chat:"این یک پیام تستی از چت است."
-
-  };
-
-
-  $("eventUser").value =
-    random(names);
-
-  $("eventTitle").value =
-    titleMap[type];
-
-  $("eventText").value =
-    textMap[type];
-
-  toast("فیلدها آماده شدند","ok");
-});
-
-
-/* =========================================================
-   QUICK EVENTS
-========================================================= */
-
-document.querySelectorAll("[data-quick]")
-.forEach(button => {
-
-  button.addEventListener("click",() => {
-
-    sendCustomEvent(
-      button.dataset.quick
-    );
-
-  });
-
-});
-
-
-/* =========================================================
-   OVERLAY
-========================================================= */
-
-function showOverlayEvent(data){
-
-  if(!data) return;
-
-
-  const duration =
-    Math.max(
-      3000,
-      Number(data.duration || 6000)
-    );
-
-
-  overlayType.textContent =
-    `TY VANTA • ${String(data.type || "EVENT").toUpperCase()}`;
-
-  overlayTitle.textContent =
-    data.title || "TY VANTA EVENT";
-
-  overlayText.textContent =
-    data.text || "";
-
-  overlayLevel.textContent =
-    data.level
-      ? String(data.level).toUpperCase()
-      : "";
-
-
-  overlayDebug.textContent =
-    data.id || "";
-
-
-  /*
-    Restart CSS animation reliably.
-  */
-
-  overlayCard.classList.remove("show");
-
-  void overlayCard.offsetWidth;
-
-  overlayCard.style.animationDuration =
-    `${duration / 1000}s`;
-
-  overlayCard.classList.add("show");
-
-
-  setTimeout(() => {
-
-    overlayCard.classList.remove("show");
-
-  },duration + 300);
-}
-
-
-/* =========================================================
-   OBS URL
-========================================================= */
-
-function getOverlayURL(){
-
-  const url =
-    new URL(
-      location.href
-    );
-
-  url.search = "";
-  url.hash = "";
-
-  url.searchParams.set(
-    "overlay",
-    "1"
-  );
-
-  return url.toString();
-}
-
-
-$("overlayUrl").value =
-  getOverlayURL();
-
-
-/* =========================================================
-   COPY URL
-========================================================= */
-
-$("copyOverlayBtn").addEventListener("click",async () => {
-
-  try{
-
-    await navigator.clipboard.writeText(
-      $("overlayUrl").value
-    );
-
-    toast("Overlay URL کپی شد","ok");
-
-  }catch{
-
-    $("overlayUrl").select();
-
-    document.execCommand("copy");
-
-    toast("Overlay URL کپی شد","ok");
   }
 
-});
+}
 
 
-/* =========================================================
-   TEST OVERLAY
-========================================================= */
+/* ================================
+   GAME
+================================ */
 
-$("testOverlayBtn").addEventListener("click",async () => {
+function startGame(){
 
-  /*
-    On creator page we send the event to Firebase.
-    On overlay page we show a local preview.
-  */
+  questionIndex=0;
 
-  if(state.overlayMode){
+  score=score||0;
 
-    showOverlayEvent({
+  loadQuestion();
 
-      id:"local-test",
+}
 
-      type:"challenge",
 
-      title:"OVERLAY TEST",
+function loadQuestion(){
 
-      text:"Overlay سالم است و آماده OBS است.",
+  clearInterval(timerInterval);
 
-      level:"easy",
+  if(questionIndex >= questions.length){
 
-      duration:6000
-
-    });
+    finishGame();
 
     return;
+
   }
 
+  currentQuestion =
+    questions[questionIndex];
 
-  try{
+  selectedAnswer=null;
+  answerLocked=false;
+  hasVoted=false;
 
-    await createEvent({
+  $("questionCounter").textContent =
+    `سؤال ${questionIndex+1} از ${questions.length}`;
 
-      type:"challenge",
+  $("statQuestion").textContent =
+    `${questionIndex+1}/${questions.length}`;
 
-      title:"OVERLAY TEST",
+  $("statStatus").textContent="PLAYING";
 
-      text:"Overlay سالم است و Event از Firebase دریافت شد.",
+  $("difficulty").textContent =
+    questionIndex===0 ? "WARM UP" :
+    questionIndex===1 ? "MEDIUM" :
+    questionIndex===2 ? "HARD" :
+    "FINAL";
 
-      level:"easy",
+  $("question").textContent =
+    currentQuestion.text;
 
-      duration:6000,
+  $("answerStatus").textContent="";
 
-      user:currentDisplayName()
+  $("nextBtn").disabled=true;
 
-    });
+  renderAnswers();
 
-    toast("Test Event ارسال شد","ok");
+  startTimer();
 
-  }catch(error){
+  $("correctVotes").textContent="0";
+  $("wrongVotes").textContent="0";
 
-    showError(error,"Overlay Test");
-  }
-
-});
-
-
-/* =========================================================
-   OPEN OVERLAY
-========================================================= */
-
-$("openOverlayBtn").addEventListener("click",() => {
-
-  window.open(
-    getOverlayURL(),
-    "_blank",
-    "noopener"
-  );
-
-});
+}
 
 
-$("overlayBtn").addEventListener("click",() => {
+function renderAnswers(){
+
+  const container=$("answers");
+
+  container.innerHTML="";
+
+  currentQuestion.options.forEach((option,index)=>{
+
+    const button=document.createElement("button");
+
+    button.className="answer";
+
+    button.textContent=option;
+
+    button.onclick=()=>selectAnswer(index,button);
+
+    container.appendChild(button);
+
+  });
+
+}
+
+
+function selectAnswer(index,button){
+
+  if(answerLocked) return;
+
+  answerLocked=true;
+
+  selectedAnswer=index;
 
   document
-    .getElementById("obs")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+    .querySelectorAll(".answer")
+    .forEach(b=>b.disabled=true);
 
-});
+  button.classList.add("selected");
 
+  clearInterval(timerInterval);
 
-/* =========================================================
-   MODAL BUTTON
-========================================================= */
+  const correct =
+    index===currentQuestion.correct;
 
-authBtn.addEventListener(
-  "click",
-  openAuthModal
-);
+  if(correct){
 
-$("modalClose").addEventListener(
-  "click",
-  closeModal
-);
+    score += 10;
 
-modal.addEventListener("click",e => {
+    $("answerStatus").textContent =
+      "جواب درست بود +10";
 
-  if(e.target === modal){
-    closeModal();
+    $("answerStatus").style.color =
+      "var(--green)";
+
+  }else{
+
+    $("answerStatus").textContent =
+      "جواب درست نبود";
+
+    $("answerStatus").style.color =
+      "var(--red)";
+
   }
 
-});
+  $("statScore").textContent=score;
 
+  $("nextBtn").disabled=false;
 
-/* =========================================================
-   NAV BUTTONS
-========================================================= */
-
-$("eventLabBtn").addEventListener("click",() => {
-
-  $("events").scrollIntoView({
-    behavior:"smooth"
-  });
-
-});
-
-$("obsBtn").addEventListener("click",() => {
-
-  $("obs").scrollIntoView({
-    behavior:"smooth"
-  });
-
-});
-
-$("randomChallengeBtn").addEventListener(
-  "click",
-  runRandomChallenge
-);
-
-$("challengeRun2").addEventListener(
-  "click",
-  runRandomChallenge
-);
-
-document
-  .querySelectorAll("[data-action]")
-  .forEach(button => {
-
-    button.addEventListener("click",() => {
-
-      const action =
-        button.dataset.action;
-
-      if(action === "challenge"){
-        runRandomChallenge();
-      }
-
-      if(action === "overlay"){
-        $("obs").scrollIntoView({
-          behavior:"smooth"
-        });
-      }
-
-      if(action === "event"){
-        $("events").scrollIntoView({
-          behavior:"smooth"
-        });
-      }
-
-    });
-
-  });
-
-
-$("sendEventBtn").addEventListener(
-  "click",
-  () => sendCustomEvent()
-);
-
-
-/* =========================================================
-   MONO
-========================================================= */
-
-$("monoBtn").addEventListener("click",() => {
-
-  state.mono = !state.mono;
-
-  document.body.classList.toggle(
-    "mono",
-    state.mono
-  );
-
-  storage.set(
-    "tyvanta_mono",
-    state.mono ? "1" : "0"
-  );
-
-  toast(
-    state.mono
-      ? "Mono Mode فعال شد"
-      : "Mono Mode خاموش شد",
-    "ok"
-  );
-
-});
-
-
-if(storage.get("tyvanta_mono") === "1"){
-
-  state.mono = true;
-  document.body.classList.add("mono");
+  saveAnswer(correct);
 
 }
 
 
-/* =========================================================
-   LANGUAGE
-========================================================= */
+function startTimer(){
 
-$("langBtn").addEventListener("click",() => {
+  let time=5;
 
-  state.language =
-    state.language === "fa"
-      ? "en"
-      : "fa";
+  $("timer").textContent=time;
 
-  document.documentElement.lang =
-    state.language;
+  $("timerBar").style.width="100%";
 
-  document.documentElement.dir =
-    state.language === "fa"
-      ? "rtl"
-      : "ltr";
+  timerInterval=setInterval(()=>{
 
-  $("langLabel").textContent =
-    state.language === "fa"
-      ? "EN"
-      : "FA";
+    time--;
 
+    $("timer").textContent=time;
 
-  /*
-    The current interface is intentionally kept mostly
-    Persian/English-neutral. This toggle controls the
-    document direction without breaking Firebase UI.
-  */
+    $("timerBar").style.width =
+      `${(time/5)*100}%`;
 
-  toast(
-    state.language === "fa"
-      ? "حالت فارسی"
-      : "English mode",
-    "ok"
-  );
+    if(time<=0){
 
-});
+      clearInterval(timerInterval);
 
+      if(!answerLocked){
 
-/* =========================================================
-   SCROLL LAMP
-========================================================= */
+        answerLocked=true;
 
-let scrollTarget = 0;
-let scrollCurrent = 0;
+        document
+          .querySelectorAll(".answer")
+          .forEach(b=>b.disabled=true);
 
-window.addEventListener(
-  "scroll",
-  () => {
+        $("answerStatus").textContent =
+          "زمان تموم شد.";
 
-    scrollTarget =
-      window.scrollY;
+        $("answerStatus").style.color =
+          "var(--red)";
 
-  },
-  {passive:true}
-);
+        $("nextBtn").disabled=false;
 
+        saveAnswer(false);
 
-function animateLamp(){
-
-  scrollCurrent +=
-    (scrollTarget - scrollCurrent) * .08;
-
-  const max =
-    Math.max(
-      1,
-      document.documentElement.scrollHeight -
-      window.innerHeight
-    );
-
-  const progress =
-    Math.min(
-      1,
-      scrollCurrent / max
-    );
-
-  const opacity =
-    .28 + progress * .72;
-
-  const scale =
-    .85 + progress * .3;
-
-  $("lampLight").style.opacity =
-    opacity;
-
-  $("lampLight").style.transform =
-    `translateX(-50%) scale(${scale})`;
-
-  requestAnimationFrame(
-    animateLamp
-  );
-}
-
-animateLamp();
-
-
-/* =========================================================
-   AIRPLANE SCROLL
-========================================================= */
-
-let lastScroll = 0;
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    const current =
-      window.scrollY;
-
-    const delta =
-      current - lastScroll;
-
-    if(Math.abs(delta) > 2){
-
-      const x =
-        Math.min(
-          window.innerWidth + 100,
-          Math.max(
-            -100,
-            current * .75
-          )
-        );
-
-      const y =
-        65 -
-        Math.min(
-          55,
-          current * .045
-        );
-
-      $("plane").style.transform =
-        `translate(${x}px,${y}px) rotate(${delta > 0 ? -8 : 12}deg)`;
+      }
 
     }
 
-    lastScroll =
-      current;
+  },1000);
 
-  },
-  {passive:true}
-);
-
-
-/* =========================================================
-   STARS
-========================================================= */
-
-(function makeStars(){
-
-  const root =
-    $("stars");
-
-  const count =
-    window.innerWidth < 600
-      ? 45
-      : 85;
-
-  const frag =
-    document.createDocumentFragment();
-
-  for(let i=0;i<count;i++){
-
-    const star =
-      document.createElement("span");
-
-    star.style.position =
-      "absolute";
-
-    star.style.width =
-      `${Math.random()*2+1}px`;
-
-    star.style.height =
-      star.style.width;
-
-    star.style.borderRadius =
-      "50%";
-
-    star.style.background =
-      "rgba(160,255,200,.65)";
-
-    star.style.left =
-      `${Math.random()*100}%`;
-
-    star.style.top =
-      `${Math.random()*100}%`;
-
-    star.style.opacity =
-      `${Math.random()*.6+.15}`;
-
-    star.style.boxShadow =
-      "0 0 5px rgba(81,255,154,.35)";
-
-    frag.appendChild(star);
-  }
-
-  root.appendChild(frag);
-
-})();
-
-
-/* =========================================================
-   SECURE PAGE WARNING
-========================================================= */
-
-if(!isSecurePage()){
-
-  toast(
-    "صفحه با file:// باز شده؛ برای Firebase از GitHub Pages یا HTTPS استفاده کن.",
-    "error"
-  );
-
-  setFirebaseStatus(
-    false,
-    "HTTPS required"
-  );
 }
 
 
-/* =========================================================
-   GLOBAL ERROR HANDLERS
-========================================================= */
+async function saveAnswer(correct){
 
-window.addEventListener(
-  "unhandledrejection",
-  event => {
+  if(!currentUser) return;
 
-    console.error(
-      "Unhandled Promise:",
-      event.reason
-    );
+  try{
 
-    showError(
-      event.reason,
-      "Unhandled Promise"
-    );
+    const playerRef =
+      ref(db,"tyVanta/users/"+currentUser.uid);
 
-  }
-);
+    const snapshot=await get(playerRef);
 
+    const old=snapshot.exists()
+      ? snapshot.val()
+      : {};
 
-window.addEventListener(
-  "error",
-  event => {
+    const oldCorrect =
+      Number(old.correct || 0);
 
-    console.error(
-      "JS Error:",
-      event.error
-    );
+    const oldQuestions =
+      Number(old.questions || 0);
 
-  }
-);
+    await update(playerRef,{
 
+      name:playerName,
 
-/* =========================================================
-   OVERLAY MODE
-========================================================= */
+      score:score,
 
-if(state.overlayMode){
+      questions:oldQuestions+1,
 
-  document.body.classList.add(
-    "overlay-mode"
-  );
+      correct:
+        oldCorrect+(correct?1:0),
 
-  /*
-    Overlay must authenticate before listening.
-    This prevents the old permission-denied problem.
-  */
-
-  ensureGuest()
-    .then(user => {
-
-      if(user){
-
-        overlayDebug.textContent =
-          "TY VANTA OVERLAY • CONNECTED";
-
-      }
-
-    })
-    .catch(error => {
-
-      showError(
-        error,
-        "Overlay Authentication"
-      );
+      lastSeen:Date.now()
 
     });
 
-}else{
+  }catch(error){
 
-  /*
-    Normal creator page:
-    make sure Firebase guest authentication
-    starts even if the user hasn't clicked Login.
-  */
+    console.error(error);
 
-  ensureGuest();
+  }
 
 }
 
 
-/* =========================================================
-   REDIRECT CHECK
-========================================================= */
+window.nextQuestion=function(){
 
-checkGoogleRedirect();
+  questionIndex++;
+
+  loadQuestion();
+
+};
 
 
-/* =========================================================
-   FINAL
-========================================================= */
+function finishGame(){
 
-console.log(
-  "%cTY VANTA%c Firebase Controller Ready",
-  "color:#51ff9a;font-weight:bold",
-  "color:#86a494"
-);
+  clearInterval(timerInterval);
+
+  $("question").innerHTML =
+    `<strong style="color:var(--green)">VANTER تموم شد.</strong><br>
+     امتیاز نهایی: ${score}`;
+
+  $("answers").innerHTML="";
+
+  $("nextBtn").disabled=true;
+
+  $("statStatus").textContent="FINISHED";
+
+  toast("بازی تموم شد. امتیازت ثبت شد.");
+
+}
+
+
+/* ================================
+   VOTES
+================================ */
+
+window.castVote=async function(type){
+
+  if(!currentUser){
+
+    toast("اول وارد بازی شو.");
+
+    return;
+
+  }
+
+  if(!answerLocked){
+
+    toast("اول باید جواب بدی.");
+
+    return;
+
+  }
+
+  if(hasVoted){
+
+    toast("قبلاً رأی دادی.");
+
+    return;
+
+  }
+
+  hasVoted=true;
+
+  const voteRef =
+    ref(
+      db,
+      "tyVanta/votes/question_"+questionIndex
+    );
+
+  const newVote=push(voteRef);
+
+  await set(newVote,{
+
+    type:type,
+
+    uid:currentUser.uid,
+
+    name:playerName,
+
+    createdAt:Date.now()
+
+  });
+
+  toast("رأیت ثبت شد.");
+
+};
+
+
+function listenVotes(){
+
+  const voteRef =
+    ref(
+      db,
+      "tyVanta/votes/question_"+questionIndex
+    );
+
+  onValue(voteRef,snapshot=>{
+
+    let correct=0;
+    let wrong=0;
+
+    snapshot.forEach(child=>{
+
+      const value=child.val();
+
+      if(value.type==="correct")
+        correct++;
+
+      if(value.type==="wrong")
+        wrong++;
+
+    });
+
+    $("correctVotes").textContent=correct;
+    $("wrongVotes").textContent=wrong;
+
+  });
+
+}
+
+
+/* ================================
+   LEADERBOARD
+================================ */
+
+const leaderboardRef =
+  ref(db,"tyVanta/users");
+
+onValue(leaderboardRef,snapshot=>{
+
+  const players=[];
+
+  snapshot.forEach(child=>{
+
+    const data=child.val();
+
+    players.push({
+
+      uid:child.key,
+
+      name:data.name || "Unknown",
+
+      score:Number(data.score || 0)
+
+    });
+
+  });
+
+  players.sort((a,b)=>b.score-a.score);
+
+  renderLeaderboard(players.slice(0,20));
+
+});
+
+
+function renderLeaderboard(players){
+
+  const list=$("leaderList");
+
+  if(!players.length){
+
+    list.innerHTML=`
+      <div style="text-align:center;color:#587064;padding:30px">
+        هنوز بازیکنی ثبت نشده.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML="";
+
+  players.forEach((player,index)=>{
+
+    const row=document.createElement("div");
+
+    row.className="rank";
+
+    row.innerHTML=`
+
+      <div class="rankNumber">
+        ${index+1}
+      </div>
+
+      <div>
+        <div class="rankName">
+          ${escapeHTML(player.name)}
+        </div>
+
+        <div class="rankUid">
+          VANTER PLAYER
+        </div>
+      </div>
+
+      <div class="points">
+        ${player.score}
+      </div>
+
+    `;
+
+    list.appendChild(row);
+
+  });
+
+}
+
+
+/* ================================
+   CHAT
+================================ */
+
+const chatRef =
+  ref(db,"tyVanta/chat");
+
+onValue(chatRef,snapshot=>{
+
+  const messages=[];
+
+  snapshot.forEach(child=>{
+
+    messages.push({
+      id:child.key,
+      ...child.val()
+    });
+
+  });
+
+  messages.sort((a,b)=>
+    Number(a.createdAt||0) -
+    Number(b.createdAt||0)
+  );
+
+  renderChat(messages.slice(-80));
+
+});
+
+
+function renderChat(messages){
+
+  const box=$("chatMessages");
+
+  box.innerHTML="";
+
+  if(!messages.length){
+
+    box.innerHTML=`
+      <div style="color:#52695d;text-align:center;padding:30px;font-size:11px">
+        هنوز پیامی ارسال نشده.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  messages.forEach(message=>{
+
+    const div=document.createElement("div");
+
+    div.className="chatMsg";
+
+    div.innerHTML=`
+      <strong>${escapeHTML(message.name || "VANTER")}</strong>
+      <p>${escapeHTML(message.text || "")}</p>
+    `;
+
+    box.appendChild(div);
+
+  });
+
+  box.scrollTop=box.scrollHeight;
+
+}
+
+
+window.sendChat=async function(){
+
+  if(!currentUser){
+
+    toast("اول وارد شو.");
+
+    return;
+
+  }
+
+  const input=$("chatInput");
+
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  if(text.length>180){
+
+    toast("پیام خیلی طولانیه.");
+
+    return;
+
+  }
+
+  try{
+
+    const message=push(chatRef);
+
+    await set(message,{
+
+      uid:currentUser.uid,
+
+      name:playerName || "VANTER",
+
+      text:text,
+
+      createdAt:Date.now()
+
+    });
+
+    input.value="";
+
+  }catch(error){
+
+    console.error(error);
+
+    toast("ارسال پیام انجام نشد.");
+
+  }
+
+};
+
+
+/* ================================
+   SECURITY HELPER
+================================ */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* ================================
+   SCROLL PLATFORM ANIMATION
+================================ */
+
+const flyingNames=[
+  "KICK",
+  "YOUTUBE",
+  "TWITCH",
+  "APARAT",
+  "DISCORD",
+  "TELEGRAM"
+];
+
+let lastScroll=0;
+
+function spawnFly(){
+
+  const el=document.createElement("div");
+
+  el.className="fly";
+
+  el.textContent =
+    flyingNames[
+      Math.floor(
+        Math.random()*flyingNames.length
+      )
+    ];
+
+  const fromLeft=Math.random()>.5;
+
+  el.style.top =
+    (Math.random()*65+15)+"vh";
+
+  el.style.setProperty(
+    "--startX",
+    fromLeft ? "-130vw" : "130vw"
+  );
+
+  el.style.setProperty(
+    "--endX",
+    fromLeft ? "130vw" : "-130vw"
+  );
+
+  document.body.appendChild(el);
+
+  requestAnimationFrame(()=>{
+    el.classList.add("active");
+  });
+
+  setTimeout(()=>{
+    el.remove();
+  },1700);
+
+}
+
+
+window.addEventListener("scroll",()=>{
+
+  const now=window.scrollY;
+
+  if(Math.abs(now-lastScroll)>180){
+
+    spawnFly();
+
+    lastScroll=now;
+
+  }
+
+});
+
+
+/* ================================
+   MOUSE GLOW
+================================ */
+
+window.addEventListener("pointermove",event=>{
+
+  document.body.style.setProperty(
+    "--mx",
+    event.clientX+"px"
+  );
+
+  document.body.style.setProperty(
+    "--my",
+    event.clientY+"px"
+  );
+
+});
+
+
+/* ================================
+   STARTUP
+================================ */
+
+window.addEventListener("load",()=>{
+
+  setTimeout(()=>{
+
+    $("loader").style.opacity="0";
+
+    setTimeout(()=>{
+      $("loader").style.display="none";
+    },700);
+
+  },900);
+
+  listenVotes();
+
+});
+
+
+/* Keep vote listener synchronized */
+
+setInterval(()=>{
+
+  listenVotes();
+
+},2000);
 
 </script>
 
