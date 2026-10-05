@@ -2,28 +2,25 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#050b09">
-<title>TY VANTA — VANTER</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050807">
+<title>TY VANTA</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#030706;
-  --panel:rgba(10,22,17,.72);
-  --panel2:rgba(14,31,24,.78);
-  --line:rgba(81,255,154,.16);
   --green:#51ff9a;
-  --green2:#19d875;
+  --green2:#20d878;
   --cyan:#5cf3ff;
-  --red:#ff5470;
-  --yellow:#ffd75c;
+  --red:#ff5270;
+  --bg:#030706;
+  --panel:rgba(8,18,13,.82);
+  --line:rgba(81,255,154,.16);
   --text:#ecfff4;
-  --muted:#86a596;
-  --shadow:0 25px 80px rgba(0,0,0,.45);
+  --muted:#779083;
 }
 
 *{
@@ -32,45 +29,20 @@
   padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
+html,body{
+  min-height:100%;
 }
 
 body{
-  min-height:100vh;
-  color:var(--text);
   background:
-    radial-gradient(circle at 20% 10%,rgba(81,255,154,.09),transparent 28%),
-    radial-gradient(circle at 85% 20%,rgba(92,243,255,.06),transparent 24%),
-    linear-gradient(135deg,#020504,#07110c 50%,#020504);
-  font-family:"Vazirmatn",sans-serif;
-  overflow-x:hidden;
+    radial-gradient(circle at 20% 10%,rgba(81,255,154,.07),transparent 30%),
+    radial-gradient(circle at 80% 80%,rgba(92,243,255,.04),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Vazirmatn,sans-serif;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.13;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:40px 40px;
-  mask-image:linear-gradient(to bottom,#000,transparent);
-  z-index:-3;
-}
-
-body:after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(81,255,154,.09),transparent 22%);
-  z-index:-2;
-}
-
-button,input{
+button,input,textarea{
   font:inherit;
 }
 
@@ -78,259 +50,311 @@ button{
   cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
+/* =====================================================
+   OBS OVERLAY
+===================================================== */
+
+body.overlay{
+  background:transparent !important;
+  overflow:hidden;
+  pointer-events:none;
 }
 
-/* LOADER */
+body.overlay #app{
+  display:none;
+}
 
-#loader{
+#obsOverlay{
   position:fixed;
   inset:0;
-  background:#020504;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-  transition:.7s ease;
-}
-
-.loaderBox{
-  text-align:center;
-}
-
-.loaderLogo{
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(42px,12vw,90px);
-  font-weight:900;
-  letter-spacing:8px;
-  color:var(--green);
-  text-shadow:0 0 35px rgba(81,255,154,.45);
-  animation:logoPulse 1.3s infinite alternate;
-}
-
-.loaderSub{
-  color:#789485;
-  margin-top:12px;
-  font-size:12px;
-  letter-spacing:5px;
-}
-
-.loaderBar{
-  width:190px;
-  height:3px;
-  margin:28px auto 0;
-  background:#102219;
+  pointer-events:none;
   overflow:hidden;
-  border-radius:20px;
+  display:none;
 }
 
-.loaderBar i{
+body.overlay #obsOverlay{
   display:block;
-  height:100%;
-  width:45%;
-  background:var(--green);
-  box-shadow:0 0 18px var(--green);
-  animation:load 1.1s infinite;
 }
 
-@keyframes load{
-  0%{transform:translateX(-220%)}
-  100%{transform:translateX(440%)}
+.obsEvent{
+  position:absolute;
+  right:-620px;
+  top:50%;
+  transform:translate3d(0,-50%,0);
+  width:min(560px,80vw);
+  min-height:170px;
+  padding:25px;
+  border-radius:28px;
+  border:1px solid rgba(81,255,154,.38);
+  background:
+    linear-gradient(145deg,rgba(5,18,11,.96),rgba(4,10,8,.94));
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.45),
+    0 0 50px rgba(81,255,154,.12);
+  opacity:0;
+  will-change:transform,opacity;
 }
 
-@keyframes logoPulse{
-  from{opacity:.65;transform:scale(.97)}
-  to{opacity:1;transform:scale(1.03)}
+.obsEvent.show{
+  animation:eventIn .75s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-/* HEADER */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:500;
-  backdrop-filter:blur(20px);
-  background:rgba(3,8,6,.7);
-  border-bottom:1px solid rgba(81,255,154,.1);
+.obsEvent.hide{
+  animation:eventOut .65s cubic-bezier(.7,0,.84,0) forwards;
 }
 
-.nav{
-  width:min(1200px,calc(100% - 28px));
-  min-height:72px;
-  margin:auto;
+@keyframes eventIn{
+  from{
+    transform:translate3d(0,-50%,0) scale(.92);
+    right:-620px;
+    opacity:0;
+  }
+  to{
+    transform:translate3d(0,-50%,0) scale(1);
+    right:35px;
+    opacity:1;
+  }
+}
+
+@keyframes eventOut{
+  from{
+    transform:translate3d(0,-50%,0) scale(1);
+    right:35px;
+    opacity:1;
+  }
+  to{
+    transform:translate3d(0,-50%,0) scale(.92);
+    right:-620px;
+    opacity:0;
+  }
+}
+
+.obsTop{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:15px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
-
-.brandMark{
-  width:40px;
-  height:40px;
-  border:1px solid rgba(81,255,154,.4);
-  border-radius:13px;
-  display:grid;
-  place-items:center;
+.obsType{
   color:var(--green);
-  background:rgba(81,255,154,.06);
-  box-shadow:0 0 25px rgba(81,255,154,.08);
-  font-family:Orbitron;
+  font-family:Orbitron,sans-serif;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.obsTimer{
+  color:var(--cyan);
+  font-family:Orbitron,sans-serif;
+  font-size:20px;
+}
+
+.obsTitle{
+  margin-top:18px;
+  font-size:clamp(22px,3vw,34px);
   font-weight:900;
+  line-height:1.5;
 }
 
-.brandText strong{
-  display:block;
-  font-family:Orbitron;
-  letter-spacing:2px;
-  font-size:17px;
-}
-
-.brandText span{
-  color:#587464;
-  font-size:10px;
-  letter-spacing:2px;
-}
-
-.navRight{
+.obsBottom{
   display:flex;
   align-items:center;
-  gap:9px;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:18px;
+  color:#719083;
+  font-size:10px;
 }
 
-.connection{
+.obsProgress{
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:3px;
+  width:100%;
+  transform-origin:right;
+  background:linear-gradient(90deg,var(--green),var(--cyan));
+  border-radius:20px;
+}
+
+.obsProgress.run{
+  animation:progress 10s linear forwards;
+}
+
+@keyframes progress{
+  from{transform:scaleX(1)}
+  to{transform:scaleX(0)}
+}
+
+/* =====================================================
+   APP
+===================================================== */
+
+#app{
+  width:min(1150px,calc(100% - 28px));
+  margin:auto;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(18px);
+  background:rgba(3,7,5,.78);
+  border-bottom:1px solid rgba(81,255,154,.08);
+}
+
+.nav{
+  width:min(1150px,calc(100% - 28px));
+  min-height:70px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  font-family:Orbitron,sans-serif;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--green);
+}
+
+.status{
   display:flex;
   align-items:center;
   gap:7px;
-  padding:8px 11px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  color:#88a596;
-  font-size:11px;
-  background:rgba(255,255,255,.025);
+  color:var(--muted);
+  font-size:10px;
 }
 
-.dot{
+.statusDot{
   width:7px;
   height:7px;
   border-radius:50%;
   background:#777;
 }
 
-.dot.ok{
+.statusDot.ok{
   background:var(--green);
   box-shadow:0 0 12px var(--green);
-}
-
-.dot.bad{
-  background:var(--red);
-}
-
-.userMini{
-  padding:8px 12px;
-  border:1px solid rgba(92,243,255,.14);
-  border-radius:12px;
-  color:var(--cyan);
-  font-size:11px;
-  background:rgba(92,243,255,.03);
-}
-
-/* MAIN */
-
-main{
-  width:min(1200px,calc(100% - 28px));
-  margin:auto;
 }
 
 .hero{
-  min-height:650px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  align-items:center;
-  gap:35px;
-  position:relative;
-}
-
-.heroGlow{
-  position:absolute;
-  width:420px;
-  height:420px;
-  right:5%;
-  top:15%;
-  background:rgba(81,255,154,.08);
-  filter:blur(90px);
-  border-radius:50%;
-  pointer-events:none;
-}
-
-.kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border:1px solid rgba(81,255,154,.15);
-  border-radius:999px;
-  color:var(--green);
-  background:rgba(81,255,154,.035);
-  font-size:11px;
-  letter-spacing:1px;
-  margin-bottom:20px;
-}
-
-.kicker b{
-  width:6px;
-  height:6px;
-  background:var(--green);
-  border-radius:50%;
-  box-shadow:0 0 12px var(--green);
+  padding:90px 0 45px;
 }
 
 .hero h1{
   font-family:Orbitron,sans-serif;
-  font-size:clamp(52px,8vw,110px);
+  font-size:clamp(50px,9vw,100px);
   line-height:.9;
   letter-spacing:-4px;
-  margin-bottom:25px;
 }
 
 .hero h1 span{
   color:var(--green);
-  text-shadow:0 0 35px rgba(81,255,154,.25);
 }
 
 .hero p{
-  color:#91aa9d;
-  max-width:600px;
+  max-width:650px;
+  color:var(--muted);
   line-height:2;
-  font-size:15px;
+  margin-top:22px;
 }
 
-.heroButtons{
-  display:flex;
-  flex-wrap:wrap;
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:var(--panel);
+  backdrop-filter:blur(18px);
+  box-shadow:0 25px 70px rgba(0,0,0,.3);
+  padding:22px;
+}
+
+.card h2{
+  font-size:18px;
+  margin-bottom:7px;
+}
+
+.cardSub{
+  color:#60786b;
+  font-size:10px;
+  margin-bottom:20px;
+}
+
+.modes{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
   gap:10px;
-  margin-top:28px;
+}
+
+.mode{
+  padding:17px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.025);
+  border-radius:17px;
+  color:#d9eee1;
+  text-align:right;
+  transition:.2s;
+}
+
+.mode:hover{
+  transform:translateY(-2px);
+  border-color:rgba(81,255,154,.35);
+}
+
+.mode.active{
+  border-color:rgba(81,255,154,.5);
+  background:rgba(81,255,154,.07);
+}
+
+.mode strong{
+  display:block;
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:11px;
+}
+
+.mode span{
+  display:block;
+  color:#61786b;
+  font-size:10px;
+  margin-top:6px;
+}
+
+.input{
+  width:100%;
+  padding:13px;
+  border:1px solid rgba(81,255,154,.13);
+  border-radius:13px;
+  outline:none;
+  background:rgba(0,0,0,.2);
+  color:white;
+  margin-bottom:10px;
+}
+
+.input:focus{
+  border-color:rgba(81,255,154,.45);
 }
 
 .btn{
   border:1px solid rgba(81,255,154,.2);
-  border-radius:14px;
-  padding:12px 18px;
+  border-radius:13px;
+  padding:12px 16px;
   background:rgba(81,255,154,.05);
-  color:var(--text);
-  transition:.25s;
+  color:white;
+  transition:.2s;
 }
 
 .btn:hover{
-  transform:translateY(-3px);
-  border-color:rgba(81,255,154,.5);
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  transform:translateY(-2px);
 }
 
 .btn.primary{
@@ -338,580 +362,97 @@ main{
   color:#021007;
   border-color:var(--green);
   font-weight:900;
-  box-shadow:0 0 30px rgba(81,255,154,.15);
 }
 
-.btn.danger{
+.btn.red{
   color:#fff;
-  background:rgba(255,84,112,.08);
-  border-color:rgba(255,84,112,.2);
+  border-color:rgba(255,82,112,.3);
+  background:rgba(255,82,112,.08);
 }
 
-/* CORE */
-
-.heroCore{
-  min-height:430px;
-  position:relative;
-  display:grid;
-  place-items:center;
-}
-
-.core{
-  width:min(370px,78vw);
-  aspect-ratio:1;
-  border-radius:50%;
-  position:relative;
-  border:1px solid rgba(81,255,154,.22);
-  background:
-    radial-gradient(circle,rgba(81,255,154,.1),transparent 55%),
-    rgba(7,18,13,.75);
-  box-shadow:
-    0 0 100px rgba(81,255,154,.08),
-    inset 0 0 80px rgba(81,255,154,.04);
-}
-
-.core:before,
-.core:after{
-  content:"";
-  position:absolute;
-  inset:12%;
-  border:1px dashed rgba(81,255,154,.17);
-  border-radius:50%;
-  animation:spin 16s linear infinite;
-}
-
-.core:after{
-  inset:25%;
-  border-color:rgba(92,243,255,.2);
-  animation-direction:reverse;
-  animation-duration:10s;
-}
-
-.coreCenter{
-  position:absolute;
-  inset:34%;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:rgba(81,255,154,.06);
-  border:1px solid rgba(81,255,154,.4);
-  box-shadow:0 0 50px rgba(81,255,154,.14);
-}
-
-.coreCenter strong{
-  font-family:Orbitron;
-  color:var(--green);
-  font-size:28px;
-}
-
-.coreLine{
-  position:absolute;
-  background:linear-gradient(90deg,transparent,var(--green),transparent);
-  height:1px;
-  width:70%;
-  left:15%;
-  top:50%;
-  opacity:.35;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-/* PLATFORM RAIL */
-
-.platformRail{
-  position:relative;
-  min-height:170px;
-  margin:30px 0 70px;
+.row{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:visible;
-}
-
-.rail{
-  width:100%;
-  height:1px;
-  background:linear-gradient(90deg,transparent,rgba(81,255,154,.3),transparent);
-  position:absolute;
-}
-
-.platform{
-  width:80px;
-  height:80px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(10,20,16,.7);
-  border-radius:23px;
-  position:absolute;
-  display:grid;
-  place-items:center;
-  font-family:Orbitron;
-  font-size:11px;
-  color:#b3c7bc;
-  box-shadow:0 10px 35px rgba(0,0,0,.3);
-  transition:.3s;
-}
-
-.platform:hover{
-  transform:scale(1.12) rotate(-4deg);
-  border-color:rgba(81,255,154,.4);
-  color:var(--green);
-}
-
-.p1{right:4%}
-.p2{right:20%}
-.p3{right:36%}
-.p4{left:36%}
-.p5{left:20%}
-.p6{left:4%}
-
-.platform small{
-  display:block;
-  font-family:Vazirmatn;
-  font-size:9px;
-  color:#597064;
-  margin-top:4px;
-}
-
-/* SECTIONS */
-
-.section{
-  margin:100px 0;
-}
-
-.sectionHead{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:20px;
-  margin-bottom:24px;
-}
-
-.sectionHead h2{
-  font-size:27px;
-}
-
-.sectionHead p{
-  color:#60786a;
-  font-size:12px;
-  margin-top:7px;
-}
-
-.glass{
-  border:1px solid rgba(81,255,154,.12);
-  background:linear-gradient(145deg,rgba(13,29,21,.78),rgba(5,13,10,.72));
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(20px);
-  border-radius:25px;
-}
-
-/* LOGIN */
-
-#loginScreen{
-  position:fixed;
-  inset:0;
-  z-index:9000;
-  display:grid;
-  place-items:center;
-  padding:20px;
-  background:rgba(1,4,3,.84);
-  backdrop-filter:blur(25px);
-}
-
-.loginBox{
-  width:min(470px,100%);
-  padding:32px;
-  text-align:center;
-}
-
-.loginLogo{
-  font-family:Orbitron;
-  font-size:42px;
-  font-weight:900;
-  color:var(--green);
-  letter-spacing:4px;
-}
-
-.loginBox h2{
-  margin:12px 0 8px;
-}
-
-.loginBox p{
-  color:#718a7b;
-  font-size:12px;
-  line-height:1.9;
-  margin-bottom:22px;
-}
-
-.input{
-  width:100%;
-  border:1px solid rgba(81,255,154,.14);
-  outline:none;
-  background:rgba(0,0,0,.2);
-  color:#fff;
-  border-radius:14px;
-  padding:14px;
-  text-align:center;
-  transition:.25s;
-}
-
-.input:focus{
-  border-color:rgba(81,255,154,.55);
-  box-shadow:0 0 25px rgba(81,255,154,.08);
-}
-
-.loginActions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
   gap:9px;
-  margin-top:10px;
+  flex-wrap:wrap;
 }
 
-.googleBtn{
-  width:100%;
-  margin-top:10px;
+.preview{
+  margin-top:18px;
+  padding:16px;
+  border:1px solid rgba(81,255,154,.1);
+  border-radius:17px;
+  background:rgba(0,0,0,.18);
 }
 
-.loginNote{
-  margin-top:15px!important;
-  font-size:10px!important;
+.previewLabel{
+  color:#5e7568;
+  font-size:9px;
+  margin-bottom:8px;
 }
 
-/* QUESTIONS */
-
-.gameLayout{
-  display:grid;
-  grid-template-columns:1.6fr .8fr;
-  gap:20px;
-}
-
-.gameCard{
-  padding:25px;
-}
-
-.questionTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-.badge{
-  border:1px solid rgba(81,255,154,.16);
-  border-radius:10px;
-  padding:7px 10px;
-  color:var(--green);
-  font-size:10px;
-}
-
-.timer{
-  font-family:Orbitron;
-  color:var(--cyan);
+.previewText{
   font-size:20px;
-}
-
-.question{
-  min-height:150px;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  font-size:clamp(20px,3vw,31px);
   font-weight:800;
   line-height:1.7;
-  padding:20px;
 }
 
-.timerTrack{
-  height:5px;
-  background:#102219;
-  border-radius:99px;
-  overflow:hidden;
-  margin:10px 0 22px;
-}
-
-#timerBar{
-  height:100%;
-  width:100%;
-  background:linear-gradient(90deg,var(--green),var(--cyan));
-  box-shadow:0 0 15px rgba(81,255,154,.3);
-  transition:width 1s linear;
-}
-
-.answers{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.answer{
-  min-height:65px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;
-  background:rgba(255,255,255,.025);
-  color:#d7e9df;
-  padding:12px;
-  transition:.25s;
-}
-
-.answer:hover:not(:disabled){
-  border-color:rgba(81,255,154,.4);
-  transform:translateY(-2px);
-}
-
-.answer.selected{
-  border-color:var(--green);
-  background:rgba(81,255,154,.08);
-}
-
-.answer:disabled{
-  cursor:not-allowed;
-  opacity:.65;
-}
-
-.votePanel{
-  padding:20px;
+.eventLog{
+  max-height:250px;
+  overflow:auto;
   display:flex;
   flex-direction:column;
+  gap:7px;
 }
 
-.votePanel h3{
-  margin-bottom:5px;
-}
-
-.votePanel p{
-  color:#668072;
-  font-size:11px;
-  line-height:1.8;
-}
-
-.voteButtons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:18px;
-}
-
-.vote{
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.025);
-  color:#fff;
-  border-radius:14px;
-  padding:13px;
-}
-
-.vote.good:hover{
-  border-color:rgba(81,255,154,.5);
-  color:var(--green);
-}
-
-.vote.bad:hover{
-  border-color:rgba(255,84,112,.5);
-  color:var(--red);
-}
-
-.voteResults{
-  margin-top:18px;
-  display:grid;
-  gap:8px;
-}
-
-.resultLine{
+.log{
   display:flex;
   justify-content:space-between;
+  gap:10px;
   padding:10px;
   border-radius:11px;
   background:rgba(255,255,255,.025);
-  color:#7f9689;
-  font-size:11px;
+  color:#7b9285;
+  font-size:10px;
 }
 
-/* LEADERBOARD */
-
-.leader{
-  padding:20px;
-}
-
-.rank{
-  display:grid;
-  grid-template-columns:42px 1fr auto;
-  align-items:center;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.rank:last-child{
-  border-bottom:0;
-}
-
-.rankNumber{
-  width:34px;
-  height:34px;
-  border-radius:11px;
-  display:grid;
-  place-items:center;
-  background:rgba(81,255,154,.06);
+.log b{
   color:var(--green);
-  font-family:Orbitron;
-  font-size:11px;
 }
 
-.rankName{
-  font-weight:700;
-}
-
-.rankUid{
-  color:#52695d;
-  font-size:9px;
-  margin-top:3px;
-}
-
-.points{
-  font-family:Orbitron;
+.obsUrl{
+  direction:ltr;
+  text-align:left;
+  word-break:break-all;
   color:var(--cyan);
-  font-size:12px;
-}
-
-/* CHAT */
-
-.chat{
-  padding:20px;
-}
-
-.chatMessages{
-  height:310px;
-  overflow-y:auto;
-  padding:4px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.chatMsg{
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.05);
-  padding:9px 11px;
-  border-radius:12px;
-}
-
-.chatMsg strong{
-  color:var(--green);
   font-size:11px;
-}
-
-.chatMsg p{
-  color:#c0d2c8;
-  font-size:12px;
-  margin-top:3px;
-  word-break:break-word;
-}
-
-.chatInput{
-  display:flex;
-  gap:8px;
+  padding:12px;
+  border-radius:12px;
+  background:#020504;
+  border:1px solid rgba(92,243,255,.12);
   margin-top:10px;
 }
 
-.chatInput .input{
-  text-align:right;
-}
-
-/* STATS */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.stat{
-  padding:20px;
-}
-
-.stat span{
-  color:#5e7568;
-  font-size:11px;
-}
-
-.stat strong{
-  display:block;
-  font-family:Orbitron;
-  font-size:25px;
-  color:var(--green);
-  margin-top:8px;
-}
-
-/* FLYING */
-
-.fly{
-  position:fixed;
-  z-index:300;
-  width:64px;
-  height:64px;
-  border:1px solid rgba(81,255,154,.25);
-  border-radius:18px;
-  background:rgba(5,15,10,.9);
-  display:grid;
-  place-items:center;
-  font-family:Orbitron;
-  font-size:9px;
-  color:var(--green);
-  pointer-events:none;
-  opacity:0;
-  box-shadow:0 15px 40px rgba(0,0,0,.3);
-}
-
-.fly.active{
-  animation:flyAcross 1.6s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-@keyframes flyAcross{
-  0%{
-    opacity:0;
-    transform:translateX(var(--startX)) translateY(30px) rotate(-20deg) scale(.5);
-  }
-  20%{opacity:1}
-  100%{
-    opacity:0;
-    transform:translateX(var(--endX)) translateY(-20px) rotate(20deg) scale(1.1);
-  }
-}
-
-/* FOOTER */
-
 footer{
-  padding:50px 0 80px;
+  padding:70px 0;
   text-align:center;
-  color:#42594d;
+  color:#3e5549;
   font-size:10px;
-  letter-spacing:1px;
 }
-
-footer b{
-  color:var(--green);
-  font-family:Orbitron;
-}
-
-/* TOAST */
 
 #toast{
   position:fixed;
   left:50%;
   bottom:25px;
   transform:translate(-50%,30px);
-  background:rgba(7,17,12,.95);
-  border:1px solid rgba(81,255,154,.25);
-  border-radius:14px;
-  padding:12px 18px;
-  color:#dff9e9;
-  font-size:12px;
-  z-index:9999;
   opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  box-shadow:0 15px 45px rgba(0,0,0,.35);
+  padding:12px 18px;
+  border:1px solid rgba(81,255,154,.25);
+  background:rgba(5,14,9,.96);
+  border-radius:13px;
+  color:#dff9e9;
+  font-size:11px;
+  z-index:999;
+  transition:.25s;
 }
 
 #toast.show{
@@ -919,116 +460,61 @@ footer b{
   transform:translate(-50%,0);
 }
 
-/* MOBILE */
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:1fr;
+  }
 
-@media(max-width:850px){
   .hero{
+    padding-top:60px;
+  }
+
+  .modes{
     grid-template-columns:1fr;
-    padding-top:65px;
-    min-height:auto;
-  }
-
-  .heroCore{
-    min-height:370px;
-    order:-1;
-  }
-
-  .gameLayout{
-    grid-template-columns:1fr;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .p1{right:1%}
-  .p2{right:18%}
-  .p3{right:35%}
-  .p4{left:35%}
-  .p5{left:18%}
-  .p6{left:1%}
-
-  .platform{
-    width:62px;
-    height:62px;
-    font-size:8px;
   }
 }
 
-@media(max-width:560px){
-  main{
-    width:min(100% - 18px,1200px);
+@media(max-width:550px){
+  #app{
+    width:calc(100% - 18px);
   }
 
   .nav{
     width:calc(100% - 18px);
   }
 
-  .brandText{
-    display:none;
-  }
-
-  .connection{
-    font-size:9px;
-  }
-
   .hero h1{
     font-size:55px;
-    letter-spacing:-3px;
   }
 
-  .hero p{
-    font-size:13px;
+  .obsEvent{
+    width:calc(100vw - 30px);
   }
 
-  .answers{
-    grid-template-columns:1fr;
+  @keyframes eventIn{
+    from{
+      transform:translate3d(0,-50%,0) scale(.92);
+      right:-110vw;
+      opacity:0;
+    }
+    to{
+      transform:translate3d(0,-50%,0) scale(1);
+      right:15px;
+      opacity:1;
+    }
   }
 
-  .question{
-    min-height:170px;
-    font-size:20px;
-  }
-
-  .section{
-    margin:70px 0;
-  }
-
-  .sectionHead{
-    display:block;
-  }
-
-  .stats{
-    gap:8px;
-  }
-
-  .stat{
-    padding:15px;
-  }
-
-  .stat strong{
-    font-size:20px;
-  }
-
-  .platformRail{
-    min-height:120px;
-  }
-
-  .platform{
-    width:50px;
-    height:50px;
-    border-radius:14px;
-  }
-
-  .p1{right:0}
-  .p2{right:19%}
-  .p3{right:38%}
-  .p4{left:38%}
-  .p5{left:19%}
-  .p6{left:0}
-
-  .loginBox{
-    padding:24px 18px;
+  @keyframes eventOut{
+    from{
+      transform:translate3d(0,-50%,0) scale(1);
+      right:15px;
+      opacity:1;
+    }
+    to{
+      transform:translate3d(0,-50%,0) scale(.92);
+      right:-110vw;
+      opacity:0;
+    }
   }
 }
 </style>
@@ -1036,30 +522,25 @@ footer b{
 
 <body>
 
-<div id="loader">
-  <div class="loaderBox">
-    <div class="loaderLogo">VANTER</div>
-    <div class="loaderSub">TY VANTA SYSTEM</div>
-    <div class="loaderBar"><i></i></div>
-  </div>
-</div>
+<!-- =====================================================
+     OBS OVERLAY
+===================================================== -->
+
+<div id="obsOverlay"></div>
+
+<!-- =====================================================
+     CONTROL PANEL
+===================================================== -->
+
+<div id="app">
 
 <header>
   <div class="nav">
-    <div class="brand">
-      <div class="brandMark">TV</div>
-      <div class="brandText">
-        <strong>TY VANTA</strong>
-        <span>VANTER SYSTEM</span>
-      </div>
-    </div>
+    <div class="logo">TY VANTA</div>
 
-    <div class="navRight">
-      <div class="connection">
-        <i id="connectionDot" class="dot"></i>
-        <span id="connectionText">در حال اتصال...</span>
-      </div>
-      <div id="userMini" class="userMini">Guest</div>
+    <div class="status">
+      <i id="statusDot" class="statusDot"></i>
+      <span id="statusText">در حال اتصال...</span>
     </div>
   </div>
 </header>
@@ -1067,225 +548,144 @@ footer b{
 <main>
 
 <section class="hero">
-  <div class="heroGlow"></div>
+  <h1>TY<br><span>VANTA</span></h1>
 
-  <div>
-    <div class="kicker">
-      <b></b>
-      LIVE STREAMER GAME
+  <p>
+    کنترل‌پنل رویدادهای استریمر.
+    بازی یا Challenge را انتخاب کن، رویداد را اجرا کن و نمایش آن را مستقیماً داخل OBS ببین.
+  </p>
+</section>
+
+<section class="grid">
+
+  <div class="card">
+
+    <h2>GAME MODES</h2>
+    <div class="cardSub">
+      مود مورد نظر را انتخاب کن.
     </div>
 
-    <h1>TY<br><span>VANTA</span></h1>
+    <div class="modes">
 
-    <p>
-      وارد VANTER شو، جواب بده، رأی بگیر و خودت رو وارد جدول امتیازات کن.
-      اینجا هر جواب می‌تونه رتبه‌ات رو عوض کنه.
-    </p>
-
-    <div class="heroButtons">
-      <button class="btn primary" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})">
-        شروع VANTER
+      <button class="mode active" data-mode="challenge">
+        <strong>CHALLENGE</strong>
+        <span>چالش سریع برای استریم</span>
       </button>
 
-      <button class="btn" onclick="document.getElementById('leaderboard').scrollIntoView({behavior:'smooth'})">
-        لیدربورد
+      <button class="mode" data-mode="random">
+        <strong>RANDOM EVENT</strong>
+        <span>رویداد تصادفی</span>
       </button>
-    </div>
-  </div>
 
-  <div class="heroCore">
-    <div class="core">
-      <div class="coreLine"></div>
-      <div class="coreCenter">
-        <strong>V</strong>
-      </div>
-    </div>
-  </div>
-</section>
+      <button class="mode" data-mode="donation">
+        <strong>DONATION ATTACK</strong>
+        <span>رویداد مخصوص دونیت</span>
+      </button>
 
-<section class="platformRail">
-  <div class="rail"></div>
-
-  <div class="platform p1">
-    KICK
-    <small>STREAM</small>
-  </div>
-
-  <div class="platform p2">
-    YT
-    <small>VIDEO</small>
-  </div>
-
-  <div class="platform p3">
-    TW
-    <small>LIVE</small>
-  </div>
-
-  <div class="platform p4">
-    AP
-    <small>IRAN</small>
-  </div>
-
-  <div class="platform p5">
-    DC
-    <small>CHAT</small>
-  </div>
-
-  <div class="platform p6">
-    TG
-    <small>COMM</small>
-  </div>
-</section>
-
-<section class="section" id="game">
-
-  <div class="sectionHead">
-    <div>
-      <h2>VANTER GAME</h2>
-      <p>چهار سؤال، چند ثانیه، یک شانس.</p>
-    </div>
-    <div class="badge" id="questionCounter">سؤال ۱ از ۴</div>
-  </div>
-
-  <div class="gameLayout">
-
-    <div class="gameCard glass">
-
-      <div class="questionTop">
-        <div class="badge" id="difficulty">CONTROVERSIAL</div>
-        <div class="timer"><span id="timer">5</span>S</div>
-      </div>
-
-      <div class="timerTrack">
-        <div id="timerBar"></div>
-      </div>
-
-      <div class="question" id="question">
-        برای شروع بازی وارد شو.
-      </div>
-
-      <div class="answers" id="answers"></div>
-
-      <div style="margin-top:15px;display:flex;justify-content:space-between;align-items:center;gap:10px">
-        <span id="answerStatus" style="color:#688071;font-size:11px"></span>
-
-        <button class="btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
-          سؤال بعدی
-        </button>
-      </div>
+      <button class="mode" data-mode="quick">
+        <strong>QUICK CHALLENGE</strong>
+        <span>چالش کوتاه</span>
+      </button>
 
     </div>
 
-    <aside class="votePanel glass">
+    <div style="margin-top:22px">
 
-      <h3>رأی VANTERها</h3>
-      <p>
-        بعد از جواب دادن، بقیه بازیکن‌ها می‌تونن درباره درست یا غلط بودن جوابت رأی بدن.
-      </p>
-
-      <div class="voteButtons">
-        <button class="vote good" onclick="castVote('correct')">
-          درست بود
-        </button>
-
-        <button class="vote bad" onclick="castVote('wrong')">
-          غلط بود
-        </button>
-      </div>
-
-      <div class="voteResults">
-        <div class="resultLine">
-          <span>رأی درست</span>
-          <b id="correctVotes">0</b>
-        </div>
-
-        <div class="resultLine">
-          <span>رأی غلط</span>
-          <b id="wrongVotes">0</b>
-        </div>
-      </div>
-
-    </aside>
-
-  </div>
-</section>
-
-<section class="section" id="leaderboard">
-
-  <div class="sectionHead">
-    <div>
-      <h2>LEADERBOARD</h2>
-      <p>بازیکن‌هایی که بیشترین امتیاز را گرفته‌اند.</p>
-    </div>
-  </div>
-
-  <div class="leader glass" id="leaderList">
-    <div style="text-align:center;color:#587064;padding:30px">
-      در حال دریافت لیدربورد...
-    </div>
-  </div>
-
-</section>
-
-<section class="section">
-
-  <div class="sectionHead">
-    <div>
-      <h2>LIVE CHAT</h2>
-      <p>چت زنده VANTERها با Firebase.</p>
-    </div>
-  </div>
-
-  <div class="chat glass">
-
-    <div class="chatMessages" id="chatMessages">
-      <div style="color:#52695d;text-align:center;padding:30px;font-size:11px">
-        در حال اتصال به چت...
-      </div>
-    </div>
-
-    <div class="chatInput">
       <input
+        id="challengeInput"
         class="input"
-        id="chatInput"
-        maxlength="180"
-        placeholder="پیامت رو بنویس..."
-        onkeydown="if(event.key==='Enter')sendChat()"
+        maxlength="120"
+        value="آب یخ رو سرت بریز"
+        placeholder="متن چالش..."
       >
 
-      <button class="btn primary" onclick="sendChat()">
-        ارسال
+      <div class="row">
+
+        <button
+          class="btn primary"
+          onclick="sendChallenge()">
+          اجرای Challenge
+        </button>
+
+        <button
+          class="btn"
+          onclick="sendRandomChallenge()">
+          چالش تصادفی
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="preview">
+
+      <div class="previewLabel">
+        PREVIEW
+      </div>
+
+      <div
+        class="previewText"
+        id="previewText">
+        آب یخ رو سرت بریز
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>OBS OVERLAY</h2>
+
+    <div class="cardSub">
+      این لینک را به Browser Source در OBS بده.
+    </div>
+
+    <div class="obsUrl" id="obsUrl">
+      در حال ساخت لینک...
+    </div>
+
+    <div style="margin-top:13px" class="row">
+
+      <button
+        class="btn primary"
+        onclick="copyObsUrl()">
+        کپی لینک OBS
       </button>
+
+      <button
+        class="btn"
+        onclick="testObs()">
+        تست Overlay
+      </button>
+
+    </div>
+
+    <div style="margin-top:18px;color:#627a6d;font-size:10px;line-height:1.9">
+      در OBS یک Browser Source بساز،
+      لینک بالا را وارد کن و Background را شفاف نگه دار.
+      اندازه را مطابق رزولوشن استریم قرار بده.
     </div>
 
   </div>
 
 </section>
 
-<section class="section">
 
-  <div class="stats">
+<section class="card" style="margin-top:18px">
 
-    <div class="stat glass">
-      <span>PLAYER</span>
-      <strong id="statPlayer">—</strong>
+  <h2>EVENT LOG</h2>
+
+  <div class="cardSub">
+    رویدادهایی که توسط این کنترل‌پنل ارسال شده‌اند.
+  </div>
+
+  <div id="eventLog" class="eventLog">
+    <div class="log">
+      <span>سیستم آماده است</span>
+      <b>READY</b>
     </div>
-
-    <div class="stat glass">
-      <span>SCORE</span>
-      <strong id="statScore">0</strong>
-    </div>
-
-    <div class="stat glass">
-      <span>QUESTION</span>
-      <strong id="statQuestion">1/4</strong>
-    </div>
-
-    <div class="stat glass">
-      <span>STATUS</span>
-      <strong id="statStatus">READY</strong>
-    </div>
-
   </div>
 
 </section>
@@ -1293,56 +693,13 @@ footer b{
 </main>
 
 <footer>
-  BUILT FOR <b>TY VANTA</b> — VANTER SYSTEM
+  TY VANTA — STREAMER EVENT ENGINE
 </footer>
+
+</div>
 
 <div id="toast"></div>
 
-<div id="loginScreen">
-
-  <div class="loginBox glass">
-
-    <div class="loginLogo">VANTER</div>
-
-    <h2>ورود به بازی</h2>
-
-    <p>
-      یک اسم برای ورود انتخاب کن.
-      می‌تونی به صورت مهمان وارد بشی یا حساب Google خودت رو وصل کنی.
-    </p>
-
-    <input
-      id="nameInput"
-      class="input"
-      maxlength="20"
-      placeholder="نام VANTER"
-      autocomplete="off"
-    >
-
-    <div class="loginActions">
-      <button class="btn primary" onclick="guestLogin()">
-        ورود مهمان
-      </button>
-
-      <button class="btn" onclick="googleLogin()">
-        ورود Google
-      </button>
-    </div>
-
-    <button
-      class="btn googleBtn hidden"
-      id="retryGoogle"
-      onclick="googleLogin()">
-      تلاش دوباره Google
-    </button>
-
-    <p class="loginNote">
-      با ورود مهمان نیازی به ساخت حساب نداری.
-    </p>
-
-  </div>
-
-</div>
 
 <script type="module">
 
@@ -1351,28 +708,23 @@ from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
 import {
   getAuth,
-  signInAnonymously,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged
+  signInAnonymously
 }
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 import {
   getDatabase,
   ref,
-  set,
   push,
-  update,
-  onValue,
-  get
+  set,
+  onValue
 }
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 
-/* ================================
-   FIREBASE
-================================ */
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
 
 const firebaseConfig = {
   apiKey: "AIzaSyAnYMMl2VBkBym-epaGZg2pmWjjHIO7v60",
@@ -1386,860 +738,74 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 const db = getDatabase(app);
 
 
-/* ================================
-   STATE
-================================ */
+/* =====================================================
+   CONFIG
+===================================================== */
 
-let currentUser = null;
-let playerName = "";
-let score = 0;
-let questionIndex = 0;
-let selectedAnswer = null;
-let answerLocked = false;
-let timerInterval = null;
-let currentQuestion = null;
-let hasVoted = false;
+const EVENT_DURATION = 10000;
 
-
-/* ================================
-   QUESTIONS
-================================ */
-
-const questions = [
-
-  {
-    text:"اگه یک استریمر وسط لایو اشتباه بزرگی کنه، بهترین کار چیه؟",
-    options:[
-      "نادیده گرفتن و ادامه دادن",
-      "همون لحظه توضیح دادن",
-      "پاک کردن لایو",
-      "تقصیر رو گردن چت انداختن"
-    ],
-    correct:1
-  },
-
-  {
-    text:"کدوم مورد بیشتر باعث میشه یک استریم کسل‌کننده بشه؟",
-    options:[
-      "تعامل کم با چت",
-      "گرافیک زیاد",
-      "موسیقی زیاد",
-      "وبکم روشن"
-    ],
-    correct:0
-  },
-
-  {
-    text:"اگه چت درباره یک موضوع جنجالی دو دسته بشه، استریمر بهتره چی کار کنه؟",
-    options:[
-      "بحث رو بیشتر شعله‌ور کنه",
-      "همه رو بن کنه",
-      "آروم مدیریت کنه",
-      "لایو رو ببنده"
-    ],
-    correct:2
-  },
-
-  {
-    text:"کدوم ویژگی برای یک استریمر تازه‌کار مهم‌تره؟",
-    options:[
-      "تجهیزات خیلی گران",
-      "ثبات و ادامه دادن",
-      "دوربین خیلی گران",
-      "تعداد فالوور بالا"
-    ],
-    correct:1
-  }
-
+const challenges = [
+  "آب یخ رو سرت بریز",
+  "۱۰ تا اسکات برو",
+  "۳۰ ثانیه بدون حرف بازی کن",
+  "یک حرکت خنده‌دار انجام بده",
+  "اسم یک فالوور را صدا بزن",
+  "۵ ثانیه به دوربین زل بزن",
+  "با صدای عجیب یک جمله بگو",
+  "یک حرکت شانسی انجام بده"
 ];
 
+let selectedMode = "challenge";
+let currentUser = null;
+let overlayEvent = null;
+let hideTimer = null;
+let eventQueue = [];
+let processingQueue = false;
 
-/* ================================
-   UI
-================================ */
 
-const $ = id => document.getElementById(id);
+/* =====================================================
+   HELPERS
+===================================================== */
 
-function toast(message){
+function $(id){
+  return document.getElementById(id);
+}
 
-  const t = $("toast");
+function toast(text){
 
-  t.textContent = message;
-  t.classList.add("show");
+  const el=$("toast");
+
+  el.textContent=text;
+  el.classList.add("show");
 
   setTimeout(()=>{
-    t.classList.remove("show");
-  },2600);
-}
-
-
-/* ================================
-   CONNECTION
-================================ */
-
-const connectedRef = ref(db,".info/connected");
-
-onValue(connectedRef,snapshot=>{
-
-  const connected = snapshot.val() === true;
-
-  $("connectionDot").className =
-    connected ? "dot ok" : "dot bad";
-
-  $("connectionText").textContent =
-    connected ? "Firebase متصل" : "قطع اتصال";
-
-});
-
-
-/* ================================
-   AUTH
-================================ */
-
-onAuthStateChanged(auth,user=>{
-
-  currentUser = user;
-
-  if(user){
-
-    $("userMini").textContent =
-      user.isAnonymous ? "Guest" : "Google";
-
-    loadPlayer(user.uid);
-
-  }
-
-});
-
-
-window.guestLogin = async function(){
-
-  const name = $("nameInput").value.trim();
-
-  if(!name){
-    toast("اول یک اسم وارد کن.");
-    return;
-  }
-
-  if(name.length < 2){
-    toast("اسم باید حداقل ۲ حرف داشته باشه.");
-    return;
-  }
-
-  try{
-
-    $("statStatus").textContent="CONNECTING";
-
-    const result = await signInAnonymously(auth);
-
-    playerName = name;
-
-    await createPlayer(result.user.uid,name);
-
-    $("loginScreen").classList.add("hidden");
-
-    $("statPlayer").textContent = name;
-
-    toast("خوش اومدی "+name+"!");
-
-    startGame();
-
-  }catch(error){
-
-    console.error(error);
-
-    toast("ورود مهمان انجام نشد.");
-
-  }
-
-};
-
-
-window.googleLogin = async function(){
-
-  const name = $("nameInput").value.trim();
-
-  if(!name){
-
-    toast("اول اسمت رو وارد کن.");
-
-    return;
-
-  }
-
-  try{
-
-    const provider = new GoogleAuthProvider();
-
-    const result =
-      await signInWithPopup(auth,provider);
-
-    currentUser=result.user;
-
-    playerName=name;
-
-    await createPlayer(
-      currentUser.uid,
-      name
-    );
-
-    $("loginScreen").classList.add("hidden");
-
-    $("userMini").textContent="Google";
-
-    $("statPlayer").textContent=name;
-
-    toast("با Google وارد شدی.");
-
-    startGame();
-
-  }catch(error){
-
-    console.error(error);
-
-    $("retryGoogle").classList.remove("hidden");
-
-    toast("ورود Google انجام نشد.");
-
-  }
-
-};
-
-
-/* ================================
-   PLAYER
-================================ */
-
-async function createPlayer(uid,name){
-
-  const playerRef =
-    ref(db,"tyVanta/users/"+uid);
-
-  const snapshot = await get(playerRef);
-
-  if(snapshot.exists()){
-
-    const old = snapshot.val();
-
-    score = Number(old.score || 0);
-
-    await update(playerRef,{
-      name:name,
-      lastSeen:Date.now()
-    });
-
-  }else{
-
-    score=0;
-
-    await set(playerRef,{
-      name:name,
-      score:0,
-      questions:0,
-      correct:0,
-      createdAt:Date.now(),
-      lastSeen:Date.now()
-    });
-
-  }
+    el.classList.remove("show");
+  },2200);
 
 }
 
+function addLog(type,text){
 
-async function loadPlayer(uid){
+  const box=$("eventLog");
 
-  try{
+  const row=document.createElement("div");
 
-    const snapshot =
-      await get(ref(db,"tyVanta/users/"+uid));
+  row.className="log";
 
-    if(snapshot.exists()){
+  row.innerHTML=
+    `<span>${escapeHTML(text)}</span><b>${escapeHTML(type)}</b>`;
 
-      const data=snapshot.val();
+  box.prepend(row);
 
-      playerName=data.name || "";
-
-      score=Number(data.score || 0);
-
-      $("statPlayer").textContent =
-        playerName || "Guest";
-
-      $("statScore").textContent=score;
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
+  while(box.children.length>20){
+    box.lastChild.remove();
   }
 
 }
-
-
-/* ================================
-   GAME
-================================ */
-
-function startGame(){
-
-  questionIndex=0;
-
-  score=score||0;
-
-  loadQuestion();
-
-}
-
-
-function loadQuestion(){
-
-  clearInterval(timerInterval);
-
-  if(questionIndex >= questions.length){
-
-    finishGame();
-
-    return;
-
-  }
-
-  currentQuestion =
-    questions[questionIndex];
-
-  selectedAnswer=null;
-  answerLocked=false;
-  hasVoted=false;
-
-  $("questionCounter").textContent =
-    `سؤال ${questionIndex+1} از ${questions.length}`;
-
-  $("statQuestion").textContent =
-    `${questionIndex+1}/${questions.length}`;
-
-  $("statStatus").textContent="PLAYING";
-
-  $("difficulty").textContent =
-    questionIndex===0 ? "WARM UP" :
-    questionIndex===1 ? "MEDIUM" :
-    questionIndex===2 ? "HARD" :
-    "FINAL";
-
-  $("question").textContent =
-    currentQuestion.text;
-
-  $("answerStatus").textContent="";
-
-  $("nextBtn").disabled=true;
-
-  renderAnswers();
-
-  startTimer();
-
-  $("correctVotes").textContent="0";
-  $("wrongVotes").textContent="0";
-
-}
-
-
-function renderAnswers(){
-
-  const container=$("answers");
-
-  container.innerHTML="";
-
-  currentQuestion.options.forEach((option,index)=>{
-
-    const button=document.createElement("button");
-
-    button.className="answer";
-
-    button.textContent=option;
-
-    button.onclick=()=>selectAnswer(index,button);
-
-    container.appendChild(button);
-
-  });
-
-}
-
-
-function selectAnswer(index,button){
-
-  if(answerLocked) return;
-
-  answerLocked=true;
-
-  selectedAnswer=index;
-
-  document
-    .querySelectorAll(".answer")
-    .forEach(b=>b.disabled=true);
-
-  button.classList.add("selected");
-
-  clearInterval(timerInterval);
-
-  const correct =
-    index===currentQuestion.correct;
-
-  if(correct){
-
-    score += 10;
-
-    $("answerStatus").textContent =
-      "جواب درست بود +10";
-
-    $("answerStatus").style.color =
-      "var(--green)";
-
-  }else{
-
-    $("answerStatus").textContent =
-      "جواب درست نبود";
-
-    $("answerStatus").style.color =
-      "var(--red)";
-
-  }
-
-  $("statScore").textContent=score;
-
-  $("nextBtn").disabled=false;
-
-  saveAnswer(correct);
-
-}
-
-
-function startTimer(){
-
-  let time=5;
-
-  $("timer").textContent=time;
-
-  $("timerBar").style.width="100%";
-
-  timerInterval=setInterval(()=>{
-
-    time--;
-
-    $("timer").textContent=time;
-
-    $("timerBar").style.width =
-      `${(time/5)*100}%`;
-
-    if(time<=0){
-
-      clearInterval(timerInterval);
-
-      if(!answerLocked){
-
-        answerLocked=true;
-
-        document
-          .querySelectorAll(".answer")
-          .forEach(b=>b.disabled=true);
-
-        $("answerStatus").textContent =
-          "زمان تموم شد.";
-
-        $("answerStatus").style.color =
-          "var(--red)";
-
-        $("nextBtn").disabled=false;
-
-        saveAnswer(false);
-
-      }
-
-    }
-
-  },1000);
-
-}
-
-
-async function saveAnswer(correct){
-
-  if(!currentUser) return;
-
-  try{
-
-    const playerRef =
-      ref(db,"tyVanta/users/"+currentUser.uid);
-
-    const snapshot=await get(playerRef);
-
-    const old=snapshot.exists()
-      ? snapshot.val()
-      : {};
-
-    const oldCorrect =
-      Number(old.correct || 0);
-
-    const oldQuestions =
-      Number(old.questions || 0);
-
-    await update(playerRef,{
-
-      name:playerName,
-
-      score:score,
-
-      questions:oldQuestions+1,
-
-      correct:
-        oldCorrect+(correct?1:0),
-
-      lastSeen:Date.now()
-
-    });
-
-  }catch(error){
-
-    console.error(error);
-
-  }
-
-}
-
-
-window.nextQuestion=function(){
-
-  questionIndex++;
-
-  loadQuestion();
-
-};
-
-
-function finishGame(){
-
-  clearInterval(timerInterval);
-
-  $("question").innerHTML =
-    `<strong style="color:var(--green)">VANTER تموم شد.</strong><br>
-     امتیاز نهایی: ${score}`;
-
-  $("answers").innerHTML="";
-
-  $("nextBtn").disabled=true;
-
-  $("statStatus").textContent="FINISHED";
-
-  toast("بازی تموم شد. امتیازت ثبت شد.");
-
-}
-
-
-/* ================================
-   VOTES
-================================ */
-
-window.castVote=async function(type){
-
-  if(!currentUser){
-
-    toast("اول وارد بازی شو.");
-
-    return;
-
-  }
-
-  if(!answerLocked){
-
-    toast("اول باید جواب بدی.");
-
-    return;
-
-  }
-
-  if(hasVoted){
-
-    toast("قبلاً رأی دادی.");
-
-    return;
-
-  }
-
-  hasVoted=true;
-
-  const voteRef =
-    ref(
-      db,
-      "tyVanta/votes/question_"+questionIndex
-    );
-
-  const newVote=push(voteRef);
-
-  await set(newVote,{
-
-    type:type,
-
-    uid:currentUser.uid,
-
-    name:playerName,
-
-    createdAt:Date.now()
-
-  });
-
-  toast("رأیت ثبت شد.");
-
-};
-
-
-function listenVotes(){
-
-  const voteRef =
-    ref(
-      db,
-      "tyVanta/votes/question_"+questionIndex
-    );
-
-  onValue(voteRef,snapshot=>{
-
-    let correct=0;
-    let wrong=0;
-
-    snapshot.forEach(child=>{
-
-      const value=child.val();
-
-      if(value.type==="correct")
-        correct++;
-
-      if(value.type==="wrong")
-        wrong++;
-
-    });
-
-    $("correctVotes").textContent=correct;
-    $("wrongVotes").textContent=wrong;
-
-  });
-
-}
-
-
-/* ================================
-   LEADERBOARD
-================================ */
-
-const leaderboardRef =
-  ref(db,"tyVanta/users");
-
-onValue(leaderboardRef,snapshot=>{
-
-  const players=[];
-
-  snapshot.forEach(child=>{
-
-    const data=child.val();
-
-    players.push({
-
-      uid:child.key,
-
-      name:data.name || "Unknown",
-
-      score:Number(data.score || 0)
-
-    });
-
-  });
-
-  players.sort((a,b)=>b.score-a.score);
-
-  renderLeaderboard(players.slice(0,20));
-
-});
-
-
-function renderLeaderboard(players){
-
-  const list=$("leaderList");
-
-  if(!players.length){
-
-    list.innerHTML=`
-      <div style="text-align:center;color:#587064;padding:30px">
-        هنوز بازیکنی ثبت نشده.
-      </div>
-    `;
-
-    return;
-
-  }
-
-  list.innerHTML="";
-
-  players.forEach((player,index)=>{
-
-    const row=document.createElement("div");
-
-    row.className="rank";
-
-    row.innerHTML=`
-
-      <div class="rankNumber">
-        ${index+1}
-      </div>
-
-      <div>
-        <div class="rankName">
-          ${escapeHTML(player.name)}
-        </div>
-
-        <div class="rankUid">
-          VANTER PLAYER
-        </div>
-      </div>
-
-      <div class="points">
-        ${player.score}
-      </div>
-
-    `;
-
-    list.appendChild(row);
-
-  });
-
-}
-
-
-/* ================================
-   CHAT
-================================ */
-
-const chatRef =
-  ref(db,"tyVanta/chat");
-
-onValue(chatRef,snapshot=>{
-
-  const messages=[];
-
-  snapshot.forEach(child=>{
-
-    messages.push({
-      id:child.key,
-      ...child.val()
-    });
-
-  });
-
-  messages.sort((a,b)=>
-    Number(a.createdAt||0) -
-    Number(b.createdAt||0)
-  );
-
-  renderChat(messages.slice(-80));
-
-});
-
-
-function renderChat(messages){
-
-  const box=$("chatMessages");
-
-  box.innerHTML="";
-
-  if(!messages.length){
-
-    box.innerHTML=`
-      <div style="color:#52695d;text-align:center;padding:30px;font-size:11px">
-        هنوز پیامی ارسال نشده.
-      </div>
-    `;
-
-    return;
-
-  }
-
-  messages.forEach(message=>{
-
-    const div=document.createElement("div");
-
-    div.className="chatMsg";
-
-    div.innerHTML=`
-      <strong>${escapeHTML(message.name || "VANTER")}</strong>
-      <p>${escapeHTML(message.text || "")}</p>
-    `;
-
-    box.appendChild(div);
-
-  });
-
-  box.scrollTop=box.scrollHeight;
-
-}
-
-
-window.sendChat=async function(){
-
-  if(!currentUser){
-
-    toast("اول وارد شو.");
-
-    return;
-
-  }
-
-  const input=$("chatInput");
-
-  const text=input.value.trim();
-
-  if(!text) return;
-
-  if(text.length>180){
-
-    toast("پیام خیلی طولانیه.");
-
-    return;
-
-  }
-
-  try{
-
-    const message=push(chatRef);
-
-    await set(message,{
-
-      uid:currentUser.uid,
-
-      name:playerName || "VANTER",
-
-      text:text,
-
-      createdAt:Date.now()
-
-    });
-
-    input.value="";
-
-  }catch(error){
-
-    console.error(error);
-
-    toast("ارسال پیام انجام نشد.");
-
-  }
-
-};
-
-
-/* ================================
-   SECURITY HELPER
-================================ */
 
 function escapeHTML(value){
 
@@ -2253,124 +819,518 @@ function escapeHTML(value){
 }
 
 
-/* ================================
-   SCROLL PLATFORM ANIMATION
-================================ */
+/* =====================================================
+   MODE
+===================================================== */
 
-const flyingNames=[
-  "KICK",
-  "YOUTUBE",
-  "TWITCH",
-  "APARAT",
-  "DISCORD",
-  "TELEGRAM"
-];
+document.querySelectorAll(".mode").forEach(button=>{
 
-let lastScroll=0;
+  button.addEventListener("click",()=>{
 
-function spawnFly(){
+    document
+      .querySelectorAll(".mode")
+      .forEach(b=>b.classList.remove("active"));
 
-  const el=document.createElement("div");
+    button.classList.add("active");
 
-  el.className="fly";
+    selectedMode=button.dataset.mode;
 
-  el.textContent =
-    flyingNames[
-      Math.floor(
-        Math.random()*flyingNames.length
-      )
-    ];
+    updatePreview();
 
-  const fromLeft=Math.random()>.5;
-
-  el.style.top =
-    (Math.random()*65+15)+"vh";
-
-  el.style.setProperty(
-    "--startX",
-    fromLeft ? "-130vw" : "130vw"
-  );
-
-  el.style.setProperty(
-    "--endX",
-    fromLeft ? "130vw" : "-130vw"
-  );
-
-  document.body.appendChild(el);
-
-  requestAnimationFrame(()=>{
-    el.classList.add("active");
   });
 
-  setTimeout(()=>{
-    el.remove();
-  },1700);
+});
+
+
+$("challengeInput").addEventListener("input",updatePreview);
+
+
+function updatePreview(){
+
+  const text=$("challengeInput").value.trim();
+
+  $("previewText").textContent =
+    text || "یک Challenge انتخاب کن";
 
 }
 
 
-window.addEventListener("scroll",()=>{
+/* =====================================================
+   AUTH
+===================================================== */
 
-  const now=window.scrollY;
+async function login(){
 
-  if(Math.abs(now-lastScroll)>180){
+  try{
 
-    spawnFly();
+    const result =
+      await signInAnonymously(auth);
 
-    lastScroll=now;
+    currentUser=result.user;
+
+    $("statusDot").classList.add("ok");
+
+    $("statusText").textContent =
+      "Firebase متصل";
+
+    addLog("SYSTEM","Firebase connected");
+
+  }catch(error){
+
+    console.error(error);
+
+    $("statusText").textContent =
+      "Firebase error";
+
+    toast("اتصال Firebase انجام نشد.");
 
   }
 
-});
+}
 
 
-/* ================================
-   MOUSE GLOW
-================================ */
+/* =====================================================
+   SEND EVENT
+===================================================== */
 
-window.addEventListener("pointermove",event=>{
+async function sendEvent({
 
-  document.body.style.setProperty(
-    "--mx",
-    event.clientX+"px"
+  type,
+  title,
+  duration=EVENT_DURATION
+
+}){
+
+  if(!currentUser){
+
+    toast("Firebase هنوز متصل نشده.");
+
+    return;
+
+  }
+
+  const eventRef =
+    push(ref(db,"tyVanta/events"));
+
+  await set(eventRef,{
+
+    type:type,
+
+    title:title,
+
+    duration:duration,
+
+    createdAt:Date.now(),
+
+    sender:currentUser.uid
+
+  });
+
+  addLog(type,title);
+
+}
+
+
+/* =====================================================
+   CHALLENGE
+===================================================== */
+
+window.sendChallenge=async function(){
+
+  const title =
+    $("challengeInput").value.trim();
+
+  if(!title){
+
+    toast("متن Challenge خالیه.");
+
+    return;
+
+  }
+
+  await sendEvent({
+
+    type:selectedMode.toUpperCase(),
+
+    title:title,
+
+    duration:EVENT_DURATION
+
+  });
+
+  toast("Challenge ارسال شد.");
+
+};
+
+
+window.sendRandomChallenge=async function(){
+
+  const title =
+    challenges[
+      Math.floor(Math.random()*challenges.length)
+    ];
+
+  $("challengeInput").value=title;
+
+  updatePreview();
+
+  await sendEvent({
+
+    type:"RANDOM CHALLENGE",
+
+    title:title,
+
+    duration:EVENT_DURATION
+
+  });
+
+  toast("چالش تصادفی اجرا شد.");
+
+};
+
+
+/* =====================================================
+   OBS URL
+===================================================== */
+
+function getOverlayUrl(){
+
+  const url=new URL(
+    window.location.href
   );
 
-  document.body.style.setProperty(
-    "--my",
-    event.clientY+"px"
+  url.searchParams.set("overlay","1");
+
+  return url.toString();
+
+}
+
+function updateObsUrl(){
+
+  $("obsUrl").textContent=
+    getOverlayUrl();
+
+}
+
+window.copyObsUrl=async function(){
+
+  try{
+
+    await navigator.clipboard.writeText(
+      getOverlayUrl()
+    );
+
+    toast("لینک OBS کپی شد.");
+
+  }catch{
+
+    toast("کپی خودکار در دسترس نیست.");
+
+  }
+
+};
+
+
+/* =====================================================
+   LOCAL TEST
+===================================================== */
+
+window.testObs=function(){
+
+  if(document.body.classList.contains("overlay")){
+
+    return;
+
+  }
+
+  showOverlayEvent({
+
+    type:"CHALLENGE",
+
+    title:
+      $("challengeInput").value.trim()
+      || "آب یخ رو سرت بریز",
+
+    duration:EVENT_DURATION
+
+  });
+
+};
+
+
+/* =====================================================
+   EVENT ENGINE
+===================================================== */
+
+function enqueueEvent(event){
+
+  eventQueue.push(event);
+
+  processQueue();
+
+}
+
+
+async function processQueue(){
+
+  if(processingQueue) return;
+
+  if(!eventQueue.length) return;
+
+  processingQueue=true;
+
+  const event=eventQueue.shift();
+
+  await showOverlayEvent(event);
+
+  processingQueue=false;
+
+  if(eventQueue.length){
+
+    processQueue();
+
+  }
+
+}
+
+
+function showOverlayEvent(event){
+
+  return new Promise(resolve=>{
+
+    const container=$("obsOverlay");
+
+    const old=overlayEvent;
+
+    if(old){
+
+      old.remove();
+
+      overlayEvent=null;
+
+    }
+
+    const card=document.createElement("div");
+
+    card.className="obsEvent";
+
+    card.innerHTML=`
+
+      <div class="obsTop">
+
+        <div class="obsType">
+          ${escapeHTML(event.type || "TY VANTA")}
+        </div>
+
+        <div class="obsTimer">
+          10
+        </div>
+
+      </div>
+
+      <div class="obsTitle">
+        ${escapeHTML(event.title || "CHALLENGE")}
+      </div>
+
+      <div class="obsBottom">
+        <span>TY VANTA EVENT</span>
+        <span>LIVE</span>
+      </div>
+
+      <div class="obsProgress"></div>
+
+    `;
+
+    container.appendChild(card);
+
+    overlayEvent=card;
+
+    requestAnimationFrame(()=>{
+
+      card.classList.add("show");
+
+      const progress =
+        card.querySelector(".obsProgress");
+
+      progress.classList.add("run");
+
+    });
+
+
+    let seconds=10;
+
+    const timer =
+      card.querySelector(".obsTimer");
+
+    const timerInterval=setInterval(()=>{
+
+      seconds--;
+
+      timer.textContent=
+        Math.max(0,seconds);
+
+      if(seconds<=0){
+
+        clearInterval(timerInterval);
+
+      }
+
+    },1000);
+
+
+    clearTimeout(hideTimer);
+
+    hideTimer=setTimeout(()=>{
+
+      card.classList.remove("show");
+      card.classList.add("hide");
+
+      setTimeout(()=>{
+
+        if(card.parentNode){
+          card.remove();
+        }
+
+        if(overlayEvent===card){
+          overlayEvent=null;
+        }
+
+        resolve();
+
+      },700);
+
+    },event.duration || EVENT_DURATION);
+
+  });
+
+}
+
+
+/* =====================================================
+   FIREBASE EVENT LISTENER
+===================================================== */
+
+function listenForEvents(){
+
+  const eventsRef =
+    ref(db,"tyVanta/events");
+
+  let initialized=false;
+  let latestTimestamp=0;
+
+  onValue(eventsRef,snapshot=>{
+
+    const events=[];
+
+    snapshot.forEach(child=>{
+
+      const value=child.val();
+
+      if(value && value.createdAt){
+
+        events.push({
+
+          id:child.key,
+
+          ...value
+
+        });
+
+      }
+
+    });
+
+    events.sort(
+      (a,b)=>
+        Number(a.createdAt)-Number(b.createdAt)
+    );
+
+    if(!initialized){
+
+      initialized=true;
+
+      if(events.length){
+
+        latestTimestamp=
+          Number(events[events.length-1].createdAt);
+
+      }
+
+      return;
+
+    }
+
+    events.forEach(event=>{
+
+      const time=Number(event.createdAt||0);
+
+      if(time>latestTimestamp){
+
+        latestTimestamp=time;
+
+        if(document.body.classList.contains("overlay")){
+
+          enqueueEvent(event);
+
+        }
+
+      }
+
+    });
+
+  });
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+function start(){
+
+  updateObsUrl();
+
+  login();
+
+  listenForEvents();
+
+}
+
+start();
+
+
+/* =====================================================
+   OVERLAY MODE
+===================================================== */
+
+const params =
+  new URLSearchParams(
+    window.location.search
   );
 
-});
+if(params.get("overlay")==="1"){
+
+  document.body.classList.add("overlay");
+
+}
 
 
-/* ================================
-   STARTUP
-================================ */
+/* =====================================================
+   OVERLAY SELF TEST
+===================================================== */
 
-window.addEventListener("load",()=>{
+if(
+  document.body.classList.contains("overlay")
+){
 
-  setTimeout(()=>{
+  /*
+    Overlay فقط رویداد Firebase را گوش می‌دهد.
+    برای جلوگیری از اجرای رویدادهای قدیمی،
+    listener زمان آخرین event را مدیریت می‌کند.
+  */
 
-    $("loader").style.opacity="0";
-
-    setTimeout(()=>{
-      $("loader").style.display="none";
-    },700);
-
-  },900);
-
-  listenVotes();
-
-});
-
-
-/* Keep vote listener synchronized */
-
-setInterval(()=>{
-
-  listenVotes();
-
-},2000);
+}
 
 </script>
 
